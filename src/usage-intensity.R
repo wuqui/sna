@@ -1,4 +1,6 @@
 library(lubridate)
+library(plotly)
+library(ggplot2)
 
 
 get_uses <- function (tweets) {
@@ -51,16 +53,12 @@ get_max_date <- function (uses) {
 }
 
 
-# get df with (monthly) frequency counts
-# get_uses <- function (tweets) {
-#   uses = tweets %>% 
-#     select(ID=id, DATE=date) %>%
-#     mutate(MONTH = as_date(cut(DATE, "month"))) %>%
-#     group_by(MONTH) %>%
-#     summarize(USES=n()) %>%
-#     arrange(MONTH)
-#   return(uses)
-# }
+conv_uses_month <- function (uses) {
+  uses %>%
+    mutate(MONTH = as_date(cut(DATE, "month"))) %>%
+    group_by(MONTH) %>%
+    summarize(USES = sum(USES))
+}
 
 
 plt_ui <- function (uses) {
