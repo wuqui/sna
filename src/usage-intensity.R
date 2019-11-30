@@ -61,20 +61,14 @@ conv_uses_month <- function (uses) {
 }
 
 
-plt_ui <- function (uses) {
-  plt_ui <- ggplot(data=uses, aes(x=MONTH, y=USES)) +
+plt_ui <- function (uses_month) {
+  ggplot(data=uses_month, aes(x=MONTH, y=USES)) +
     geom_line() +
     geom_point() +
     geom_smooth() +
     geom_vline(xintercept=as.numeric(as.Date(get_mean_date(uses))), linetype="longdash") +
     geom_vline(xintercept=as.numeric(as.Date(get_max_date(uses))), linetype="longdash") +
     ggtitle(lemma) +
-    scale_y_continuous("Tweets / month") +
-    scale_x_date(
-      "",
-      # limits=c(as.Date("2016-01-01"), as.Date("2018-12-30"))
-    )
-  return(plt_ui)
+    scale_y_continuous("Tweets / month")
 }
-
 
