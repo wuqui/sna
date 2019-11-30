@@ -35,3 +35,12 @@ vignettes/*.pdf
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 packrat/lib*/
+
+# Sublime Text
+*.sublime-workspace
+
+# LaTeX
+doc/*
+!doc/*.tex
+!doc/*.pdf
+!doc/images/*
