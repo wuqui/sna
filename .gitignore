@@ -40,7 +40,7 @@ packrat/lib*/
 *.sublime-workspace
 
 # LaTeX
-doc/
+doc/*
 !doc/sna.tex
-# !doc/*.pdf
-# !doc/images/*
+!doc/*.pdf
+!doc/images/
