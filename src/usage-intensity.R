@@ -28,22 +28,10 @@ get_age <- function (uses) {
 }
 
 
-# get df with (monthly) frequency counts
-# get_uses <- function (tweets) {
-#   uses = tweets %>% 
-#     select(ID=id, DATE=date) %>%
-#     mutate(MONTH = as_date(cut(DATE, "month"))) %>%
-#     group_by(MONTH) %>%
-#     summarize(USES=n()) %>%
-#     arrange(MONTH)
-#   return(uses)
-# }
-
-
-# coefficient of variation
-get_coef_var <- function (freqs) {
-  coef_var <- first(freqs %>% summarise(sd(USES)/mean(USES)))
-  return(coef_var)
+get_coef_var <- function (uses) {
+  uses %>%
+    summarise(sd(USES) / mean(USES)) %>%
+    pull()
 }
 
 
@@ -61,6 +49,18 @@ get_max_date <- function (uses) {
   max_date <- uses[[max_idx,"DATE"]]
   return(max_date)
 }
+
+
+# get df with (monthly) frequency counts
+# get_uses <- function (tweets) {
+#   uses = tweets %>% 
+#     select(ID=id, DATE=date) %>%
+#     mutate(MONTH = as_date(cut(DATE, "month"))) %>%
+#     group_by(MONTH) %>%
+#     summarize(USES=n()) %>%
+#     arrange(MONTH)
+#   return(uses)
+# }
 
 
 plt_ui <- function (uses) {

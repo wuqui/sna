@@ -17,9 +17,12 @@ source('src/usage-intensity.R')
 uses = get_uses(tweets)
 uses_tot <- get_uses_tot(uses)
 age = get_age(uses)
-
-
 coef_var <- get_coef_var(uses)
+
+
+
+
+
 
 # cut-offs
 mean_date <- get_mean_date(uses)
