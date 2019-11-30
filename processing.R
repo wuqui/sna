@@ -1,11 +1,29 @@
 # variables ----
 corpus <- "/Volumes/qjd/twint/"
 lemma <- "poppygate"
-# cases <- c('poppygate', 'alt-left', 'alt-right', 'shareable')
+cases <- c(
+  'poppygate', 
+  'alt-left'
+  # 'alt-right', 
+  # 'shareable'
+)
+
+
+# pipeline ----
+proc_lemma <- function (lemma, corpus="/Volumes/qjd/twint/") {
+  tweets <- load_data(corpus, lemma)
+  print(paste(nrow(tweets), lemma))
+}
+
+for (lemma in cases) {
+  proc_lemma(lemma)
+}
+
 
 # load data ----
 source('src/load-data.R')
 tweets <- load_data(corpus, lemma)
+
 
 # post-processing ----
 source('src/postproc.R')
