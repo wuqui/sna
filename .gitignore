@@ -47,3 +47,4 @@ doc/*
 
 # output
 out/
+!out/df_comp.csv
