@@ -19,10 +19,16 @@ get_users_tot <- function(tweets) {
 }
 
 
-# plot users
 plt_users <- function (users_month) {
   ggplot(data=users_month, aes(x=MONTH, y=cumsum(USERS_MONTH))) +
     geom_line() +
     scale_y_continuous("unique speakers (cumulative)") +
+    scale_x_date('') +
     ggtitle(lemma)
+}
+
+
+save_users_plt <- function (users_plt, lemma, dir_out='out/users/') {
+  fname <- paste0('uu_', lemma, '.pdf')
+  ggsave(paste0(dir_out, fname), users_plt)
 }

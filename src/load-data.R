@@ -15,6 +15,7 @@ get_fpaths <- function (path_dir) {
 }
 
 read_f <- function(fpath) {
+  print(paste0('reading ', fpath))
   df <- read_csv(
     fpath, 
     col_types=cols_only(
