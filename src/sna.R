@@ -54,17 +54,17 @@ subset_edges <- function (edges, subset='last', size=1000) {
 }
 
 
-get_net_window <- function (edges_sub) {
-  paste(edges_sub$DATE[1], "--", tail(edges_sub$DATE, n=1), sep="")
+get_net_window_dates <- function (edges) {
+  paste(edges$DATE[1], "--", tail(edges$DATE, n=1), sep="")
 }
 
 
-create_net <- function (edges, directed=TRUE) {
+create_net <- function (edges, directed) {
   # add edge weights
-  net_igr <- graph_from_data_frame(edges_sub, directed=directed)
+  net_igr <- graph_from_data_frame(edges, directed=directed)
   E(net_igr)$WEIGHT <- 1
-  net_igr <- simplify(net_igr, edge.attr.comb=list(WEIGHT="sum", DATE="first"))
-  # create tidygraph
+  net_igr <- igraph::simplify(net_igr, edge.attr.comb=list(WEIGHT="sum", DATE="first"))
+  # create tidygraph network
   net_tdg <- as_tbl_graph(net_igr, directed=directed) %>%
     activate(edges) %>%
     mutate(DATE=as_date(DATE))

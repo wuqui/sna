@@ -44,3 +44,6 @@ doc/*
 !doc/sna.tex
 !doc/*.pdf
 !doc/images/
+
+# output
+out/
