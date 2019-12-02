@@ -41,10 +41,11 @@ packrat/lib*/
 
 # LaTeX
 doc/*
-!doc/sna.tex
+!doc/*.tex
 !doc/*.pdf
 !doc/images/
 
 # output
 out/
 !out/df_comp.csv
+
