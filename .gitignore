@@ -46,6 +46,6 @@ doc/*
 !doc/images/
 
 # output
-out/
+out/*
 !out/df_comp.csv
 
