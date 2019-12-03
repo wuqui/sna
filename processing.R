@@ -1,5 +1,3 @@
-
-
 source('src/load-data.R')
 source('src/postproc.R')
 source('src/uses.R')
@@ -7,6 +5,7 @@ source('src/users.R')
 source('src/sna.R')
 
 library(data.table)
+library(magrittr)
 
 
 # variables ----
@@ -14,13 +13,18 @@ corpus <- '/Volumes/qjd/twint/'
 # lemma <- 'alt-left'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 # lemmas <- c('poppygate')
-# df_comp <- read_csv('out/df_comp.csv')
 # skipped = character()
 
 
-for (lemma in lemmas[50:55]) {
+for (lemma in lemmas[11:20]) {
   
 print(paste0('processing ', lemma))
+# stamp = as_datetime(Sys.time())
+stamp = now()
+  
+# # # if (exists('df_comp') == FALSE) {
+# #   df_comp <- read_csv('out/df_comp.csv', col_types=cols(STAMP=col_datetime())) 
+# }
   
 # skip large lemmas
 fpaths = get_fpaths(paste0(corpus, lemma))
@@ -31,7 +35,13 @@ for (fpath in fpaths) {
 }
 
 if (nrows > 1000000) {
-  skipped <- c(skipped, lemma)
+  df_comp <- df_comp %>%
+    add_row(
+      LEMMA = lemma,
+      STAMP = stamp,
+      SKIP = 'YES'
+      ) %>%
+    write_csv('out/df_comp.csv')
   print(paste0('skipped: ', lemma)) 
   next
 }
@@ -130,33 +140,29 @@ for (subset in subsets) {
       ASSORTATIVITY = assortativity,
       CLIQUE_SIZE_MAX = clique_size_max,
       COMP_UNCONN = comp_unconn,
-      STAMP=now(),
-      # WEAK_TIES = weak_ties_prop,
+      SKIP = 'NO',
+      STAMP = stamp
     )
   
   df_comp <- df_comp %>%
-    # remove duplicates
-    group_by(LEMMA) %>%
-    arrange(desc(STAMP)) %>%
-    distinct(SUBSET, .keep_all=TRUE) %>%
-    ungroup() %>%
-    # arrange
-    arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last', 'full'), desc(SUBSET))) %>%
-    # save
-    write_csv('out/df_comp.csv')
+  # remove duplicates
+  group_by(LEMMA) %>%
+  arrange(desc(STAMP)) %>%
+  distinct(SUBSET, .keep_all=TRUE) %>%
+  ungroup() %>%
+  # arrange
+  arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last', 'full'), desc(SUBSET))) %>%
+  # save
+  write_csv('out/df_comp.csv')
   
-}
+} # end of subset loop
 
-}
+} # end of lemma loop
 
 
 
 # analysis ----
 df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, COMMUNITIES, TRANSITIVITY, RECIPROCITY, DENSITY, EDGES, USES) %>%
+  select(LEMMA, SUBSET, CENT_DEGREE, STAMP, SKIP) %>%
   filter(SUBSET == 'full') %>%
-  # filter(LEMMA == 'burquini') %>%
-  # arrange(desc(CENT_DEGREE)) %>%
-  # group_by(LEMMA) %>%
-  View()
-
+  arrange((CENT_DEGREE))
