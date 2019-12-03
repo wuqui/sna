@@ -1,8 +1,12 @@
+
+
 source('src/load-data.R')
 source('src/postproc.R')
 source('src/uses.R')
 source('src/users.R')
 source('src/sna.R')
+
+library(data.table)
 
 
 # variables ----
@@ -10,18 +14,34 @@ corpus <- '/Volumes/qjd/twint/'
 # lemma <- 'alt-left'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 # lemmas <- c('poppygate')
+# df_comp <- read_csv('out/df_comp.csv')
+skipped = character()
 
-for (lemma in sample(lemmas, 1)) {
+
+for (lemma in lemmas[2:15]) {
   
-  print(paste0('processing ', lemma))
+print(paste0('processing ', lemma))
+  
+# skip large lemmas
+fpaths = get_fpaths(paste0(corpus, lemma))
+nrows = 0
+for (fpath in fpaths) {
+  nrows_f <- nrow(fread(fpath, select=1L))
+  nrows = nrows + nrows_f
+}
+
+if (nrows > 1000000) {
+  skipped <- c(skipped, lemma)
+  print(paste0('skipped: ', lemma)) 
+  next
+}
+
 
 # load data ----
 tweets <- load_data(corpus, lemma)
 
-
 # post-processing ----
 tweets <- postproc(tweets)
-
 
 # uses ----
 uses = get_uses(tweets)
@@ -127,22 +147,14 @@ for (subset in subsets) {
 
 }
 
-# df_comp <- df_comp %>% mutate(
-#   CENT_BETWEEN = 'NA',
-#   CENT_CLOSE = 'NA',
-#   CENT_EV = 'NA',
-#   ASSORTATIVITY = 'NA',
-#   CLIQUE_SIZE_MAX = 'NA',
-#   COMP_UNCONN = 'NA'
-#   )
 
 
 # analysis ----
 df_comp %>%
   arrange(LEMMA, match(SUBSET, subsets, desc(SUBSET))) %>%
-  # select(LEMMA, SUBSET, CENT_DEGREE, COMMUNITIES, TRANSITIVITY, RECIPROCITY, DENSITY, EDGES, USES) %>%
-  # filter(SUBSET == 'full')
-  filter(LEMMA == 'burquini') %>%
-  # arrange(desc(CENT_DEGREE))
+  select(LEMMA, SUBSET, CENT_DEGREE, COMMUNITIES, TRANSITIVITY, RECIPROCITY, DENSITY, EDGES, USES) %>%
+  filter(SUBSET == 'full') %>%
+  # filter(LEMMA == 'burquini') %>%
+  arrange(desc(CENT_DEGREE)) %>%
   View()
 
