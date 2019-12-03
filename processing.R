@@ -15,10 +15,10 @@ corpus <- '/Volumes/qjd/twint/'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 # lemmas <- c('poppygate')
 # df_comp <- read_csv('out/df_comp.csv')
-skipped = character()
+# skipped = character()
 
 
-for (lemma in lemmas[2:15]) {
+for (lemma in lemmas[50:55]) {
   
 print(paste0('processing ', lemma))
   
@@ -133,11 +133,13 @@ for (subset in subsets) {
       STAMP=now(),
       # WEAK_TIES = weak_ties_prop,
     )
-  df_comp %>%
+  
+  df_comp <- df_comp %>%
     # remove duplicates
     group_by(LEMMA) %>%
     arrange(desc(STAMP)) %>%
     distinct(SUBSET, .keep_all=TRUE) %>%
+    ungroup() %>%
     # arrange
     arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last', 'full'), desc(SUBSET))) %>%
     # save
@@ -151,10 +153,10 @@ for (subset in subsets) {
 
 # analysis ----
 df_comp %>%
-  arrange(LEMMA, match(SUBSET, subsets, desc(SUBSET))) %>%
   select(LEMMA, SUBSET, CENT_DEGREE, COMMUNITIES, TRANSITIVITY, RECIPROCITY, DENSITY, EDGES, USES) %>%
   filter(SUBSET == 'full') %>%
   # filter(LEMMA == 'burquini') %>%
-  arrange(desc(CENT_DEGREE)) %>%
+  # arrange(desc(CENT_DEGREE)) %>%
+  # group_by(LEMMA) %>%
   View()
 
