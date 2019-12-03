@@ -11,7 +11,7 @@ corpus <- '/Volumes/qjd/twint/'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 # lemmas <- c('poppygate')
 
-for (lemma in sample(lemmas, 10)) {
+for (lemma in sample(lemmas, 1)) {
   
   print(paste0('processing ', lemma))
 
@@ -48,31 +48,45 @@ edges <- extract_edges(tweets)
 directed = TRUE
 net_window_size = 1000
 
-subsets <- c('first', 'mean', 'max', 'last')
+subsets <- c('first', 'mean', 'max', 'last', 'full')
 # subset <- 'first'
 
 for (subset in subsets) {
   print(paste0('processing ', lemma, ' / ', subset))
   edges_sub <- subset_edges(edges, subset=subset, size=net_window_size)
-  # net_to_gephi(net, lemma, subset)
   net_window_dates <- get_net_window_dates(edges_sub)
   
   net <- create_net(edges_sub, directed=directed)
-  net <- add_node_info(net, directed=directed)
-  net_plt <- plt_net(net, lemma, subset, net_window_dates, layout='kk')
-  save_net_plt(net_plt, lemma, subset)
   
-  # modularity and communities
-  communities <- cluster_edge_betweenness(net, directed=directed, weights=NULL)
-  modularity <- modularity(communities)
-  communities_n <- length(communities)
+  if (subset != 'full') {
+    net <- add_node_info(net, directed=directed)
+    net_plt <- plt_net(net, lemma, subset, net_window_dates, layout='kk')
+    save_net_plt(net_plt, lemma, subset)
+    
+    communities <- cluster_edge_betweenness(net, directed=directed, weights=NULL)
+    modularity <- modularity(communities)
+    communities_n <- length(communities)
+    
+    cent_between = centralization.betweenness(net, normalized=TRUE)$centralization
+    cent_close = centralization.closeness(net, normalized=TRUE)$centralization
+  } else {
+    # net_to_gephi(net, lemma, subset)
+    modularity <- 'NA'
+    communities_n <- 'NA'
+    cent_between = centralization.betweenness(net, normalized=TRUE)$centralization
+    cent_close = centralization.closeness(net, normalized=TRUE)$centralization
+  }
   
   edges_n <- length(E(net))
   nodes_n <- length(V(net))
+  cent_degree <- centralization.degree(net, normalized=TRUE)$centralization # could use `mode=IGRAPH_IN` to only consider in-degree
+  cent_ev = centralization.evcent(net, normalized=TRUE)$centralization
   reciprocity <- reciprocity(net) # proportion of mutual connections
   density <- igraph::graph.density(igraph::simplify(net, remove.multiple=TRUE)) # ratio of observed vs. potential edges
-  cent_degree <- centralization.degree(net, normalized=TRUE)$centralization # could use `mode=IGRAPH_IN` to only consider in-degree
   transitivity <- transitivity(net) # probability that two neighbors of a vertex are connected, i.e. ratio of triangles and connected triples
+  assortativity = assortativity_degree(net) # propensity of similar nodes to be connected
+  clique_size_max = clique_num(net) # size of biggest clique
+  comp_unconn = count_components(net) # n. of unconnected components
   
   df_comp <- df_comp %>% add_row(
       LEMMA = lemma,
@@ -89,31 +103,46 @@ for (subset in subsets) {
       RECIPROCITY = reciprocity, 
       DENSITY = density,
       CENT_DEGREE = cent_degree,
+      CENT_BETWEEN = cent_between,
+      CENT_CLOSE = cent_close,
+      CENT_EV = cent_ev,
       TRANSITIVITY = transitivity,
-      # ASSORTATIVITY = assortativity,
+      ASSORTATIVITY = assortativity,
+      CLIQUE_SIZE_MAX = clique_size_max,
+      COMP_UNCONN = comp_unconn,
+      STAMP=now(),
       # WEAK_TIES = weak_ties_prop,
-      # CENT_BETWEEN = cent_between,
-      # CENT_CLOSE = cent_close,
-      # CENT_EV = cent_ev,
-      # CLIQUE_SIZE_MAX = clique_size_max,
-      # COMP_UNCONN = comp_unconn,
-      STAMP=now()
     )
+  df_comp %>%
+    # remove duplicates
+    group_by(LEMMA) %>%
+    arrange(desc(STAMP)) %>%
+    distinct(SUBSET, .keep_all=TRUE) %>%
+    # arrange
+    arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last', 'full'), desc(SUBSET))) %>%
+    # save
+    write_csv('out/df_comp.csv')
   
 }
 
 }
 
+# df_comp <- df_comp %>% mutate(
+#   CENT_BETWEEN = 'NA',
+#   CENT_CLOSE = 'NA',
+#   CENT_EV = 'NA',
+#   ASSORTATIVITY = 'NA',
+#   CLIQUE_SIZE_MAX = 'NA',
+#   COMP_UNCONN = 'NA'
+#   )
+
+
+# analysis ----
 df_comp %>%
-  # remove duplicates
-  group_by(LEMMA) %>%
-  arrange(desc(STAMP)) %>%
-  distinct(SUBSET, .keep_all=TRUE) %>%
-  arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last'), desc(SUBSET))) %>%
-  # save
-  write_csv('out/df_comp.csv') %>%
-  # do analysis
-  select(LEMMA, SUBSET, CENT_DEGREE, COMMUNITIES, TRANSITIVITY, RECIPROCITY, DENSITY, EDGES, USES) %>%
-  filter(SUBSET == 'last') %>%
-  arrange(desc(CENT_DEGREE)) %>%
+  arrange(LEMMA, match(SUBSET, subsets, desc(SUBSET))) %>%
+  # select(LEMMA, SUBSET, CENT_DEGREE, COMMUNITIES, TRANSITIVITY, RECIPROCITY, DENSITY, EDGES, USES) %>%
+  # filter(SUBSET == 'full')
+  filter(LEMMA == 'burquini') %>%
+  # arrange(desc(CENT_DEGREE))
   View()
+
