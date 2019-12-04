@@ -16,7 +16,7 @@ lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 # skipped = character()
 
 
-for (lemma in lemmas[11:20]) {
+for (lemma in lemmas[31:102]) {
   
 print(paste0('processing ', lemma))
 # stamp = as_datetime(Sys.time())
