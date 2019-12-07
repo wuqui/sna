@@ -1,4 +1,3 @@
-library(data.table)
 library(magrittr)
 
 source('src/load-data.R')
@@ -11,13 +10,13 @@ source('src/sna.R')
 
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'alt-left'
+# lemma <- 'alt-left'
 # lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-lemmas <- c('poppygate', 'alt-right')
+lemmas <- c('alt-left')
 
 
 
-for (lemma in lemmas[31:102]) {
+for (lemma in lemmas) {
   
 print(paste0('processing ', lemma))
 stamp = now()
@@ -62,10 +61,11 @@ subsets <- c('first', 'mean', 'max', 'last', 'full')
 # subset <- 'first'
 
 for (subset in subsets) {
+  
   print(paste0('processing ', lemma, ' / ', subset))
+  
   edges_sub <- subset_edges(edges, subset=subset, size=net_window_size)
   net_window_dates <- get_net_window_dates(edges_sub)
-  
   net <- create_net(edges_sub, directed=directed)
   
   if (subset != 'full') {
@@ -76,27 +76,35 @@ for (subset in subsets) {
     communities <- cluster_edge_betweenness(net, directed=directed, weights=NULL)
     modularity <- modularity(communities)
     communities_n <- length(communities)
-    
     cent_between = centralization.betweenness(net, normalized=TRUE)$centralization
     cent_close = centralization.closeness(net, normalized=TRUE)$centralization
+    cent_ev = centralization.evcent(net, normalized=TRUE)$centralization
+    reciprocity <- reciprocity(net) # proportion of mutual connections
+    transitivity <- transitivity(net) # probability that two neighbors of a vertex are connected, i.e. ratio of triangles and connected triples
+    density <- igraph::graph.density(igraph::simplify(net, remove.multiple=TRUE)) # ratio of observed vs. potential edges
+    assortativity = assortativity_degree(net) # propensity of similar nodes to be connected
+    clique_size_max = clique_num(net) # size of biggest clique
+    comp_unconn = count_components(net) # n. of unconnected components
+    
   } else {
-    # net_to_gephi(net, lemma, subset)
+    
     modularity <- 'NA'
     communities_n <- 'NA'
     cent_between = 'NA'
     cent_close = 'NA'
+    cent_ev = 'NA'
+    reciprocity <- 'NA'
+    transitivity <- 'NA'
+    density = 'NA'
+    assortativity = 'NA'
+    clique_size_max = 'NA'
+    comp_unconn = 'NA'
+    
   }
   
   edges_n <- length(E(net))
   nodes_n <- length(V(net))
   cent_degree <- centralization.degree(net, normalized=TRUE)$centralization # could use `mode=IGRAPH_IN` to only consider in-degree
-  cent_ev = centralization.evcent(net, normalized=TRUE)$centralization
-  reciprocity <- reciprocity(net) # proportion of mutual connections
-  density <- igraph::graph.density(igraph::simplify(net, remove.multiple=TRUE)) # ratio of observed vs. potential edges
-  transitivity <- transitivity(net) # probability that two neighbors of a vertex are connected, i.e. ratio of triangles and connected triples
-  assortativity = assortativity_degree(net) # propensity of similar nodes to be connected
-  clique_size_max = clique_num(net) # size of biggest clique
-  comp_unconn = count_components(net) # n. of unconnected components
   
   df_comp <- df_comp %>% add_row(
       LEMMA = lemma,
@@ -121,20 +129,20 @@ for (subset in subsets) {
       CLIQUE_SIZE_MAX = clique_size_max,
       COMP_UNCONN = comp_unconn,
       SKIP = 'NO',
-      NROWS = nrows,
+      NROWS = 'NA',
       STAMP = stamp
     )
   
   df_comp <- df_comp %>%
-  # remove duplicates
-  group_by(LEMMA) %>%
-  arrange(desc(STAMP)) %>%
-  distinct(SUBSET, .keep_all=TRUE) %>%
-  ungroup() %>%
-  # arrange
-  arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last', 'full'), desc(SUBSET))) %>%
-  # save
-  write_csv('out/df_comp.csv')
+    # remove duplicates
+    group_by(LEMMA) %>%
+    arrange(desc(STAMP)) %>%
+    distinct(SUBSET, .keep_all=TRUE) %>%
+    ungroup() %>%
+    # arrange
+    arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last', 'full'), desc(SUBSET))) %>%
+    # save
+    write_csv('out/df_comp.csv')
   
 } # end of subset loop
 
@@ -144,10 +152,11 @@ for (subset in subsets) {
 
 # analysis ----
 df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, USES, STAMP, SKIP, NROWS) %>%
+  # select(LEMMA, SUBSET, CENT_DEGREE, USES, STAMP, SKIP, NROWS) %>%
   # select(LEMMA, SUBSET, CENT_DEGREE, CENT_BETWEEN, CENT_CLOSE, CENT_EV) %>%
   # filter(SUBSET == 'full') %>%
-  filter(LEMMA == 'political correctness')
-  # arrange((CENT_DEGREE))
+  filter(LEMMA == 'alt-left') %>%
+  View()
+  # arrange(desc(CENT_DEGREE))
 
 
