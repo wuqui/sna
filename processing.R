@@ -1,51 +1,31 @@
+library(data.table)
+library(magrittr)
+
 source('src/load-data.R')
 source('src/postproc.R')
 source('src/uses.R')
 source('src/users.R')
 source('src/sna.R')
 
-library(data.table)
-library(magrittr)
 
 
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
-# lemma <- 'alt-left'
-lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-# lemmas <- c('poppygate')
-# skipped = character()
+lemma <- 'alt-left'
+# lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
+lemmas <- c('poppygate', 'alt-right')
+
 
 
 for (lemma in lemmas[31:102]) {
   
 print(paste0('processing ', lemma))
-# stamp = as_datetime(Sys.time())
 stamp = now()
   
-# # # if (exists('df_comp') == FALSE) {
-# #   df_comp <- read_csv('out/df_comp.csv', col_types=cols(STAMP=col_datetime())) 
-# }
+if (exists('df_comp') == FALSE) {
+  df_comp <- read_csv('out/df_comp.csv')
+}
   
-# skip large lemmas
-fpaths = get_fpaths(paste0(corpus, lemma))
-nrows = 0
-for (fpath in fpaths) {
-  nrows_f <- nrow(fread(fpath, select=1L))
-  nrows = nrows + nrows_f
-}
-
-if (nrows > 1000000) {
-  df_comp <- df_comp %>%
-    add_row(
-      LEMMA = lemma,
-      STAMP = stamp,
-      SKIP = 'YES'
-      ) %>%
-    write_csv('out/df_comp.csv')
-  print(paste0('skipped: ', lemma)) 
-  next
-}
-
 
 # load data ----
 tweets <- load_data(corpus, lemma)
@@ -103,8 +83,8 @@ for (subset in subsets) {
     # net_to_gephi(net, lemma, subset)
     modularity <- 'NA'
     communities_n <- 'NA'
-    cent_between = centralization.betweenness(net, normalized=TRUE)$centralization
-    cent_close = centralization.closeness(net, normalized=TRUE)$centralization
+    cent_between = 'NA'
+    cent_close = 'NA'
   }
   
   edges_n <- length(E(net))
@@ -141,6 +121,7 @@ for (subset in subsets) {
       CLIQUE_SIZE_MAX = clique_size_max,
       COMP_UNCONN = comp_unconn,
       SKIP = 'NO',
+      NROWS = nrows,
       STAMP = stamp
     )
   
@@ -163,6 +144,10 @@ for (subset in subsets) {
 
 # analysis ----
 df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, STAMP, SKIP) %>%
-  filter(SUBSET == 'full') %>%
-  arrange((CENT_DEGREE))
+  select(LEMMA, SUBSET, CENT_DEGREE, USES, STAMP, SKIP, NROWS) %>%
+  # select(LEMMA, SUBSET, CENT_DEGREE, CENT_BETWEEN, CENT_CLOSE, CENT_EV) %>%
+  # filter(SUBSET == 'full') %>%
+  filter(LEMMA == 'political correctness')
+  # arrange((CENT_DEGREE))
+
+

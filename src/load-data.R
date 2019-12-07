@@ -48,12 +48,25 @@ read_f <- function(fpath) {
   return(df)
 }
 
+
+# old version
+# read_fs <- function (fpaths) {
+#   df <- fpaths %>%
+#     map(~ read_f(.)) %>%
+#     reduce(rbind) %>%
+#     arrange(date)
+#   return(df)
+# }
+
+
 read_fs <- function (fpaths) {
-  df <- fpaths %>%
-    map(~ read_f(.)) %>%
-    reduce(rbind) %>%
-    arrange(date)
-  return(df)
+  dfs <- list()
+  for (fpath in fpaths) {
+    tweets_f <- read_f(fpath)
+    dfs[[fpath]] <- tweets_f
+    }
+  tweets <- bind_rows(dfs)
+  return(tweets)
 }
 
 load_data <- function (corpus, lemma) {
@@ -62,3 +75,24 @@ load_data <- function (corpus, lemma) {
   tweets <- read_fs(fpaths)
   return(tweets)
 }
+
+
+# skip large lemmas
+# fpaths = get_fpaths(paste0(corpus, lemma))
+# nrows = 0
+# for (fpath in fpaths) {
+#   nrows_f <- nrow(fread(fpath, select=1L))
+#   nrows = nrows + nrows_f
+# }
+# 
+# if (nrows > 1000000) {
+#   df_comp <- df_comp %>%
+#     add_row(
+#       LEMMA = lemma,
+#       STAMP = stamp,
+#       SKIP = 'YES'
+#       ) %>%
+#     write_csv('out/df_comp.csv')
+#   print(paste0('skipped: ', lemma)) 
+#   next
+# }
