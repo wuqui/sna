@@ -1,0 +1,41 @@
+---
+author: 'Quirin Würschinger'
+title: "Social networks of lexical innovation"
+output: html_notebook
+---
+
+# Packages
+
+```{r}
+library(readr)
+library(dplyr)
+library(lubridate)
+```
+
+# Load data
+
+```{r}
+df_comp <- read_csv('out/df_comp.csv')
+df_comp
+```
+
+# Processing status
+
+```{r}
+df_comp %>%
+  select(LEMMA, SUBSET, STAMP) %>%
+  filter(SUBSET == 'full') %>%
+  mutate(STAMP_DTTM = as_datetime(STAMP)) %>%
+  arrange(desc(STAMP_DTTM))
+```
+
+
+# Degree centrality
+
+```{r}
+df_comp %>%
+  select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
+  filter(SUBSET == 'full') %>%
+  arrange((CENT_DEGREE))
+```
+

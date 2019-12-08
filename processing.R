@@ -11,8 +11,8 @@ source('src/sna.R')
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 # lemma <- 'alt-left'
-# lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-lemmas = c(
+lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
+# lemmas = c(
   # 'Brexit',
   # 'alt-right',
   # 'baeless',
@@ -22,8 +22,8 @@ lemmas = c(
   # 'lifehack', 
   # 'snowflake'
   # 'tweeter', 
-  'unfollow'
-)
+  # 'unfollow'
+# )
 # lemmas <- c('Brexit')
 
 
@@ -164,11 +164,12 @@ for (subset in subsets) {
 
 # analysis ----
 df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, USES, STAMP, SKIP, NROWS) %>%
+  select(LEMMA, SUBSET, CENT_DEGREE, USES, EDGES, STAMP, SKIP, NROWS) %>%
   # select(LEMMA, SUBSET, CENT_DEGREE, CENT_BETWEEN, CENT_CLOSE, CENT_EV) %>%
   filter(SUBSET == 'full') %>%
-  # filter(LEMMA == 'lifehack')
-  arrange((CENT_DEGREE)) %>%
+  # filter(LEMMA == 'lifehack') %>%
+  mutate(EDGES_USES = EDGES / USES) %>%
+  arrange((EDGES_USES)) %>%
   View()
 
 
