@@ -1,12 +1,12 @@
 ---
 author: 'Quirin Würschinger'
 title: "Social networks of lexical innovation"
-output: html_notebook
+output: 
+  html_notebook: 
+    toc: yes
 ---
 
-# Packages
-
-```{r}
+```{r include=FALSE}
 library(readr)
 library(dplyr)
 library(lubridate)
@@ -25,8 +25,8 @@ df_comp
 df_comp %>%
   select(LEMMA, SUBSET, STAMP) %>%
   filter(SUBSET == 'full') %>%
-  mutate(STAMP_DTTM = as_datetime(STAMP)) %>%
-  arrange(desc(STAMP_DTTM))
+  mutate(STAMP = as_datetime(STAMP)) %>%
+  arrange(desc(STAMP))
 ```
 
 
@@ -38,4 +38,5 @@ df_comp %>%
   filter(SUBSET == 'full') %>%
   arrange((CENT_DEGREE))
 ```
+
 

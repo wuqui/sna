@@ -28,7 +28,7 @@ lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
 
-for (lemma in lemmas) {
+for (lemma in c('cowork')) {
   
 print(paste0('processing ', lemma))
 stamp = now()
