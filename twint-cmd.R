@@ -2,9 +2,9 @@
 library(stringr)
 
 # variables
-lemma <- "artificial intelligence"
-start <- "2012-01-01"
-end <- "2012-12-31"
+lemma <- "benching"
+start <- "2007-01-01"
+end <- "2018-12-31"
 
 cmd_twint <- str_c("twint -s '", lemma, "' --since ", start, " --until ", end, " -o", " '", lemma, "_", start, "_", end, ".csv'", " --csv --hashtags --count -l en")
 

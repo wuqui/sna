@@ -6,20 +6,75 @@ output:
     toc: yes
 ---
 
+# Packages
+
 ```{r include=FALSE}
-library(readr)
-library(dplyr)
-library(lubridate)
+# library(readr)
+# library(dplyr)
+# library(lubridate)
+source('src/load-data.R')
+source('src/postproc.R')
+source('src/uses.R')
+source('src/users.R')
+source('src/sna.R')
+
+library(corrr)
 ```
 
-# Load data
+# Case studies
+
+## Load data
+
+```{r include=FALSE}
+corpus <- '/Volumes/qjd/twint/'
+lemma <- 'deep learning'
+
+tweets <- load_data(corpus, lemma)
+tweets <- postproc(tweets)
+```
+
+
+## Check tweets
 
 ```{r}
-df_comp <- read_csv('out/df_comp.csv')
-df_comp
+tweets %>%
+  select(tweet) %>%
+  slice(., sample(1:n()))
 ```
 
-# Processing status
+
+## Usage intensity
+
+```{r}
+uses <- get_uses(tweets)
+uses_tot <- get_uses_tot(uses)
+age = get_age(uses)
+coef_var <- get_coef_var(uses)
+mean_date <- get_mean_date(uses)
+max_date <- get_max_date(uses)
+uses_month <- conv_uses_month(uses)
+uses_plt <- plt_uses(uses_month, lemma, mean_date, max_date)
+uses_plt
+```
+
+
+### Advanced (S-curve)
+
+Candidates
+
+* deep learning
+* artificial intelligence
+* ghosting
+* co-working
+
+
+# Comparative analyses
+
+```{r include=FALSE}
+df_comp <- read_csv('out/df_comp.csv')
+```
+
+## Processing status
 
 ```{r}
 df_comp %>%
@@ -30,13 +85,202 @@ df_comp %>%
 ```
 
 
-# Degree centrality
+
+## Degree centrality
+
+### Overall
+
+#### List
 
 ```{r}
 df_comp %>%
   select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
   filter(SUBSET == 'full') %>%
+  # filter(USES > 20000) %>%
   arrange((CENT_DEGREE))
 ```
 
 
+#### Plot
+
+```{r}
+plt <- df_comp %>%
+  select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
+  filter(SUBSET == 'full') %>%
+  arrange((CENT_DEGREE)) %>%
+  ggplot(., aes(x=CENT_DEGREE, y=reorder(LEMMA, CENT_DEGREE))) +
+    geom_point() +
+    scale_x_continuous(trans='log')
+ggplotly(plt)
+```
+
+
+### Over time
+
+#### Single lemma
+
+```{r}
+df_comp %>%
+  filter(LEMMA == 'artificial intelligence') %>%
+  select(SUBSET, CENT_DEGREE) %>%
+  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
+  ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) +
+    geom_point()
+```
+
+#### Across all lemmas
+
+```{r}
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  group_by(SUBSET) %>%
+  summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
+  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
+  ggplot(., aes(x=SUBSET, y=CENT_AVG)) +
+    geom_point()
+```
+
+
+# Usage intensity vs. network characteristics
+
+## Uses vs. degree centralization
+
+### Plot
+
+```{r}
+plt <- df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(LEMMA, CENT_DEGREE, USES) %>%
+  ggplot(., aes(x=CENT_DEGREE, y=USES)) +
+    geom_text(aes(label=LEMMA)) + 
+    scale_y_continuous(trans='log') + 
+    scale_x_continuous(trans='log')
+ggplotly(plt)
+```
+
+### Correlation
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(CENT_DEGREE, USES) %>%
+  correlate()
+```
+
+
+## Degree centrality vs. communities
+
+### Correlation
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'last') %>%
+  select(CENT_DEGREE, COMMUNITIES) %>%
+  mutate(COMMUNITIES = as.numeric(COMMUNITIES)) %>%
+  correlate()
+```
+
+
+### Plot
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'last') %>%
+  select(LEMMA, CENT_DEGREE, COMMUNITIES) %>%
+  ggplot(., aes(x=CENT_DEGREE, y=as.numeric(COMMUNITIES))) +
+    geom_text(aes(label=LEMMA)) +
+    scale_x_continuous(trans='log')
+```
+
+
+
+## Uses vs. users
+
+### Plot
+
+```{r}
+plt <- df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(LEMMA, USES, USERS) %>%
+  ggplot(., aes(x=USERS, y=USES)) +
+    geom_text(aes(label=LEMMA)) +
+    scale_x_continuous(trans='log') + 
+    scale_y_continuous(trans='log')
+ggplotly(plt)
+```
+
+### Correlation
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(USES, USERS) %>%
+  correlate()
+```
+
+
+## Coefficient of variation
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(LEMMA, COEF_VAR) %>%
+  arrange(desc(COEF_VAR))
+```
+
+
+# COEF_VAR vs. CENT
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(LEMMA, COEF_VAR, CENT_DEGREE) %>%
+  ggplot(., aes(y=COEF_VAR, x=CENT_DEGREE)) +
+    geom_text(aes(label=LEMMA)) +
+    scale_y_continuous(trans='log')
+```
+
+
+# Other network metrics
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'last') %>%
+  View()
+```
+
+#
+
+
+# Correlations
+
+```{r}
+library(Hmisc)
+
+df_corr <- df_comp %>%
+  # filter(SUBSET == 'last') %>%
+  select(-c(LEMMA, SUBSET, NET_WINDOW_DATES, SKIP, STAMP, NROWS))
+  # select(-c(USERS, AGE)) %>%
+  # mutate(FOCUS = USES) %>%
+  # focus(FOCUS) %>%
+  # ggplot(., aes(reorder(rowname, FOCUS), FOCUS)) +
+    # geom_col() +
+    # coord_flip()
+  # rearrange() %>%
+  # shave() %>%
+  # rplot()
+  # network_plot(min_cor=.5) %>%
+
+  
+```
+
+```{r}
+
+df_corr_full <- df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(-c(LEMMA, SUBSET, NET_WINDOW_DATES, SKIP, STAMP, NROWS))
+  
+cor.test(df_corr_full$USES, df_corr_full$CENT_DEGREE)
+```
+
+  

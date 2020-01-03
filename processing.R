@@ -12,23 +12,9 @@ source('src/sna.R')
 corpus <- '/Volumes/qjd/twint/'
 # lemma <- 'alt-left'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-# lemmas = c(
-  # 'Brexit',
-  # 'alt-right',
-  # 'baeless',
-  # 'blockchain',
-  # 'bromance', 
-  # 'decycling', 
-  # 'lifehack', 
-  # 'snowflake'
-  # 'tweeter', 
-  # 'unfollow'
-# )
-# lemmas <- c('Brexit')
 
 
-
-for (lemma in c('cowork')) {
+for (lemma in c('ghosting')) {
   
 print(paste0('processing ', lemma))
 stamp = now()
@@ -45,7 +31,7 @@ tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 
 # uses ----
-uses = get_uses(tweets)
+uses <- get_uses(tweets)
 uses_tot <- get_uses_tot(uses)
 age = get_age(uses)
 coef_var <- get_coef_var(uses)
@@ -161,15 +147,5 @@ for (subset in subsets) {
 } # end of lemma loop
 
 
-
-# analysis ----
-df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, USES, EDGES, STAMP, SKIP, NROWS) %>%
-  # select(LEMMA, SUBSET, CENT_DEGREE, CENT_BETWEEN, CENT_CLOSE, CENT_EV) %>%
-  filter(SUBSET == 'full') %>%
-  # filter(LEMMA == 'lifehack') %>%
-  mutate(EDGES_USES = EDGES / USES) %>%
-  arrange((EDGES_USES)) %>%
-  View()
 
 
