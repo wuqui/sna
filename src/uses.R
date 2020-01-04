@@ -7,7 +7,7 @@ get_uses <- function (tweets) {
   tweets %>%
     select(ID=id, DATE=date) %>%
     group_by(DATE) %>%
-    summarize(USES = n())
+    dplyr::summarise(USES = n())
 }
 
 
@@ -57,7 +57,7 @@ conv_uses_month <- function (uses) {
   uses %>%
     mutate(MONTH = as_date(cut(DATE, "month"))) %>%
     group_by(MONTH) %>%
-    summarize(USES = sum(USES))
+    dplyr::summarize(USES = sum(USES))
 }
 
 
