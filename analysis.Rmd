@@ -9,9 +9,6 @@ output:
 # Packages
 
 ```{r include=FALSE}
-# library(readr)
-# library(dplyr)
-# library(lubridate)
 source('src/load-data.R')
 source('src/postproc.R')
 source('src/uses.R')
@@ -25,12 +22,22 @@ library(corrr)
 
 ## Load data
 
+### For one lemma
+
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'deep learning'
+lemma <- 'climate emergency'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
+```
+
+### Comparative analyses
+
+```{r include=FALSE}
+if (exists('df_comp') == FALSE) {
+  df_comp <- read_csv('out/df_comp.csv')
+}
 ```
 
 
@@ -62,19 +69,33 @@ uses_plt
 
 Candidates
 
+* ghosting
 * deep learning
 * artificial intelligence
-* ghosting
 * co-working
+
+
+## Degree centralization
+
+### Diachronic
+
+```{r}
+df_comp %>%
+  filter(LEMMA ==lemma) %>%
+  select(SUBSET, CENT_DEGREE) %>%
+  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last', 'full'))) %>%
+  ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) +
+    geom_point()
+```
+
+
 
 
 # Comparative analyses
 
-```{r include=FALSE}
-df_comp <- read_csv('out/df_comp.csv')
-```
-
 ## Processing status
+
+### Lemma list
 
 ```{r}
 df_comp %>%
@@ -82,6 +103,19 @@ df_comp %>%
   filter(SUBSET == 'full') %>%
   mutate(STAMP = as_datetime(STAMP)) %>%
   arrange(desc(STAMP))
+```
+
+
+### Dataset statistics
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(LEMMA, SUBSET, USES, USERS) %>%
+  dplyr::summarise(
+    USES_TOT = sum(USES),
+    USERS_TOT = sum(USERS)
+    )
 ```
 
 
@@ -116,17 +150,6 @@ ggplotly(plt)
 
 
 ### Over time
-
-#### Single lemma
-
-```{r}
-df_comp %>%
-  filter(LEMMA == 'artificial intelligence') %>%
-  select(SUBSET, CENT_DEGREE) %>%
-  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
-  ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) +
-    geom_point()
-```
 
 #### Across all lemmas
 

@@ -10,11 +10,11 @@ source('src/sna.R')
 
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
-# lemma <- 'alt-left'
+# lemma <- 'climate emergency'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
-for (lemma in c('benching')) {
+for (lemma in c('climate emergency')) {
   
 print(paste0('processing ', lemma))
 stamp = now()
