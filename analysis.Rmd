@@ -26,7 +26,7 @@ library(corrr)
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'climate emergency'
+lemma <- 'ghosting'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -73,6 +73,7 @@ Candidates
 * deep learning
 * artificial intelligence
 * co-working
+* climate emergency
 
 
 ## Degree centralization
@@ -159,8 +160,30 @@ df_comp %>%
   group_by(SUBSET) %>%
   summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
   mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
-  ggplot(., aes(x=SUBSET, y=CENT_AVG)) +
-    geom_point()
+  ggplot(., aes(x=SUBSET, y=CENT_AVG, group=1)) +
+    geom_point() +
+    geom_line()
+```
+
+
+#### Biggest changes
+
+Good examples:
+
+* _blockchain_
+
+```{r}
+library(tidyr)
+
+df_comp %>%
+  select(LEMMA, SUBSET, CENT_DEGREE) %>%
+  filter(SUBSET %in% c('first', 'last')) %>%
+  dplyr::group_by(LEMMA) %>%
+  dplyr::mutate(CENT_DIFF = lag(CENT_DEGREE) - CENT_DEGREE) %>%
+  drop_na() %>%
+  select(-SUBSET) %>%
+  rename(CENT_LAST = CENT_DEGREE) %>%
+  arrange(desc(CENT_DIFF))
 ```
 
 
@@ -173,21 +196,26 @@ df_comp %>%
 ```{r}
 plt <- df_comp %>%
   filter(SUBSET == 'full') %>%
-  select(LEMMA, CENT_DEGREE, USES) %>%
+  select(LEMMA, CENT_DEGREE, USES, EDGES) %>%
   ggplot(., aes(x=CENT_DEGREE, y=USES)) +
     geom_text(aes(label=LEMMA)) + 
-    scale_y_continuous(trans='log') + 
-    scale_x_continuous(trans='log')
+    scale_y_continuous(trans='log') +
+    scale_x_continuous(trans='log') +
+    geom_smooth(method=lm)
 ggplotly(plt)
 ```
 
 ### Correlation
 
 ```{r}
-df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select(CENT_DEGREE, USES) %>%
-  correlate()
+df_corr_full <- df_comp %>%
+  filter(
+    SUBSET != 'full',
+    EDGES >= 100
+    ) %>%
+  select(-c(LEMMA, SUBSET, NET_WINDOW_DATES, SKIP, STAMP, NROWS))
+  
+cor.test(df_corr_full$USES, df_corr_full$CENT_DEGREE)
 ```
 
 
@@ -227,8 +255,9 @@ plt <- df_comp %>%
   select(LEMMA, USES, USERS) %>%
   ggplot(., aes(x=USERS, y=USES)) +
     geom_text(aes(label=LEMMA)) +
-    scale_x_continuous(trans='log') + 
-    scale_y_continuous(trans='log')
+    scale_x_continuous(trans='log') +
+    scale_y_continuous(trans='log') +
+    geom_smooth(method=lm)
 ggplotly(plt)
 ```
 
@@ -264,18 +293,7 @@ df_comp %>%
 ```
 
 
-# Other network metrics
-
-```{r}
-df_comp %>%
-  filter(SUBSET == 'last') %>%
-  View()
-```
-
-#
-
-
-# Correlations
+# Correlations: EDA
 
 ```{r}
 library(Hmisc)
@@ -297,13 +315,5 @@ df_corr <- df_comp %>%
   
 ```
 
-```{r}
-
-df_corr_full <- df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select(-c(LEMMA, SUBSET, NET_WINDOW_DATES, SKIP, STAMP, NROWS))
-  
-cor.test(df_corr_full$USES, df_corr_full$CENT_DEGREE)
-```
 
   

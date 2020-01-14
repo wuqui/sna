@@ -2,9 +2,9 @@
 library(stringr)
 
 # variables
-lemma <- "climate emergency"
-start <- "2018-01-01"
-end <- "2019-12-31"
+lemma <- "refugee crisis"
+start <- "2012-01-01"
+end <- "2018-12-31"
 
 cmd_twint <- str_c("twint -s '", lemma, "' --since ", start, " --until ", end, " -o", " '", lemma, "_", start, "_", end, ".csv'", " --csv --hashtags --count -l en")
 
