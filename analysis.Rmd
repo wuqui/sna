@@ -16,6 +16,7 @@ source('src/users.R')
 source('src/sna.R')
 
 library(corrr)
+library(tidyr)
 ```
 
 # Case studies
@@ -26,7 +27,7 @@ library(corrr)
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'ghosting'
+lemma <- 'refugee crisis'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -45,7 +46,7 @@ if (exists('df_comp') == FALSE) {
 
 ```{r}
 tweets %>%
-  select(tweet) %>%
+  select(tweet, date) %>%
   slice(., sample(1:n()))
 ```
 
@@ -61,7 +62,7 @@ mean_date <- get_mean_date(uses)
 max_date <- get_max_date(uses)
 uses_month <- conv_uses_month(uses)
 uses_plt <- plt_uses(uses_month, lemma, mean_date, max_date)
-uses_plt
+ggplotly(uses_plt)
 ```
 
 
@@ -85,8 +86,9 @@ df_comp %>%
   filter(LEMMA ==lemma) %>%
   select(SUBSET, CENT_DEGREE) %>%
   mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last', 'full'))) %>%
-  ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) +
-    geom_point()
+  ggplot(., aes(x=SUBSET, y=CENT_DEGREE, group=1)) +
+    geom_point() +
+    geom_line()
 ```
 
 
@@ -130,8 +132,10 @@ df_comp %>%
 ```{r}
 df_comp %>%
   select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
-  filter(SUBSET == 'full') %>%
-  # filter(USES > 20000) %>%
+  filter(
+    SUBSET == 'full',
+    USES >= 10000
+    ) %>%
   arrange((CENT_DEGREE))
 ```
 
@@ -156,7 +160,10 @@ ggplotly(plt)
 
 ```{r}
 df_comp %>%
-  filter(SUBSET != 'full') %>%
+  filter(
+    SUBSET != 'full',
+    EDGES >= 100
+    ) %>%
   group_by(SUBSET) %>%
   summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
   mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
@@ -168,16 +175,13 @@ df_comp %>%
 
 #### Biggest changes
 
-Good examples:
-
-* _blockchain_
-
 ```{r}
-library(tidyr)
-
 df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE) %>%
-  filter(SUBSET %in% c('first', 'last')) %>%
+  select(LEMMA, SUBSET, CENT_DEGREE, EDGES) %>%
+  filter(
+    SUBSET %in% c('first', 'last'),
+    EDGES >= 100
+    ) %>%
   dplyr::group_by(LEMMA) %>%
   dplyr::mutate(CENT_DIFF = lag(CENT_DEGREE) - CENT_DEGREE) %>%
   drop_na() %>%
@@ -195,7 +199,10 @@ df_comp %>%
 
 ```{r}
 plt <- df_comp %>%
-  filter(SUBSET == 'full') %>%
+  filter(
+    SUBSET == 'full',
+    # USES >= 1000
+    ) %>%
   select(LEMMA, CENT_DEGREE, USES, EDGES) %>%
   ggplot(., aes(x=CENT_DEGREE, y=USES)) +
     geom_text(aes(label=LEMMA)) + 
@@ -275,8 +282,11 @@ df_comp %>%
 
 ```{r}
 df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select(LEMMA, COEF_VAR) %>%
+  filter(
+    SUBSET == 'full',
+    USES >= 1000
+    ) %>%
+  select(LEMMA, USES, COEF_VAR) %>%
   arrange(desc(COEF_VAR))
 ```
 
