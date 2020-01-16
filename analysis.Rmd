@@ -27,7 +27,7 @@ library(tidyr)
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'refugee crisis'
+lemma <- 'climate denial'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -186,7 +186,10 @@ df_comp %>%
   dplyr::mutate(CENT_DIFF = lag(CENT_DEGREE) - CENT_DEGREE) %>%
   drop_na() %>%
   select(-SUBSET) %>%
-  rename(CENT_LAST = CENT_DEGREE) %>%
+  rename(
+    CENT_LAST = CENT_DEGREE,
+    EDGES_LAST = EDGES
+    ) %>%
   arrange(desc(CENT_DIFF))
 ```
 

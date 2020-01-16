@@ -14,7 +14,7 @@ corpus <- '/Volumes/qjd/twint/'
 # lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
-for (lemma in c('refugee crisis')) {
+for (lemma in c('climate denial')) {
   
 print(paste0('processing ', lemma))
 stamp = now()

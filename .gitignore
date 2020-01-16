@@ -55,5 +55,5 @@ out/*
 !out/df_comp.csv
 
 # Gephi graphs
-*.gexf
+gephi/
 
