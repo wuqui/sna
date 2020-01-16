@@ -27,7 +27,7 @@ library(tidyr)
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'climate denial'
+lemma <- 'flight shame'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
