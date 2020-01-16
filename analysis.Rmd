@@ -134,7 +134,7 @@ df_comp %>%
   select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
   filter(
     SUBSET == 'full',
-    USES >= 10000
+    # USES >= 10000
     ) %>%
   arrange((CENT_DEGREE))
 ```

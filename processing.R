@@ -11,7 +11,7 @@ source('src/sna.R')
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 # lemma <- 'climate emergency'
-lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
+# lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
 for (lemma in c('refugee crisis')) {

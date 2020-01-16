@@ -1,3 +1,5 @@
+# Standard from GitHub
+
 # History files
 .Rhistory
 .Rapp.history
@@ -36,6 +38,9 @@ vignettes/*.pdf
 rsconnect/
 packrat/lib*/
 
+
+# Q additions
+
 # Sublime Text
 *.sublime-workspace
 
@@ -48,4 +53,7 @@ doc/*
 # output
 out/*
 !out/df_comp.csv
+
+# Gephi graphs
+*.gexf
 
