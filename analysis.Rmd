@@ -23,11 +23,11 @@ library(tidyr)
 
 ## Load data
 
-### For one lemma
+### per lemma
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'baecation'
+lemma <- 'incel'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -39,15 +39,6 @@ tweets <- postproc(tweets)
 if (exists('df_comp') == FALSE) {
   df_comp <- read_csv('out/df_comp.csv')
 }
-```
-
-
-### Cross-test lemmas
-
-```{r}
-df_comp %>%
-  filter(LEMMA == 'baecation')
-  # write_csv('/Users/quirin/Desktop/baecation.csv')
 ```
 
 
@@ -81,15 +72,13 @@ ggplotly(uses_plt)
 
 ```{r}
 df_comp %>%
-  filter(LEMMA ==lemma) %>%
+  filter(LEMMA == lemma) %>%
   select(SUBSET, CENT_DEGREE) %>%
   mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last', 'full'))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE, group=1)) +
     geom_point() +
     geom_line()
 ```
-
-
 
 
 # Comparative analyses
@@ -165,6 +154,16 @@ df_comp %>%
     ) %>%
   arrange(desc(CENT_DIFF))
 ```
+
+
+# Usage intensity
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  arrange(desc(USES))
+```
+
 
 
 # Usage intensity vs. network characteristics
