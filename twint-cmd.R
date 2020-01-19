@@ -2,7 +2,7 @@
 library(stringr)
 
 # variables
-lemma <- 'ecocide'
+lemma <- 'eco-anxiety'
 start <- '2000-01-01'
 end <- '2019-12-31'
 

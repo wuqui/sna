@@ -14,7 +14,7 @@ corpus <- '/Volumes/qjd/twint/'
 # lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
-for (lemma in c('ecocide')) {
+for (lemma in c('baecation')) {
   
 print(paste0('processing ', lemma))
 stamp = now()
@@ -145,6 +145,8 @@ for (subset in subsets) {
 } # end of subset loop
 
 } # end of lemma loop
+
+
 
 
 

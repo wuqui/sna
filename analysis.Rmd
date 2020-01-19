@@ -27,7 +27,7 @@ library(tidyr)
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'ecocide'
+lemma <- 'baecation'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -39,6 +39,15 @@ tweets <- postproc(tweets)
 if (exists('df_comp') == FALSE) {
   df_comp <- read_csv('out/df_comp.csv')
 }
+```
+
+
+### Cross-test lemmas
+
+```{r}
+df_comp %>%
+  filter(LEMMA == 'baecation')
+  # write_csv('/Users/quirin/Desktop/baecation.csv')
 ```
 
 
@@ -66,17 +75,6 @@ ggplotly(uses_plt)
 ```
 
 
-### Advanced (S-curve)
-
-Candidates
-
-* ghosting
-* deep learning
-* artificial intelligence
-* co-working
-* climate emergency
-
-
 ## Degree centralization
 
 ### Diachronic
@@ -96,34 +94,9 @@ df_comp %>%
 
 # Comparative analyses
 
-## Processing status
-
-### Lemma list
-
-```{r}
-df_comp %>%
-  select(LEMMA, SUBSET, STAMP) %>%
-  filter(SUBSET == 'full') %>%
-  mutate(STAMP = as_datetime(STAMP)) %>%
-  arrange(desc(STAMP))
-```
-
-
-### Dataset statistics
-
-```{r}
-df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select(LEMMA, SUBSET, USES, USERS) %>%
-  dplyr::summarise(
-    USES_TOT = sum(USES),
-    USERS_TOT = sum(USERS)
-    )
-```
-
-
 
 ## Degree centrality
+
 
 ### Overall
 
@@ -291,6 +264,32 @@ df_comp %>%
     ) %>%
   select(LEMMA, USES, COEF_VAR) %>%
   arrange(desc(COEF_VAR))
+```
+
+
+## Processing status
+
+### Lemma list
+
+```{r}
+df_comp %>%
+  select(LEMMA, SUBSET, STAMP) %>%
+  filter(SUBSET == 'full') %>%
+  mutate(STAMP = as_datetime(STAMP)) %>%
+  arrange(desc(STAMP))
+```
+
+
+### Dataset statistics
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(LEMMA, SUBSET, USES, USERS) %>%
+  dplyr::summarise(
+    USES_TOT = sum(USES),
+    USERS_TOT = sum(USERS)
+    )
 ```
 
 
