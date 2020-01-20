@@ -14,7 +14,7 @@ corpus <- '/Volumes/qjd/twint/'
 # lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
-for (lemma in c('incel')) {
+for (lemma in c('big dick energy')) {
   
 print(paste0('processing ', lemma))
 stamp = now()

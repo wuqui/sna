@@ -27,7 +27,7 @@ library(tidyr)
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'incel'
+lemma <- 'big dick energy'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -40,6 +40,16 @@ if (exists('df_comp') == FALSE) {
   df_comp <- read_csv('out/df_comp.csv')
 }
 ```
+
+
+#### Filtering
+
+# specific lemmas
+  # cowork
+  # snowflake
+# data after 2018-12-31
+# frequency threshhold
+# edges threshhold
 
 
 ## Check tweets
