@@ -76,5 +76,5 @@ plt_uses <- function (uses_month, lemma, mean_date, max_date) {
 
 save_uses_plt <- function (uses_plt, lemma, dir_out='out/uses/') {
   fname <- paste0('ui_', lemma, '.pdf')
-  ggsave(paste0(dir_out, fname), uses_plt)
+  ggsave(paste0(dir_out, fname), uses_plt, width=6, height=4)
 }

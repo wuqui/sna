@@ -108,5 +108,5 @@ plt_net <- function (net, lemma, subset, net_window, layout='kk') {
 save_net_plt <- function (net_plt, lemma, subset) {
   dir_out <- 'out/net/'
   fname <- paste0('net_', lemma, '_', subset, '.pdf')
-  ggsave(paste0(dir_out, fname), net_plt, device=cairo_pdf)
+  ggsave(paste0(dir_out, fname), net_plt, device=cairo_pdf, width=5, height=5)
 }

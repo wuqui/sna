@@ -27,7 +27,7 @@ library(tidyr)
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'big dick energy'
+lemma <- 'Anglo-Saxon'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -44,12 +44,12 @@ if (exists('df_comp') == FALSE) {
 
 #### Filtering
 
-# specific lemmas
-  # cowork
-  # snowflake
-# data after 2018-12-31
-# frequency threshhold
-# edges threshhold
+* specific lemmas
+  * cowork
+  * snowflake
+* data after 2018-12-31
+* frequency threshhold
+* edges threshhold
 
 
 ## Check tweets
@@ -57,7 +57,8 @@ if (exists('df_comp') == FALSE) {
 ```{r}
 tweets %>%
   select(tweet, date) %>%
-  slice(., sample(1:n()))
+  # slice(., sample(1:n())) #random selection
+  arrange(date)
 ```
 
 
@@ -81,13 +82,27 @@ ggplotly(uses_plt)
 ### Diachronic
 
 ```{r}
-df_comp %>%
-  filter(LEMMA == lemma) %>%
-  select(SUBSET, CENT_DEGREE) %>%
-  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last', 'full'))) %>%
-  ggplot(., aes(x=SUBSET, y=CENT_DEGREE, group=1)) +
-    geom_point() +
-    geom_line()
+plt <- df_comp %>%
+  filter(
+    SUBSET != 'full',
+    # LEMMA == 'solopreneur'
+    LEMMA %in% c(
+      'Anglo-Saxon'
+      )
+    ) %>%
+  select(LEMMA, SUBSET, CENT_DEGREE) %>%
+  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
+  ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
+    geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
+    geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
+    guides(group=FALSE) +
+    ggtitle('Diffusion over time: changes in degree centralization') +
+    scale_y_continuous('degree centrality (log)', trans='log') +
+    scale_x_discrete('subset')
+
+plt
+
+# ggsave('out/cent_deg_diac_Anglo-Saxon.pdf', width=6, height=4)
 ```
 
 
@@ -121,8 +136,15 @@ plt <- df_comp %>%
   arrange((CENT_DEGREE)) %>%
   ggplot(., aes(x=CENT_DEGREE, y=reorder(LEMMA, CENT_DEGREE))) +
     geom_point() +
-    scale_x_continuous(trans='log')
-ggplotly(plt)
+    scale_y_discrete('lemmas') +
+    scale_x_continuous(
+      'degree centralization (log)',
+      trans='log'
+      )
+
+plt
+
+# ggsave('out/cent_sync_all.pdf', width=6, height=4)
 ```
 
 
@@ -133,15 +155,24 @@ ggplotly(plt)
 ```{r}
 df_comp %>%
   filter(
-    SUBSET != 'full',
-    EDGES >= 100
+    SUBSET %in% (c(
+      'first', 
+      'last' 
+      # 'mean', 
+      # 'max'
+      )),
+    EDGES >= 700
     ) %>%
   group_by(SUBSET) %>%
   summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
-  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
+  mutate(SUBSET = factor(SUBSET, levels=c(
+    'first', 
+    'last'
+    # 'mean',
+    # 'max'
+    ))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_AVG, group=1)) +
-    geom_point() +
-    geom_line()
+    geom_col()
 ```
 
 
@@ -183,18 +214,33 @@ df_comp %>%
 ### Plot
 
 ```{r}
-plt <- df_comp %>%
+df_comp %>%
   filter(
     SUBSET == 'full',
-    # USES >= 1000
+    # USES %in% (10000:2000000),
+    USES %in% (150000:500000),
+    !LEMMA %in% c('slut shaming', 'dashcam', 'shareable', 'cuckold', 'deep learning', 'hyperlocal')
     ) %>%
   select(LEMMA, CENT_DEGREE, USES, EDGES) %>%
   ggplot(., aes(x=CENT_DEGREE, y=USES)) +
-    geom_text(aes(label=LEMMA)) + 
-    scale_y_continuous(trans='log') +
-    scale_x_continuous(trans='log') +
-    geom_smooth(method=lm)
-ggplotly(plt)
+    geom_text(aes(label=LEMMA), hjust=-0.1, vjust=-0.1) + 
+    geom_point() +
+    scale_y_continuous(
+      'usage frequency (log)', 
+      trans='log'
+      ) +
+    scale_x_continuous(
+      'degree centralization',
+      # trans='log'
+      ) +
+    ggtitle(
+      # 'Usage frequency vs. degree centralization: full sample'
+      'Usage frequency vs. degree centralization: zooming on case study lexemes'
+      )
+    # geom_smooth(method=lm)
+
+ggsave('~/Desktop/freq-vs-net.pdf', width=6, height=4)
+    
 ```
 
 ### Correlation
