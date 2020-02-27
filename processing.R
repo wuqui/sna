@@ -15,8 +15,8 @@ library(magrittr)
 
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
-lemmas <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
-# lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
+# lemmas <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
+lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
 for (lemma in lemmas) {
