@@ -329,7 +329,7 @@ df_comp %>%
 ```{r}
 df_comp %>%
   select(LEMMA, SUBSET, STAMP) %>%
-  filter(SUBSET == 'full') %>%
+  filter(SUBSET == 'last') %>%
   mutate(STAMP = as_datetime(STAMP)) %>%
   arrange(desc(STAMP))
 ```

@@ -29,30 +29,31 @@ extract_edges <- function (tweets) {
 
 
 # subset edges
-subset_edges <- function (edges, subset='last', size=1000) {
-  if (subset == 'full') {
-    edges_sub <- edges
-  } else if (subset == 'first') {
-    edges_sub <- edges %>%
-      slice(1:size)
-  } else if (subset == 'mean') {
-    edges_sub <- edges %>%
-      filter(DATE > mean_date) %>%
-      slice(1:size)
-  } else if (subset == 'max') {
-    edges_sub <- edges %>%
-      filter(DATE > max_date) %>%
-      slice(1:size)
-  } else if (subset == 'last') {
-    edges_sub <- edges %>%
-      arrange(desc(DATE)) %>%
-      slice(1:size) %>%
-      arrange(DATE)
-  } else {
-    print('error: no valid subsetting option given')
-  }
-  return(edges_sub)
-}
+# deprecated: subsetting by tweets instead
+# subset_edges <- function (edges, subset='last', size=1000) {
+#   if (subset == 'full') {
+#     edges_sub <- edges
+#   } else if (subset == 'first') {
+#     edges_sub <- edges %>%
+#       slice(1:size)
+#   } else if (subset == 'mean') {
+#     edges_sub <- edges %>%
+#       filter(DATE > mean_date) %>%
+#       slice(1:size)
+#   } else if (subset == 'max') {
+#     edges_sub <- edges %>%
+#       filter(DATE > max_date) %>%
+#       slice(1:size)
+#   } else if (subset == 'last') {
+#     edges_sub <- edges %>%
+#       arrange(desc(DATE)) %>%
+#       slice(1:size) %>%
+#       arrange(DATE)
+#   } else {
+#     print('error: no valid subsetting option given')
+#   }
+#   return(edges_sub)
+# }
 
 
 get_net_window_dates <- function (edges) {
