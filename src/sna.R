@@ -27,6 +27,7 @@ extract_edges <- function (tweets) {
 }
 
 
+
 # subset edges
 subset_edges <- function (edges, subset='last', size=1000) {
   if (subset == 'full') {

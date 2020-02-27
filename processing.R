@@ -1,4 +1,6 @@
-library(magrittr)
+# load code
+
+## source files
 
 source('src/load-data.R')
 source('src/postproc.R')
@@ -6,22 +8,25 @@ source('src/uses.R')
 source('src/users.R')
 source('src/sna.R')
 
+## packages
+
+library(magrittr)
 
 
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
-# lemma <- 'climate emergency'
+lemma <- 'solopreneur'
 # lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 
 
-for (lemma in c('climate emergency')) {
+# for (lemma in c('ghosting')) {
   
-print(paste0('processing ', lemma))
-stamp = now()
+# print(paste0('processing ', lemma))
+# stamp = now()
   
-if (exists('df_comp') == FALSE) {
-  df_comp <- read_csv('out/df_comp.csv')
-}
+# if (exists('df_comp') == FALSE) {
+  # df_comp <- read_csv('out/df_comp.csv')
+# }
   
 
 # load data ----
@@ -33,27 +38,74 @@ tweets <- postproc(tweets)
 # uses ----
 uses <- get_uses(tweets)
 uses_tot <- get_uses_tot(uses)
-age = get_age(uses)
+age = get_age(tweets)
 coef_var <- get_coef_var(uses)
-mean_date <- get_mean_date(uses)
-max_date <- get_max_date(uses)
-uses_month <- conv_uses_month(uses)
-uses_plt <- plt_uses(uses_month, lemma, mean_date, max_date)
-save_uses_plt(uses_plt, lemma)
+uses_month <- bin_uses(uses, 'month')
+
+
+# subsets ---- 
+
+## determine cut-offs ----
+sub_first_cut <- get_start_date(tweets)
+sub_mean_cut <- get_sub_mean_max_cut(uses_month)$mean_date
+sub_max_cut <- get_sub_mean_max_cut(uses_month)$max_date
+sub_last_cut <- get_end_date(tweets)
+
+
+## set window size ----
+win_size = 1000
+
+
+## get subsets ----
+sub_first_tweets <- get_sub_first_tweets(tweets, win_size)
+sub_mean_tweets <- get_sub_mean_tweets(tweets, sub_mean_cut, win_size)
+sub_max_tweets <- get_sub_max_tweets(tweets, sub_max_cut, win_size)
+sub_last_tweets <- get_sub_last_tweets(tweets, win_size)
+
+
+## get subset infos
+sub_first_start <- get_start_date(sub_first_tweets)
+sub_first_end <- get_end_date(sub_first_tweets)
+sub_mean_start <- get_start_date(sub_mean_tweets)
+sub_mean_end <- get_end_date(sub_mean_tweets)
+sub_max_start <- get_start_date(sub_max_tweets)
+sub_max_end <- get_end_date(sub_max_tweets)
+sub_last_start <- get_start_date(sub_last_tweets)
+sub_last_end <- get_end_date(sub_last_tweets)
+
+
+# plot uses ---- 
+uses_plt <- plt_uses(
+  lemma=lemma,
+  uses_month=uses_month,
+  sub_first_start=sub_first_start, sub_first_cut=sub_first_cut, sub_first_end=sub_first_end,
+  sub_mean_start=sub_mean_start, sub_mean_cut=sub_mean_cut, sub_mean_end=sub_mean_end,
+  sub_max_start=sub_max_start, sub_max_cut=sub_max_cut, sub_max_end=sub_max_end,
+  sub_last_start=sub_last_start, sub_last_cut=sub_last_cut, sub_last_end=sub_last_end
+  )
+
+uses_plt
+
+# save_uses_plt(uses_plt, lemma)
+
+
+
+# full
+tweets_sub <- tweets
+
 
 
 # users ----
 users_month <- get_users_month(tweets)
 users_tot <- get_users_tot(tweets)
 users_plt <- plt_users(users_month)
-save_users_plt(users_plt, lemma)
+# save_users_plt(users_plt, lemma)
 
 
 # social network analysis ----
 
 edges <- extract_edges(tweets)
 directed = TRUE
-net_window_size = 1000
 
 subsets <- c('first', 'mean', 'max', 'last', 'full')
 # subset <- 'first'
@@ -62,7 +114,7 @@ for (subset in subsets) {
   
   print(paste0('processing ', lemma, ' / ', subset))
   
-  edges_sub <- subset_edges(edges, subset=subset, size=net_window_size)
+  edges_sub <- subset_edges(edges, subset=subset, size=win_size)
   net_window_dates <- get_net_window_dates(edges_sub)
   net <- create_net(edges_sub, directed=directed)
   

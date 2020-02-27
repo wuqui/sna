@@ -87,7 +87,7 @@ plt <- df_comp %>%
     SUBSET != 'full',
     # LEMMA == 'solopreneur'
     LEMMA %in% c(
-      'Anglo-Saxon'
+      'political correctness'
       )
     ) %>%
   select(LEMMA, SUBSET, CENT_DEGREE) %>%
@@ -157,8 +157,8 @@ df_comp %>%
   filter(
     SUBSET %in% (c(
       'first', 
-      'last' 
-      # 'mean', 
+      'last'
+      # 'mean',
       # 'max'
       )),
     EDGES >= 700
