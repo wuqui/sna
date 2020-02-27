@@ -21,6 +21,10 @@ library(tidyr)
 
 # Case studies
 
+```{r include=FALSE}
+cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
+```
+
 ## Load data
 
 ### per lemma
@@ -87,7 +91,10 @@ plt <- df_comp %>%
     SUBSET != 'full',
     # LEMMA == 'solopreneur'
     LEMMA %in% c(
-      'political correctness'
+      'ghosting',
+      'lituation',
+      'alt-left',
+      'solopreneur'
       )
     ) %>%
   select(LEMMA, SUBSET, CENT_DEGREE) %>%
@@ -103,6 +110,24 @@ plt <- df_comp %>%
 plt
 
 # ggsave('out/cent_deg_diac_Anglo-Saxon.pdf', width=6, height=4)
+```
+
+
+### Overall
+
+```{r}
+df_comp %>%
+  filter(
+    LEMMA %in% cases
+    # SUBSET == 'full'
+    ) %>%
+  select(
+    LEMMA, 
+    EDGES,
+    CENT_DEGREE, 
+    CENT_EV
+    ) %>%
+  arrange(desc(CENT_EV))
 ```
 
 
