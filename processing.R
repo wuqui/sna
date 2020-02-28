@@ -10,22 +10,20 @@ source('src/sna.R')
 ## packages
 library(magrittr)
 
-
+ 
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-# lemmas <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
-# lemma = 'alt-left'
+cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
 
-
-for (lemma in lemmas) {
+for (lemma in lemmas[100:113]) {
   
 print(paste0('processing ', lemma))
   
 if (exists('df_comp') == FALSE) {
   df_comp <- read_csv('out/df_comp.csv')
 }
-  
+
 
 # load data ----
 tweets <- load_data(corpus, lemma)
@@ -98,7 +96,7 @@ uses_plt <- plt_uses(
   sub_last_start=subs[['last']][['start']], sub_last_cut=subs[['last']][['cut']], sub_last_end=subs[['last']][['end']]
   )
 
-uses_plt
+# uses_plt
 save_uses_plt(uses_plt, lemma)
 
 
@@ -118,19 +116,23 @@ for (sub in subs) {
   print(paste0('processing ', lemma, ' / ', sub[['sub']]))
   
   edges <- extract_edges(sub[['tweets']])
-  net <- create_net(edges, directed=directed)
+  sources <- get_sources(sub[['tweets']])
+  targets <- get_targets(edges)
+  nodes <- get_nodes(sources, targets)
+
+  net <- create_net(edges, nodes, directed=directed)
   
   sub[['net_metrics']] <- get_net_metrics(net, directed, sub)
   
   if (sub[['sub']] != 'full') {
     net <- add_node_info(net, directed=directed)
     net_plt <- plt_net(net, lemma, sub[['sub']], sub[['start']], sub[['end']], layout)
-    net_plt
+    # net_plt
     save_net_plt(net_plt, lemma, sub[['sub']])
   }
   
   # df_comp <- tibble(
-  df_comp  %<>% add_row(
+  df_comp <- df_comp %>% add_row(
     LEMMA = lemma,
     USES = uses_tot,
     USERS = users_tot,

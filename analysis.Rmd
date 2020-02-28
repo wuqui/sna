@@ -108,8 +108,8 @@ plt
 ```{r}
 df_comp %>%
   filter(
-    LEMMA %in% cases
-    # SUBSET == 'full'
+    LEMMA %in% cases,
+    SUBSET == 'full'
     ) %>%
   select(
     LEMMA, 

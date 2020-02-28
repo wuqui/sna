@@ -27,6 +27,26 @@ extract_edges <- function (tweets) {
 }
 
 
+get_sources <- function (tweets) {
+  tweets %>%
+      select(username) %>%
+      distinct(username)
+}
+
+
+get_targets <- function (edges) {
+  edges %>%
+    select(TO) %>%
+    distinct(TO) %>%
+    rename(username = TO)
+}
+
+
+get_nodes <- function (sources, targets) {
+  bind_rows(sources, targets) %>%
+    distinct(username)
+}
+
 
 # subset edges
 # deprecated: subsetting by tweets instead
@@ -62,9 +82,9 @@ extract_edges <- function (tweets) {
 # }
 
 
-create_net <- function (edges, directed) {
+create_net <- function (edges, nodes, directed) {
   # add edge weights
-  net_igr <- graph_from_data_frame(edges, directed=directed)
+  net_igr <- graph_from_data_frame(edges, vertices=nodes, directed=directed)
   E(net_igr)$WEIGHT <- 1
   net_igr <- igraph::simplify(net_igr, edge.attr.comb=list(WEIGHT="sum", DATE="first"))
   # create tidygraph network
