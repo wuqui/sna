@@ -56,9 +56,10 @@ extract_edges <- function (tweets) {
 # }
 
 
-get_net_window_dates <- function (edges) {
-  paste(edges$DATE[1], "--", tail(edges$DATE, n=1), sep="")
-}
+# deprecated, irrelevant when subsetting is not based on edges
+# get_net_window_dates <- function (edges) {
+  # paste(edges$DATE[1], "--", tail(edges$DATE, n=1), sep="")
+# }
 
 
 create_net <- function (edges, directed) {
@@ -82,6 +83,33 @@ net_to_gephi <- function (net, lemma, subset) {
 }
 
 
+get_net_metrics <- function (net, directed, subset) {
+  net_metrics <- list(
+      'edges_n' = length(E(net)),
+      'nodes_n' = length(V(net)),
+      'cent_degree' = centralization.degree(net, normalized=TRUE)$centralization, # could use `mode=IGRAPH_IN` to only consider in-degree
+      'cent_ev' = centralization.evcent(net, normalized=TRUE)$centralization,
+      'modularity' = 'NA',
+      'communities_n'= 'NA'
+  )
+  if (subset[['sub']] != 'full') {
+    communities <- cluster_edge_betweenness(net, directed=directed, weights=NULL)
+    net_metrics[['modularity']] = modularity(communities)
+    net_metrics[['communities_n']] = length(communities)
+  } 
+  return(net_metrics)
+  # currently not used
+    # cent_between = centralization.betweenness(net, normalized=TRUE)$centralization,
+    # cent_close = centralization.closeness(net, normalized=TRUE)$centralization,
+    # 'reciprocity' = reciprocity(net), # proportion of mutual connections
+    # 'transitivity'= transitivity(net), # probability that two neighbors of a vertex are connected, i.e. ratio of triangles and connected triples
+    # 'density' = igraph::graph.density(igraph::simplify(net, remove.multiple=TRUE)), # ratio of observed vs. potential edges
+    # 'assortativity' = assortativity_degree(net), # propensity of similar nodes to be connected
+    # 'clique_size_max' = clique_num(net), # size of biggest clique
+    # 'comp_unconn' = count_components(net) # n. of unconnected components
+}
+
+
 add_node_info <- function (net, directed) {
   net %>%
     activate(nodes) %>%
@@ -92,8 +120,7 @@ add_node_info <- function (net, directed) {
   # mutate(GROUP_LOUVAIN = as.factor(group_louvain(weights=WEIGHT)))
 }
 
-
-plt_net <- function (net, lemma, subset, net_window, layout='kk') {
+plt_net <- function (net, lemma, subset, win_start, win_end, layout) {
   ggraph(net, layout=layout) +
     geom_edge_link(aes(width=WEIGHT), show.legend=FALSE) +
     scale_edge_width(range = c(0.2, 1.5)) +
@@ -102,7 +129,7 @@ plt_net <- function (net, lemma, subset, net_window, layout='kk') {
     theme_graph() +
     ggtitle(
       label=lemma,
-      subtitle=paste0("subset: ", subset, " (", net_window, ")")
+      subtitle=paste0("subset: ", subset, " (", win_start, " -- ", win_end, ")")
     )
 }
 
