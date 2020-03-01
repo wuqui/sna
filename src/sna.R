@@ -27,6 +27,8 @@ extract_edges <- function (tweets) {
 }
 
 
+
+
 get_sources <- function (tweets) {
   tweets %>%
       select(username) %>%
@@ -42,7 +44,9 @@ get_targets <- function (edges) {
 }
 
 
-get_nodes <- function (sources, targets) {
+get_nodes <- function (tweets, edges) {
+  sources <- get_sources(tweets)
+  targets <- get_targets(edges)
   bind_rows(sources, targets) %>%
     distinct(username)
 }
@@ -103,7 +107,7 @@ net_to_gephi <- function (net, lemma, subset) {
 }
 
 
-get_net_metrics <- function (net, directed, subset) {
+get_net_metrics <- function (net, directed, subset, subsetting) {
   net_metrics <- list(
       'edges_n' = length(E(net)),
       'nodes_n' = length(V(net)),
@@ -112,7 +116,7 @@ get_net_metrics <- function (net, directed, subset) {
       'modularity' = 'NA',
       'communities_n'= 'NA'
   )
-  if (subset[['sub']] != 'full') {
+  if (subset[['sub']] != 'full' & subsetting == 'freq') {
     communities <- cluster_edge_betweenness(net, directed=directed, weights=NULL)
     net_metrics[['modularity']] = modularity(communities)
     net_metrics[['communities_n']] = length(communities)

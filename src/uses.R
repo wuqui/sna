@@ -57,7 +57,7 @@ get_age <- function (uses) {
 }
 
 
-get_sub_mean_max_cut <- function (uses_month) {
+get_cuts_freq <- function (uses_month) {
   max <- max(uses_month$USES)
   max_idx <- which(uses_month$USES >= max)[1]
   max_date <- uses_month[[max_idx,"DATE"]]
@@ -69,45 +69,127 @@ get_sub_mean_max_cut <- function (uses_month) {
     mean_idx <- which(uses_desc$USES >= mean)[1]
     mean_date <- uses_desc[[mean_idx,"DATE"]]
   }
-  return(
-    list(
-      'mean' = mean,
-      'mean_idx' = mean_idx,
-      'mean_date' = mean_date,
-      'max_idx' = max_idx,
-      'max_date' = max_date
+  tibble(
+    CUT = c(
+      'one',
+      'two',
+      'three',
+      'four'
+    ),
+    DATE = c(
+      get_start_date(tweets),
+      mean_date,
+      max_date,
+      get_end_date(tweets)
+    )
+  )
+}
+
+
+get_cuts_time <- function (tweets) {
+  age <- get_age(tweets)
+  zero <- get_start_date(tweets)
+  hundred <- get_end_date(tweets)
+  tibble(
+    CUT = c(
+      'one',
+      'two',
+      'three',
+      'four'
+    ),
+    DATE = c(
+      get_start_date(tweets),
+      zero + age / 4,
+      zero + age / 2,
+      hundred - age / 4
     )
   )
 }
 
 
 # subset tweets ----
-get_sub_first_tweets <- function (tweets, win_size) {
+get_slice_freq <- function (tweets, subset, win_size) {
+  if (subset[['sub']] == 'one') {
+    tweets %>%
+      arrange(date) %>%
+      slice(1:win_size)
+  } else if (subset[['sub']] == 'two') {
+    tweets %>%
+      arrange(date) %>%
+      filter(date >= subset[['cut']]) %>%
+      slice(1:win_size)
+  } else if (subset[['sub']] == 'three') {
+    tweets %>%
+      filter(date >= subset[['cut']]) %>%
+      arrange((date)) %>%
+      slice(1:win_size) %>%
+      arrange(date)
+  } else if (subset[['sub']] == 'four') {
+    tweets %>%
+      arrange(desc(date)) %>%
+      slice(1:win_size) %>%
+      arrange(date)
+  }
+}
+
+
+get_slice_time <- function (tweets, start, end) {
   tweets %>%
     arrange(date) %>%
-    slice(1:win_size)
+    filter(
+      date >= start, 
+      date <= end
+      )
+}
+  
+
+get_limits_freq <- function (subs) {
+  df <- tibble(
+    'SUB' = character(),
+    'LIMIT' = character(),
+    'DATE' = character(),
+  )
+  df %<>% mutate(
+    DATE = as_date(DATE),
+    SUB = factor(SUB, levels=c('one', 'two', 'three', 'four')),
+    LIMIT = factor(LIMIT, levels=c('start', 'end'))
+    )
+  df %<>% add_row(SUB = 'one', LIMIT = 'start', DATE = get_start_date(subs[['one']][['tweets']]))
+  df %<>% add_row(SUB = 'one', LIMIT = 'end', DATE = get_end_date(subs[['one']][['tweets']]))
+  df %<>% add_row(SUB = 'two', LIMIT = 'start', DATE = get_start_date(subs[['two']][['tweets']]))
+  df %<>% add_row(SUB = 'two', LIMIT = 'end', DATE = get_end_date(subs[['two']][['tweets']]))
+  df %<>% add_row(SUB = 'three', LIMIT = 'start', DATE = get_start_date(subs[['three']][['tweets']]))
+  df %<>% add_row(SUB = 'three', LIMIT = 'end', DATE = get_end_date(subs[['three']][['tweets']]))
+  df %<>% add_row(SUB = 'four', LIMIT = 'start', DATE = get_start_date(subs[['four']][['tweets']]))
+  df %<>% add_row(SUB = 'four', LIMIT = 'end', DATE = get_end_date(subs[['four']][['tweets']]))
+  df %<>% add_row(SUB = 'full', LIMIT = 'start', DATE = get_start_date(subs[['full']][['tweets']]))
+  df %<>% add_row(SUB = 'full', LIMIT = 'end', DATE = get_end_date(subs[['full']][['tweets']]))
+  return(df)
 }
 
-get_sub_mean_tweets <- function (tweets, sub_mean_cut, win_size) {
-  tweets %>%
-    arrange(date) %>%
-    filter(date >= sub_mean_cut) %>%
-    slice(1:win_size)
-}
 
-get_sub_max_tweets <- function (tweets, sub_max_cut, win_size) {
-  tweets %>%
-    filter(date >= sub_max_cut) %>%
-    arrange((date)) %>%
-    slice(1:win_size) %>%
-    arrange(date)
-}
-
-get_sub_last_tweets <- function (tweets, win_size) {
-  tweets %>%
-    arrange(desc(date)) %>%
-    slice(1:win_size) %>%
-    arrange(date)
+get_limits_time <- function (sub_cuts) {
+  df <- tibble(
+    'SUB' = character(),
+    'LIMIT' = character(),
+    'DATE' = character(),
+  )
+  df %<>% mutate(
+    DATE = as_date(DATE),
+    SUB = factor(SUB, levels=c('one', 'two', 'three', 'four')),
+    LIMIT = factor(LIMIT, levels=c('start', 'end'))
+    )
+  df %<>% add_row(SUB = 'one', LIMIT = 'start', DATE = sub_cuts %>% filter(CUT=='one') %>% pull(DATE))
+  df %<>% add_row(SUB = 'one', LIMIT = 'end', DATE = sub_cuts %>% filter(CUT=='two') %>% pull(DATE))
+  df %<>% add_row(SUB = 'two', LIMIT = 'start', DATE = sub_cuts %>% filter(CUT=='two') %>% pull(DATE) + 1)
+  df %<>% add_row(SUB = 'two', LIMIT = 'end', DATE = sub_cuts %>% filter(CUT=='three') %>% pull(DATE))
+  df %<>% add_row(SUB = 'three', LIMIT = 'start', DATE = sub_cuts %>% filter(CUT=='three') %>% pull(DATE) + 1)
+  df %<>% add_row(SUB = 'three', LIMIT = 'end', DATE = sub_cuts %>% filter(CUT=='four') %>% pull(DATE))
+  df %<>% add_row(SUB = 'four', LIMIT = 'start', DATE = sub_cuts %>% filter(CUT=='four') %>% pull(DATE) + 1)
+  df %<>% add_row(SUB = 'four', LIMIT = 'end', DATE = get_end_date(tweets))
+  df %<>% add_row(SUB = 'full', LIMIT = 'start', DATE = get_start_date(tweets))
+  df %<>% add_row(SUB = 'full', LIMIT = 'end', DATE = get_end_date(tweets))
+  return(df)
 }
 
 
@@ -115,11 +197,10 @@ get_sub_last_tweets <- function (tweets, win_size) {
 plt_uses <- function (
   lemma,
   uses_month,
-  sub_first_start, sub_first_cut, sub_first_end,
-  sub_mean_start, sub_mean_cut, sub_mean_end,
-  sub_max_start, sub_max_cut, sub_max_end,
-  sub_last_start, sub_last_cut, sub_last_end
+  sub_cuts,
+  sub_limits
 ) {
+  sub_limits %<>% filter(SUB != 'full')
   ggplot(data=uses_month, aes(x=DATE, y=USES)) +
     geom_line() +
     geom_point() +
@@ -127,25 +208,12 @@ plt_uses <- function (
     ggtitle(lemma) +
     scale_y_continuous("Tweets / month") + 
     scale_x_date("") +
-    geom_vline(xintercept=sub_first_start, linetype="longdash", color='purple') +
-    geom_vline(xintercept=sub_first_cut, linetype="solid", color='purple') +
-    annotate('text', x=sub_first_cut, y=500, label='first', size=4, angle=90) +
-    geom_vline(xintercept=sub_first_end, linetype="longdash", color='purple') +
-    geom_vline(xintercept=sub_mean_start, linetype="longdash", color='red') +
-    geom_vline(xintercept=sub_mean_cut, linetype="solid", color='red') +
-    annotate('text', x=sub_mean_cut, y=500, label='mean', size=4, angle=90) +
-    geom_vline(xintercept=sub_mean_end, linetype="longdash", color='red') +
-    geom_vline(xintercept=sub_max_start, linetype="longdash", color='blue') +
-    geom_vline(xintercept=sub_max_cut, linetype="solid", color='blue') +
-    annotate('text', x=sub_max_cut, y=500, label='max', size=4, angle=90) +
-    geom_vline(xintercept=sub_max_end, linetype="longdash", color='blue') +
-    geom_vline(xintercept=sub_last_start, linetype="longdash", color='green') +
-    geom_vline(xintercept=sub_last_cut, linetype="solid", color='green') +
-    annotate('text', x=sub_last_cut, y=500, label='last', size=4, angle=90) +
-    geom_vline(xintercept=sub_last_end, linetype="longdash", color='green')
+    geom_vline(data=sub_limits, aes(xintercept=DATE, color=SUB)) +
+    geom_vline(data=sub_cuts, aes(xintercept=DATE, color=CUT))
 }
 
-save_uses_plt <- function (uses_plt, lemma, dir_out='out/uses/') {
-  fname <- paste0('ui_', lemma, '.pdf')
+
+save_uses_plt <- function (uses_plt, lemma, subsetting, dir_out='out/uses/') {
+  fname <- paste0('ui_', lemma, '_', subsetting, '.pdf')
   ggsave(paste0(dir_out, fname), uses_plt, width=6, height=4)
 }

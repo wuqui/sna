@@ -88,7 +88,7 @@ plt <- df_comp %>%
       )
     ) %>%
   select(LEMMA, SUBSET, CENT_DEGREE) %>%
-  mutate(SUBSET = factor(SUBSET, levels=c('first', 'mean', 'max', 'last'))) %>%
+  mutate(SUBSET = factor(SUBSET, levels=c('one', 'two', 'three', 'four'))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
     geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
@@ -174,20 +174,20 @@ plt
 df_comp %>%
   filter(
     SUBSET %in% (c(
-      'first', 
-      'last'
-      # 'mean',
-      # 'max'
-      )),
-    EDGES >= 700
+      'one', 
+      'two',
+      'three',
+      'four'
+      ))
+    # EDGES >= 700
     ) %>%
   group_by(SUBSET) %>%
   summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
   mutate(SUBSET = factor(SUBSET, levels=c(
-    'first', 
-    'last'
-    # 'mean',
-    # 'max'
+    'one', 
+    'two',
+    'three',
+    'four'
     ))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_AVG, group=1)) +
     geom_col()
@@ -200,7 +200,10 @@ df_comp %>%
 df_comp %>%
   select(LEMMA, SUBSET, CENT_DEGREE, EDGES) %>%
   filter(
-    SUBSET %in% c('first', 'last')
+    SUBSET %in% c(
+      'one', 
+      'four'
+      )
     # EDGES >= 100
     ) %>%
   dplyr::group_by(LEMMA) %>%

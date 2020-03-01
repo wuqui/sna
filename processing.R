@@ -15,9 +15,16 @@ library(magrittr)
 corpus <- '/Volumes/qjd/twint/'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
-lemma = 'solopreneur'
+# lemma = 'microflat'
 
-for (lemma in lemmas) {
+subsetting = 'freq'
+subsetting = 'time'
+
+win_size = 1000
+directed = TRUE
+layout = 'kk'
+
+for (lemma in cases) {
   
 print(paste0('processing ', lemma))
   
@@ -42,74 +49,82 @@ uses_month <- bin_uses(uses, 'month')
 
 # subsets ---- 
 subs = list()
-subs[['first']] = list()
-subs[['first']][['sub']] <- 'first'
-subs[['mean']] = list()
-subs[['mean']][['sub']] <- 'mean'
-subs[['max']] = list()
-subs[['max']][['sub']] <- 'max'
-subs[['last']] = list()
-subs[['last']][['sub']] <- 'last'
+subs[['one']] = list()
+subs[['one']][['sub']] <- 'one'
+subs[['two']] = list()
+subs[['two']][['sub']] <- 'two'
+subs[['three']] = list()
+subs[['three']][['sub']] <- 'three'
+subs[['four']] = list()
+subs[['four']][['sub']] <- 'four'
 subs[['full']] = list()
 subs[['full']][['sub']] <- 'full'
 
-subs[['second']] = list()
-subs[['second']][['sub']] <- 'second'
-subs[['third']] = list()
-subs[['third']][['sub']] <- 'third'
-
 
 ## determine cut-offs ----
-subs[['first']][['cut']] <- get_start_date(tweets)
-subs[['mean']][['cut']] <- get_sub_mean_max_cut(uses_month)$mean_date
-subs[['max']][['cut']] <- get_sub_mean_max_cut(uses_month)$max_date
-subs[['last']][['cut']] <- get_end_date(tweets)
-subs[['full']][['cut']] <- 'NA'
 
-
-subs[['last']][['cut']] <- get_end_date(tweets)
-subs[['full']][['cut']] <- 'NA'
-subs[['last']][['cut']] <- get_end_date(tweets)
-subs[['full']][['cut']] <- 'NA'
-
-
-## set window size ----
-win_size = 1000
-
-
-## get subsets ----
-subs[['first']][['tweets']] <- get_sub_first_tweets(tweets, win_size)
-subs[['mean']][['tweets']] <- get_sub_mean_tweets(tweets, subs[['mean']][['cut']], win_size)
-subs[['max']][['tweets']] <- get_sub_max_tweets(tweets, subs[['max']][['cut']], win_size)
-subs[['last']][['tweets']] <- get_sub_last_tweets(tweets, win_size)
-subs[['full']][['tweets']] <- tweets
-
+if (subsetting == 'freq') {
   
-## get subset infos
-subs[['first']][['start']] <- get_start_date(subs[['first']][['tweets']])
-subs[['first']][['end']] <- get_end_date(subs[['first']][['tweets']])
-subs[['mean']][['start']] <- get_start_date(subs[['mean']][['tweets']])
-subs[['mean']][['end']] <- get_end_date(subs[['mean']][['tweets']])
-subs[['max']][['start']] <- get_start_date(subs[['max']][['tweets']])
-subs[['max']][['end']] <- get_end_date(subs[['max']][['tweets']])
-subs[['last']][['start']] <- get_start_date(subs[['last']][['tweets']])
-subs[['last']][['end']] <- get_end_date(subs[['last']][['tweets']])
-subs[['full']][['start']] <- get_start_date(subs[['full']][['tweets']])
-subs[['full']][['end']] <- get_end_date(subs[['full']][['tweets']])
+  sub_cuts <- get_cuts_freq(uses_month)
+  subs[['one']][['cut']] <- sub_cuts %>% filter(CUT=='one') %>% pull(DATE)
+  subs[['two']][['cut']] <- sub_cuts %>% filter(CUT=='two') %>% pull(DATE)
+  subs[['three']][['cut']] <- sub_cuts %>% filter(CUT=='three') %>% pull(DATE)
+  subs[['four']][['cut']] <- sub_cuts %>% filter(CUT=='four') %>% pull(DATE)
+  subs[['full']][['cut']] <- 'NA'
+  
+  subs[['one']][['tweets']] <- get_slice_freq(tweets, subs[['one']], win_size)
+  subs[['two']][['tweets']] <- get_slice_freq(tweets, subs[['two']], win_size)
+  subs[['three']][['tweets']] <- get_slice_freq(tweets, subs[['three']], win_size)
+  subs[['four']][['tweets']] <- get_slice_freq(tweets, subs[['three']], win_size)
+  subs[['full']][['tweets']] <- tweets
+  
+  sub_limits <- get_limits_freq(subs)
+  
+} else if (subsetting == 'time') {
+  
+  sub_cuts <- get_cuts_time(tweets)
+  
+  subs[['one']][['cut']] <- sub_cuts %>% filter(CUT=='one') %>% pull(DATE)
+  subs[['two']][['cut']] <- sub_cuts %>% filter(CUT=='two') %>% pull(DATE)
+  subs[['three']][['cut']] <- sub_cuts %>% filter(CUT=='three') %>% pull(DATE)
+  subs[['four']][['cut']] <- sub_cuts %>% filter(CUT=='four') %>% pull(DATE)
+  subs[['full']][['cut']] <- 'NA'
+  
+  sub_limits <- get_limits_time(sub_cuts)
+  
+  subs[['one']][['start']] <- sub_limits %>% filter(SUB=='one', LIMIT=='start') %>% pull(DATE)
+  subs[['one']][['end']] <- sub_limits %>% filter(SUB=='one', LIMIT=='end') %>% pull(DATE)
+  subs[['two']][['start']] <- sub_limits %>% filter(SUB=='two', LIMIT=='start') %>% pull(DATE)
+  subs[['two']][['end']] <- sub_limits %>% filter(SUB=='two', LIMIT=='end') %>% pull(DATE)
+  subs[['three']][['start']] <- sub_limits %>% filter(SUB=='three', LIMIT=='start') %>% pull(DATE)
+  subs[['three']][['end']] <- sub_limits %>% filter(SUB=='three', LIMIT=='end') %>% pull(DATE)
+  subs[['four']][['start']] <- sub_limits %>% filter(SUB=='four', LIMIT=='start') %>% pull(DATE)
+  subs[['four']][['end']] <- sub_limits %>% filter(SUB=='four', LIMIT=='end') %>% pull(DATE)
+  subs[['full']][['start']] <- sub_limits %>% filter(SUB=='full', LIMIT=='start') %>% pull(DATE)
+  subs[['full']][['end']] <- sub_limits %>% filter(SUB=='full', LIMIT=='end') %>% pull(DATE)
+  
+  subs[['one']][['tweets']] <- get_slice_time(tweets, subs[['one']][['start']], subs[['one']][['end']])
+  subs[['two']][['tweets']] <- get_slice_time(tweets, subs[['two']][['start']], subs[['two']][['end']])
+  subs[['three']][['tweets']] <- get_slice_time(tweets, subs[['three']][['start']], subs[['three']][['end']])
+  subs[['four']][['tweets']] <- get_slice_time(tweets, subs[['four']][['start']], subs[['four']][['end']])
+  subs[['full']][['tweets']] <- tweets
+  
+  n_tweets <- nrow(tweets)
+  n_subs = 0
+  for (sub in subs) {
+    if (sub[['sub']] != 'full') {
+      n_subs = n_subs + nrow(sub[['tweets']])
+    }
+  }
+  n_tweets == n_subs
+
+} # sliding method selection
 
 
 # plot uses ---- 
-uses_plt <- plt_uses(
-  lemma=lemma,
-  uses_month=uses_month,
-  sub_first_start=subs[['first']][['start']], sub_first_cut=subs[['first']][['cut']], sub_first_end=subs[['first']][['end']],
-  sub_mean_start=subs[['mean']][['start']], sub_mean_cut=subs[['mean']][['cut']], sub_mean_end=subs[['mean']][['end']],
-  sub_max_start=subs[['max']][['start']], sub_max_cut=subs[['max']][['cut']], sub_max_end=subs[['max']][['end']],
-  sub_last_start=subs[['last']][['start']], sub_last_cut=subs[['last']][['cut']], sub_last_end=subs[['last']][['end']]
-  )
-
-# uses_plt
-save_uses_plt(uses_plt, lemma)
+uses_plt <- plt_uses(lemma=lemma, uses_month=uses_month, sub_cuts, sub_limits)
+uses_plt
+save_uses_plt(uses_plt, lemma, subsetting)
 
 
 # users ----
@@ -120,39 +135,43 @@ users_plt <- plt_users(users_month)
 
 
 # social network analysis ----
-directed = TRUE
-layout = 'kk'
 
 for (sub in subs) {
+  # sub = subs[['one']]
   
   print(paste0('processing ', lemma, ' / ', sub[['sub']]))
   
   edges <- extract_edges(sub[['tweets']])
-  sources <- get_sources(sub[['tweets']])
-  targets <- get_targets(edges)
-  nodes <- get_nodes(sources, targets)
-
+  nodes <- get_nodes(sub[['tweets']], edges)
   net <- create_net(edges, nodes, directed=directed)
   
-  sub[['net_metrics']] <- get_net_metrics(net, directed, sub)
+  sub[['net_metrics']] <- get_net_metrics(net, directed, sub, subsetting)
   
   if (sub[['sub']] != 'full') {
-    net <- add_node_info(net, directed=directed)
-    net_plt <- plt_net(net, lemma, sub[['sub']], sub[['start']], sub[['end']], layout)
+    # net <- add_node_info(net, directed=directed)
+    # 
+    # net_plt <- plt_net(
+    #   net,
+    #   lemma,
+    #   sub[['sub']],
+    #   sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'start') %>% pull(DATE),
+    #   sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'end') %>% pull(DATE),
+    #   layout)
     # net_plt
-    save_net_plt(net_plt, lemma, sub[['sub']])
+    # save_net_plt(net_plt, lemma, sub[['sub']])
   }
   
   # df_comp <- tibble(
   df_comp <- df_comp %>% add_row(
     LEMMA = lemma,
-    USES = uses_tot,
-    USERS = users_tot,
+    USES_TOT = uses_tot,
+    USERS_TOT = users_tot,
     AGE = age,
     COEF_VAR = coef_var,
     SUBSET = sub[['sub']],
-    START = sub[['start']],
-    END = sub[['end']],
+    START = sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'start') %>% pull(DATE),
+    END = sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'end') %>% pull(DATE),
+    USES = nrow(sub[['tweets']]),
     EDGES = sub[['net_metrics']][['edges_n']],
     NODES = sub[['net_metrics']][['nodes_n']],
     COMMUNITIES = sub[['net_metrics']][['communities_n']],
@@ -171,7 +190,15 @@ for (sub in subs) {
     distinct(SUBSET, .keep_all=TRUE) %>%
     ungroup() %>%
     # arrange
-    arrange(LEMMA, match(SUBSET, c('first', 'mean', 'max', 'last', 'full'), desc(SUBSET)))
+    arrange(
+      LEMMA, 
+      match(
+        SUBSET, 
+        # c('first', 'mean', 'max', 'last', 'full'), 
+        c('one', 'two', 'three', 'four', 'full'), 
+        desc(SUBSET)
+        )
+      )
     
   df_comp %>% write_csv('out/df_comp.csv')
   
