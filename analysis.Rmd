@@ -200,18 +200,18 @@ df_comp %>%
 df_comp %>%
   select(LEMMA, SUBSET, CENT_DEGREE, EDGES) %>%
   filter(
-    SUBSET %in% c('first', 'last'),
-    EDGES >= 100
+    SUBSET %in% c('first', 'last')
+    # EDGES >= 100
     ) %>%
   dplyr::group_by(LEMMA) %>%
-  dplyr::mutate(CENT_DIFF = lag(CENT_DEGREE) - CENT_DEGREE) %>%
+  dplyr::mutate(CENT_DIFF = CENT_DEGREE - lag(CENT_DEGREE)) %>%
   drop_na() %>%
   select(-SUBSET) %>%
   rename(
     CENT_LAST = CENT_DEGREE,
     EDGES_LAST = EDGES
     ) %>%
-  arrange(desc(CENT_DIFF))
+  arrange((CENT_DIFF))
 ```
 
 
@@ -234,10 +234,10 @@ df_comp %>%
 ```{r}
 plt <- df_comp %>%
   filter(
-    SUBSET == 'full',
+    SUBSET == 'full'
     # USES %in% (10000:2000000),
     # USES %in% (150000:500000),
-    !LEMMA %in% c('slut shaming', 'dashcam', 'shareable', 'cuckold', 'deep learning', 'hyperlocal')
+    # !LEMMA %in% c('slut shaming', 'dashcam', 'shareable', 'cuckold', 'deep learning', 'hyperlocal')
     ) %>%
   select(LEMMA, CENT_DEGREE, USES, EDGES) %>%
   ggplot(., aes(x=CENT_DEGREE, y=USES)) +
@@ -267,10 +267,10 @@ ggplotly(plt)
 ```{r}
 df_corr_full <- df_comp %>%
   filter(
-    # SUBSET != 'full',
-    EDGES >= 100
+    SUBSET != 'full'
+    # EDGES >= 100
     ) %>%
-  select(-c(LEMMA, SUBSET, NET_WINDOW_DATES, SKIP, STAMP, NROWS))
+  select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP, NROWS))
   
 cor.test(df_corr_full$USES, df_corr_full$CENT_DEGREE)
 ```
