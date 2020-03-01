@@ -20,9 +20,11 @@ extract_edges <- function (tweets) {
   edges$TO <- unlist(targets)
   
   # remove quotes
-  edges <- edges %>%
-    mutate(TO=str_sub(TO, start=2, end=-2)) %>%
-    arrange(DATE)
+  if (nrow(edges) > 0) {
+    edges <- edges %>%
+      mutate(TO=str_sub(TO, start=2, end=-2)) %>%
+      arrange(DATE)
+  }
   return(edges)
 }
 
@@ -44,9 +46,7 @@ get_targets <- function (edges) {
 }
 
 
-get_nodes <- function (tweets, edges) {
-  sources <- get_sources(tweets)
-  targets <- get_targets(edges)
+get_nodes <- function (sources, targets) {
   bind_rows(sources, targets) %>%
     distinct(username)
 }

@@ -17,14 +17,13 @@ lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
 # lemma = 'microflat'
 
-subsetting = 'freq'
 subsetting = 'time'
 
 win_size = 1000
 directed = TRUE
 layout = 'kk'
 
-for (lemma in cases) {
+for (lemma in lemmas) {
   
 print(paste0('processing ', lemma))
   
@@ -142,7 +141,11 @@ for (sub in subs) {
   print(paste0('processing ', lemma, ' / ', sub[['sub']]))
   
   edges <- extract_edges(sub[['tweets']])
-  nodes <- get_nodes(sub[['tweets']], edges)
+  if (nrow(edges) == 0) {next}
+  
+  sources <- get_sources(sub[['tweets']])
+  targets <- get_targets(edges)
+  nodes <- get_nodes(sources, targets)
   net <- create_net(edges, nodes, directed=directed)
   
   sub[['net_metrics']] <- get_net_metrics(net, directed, sub, subsetting)
@@ -190,14 +193,7 @@ for (sub in subs) {
     distinct(SUBSET, .keep_all=TRUE) %>%
     ungroup() %>%
     # arrange
-    arrange(
-      LEMMA, 
-      match(
-        SUBSET, 
-        # c('first', 'mean', 'max', 'last', 'full'), 
-        c('one', 'two', 'three', 'four', 'full'), 
-        desc(SUBSET)
-        )
+    arrange(LEMMA, match(SUBSET, c('one', 'two', 'three', 'four', 'full'), desc(SUBSET))
       )
     
   df_comp %>% write_csv('out/df_comp.csv')
