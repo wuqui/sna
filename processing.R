@@ -15,8 +15,9 @@ library(magrittr)
 corpus <- '/Volumes/qjd/twint/'
 lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
+lemma = 'solopreneur'
 
-for (lemma in lemmas[100:113]) {
+for (lemma in lemmas) {
   
 print(paste0('processing ', lemma))
   
@@ -52,11 +53,22 @@ subs[['last']][['sub']] <- 'last'
 subs[['full']] = list()
 subs[['full']][['sub']] <- 'full'
 
+subs[['second']] = list()
+subs[['second']][['sub']] <- 'second'
+subs[['third']] = list()
+subs[['third']][['sub']] <- 'third'
+
 
 ## determine cut-offs ----
 subs[['first']][['cut']] <- get_start_date(tweets)
 subs[['mean']][['cut']] <- get_sub_mean_max_cut(uses_month)$mean_date
 subs[['max']][['cut']] <- get_sub_mean_max_cut(uses_month)$max_date
+subs[['last']][['cut']] <- get_end_date(tweets)
+subs[['full']][['cut']] <- 'NA'
+
+
+subs[['last']][['cut']] <- get_end_date(tweets)
+subs[['full']][['cut']] <- 'NA'
 subs[['last']][['cut']] <- get_end_date(tweets)
 subs[['full']][['cut']] <- 'NA'
 
