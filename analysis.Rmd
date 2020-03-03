@@ -39,10 +39,20 @@ tweets <- postproc(tweets)
 
 ### Comparative analyses
 
+#### read
+
 ```{r include=FALSE}
 if (exists('df_comp') == FALSE) {
-  df_comp <- read_csv('out/df_comp.csv')
+  df_comp <- read_df_comp()
 }
+```
+
+
+#### filter
+
+```{r include=FALSE}
+df_comp %>% 
+  filter(SKIP != TRUE)
 ```
 
 
@@ -81,10 +91,15 @@ plt <- df_comp %>%
     SUBSET != 'full',
     # LEMMA == 'solopreneur'
     LEMMA %in% c(
-      'ghosting',
-      'lituation',
-      'alt-left',
-      'solopreneur'
+      # 'ghosting',
+      # 'lituation',
+      # 'alt-left',
+      # 'solopreneur',
+      # 'alt-right'
+      'political correctness',
+      'birther',
+      'covfefe',
+      'libtard'
       )
     ) %>%
   select(LEMMA, SUBSET, CENT_DEGREE) %>%
@@ -135,7 +150,7 @@ df_comp %>%
 df_comp %>%
   select(LEMMA, SUBSET, USES, CENT_DEGREE, CENT_EV) %>%
   filter(
-    SUBSET == 'full',
+    SUBSET == 'four',
     # USES >= 10000
     ) %>%
   arrange(
@@ -178,8 +193,8 @@ df_comp %>%
       'two',
       'three',
       'four'
-      ))
-    # EDGES >= 700
+      )),
+    USES_TOT >= 10000
     ) %>%
   group_by(SUBSET) %>%
   summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
@@ -190,7 +205,8 @@ df_comp %>%
     'four'
     ))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_AVG, group=1)) +
-    geom_col()
+    geom_line() +
+    geom_point()
 ```
 
 
@@ -198,13 +214,13 @@ df_comp %>%
 
 ```{r}
 df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, EDGES) %>%
+  select(LEMMA, SUBSET, CENT_DEGREE, EDGES, USES_TOT) %>%
   filter(
     SUBSET %in% c(
       'one', 
       'four'
-      )
-    # EDGES >= 100
+      ),
+    USES_TOT >= 10000
     ) %>%
   dplyr::group_by(LEMMA) %>%
   dplyr::mutate(CENT_DIFF = CENT_DEGREE - lag(CENT_DEGREE)) %>%
@@ -237,7 +253,7 @@ df_comp %>%
 ```{r}
 plt <- df_comp %>%
   filter(
-    SUBSET == 'full'
+    SUBSET == 'four'
     # USES %in% (10000:2000000),
     # USES %in% (150000:500000),
     # !LEMMA %in% c('slut shaming', 'dashcam', 'shareable', 'cuckold', 'deep learning', 'hyperlocal')
@@ -270,7 +286,7 @@ ggplotly(plt)
 ```{r}
 df_corr_full <- df_comp %>%
   filter(
-    SUBSET != 'full'
+    # SUBSET != 'full'
     # EDGES >= 100
     ) %>%
   select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP, NROWS))

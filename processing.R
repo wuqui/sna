@@ -13,22 +13,25 @@ library(magrittr)
  
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
-lemmas = list.dirs(corpus, full.names=FALSE, recursive=FALSE)
+lemmas <- list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
-# lemma = 'microflat'
+# cases_min <- c('microflat', 'begpacker')
+# lemma <- 'microflat'
 
-subsetting = 'time'
+win_size <- 1000
+directed <- TRUE
+layout <- 'kk'
 
-win_size = 1000
-directed = TRUE
-layout = 'kk'
+subsetting <- 'time'
+export_edges <- FALSE
 
 for (lemma in lemmas) {
   
 print(paste0('processing ', lemma))
+skip <- FALSE
   
 if (exists('df_comp') == FALSE) {
-  df_comp <- read_csv('out/df_comp.csv')
+  df_comp <- read_df_comp(f_path='out/df_comp.csv')
 }
 
 
@@ -49,14 +52,15 @@ uses_month <- bin_uses(uses, 'month')
 # subsets ---- 
 subs = list()
 subs[['one']] = list()
-subs[['one']][['sub']] <- 'one'
 subs[['two']] = list()
-subs[['two']][['sub']] <- 'two'
 subs[['three']] = list()
-subs[['three']][['sub']] <- 'three'
 subs[['four']] = list()
-subs[['four']][['sub']] <- 'four'
 subs[['full']] = list()
+
+subs[['one']][['sub']] <- 'one'
+subs[['two']][['sub']] <- 'two'
+subs[['three']][['sub']] <- 'three'
+subs[['four']][['sub']] <- 'four'
 subs[['full']][['sub']] <- 'full'
 
 
@@ -130,7 +134,7 @@ save_uses_plt(uses_plt, lemma, subsetting)
 users_month <- get_users_month(tweets)
 users_tot <- get_users_tot(tweets)
 users_plt <- plt_users(users_month)
-# save_users_plt(users_plt, lemma)
+save_users_plt(users_plt, lemma)
 
 
 # social network analysis ----
@@ -141,27 +145,32 @@ for (sub in subs) {
   print(paste0('processing ', lemma, ' / ', sub[['sub']]))
   
   edges <- extract_edges(sub[['tweets']])
-  if (nrow(edges) == 0) {next}
+  if (nrow(edges) == 0) {
+    skip <- TRUE
+    next
+    }
   
   sources <- get_sources(sub[['tweets']])
   targets <- get_targets(edges)
   nodes <- get_nodes(sources, targets)
+  
   net <- create_net(edges, nodes, directed=directed)
+  
+  if (export_edges == TRUE) {net_to_gephi(net, lemma, sub)}
   
   sub[['net_metrics']] <- get_net_metrics(net, directed, sub, subsetting)
   
-  if (sub[['sub']] != 'full') {
-    # net <- add_node_info(net, directed=directed)
-    # 
-    # net_plt <- plt_net(
-    #   net,
-    #   lemma,
-    #   sub[['sub']],
-    #   sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'start') %>% pull(DATE),
-    #   sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'end') %>% pull(DATE),
-    #   layout)
-    # net_plt
-    # save_net_plt(net_plt, lemma, sub[['sub']])
+  if (sub[['sub']] != 'full' & subsetting == 'freq') {
+    net <- add_node_info(net, directed=directed)
+    net_plt <- plt_net(
+      net,
+      lemma,
+      sub[['sub']],
+      sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'start') %>% pull(DATE),
+      sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'end') %>% pull(DATE),
+      layout)
+    net_plt
+    save_net_plt(net_plt, lemma, subsetting, sub)
   }
   
   # df_comp <- tibble(
@@ -171,7 +180,7 @@ for (sub in subs) {
     USERS_TOT = users_tot,
     AGE = age,
     COEF_VAR = coef_var,
-    SUBSET = sub[['sub']],
+    SUBSET = factor(sub[['sub']], levels=c('one', 'two', 'three', 'four', 'full')),
     START = sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'start') %>% pull(DATE),
     END = sub_limits %>% filter(SUB == sub[['sub']], LIMIT == 'end') %>% pull(DATE),
     USES = nrow(sub[['tweets']]),
@@ -181,8 +190,8 @@ for (sub in subs) {
     MODULARITY = sub[['net_metrics']][['modularity']],
     CENT_DEGREE = sub[['net_metrics']][['cent_degree']],
     CENT_EV = sub[['net_metrics']][['cent_ev']],
-    SKIP = 'NO',
-    NROWS = 'NA',
+    SUBSETTING = subsetting,
+    SKIP = skip,
     STAMP = now()
     )
 
@@ -190,7 +199,7 @@ for (sub in subs) {
     # remove duplicates
     group_by(LEMMA) %>%
     arrange(desc(STAMP)) %>%
-    distinct(SUBSET, .keep_all=TRUE) %>%
+    distinct(SUBSETTING, SUBSET, .keep_all=TRUE) %>%
     ungroup() %>%
     # arrange
     arrange(LEMMA, match(SUBSET, c('one', 'two', 'three', 'four', 'full'), desc(SUBSET))
@@ -201,10 +210,3 @@ for (sub in subs) {
 } # end of subset loop
 
 } # end of lemma loop
-
-
-
-
-
-
-

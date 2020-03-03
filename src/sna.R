@@ -100,10 +100,13 @@ create_net <- function (edges, nodes, directed) {
 
 
 # export to Gephi
-net_to_gephi <- function (net, lemma, subset) {
+net_to_gephi <- function (net, lemma, sub) {
   dir <- 'out/edges/'
-  fname <- paste0(lemma, '_', subset, '.csv')
-  gephi_write_edges(net, path=paste0(dir, fname))
+  f_out_edges <- paste0(lemma, '_', sub[['sub']], '.csv')
+  gephi_write_edges(net, path=paste0(dir, f_out_edges))
+  # f_out_nodes <- paste0(lemma, '_', sub[['sub']], '_nodes.csv')
+  # gephi_write_nodes(net, path=paste0(dir, f_out_nodes))
+  # gephi_write_both(net, pathedges=paste0(dir, f_out_edges), pathnodes=paste0(dir, f_out_nodes))
 }
 
 
@@ -113,8 +116,8 @@ get_net_metrics <- function (net, directed, subset, subsetting) {
       'nodes_n' = length(V(net)),
       'cent_degree' = centralization.degree(net, normalized=TRUE)$centralization, # could use `mode=IGRAPH_IN` to only consider in-degree
       'cent_ev' = centralization.evcent(net, normalized=TRUE)$centralization,
-      'modularity' = 'NA',
-      'communities_n'= 'NA'
+      'modularity' = NA,
+      'communities_n'= NA
   )
   if (subset[['sub']] != 'full' & subsetting == 'freq') {
     communities <- cluster_edge_betweenness(net, directed=directed, weights=NULL)
@@ -158,8 +161,8 @@ plt_net <- function (net, lemma, subset, win_start, win_end, layout) {
 }
 
 
-save_net_plt <- function (net_plt, lemma, subset) {
+save_net_plt <- function (net_plt, lemma, subsetting, sub) {
   dir_out <- 'out/net/'
-  fname <- paste0('net_', lemma, '_', subset, '.pdf')
+  fname <- paste0('net_', lemma, '_', sub[['sub']], '_', subsetting, '.pdf')
   ggsave(paste0(dir_out, fname), net_plt, device=cairo_pdf, width=5, height=5)
 }

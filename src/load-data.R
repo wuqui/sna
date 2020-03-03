@@ -49,16 +49,6 @@ read_f <- function(fpath) {
 }
 
 
-# old version
-# read_fs <- function (fpaths) {
-#   df <- fpaths %>%
-#     map(~ read_f(.)) %>%
-#     reduce(rbind) %>%
-#     arrange(date)
-#   return(df)
-# }
-
-
 read_fs <- function (fpaths) {
   dfs <- list()
   for (fpath in fpaths) {
@@ -74,6 +64,12 @@ load_data <- function (corpus, lemma) {
   fpaths <- get_fpaths(path_dir)
   tweets <- read_fs(fpaths)
   return(tweets)
+}
+
+
+read_df_comp <- function (f_path) {
+  read_csv(f_path) %>%
+    mutate(SUBSET = factor(SUBSET, levels=c('one', 'two', 'three', 'four', 'full')))
 }
 
 
