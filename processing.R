@@ -10,6 +10,9 @@ source('src/sna.R')
 ## packages
 library(magrittr)
 
+df_comp %>%
+  filter(SUBSETTING == 'freq')
+
  
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
@@ -22,7 +25,7 @@ win_size <- 1000
 directed <- TRUE
 layout <- 'kk'
 
-subsetting <- 'time'
+subsetting <- 'freq'
 export_edges <- FALSE
 
 for (lemma in lemmas) {
@@ -37,6 +40,9 @@ if (exists('df_comp') == FALSE) {
 
 # load data ----
 tweets <- load_data(corpus, lemma)
+
+# filter tweets ----
+# tweets %>% filter(date <= '2018-12-31')
 
 # post-processing ----
 tweets <- postproc(tweets)

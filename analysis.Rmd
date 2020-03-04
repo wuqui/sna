@@ -19,15 +19,10 @@ library(corrr)
 library(tidyr)
 ```
 
-# Case studies
 
-```{r include=FALSE}
-cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
-```
+# Load data
 
-## Load data
-
-### per lemma
+## single lemma
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
@@ -37,9 +32,7 @@ tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 ```
 
-### Comparative analyses
-
-#### read
+## metrics for all lemmas
 
 ```{r include=FALSE}
 if (exists('df_comp') == FALSE) {
@@ -48,11 +41,22 @@ if (exists('df_comp') == FALSE) {
 ```
 
 
-#### filter
+# Filter data
 
 ```{r include=FALSE}
-df_comp %>% 
-  filter(SKIP != TRUE)
+df_comp %<>% 
+  filter(
+    SKIP != TRUE,
+    USES_TOT >= 1000
+    # established words
+    # distinguish successful and unsuccessful
+    )
+```
+
+# Case studies
+
+```{r include=FALSE}
+cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
 ```
 
 
@@ -280,6 +284,21 @@ ggplotly(plt)
 # ggsave('~/Desktop/freq-vs-net.pdf', width=6, height=4)
     
 ```
+
+
+### Biggest discrepancies
+
+```{r}
+df_comp %>%
+  filter(
+    SUBSETTING == 'time',
+    SUBSET == 'full'
+    ) %>%
+  select(LEMMA, USES_TOT, SUBSET, USES, CENT_DEGREE) %>%
+  mutate(DISC = USES_TOT / CENT_DEGREE) %>%
+  arrange(DISC)
+```
+
 
 ### Correlation
 
