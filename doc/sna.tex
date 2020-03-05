@@ -11,11 +11,11 @@
   % extensions
 
     \bibliography{/Users/quirin/promo/bib/references}
+    \usepackage{subcaption}
 
 % new commands
 
   \newcommand{\lsil}[1]{\lstinline[language=Python]{#1}}
-  \newcommand{\hw}[1]{\textbf{#1}}
   \newcommand{\mtrc}[1]{\textcolor{blue}{#1}}
 
 \begin{document}
@@ -39,6 +39,7 @@
     # \hw{Social media} has changed the way we communitate.
       ## It has changed the social fabric of our society (elections, press vs. \enquote{influencers}) and the sociolinguistic dynamics of how we communicate (fake news)
       ## It has also changed the language system and the way the language system changes. Much as \hw{cultural innovations} like XXX \enquote{go viral}, new digital modes of communication also affect the way \hw{linguistic innovations} spread. \todo{technical innovation, example like \ol{blockchain}}
+      ## real viruses like Corona seem to spread similarly as linguistic innovations \enquote{go viral} \parencite{EandT2020}
     # This opens up new research questions and new ways to tackle previous questions in sociolinguistics. (sociolinguistics $\rightarrow$ computational sociolinguistics)
       # new data
       # new methods: social network analysis
@@ -55,7 +56,7 @@
       ## \hw{structural}: language system, lexicalization, instutionalization, word-formation processes etc. \cite{Bauer1983,Lipka2005}
       ## \hw{cognitive} \parencite{Schmid2008}
       ## \hw{sociolinguistic}: S-curves \parencite{Labov2007,Milroy1992}
-    # current framework: based on the EC-Model \parencite{Schmid2019}
+    # current framework: based on the EC-Model \parencite{Schmid2020}
       ## spread across usage contexts
       ## spread across speakers
   \end{easylist}
@@ -186,54 +187,139 @@
         # sociolinguistic conventionality status of neologism
       \end{easylist}
 
-\section{Analysis}
-
-  \begin{easylist}[itemize]
-    # In order to assess the conventionality of lexemes \se{usage frequency} is commonly used.
-    #
-  \end{easylist}
-
-\section{Diachronic analysis}
-
-  \subsection{Advanced conventionalization: \ol{shareable}}
-
-    \begin{easylist}[itemize]
-      # background of \ol{shareable}
-        ## linguistic
-          ### form: It's
-          ### meaning: broad, diverse scope; significant and stable increase in \enquote{semantic carrying capacity}
-        ## diffusion history: first attestations, common uses, etc.
-      # template: S-curve
-        # shape corresponds quite nicely
-    \end{easylist}
-
-    \begin{figure}[H]
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{images/ui_shareable.pdf}
-      \caption{Usage intensity for \ol{shareable} (n=XXX)}
-    \end{figure}
-
-    \begin{figure}[H]
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{images/net_diac_shareable.pdf}
-      \caption{Network over time for \ol{shareable}}
-    \end{figure}
+\section{Diffusion over time}
 
   \subsection{No diffusion: \ol{microflat}}
 
-  \subsection{Limited diffusion: \ol{alt-right} and \ol{alt-left}}
+  \subsection{Successful diffusion}
 
-    \subsubsection{\ol{alt-right}}
+    \subsubsection{Advanced conventionalization: \ol{ghosting}}
+
+      \begin{easylist}[itemize]
+        # background of \ol{shareable}
+          ## linguistic
+            ### form: It's
+            ### meaning: broad, diverse scope; significant and stable increase in \enquote{semantic carrying capacity}
+          ## diffusion history: first attestations, common uses, etc.
+        # template: S-curve
+          # shape corresponds quite nicely
+      \end{easylist}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{ghosting} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_four.pdf}
+        \end{subfigure}
+      \end{figure}
+
+    \subsubsection{Increasing diffusion: \ol{lituation}}
+
+      \begin{figure}[H]
+        \caption{Usage frequency of \ol{lituation} over time.}
+        \centering
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/uses/ui_lituation_time.pdf}
+      \end{figure}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{lituation} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_four.pdf}
+        \end{subfigure}
+      \end{figure}
+
+  \subsection{Unsuccessful diffusion}
 
     \subsubsection{\ol{alt-left}}
 
       \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{alt-left} over time.}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{images/net_diac_alt-left.pdf}
-        \caption{Network over time for \ol{alt-left}}
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_four.pdf}
+        \end{subfigure}
       \end{figure}
 
-\section{Synchronic comparison}
+    \subsubsection{\ol{solopreneur}}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{solopreneur} over time.}
+        \centering
+        % \begin{subfigure}{.45\linewidth}
+        %   \caption{First stage}
+        %   \centering
+        %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_one.pdf}
+        % \end{subfigure}
+        % \begin{subfigure}{.45\linewidth}
+        %   \caption{Second stage}
+        %   \centering
+        %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_two.pdf}
+        % \end{subfigure}\\
+        % \begin{subfigure}{.45\linewidth}
+        %   \caption{Third stage}
+        %   \centering
+        %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_three.pdf}
+        % \end{subfigure}
+        % \begin{subfigure}{.45\linewidth}
+        %   \caption{Fourth stage}
+        %   \centering
+        %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_four.pdf}
+        % \end{subfigure}
+      \end{figure}
+
+\section{Overall degrees of diffusion}
 
   \subsection{Networks}
 
@@ -292,6 +378,8 @@
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{images/users-vs-usage.pdf}
         \caption{Users vs. usage}
       \end{figure}
+
+\section{Frequency vs. networks}
 
 % bibliography
 

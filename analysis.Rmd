@@ -6,7 +6,7 @@ output:
     toc: yes
 ---
 
-# Packages
+# Load code
 
 ```{r include=FALSE}
 source('src/load-data.R')
@@ -47,11 +47,27 @@ if (exists('df_comp') == FALSE) {
 df_comp %<>% 
   filter(
     SKIP != TRUE,
-    USES_TOT >= 1000
+    SUBSETTING == 'time'
+    # USES_TOT >= 1000
     # established words
     # distinguish successful and unsuccessful
     )
 ```
+
+
+## Uses in first subset
+
+```{r}
+df_comp %>%
+  filter(
+    SUBSETTING == 'time',
+    SUBSET == 'one'
+    ) %>%
+  select(LEMMA, USES_TOT, USES) %>%
+  arrange(USES)
+```
+
+
 
 # Case studies
 
@@ -91,22 +107,12 @@ ggplotly(uses_plt)
 
 ```{r}
 plt <- df_comp %>%
+  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE) %>%
   filter(
+    SUBSETTING == 'time',
     SUBSET != 'full',
-    # LEMMA == 'solopreneur'
-    LEMMA %in% c(
-      # 'ghosting',
-      # 'lituation',
-      # 'alt-left',
-      # 'solopreneur',
-      # 'alt-right'
-      'political correctness',
-      'birther',
-      'covfefe',
-      'libtard'
-      )
-    ) %>%
-  select(LEMMA, SUBSET, CENT_DEGREE) %>%
+    LEMMA %in% cases
+  ) %>%
   mutate(SUBSET = factor(SUBSET, levels=c('one', 'two', 'three', 'four'))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
@@ -154,8 +160,8 @@ df_comp %>%
 df_comp %>%
   select(LEMMA, SUBSET, USES, CENT_DEGREE, CENT_EV) %>%
   filter(
-    SUBSET == 'four',
-    # USES >= 10000
+    SUBSET == 'full',
+    USES >= 2
     ) %>%
   arrange(
     (CENT_DEGREE)
@@ -292,10 +298,10 @@ ggplotly(plt)
 df_comp %>%
   filter(
     SUBSETTING == 'time',
-    SUBSET == 'full'
+    SUBSET == 'four'
     ) %>%
   select(LEMMA, USES_TOT, SUBSET, USES, CENT_DEGREE) %>%
-  mutate(DISC = USES_TOT / CENT_DEGREE) %>%
+  mutate(DISC = USES / CENT_DEGREE) %>%
   arrange(DISC)
 ```
 

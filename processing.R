@@ -9,43 +9,44 @@ source('src/sna.R')
 
 ## packages
 library(magrittr)
-
-df_comp %>%
-  filter(SUBSETTING == 'freq')
-
  
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 lemmas <- list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
 # cases_min <- c('microflat', 'begpacker')
-# lemma <- 'microflat'
+# lemma <- 'ghosting'
 
 win_size <- 1000
 directed <- TRUE
 layout <- 'kk'
 
-subsetting <- 'freq'
+subsetting <- 'time'
 export_edges <- FALSE
 
-for (lemma in lemmas) {
+
+for (lemma in lemmas[99:length(lemmas)]) {
   
-print(paste0('processing ', lemma))
+print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
   
 if (exists('df_comp') == FALSE) {
   df_comp <- read_df_comp(f_path='out/df_comp.csv')
 }
 
-
 # load data ----
 tweets <- load_data(corpus, lemma)
 
-# filter tweets ----
-# tweets %>% filter(date <= '2018-12-31')
-
 # post-processing ----
 tweets <- postproc(tweets)
+
+# filter tweets
+tweets %<>%
+  filter(
+    date >= get_diff_start(tweets, method='edges'),
+    date <= '2018-12-31'
+  )
+
 
 # uses ----
 uses <- get_uses(tweets)
@@ -178,6 +179,8 @@ for (sub in subs) {
     net_plt
     save_net_plt(net_plt, lemma, subsetting, sub)
   }
+
+  # save in df_comp ----
   
   # df_comp <- tibble(
   df_comp <- df_comp %>% add_row(

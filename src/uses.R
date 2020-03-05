@@ -13,6 +13,31 @@ get_uses <- function (tweets) {
 }
 
 
+get_diff_start <- function (tweet, method) {
+  if (method == 'edges') {
+    tweets %>%
+      filter(mentions != '[]') %>%
+      select(date, username, tweet, mentions) %>%
+      mutate(week = as_date(cut(date, 'week'))) %>%
+      dplyr::group_by(week) %>%
+      dplyr::summarise(uses = n()) %>%
+      filter(uses > 1) %>%
+      slice(1:1) %>%
+      pull(week)
+  } else if (method == 'users') {
+    tweets %>% 
+      select(date, username) %>%
+      distinct(username, .keep_all=TRUE) %>%
+      mutate(week = as_date(cut(date, 'week'))) %>%
+      dplyr::group_by(week) %>%
+      dplyr::summarise(users = n()) %>%
+      filter(users > 1) %>%
+      slice(1:1) %>%
+      pull(week)
+  }
+}
+
+
 bin_uses <- function (uses, binsize) {
   uses %>%
     mutate(DATE = as_date(cut(DATE, binsize))) %>%

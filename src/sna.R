@@ -98,7 +98,7 @@ create_net <- function (edges, nodes, directed) {
   return(net_tdg)
 }
 
-
+  
 # export to Gephi
 net_to_gephi <- function (net, lemma, sub) {
   dir <- 'out/edges/'
@@ -106,6 +106,7 @@ net_to_gephi <- function (net, lemma, sub) {
   gephi_write_edges(net, path=paste0(dir, f_out_edges))
   # f_out_nodes <- paste0(lemma, '_', sub[['sub']], '_nodes.csv')
   # gephi_write_nodes(net, path=paste0(dir, f_out_nodes))
+  # f_out_both <- paste0(lemma, '_', sub[['sub']], '_both.csv')
   # gephi_write_both(net, pathedges=paste0(dir, f_out_edges), pathnodes=paste0(dir, f_out_nodes))
 }
 
