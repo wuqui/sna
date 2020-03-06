@@ -7,7 +7,7 @@ get_users_month <- function (tweets) {
     distinct(USER, .keep_all=TRUE) %>%
     mutate(MONTH = as_date(cut(DATE, "month"))) %>%
     group_by(MONTH) %>%
-    summarize(USERS_MONTH=n())
+    dplyr::summarize(USERS_MONTH=n())
 }
 
 

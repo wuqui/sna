@@ -48,9 +48,10 @@ df_comp %<>%
   filter(
     SKIP != TRUE,
     SUBSETTING == 'time'
-    # USES_TOT >= 1000
-    # established words
-    # distinguish successful and unsuccessful
+    # successful words: USES_TOT >= 10000
+    # unsuccessful words: USES_TOT <= 10000
+    # weird words: big dick energy
+    # established words from list
     )
 ```
 
@@ -72,7 +73,17 @@ df_comp %>%
 # Case studies
 
 ```{r include=FALSE}
-cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
+cases <- c(
+  'ghosting', 
+  'lituation', 
+  'alt-left', 
+  'solopreneur',
+  'upcycling',
+  'upskill',
+  'baecation',
+  'dashcam',
+  'overtourism'
+  )
 ```
 
 
@@ -86,7 +97,22 @@ tweets %>%
 ```
 
 
-## Usage intensity
+## Usage frequency
+
+### Overall across cases
+
+```{r}
+df_comp %>%
+  filter(
+    LEMMA %in% cases,
+    SUBSET == 'full'
+    ) %>%
+   arrange(desc(USES_TOT))
+```
+
+
+
+### Single lemma
 
 ```{r}
 uses <- get_uses(tweets)
@@ -107,19 +133,17 @@ ggplotly(uses_plt)
 
 ```{r}
 plt <- df_comp %>%
-  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE) %>%
+  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV) %>%
   filter(
-    SUBSETTING == 'time',
     SUBSET != 'full',
     LEMMA %in% cases
   ) %>%
-  mutate(SUBSET = factor(SUBSET, levels=c('one', 'two', 'three', 'four'))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
     geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
     guides(group=FALSE) +
     ggtitle('Diffusion over time: changes in degree centralization') +
-    scale_y_continuous('degree centrality (log)', trans='log') +
+    scale_y_continuous('degree centrality') +
     scale_x_discrete('subset')
 
 plt
@@ -142,7 +166,7 @@ df_comp %>%
     CENT_DEGREE, 
     CENT_EV
     ) %>%
-  arrange(desc(CENT_EV))
+  arrange((CENT_DEGREE))
 ```
 
 
@@ -164,8 +188,8 @@ df_comp %>%
     USES >= 2
     ) %>%
   arrange(
-    (CENT_DEGREE)
-    # desc(CENT_EV)
+    # (CENT_DEGREE)
+    desc(CENT_EV)
   )
 ```
 
@@ -198,22 +222,11 @@ plt
 ```{r}
 df_comp %>%
   filter(
-    SUBSET %in% (c(
-      'one', 
-      'two',
-      'three',
-      'four'
-      )),
+    SUBSET %in% c('one', 'two', 'three', 'four'),
     USES_TOT >= 10000
     ) %>%
   group_by(SUBSET) %>%
   summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
-  mutate(SUBSET = factor(SUBSET, levels=c(
-    'one', 
-    'two',
-    'three',
-    'four'
-    ))) %>%
   ggplot(., aes(x=SUBSET, y=CENT_AVG, group=1)) +
     geom_line() +
     geom_point()
@@ -233,7 +246,7 @@ df_comp %>%
     USES_TOT >= 10000
     ) %>%
   dplyr::group_by(LEMMA) %>%
-  dplyr::mutate(CENT_DIFF = CENT_DEGREE - lag(CENT_DEGREE)) %>%
+  dplyr::mutate(CENT_DIFF = CENT_DEGREE - lag(CENT_DEGREE, default=CENT_DEGREE[1])) %>%
   drop_na() %>%
   select(-SUBSET) %>%
   rename(
@@ -263,7 +276,7 @@ df_comp %>%
 ```{r}
 plt <- df_comp %>%
   filter(
-    SUBSET == 'four'
+    SUBSET == 'full'
     # USES %in% (10000:2000000),
     # USES %in% (150000:500000),
     # !LEMMA %in% c('slut shaming', 'dashcam', 'shareable', 'cuckold', 'deep learning', 'hyperlocal')
@@ -298,10 +311,10 @@ ggplotly(plt)
 df_comp %>%
   filter(
     SUBSETTING == 'time',
-    SUBSET == 'four'
+    SUBSET == 'full'
     ) %>%
   select(LEMMA, USES_TOT, SUBSET, USES, CENT_DEGREE) %>%
-  mutate(DISC = USES / CENT_DEGREE) %>%
+  mutate(DISC = USES_TOT / CENT_DEGREE) %>%
   arrange(DISC)
 ```
 
@@ -309,14 +322,14 @@ df_comp %>%
 ### Correlation
 
 ```{r}
-df_corr_full <- df_comp %>%
+df_corr <- df_comp %>%
   filter(
     # SUBSET != 'full'
     # EDGES >= 100
     ) %>%
-  select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP, NROWS))
+  select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP))
   
-cor.test(df_corr_full$USES, df_corr_full$CENT_DEGREE)
+cor.test(df_corr$USES, df_corr$CENT_DEGREE)
 ```
 
 
@@ -353,8 +366,8 @@ df_comp %>%
 ```{r}
 plt <- df_comp %>%
   filter(SUBSET == 'full') %>%
-  select(LEMMA, USES, USERS) %>%
-  ggplot(., aes(x=USERS, y=USES)) +
+  select(LEMMA, USES_TOT, USERS_TOT) %>%
+  ggplot(., aes(x=USERS_TOT, y=USES_TOT)) +
     geom_text(aes(label=LEMMA)) +
     scale_x_continuous(trans='log') +
     scale_y_continuous(trans='log') +
@@ -367,7 +380,7 @@ ggplotly(plt)
 ```{r}
 df_comp %>%
   filter(SUBSET == 'full') %>%
-  select(USES, USERS) %>%
+  select(USES_TOT, USERS_TOT) %>%
   correlate()
 ```
 
@@ -378,9 +391,9 @@ df_comp %>%
 df_comp %>%
   filter(
     SUBSET == 'full',
-    USES >= 1000
+    USES_TOT >= 1000
     ) %>%
-  select(LEMMA, USES, COEF_VAR) %>%
+  select(LEMMA, USES_TOT, COEF_VAR) %>%
   arrange(desc(COEF_VAR))
 ```
 
@@ -392,7 +405,7 @@ df_comp %>%
 ```{r}
 df_comp %>%
   select(LEMMA, SUBSET, STAMP) %>%
-  filter(SUBSET == 'last') %>%
+  filter(SUBSET == 'four') %>%
   # mutate(STAMP = as_datetime(STAMP)) %>%
   arrange(desc(STAMP))
 ```
@@ -403,10 +416,10 @@ df_comp %>%
 ```{r}
 df_comp %>%
   filter(SUBSET == 'full') %>%
-  select(LEMMA, SUBSET, USES, USERS) %>%
+  select(LEMMA, SUBSET, USES_TOT, USERS_TOT) %>%
   dplyr::summarise(
-    USES_TOT = sum(USES),
-    USERS_TOT = sum(USERS)
+    USES_ALL = sum(USES_TOT),
+    USERS_ALL = sum(USERS_TOT)
     )
 ```
 
@@ -418,8 +431,8 @@ df_comp %>%
   filter(SUBSET == 'full') %>%
   select(LEMMA, COEF_VAR, CENT_DEGREE) %>%
   ggplot(., aes(y=COEF_VAR, x=CENT_DEGREE)) +
-    geom_text(aes(label=LEMMA)) +
-    scale_y_continuous(trans='log')
+    geom_text(aes(label=LEMMA))
+    # scale_y_continuous(trans='log')
 ```
 
 
@@ -430,13 +443,13 @@ library(Hmisc)
 
 df_corr <- df_comp %>%
   # filter(SUBSET == 'last') %>%
-  select(-c(LEMMA, SUBSET, NET_WINDOW_DATES, SKIP, STAMP, NROWS))
-  # select(-c(USERS, AGE)) %>%
-  # mutate(FOCUS = USES) %>%
+  # select(-c(LEMMA, SUBSETTING, SUBSET, START, END, SKIP, STAMP)) %>%
+  # select(-c(USERS_TOT, AGE)) %>%
+  # mutate(FOCUS = USES_TOT) %>%
   # focus(FOCUS) %>%
   # ggplot(., aes(reorder(rowname, FOCUS), FOCUS)) +
-    # geom_col() +
-    # coord_flip()
+  # geom_col() +
+  # coord_flip()
   # rearrange() %>%
   # shave() %>%
   # rplot()

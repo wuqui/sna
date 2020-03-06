@@ -25,7 +25,7 @@ subsetting <- 'time'
 export_edges <- FALSE
 
 
-for (lemma in lemmas[99:length(lemmas)]) {
+for (lemma in c('upcycling')) {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
