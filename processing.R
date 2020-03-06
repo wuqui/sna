@@ -36,13 +36,8 @@ if (exists('df_comp') == FALSE) {
 
 # load data ----
 tweets <- load_data(corpus, lemma)
-
-# post-processing ----
 tweets <- postproc(tweets)
-
-# filter tweets
-tweets %<>%
-  filter(date <= '2018-12-31')
+tweets <- filter_tweets(tweets)
 
 
 # uses ----

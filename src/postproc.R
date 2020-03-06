@@ -24,3 +24,10 @@ postproc <- function(tweets) {
   tweets <- rem_notoks(tweets)
   return(tweets)
 }
+
+
+filter_tweets <- function (tweets) {
+  tweets <- tweets %>%
+    filter(date <= '2018-12-31')
+  return(tweets)
+}
