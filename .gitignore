@@ -48,7 +48,7 @@ packrat/lib*/
 doc/*
 !doc/*.tex
 !doc/*.pdf
-!doc/images/
+# !doc/images/
 
 # output
 out/*
