@@ -13,7 +13,7 @@ get_uses <- function (tweets) {
 }
 
 
-get_diff_start <- function (tweet, method) {
+get_diff_start <- function (tweet, method, limit) {
   if (method == 'edges') {
     tweets %>%
       filter(mentions != '[]') %>%
@@ -21,7 +21,7 @@ get_diff_start <- function (tweet, method) {
       mutate(week = as_date(cut(date, 'week'))) %>%
       dplyr::group_by(week) %>%
       dplyr::summarise(uses = n()) %>%
-      filter(uses > 1) %>%
+      filter(uses >= limit) %>%
       slice(1:1) %>%
       pull(week)
   } else if (method == 'users') {
@@ -31,7 +31,7 @@ get_diff_start <- function (tweet, method) {
       mutate(week = as_date(cut(date, 'week'))) %>%
       dplyr::group_by(week) %>%
       dplyr::summarise(users = n()) %>%
-      filter(users > 1) %>%
+      filter(users >= limit) %>%
       slice(1:1) %>%
       pull(week)
   }
@@ -94,7 +94,7 @@ get_cuts_freq <- function (uses_month) {
     mean_idx <- which(uses_desc$USES >= mean)[1]
     mean_date <- uses_desc[[mean_idx,"DATE"]]
   }
-  tibble(
+  cuts_freq <- tibble(
     CUT = c(
       'one',
       'two',
@@ -111,11 +111,10 @@ get_cuts_freq <- function (uses_month) {
 }
 
 
-get_cuts_time <- function (tweets) {
-  age <- get_age(tweets)
-  zero <- get_start_date(tweets)
-  hundred <- get_end_date(tweets)
-  tibble(
+get_cuts_time <- function (tweets, diff_start) {
+  diff_end <- get_end_date(tweets)
+  diff_dur <- diff_end - diff_start
+  cuts_time <- tibble(
     CUT = c(
       'one',
       'two',
@@ -123,12 +122,14 @@ get_cuts_time <- function (tweets) {
       'four'
     ),
     DATE = c(
-      get_start_date(tweets),
-      zero + age / 4,
-      zero + age / 2,
-      hundred - age / 4
+      diff_start,
+      diff_start + diff_dur / 4,
+      diff_start + diff_dur / 2,
+      diff_end - diff_dur / 4
     )
   )
+  cuts_time %<>% 
+    mutate(CUT = factor(CUT, levels=c('one', 'two', 'three', 'four')))
 }
 
 
@@ -233,7 +234,7 @@ plt_uses <- function (
     ggtitle(lemma) +
     scale_y_continuous("Tweets / month") + 
     scale_x_date("") +
-    geom_vline(data=sub_limits, aes(xintercept=DATE, color=SUB)) +
+    # geom_vline(data=sub_limits, aes(xintercept=DATE, color=SUB)) +
     geom_vline(data=sub_cuts, aes(xintercept=DATE, color=CUT))
 }
 

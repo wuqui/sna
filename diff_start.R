@@ -89,3 +89,5 @@ diff_starts %>%
   mutate(DISCREP_TWO_THREE = DIFF_START - lag(DIFF_START, n=1)) %>%
   filter(LIMIT == 3) %>%
   arrange(desc(DISCREP_TWO_THREE))
+
+

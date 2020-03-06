@@ -13,7 +13,7 @@ library(magrittr)
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 lemmas <- list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur')
+cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur', 'upcycling')
 # cases_min <- c('microflat', 'begpacker')
 # lemma <- 'ghosting'
 
@@ -25,7 +25,7 @@ subsetting <- 'time'
 export_edges <- FALSE
 
 
-for (lemma in c('upcycling')) {
+for (lemma in 'lituation') {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
@@ -42,10 +42,7 @@ tweets <- postproc(tweets)
 
 # filter tweets
 tweets %<>%
-  filter(
-    date >= get_diff_start(tweets, method='edges'),
-    date <= '2018-12-31'
-  )
+  filter(date <= '2018-12-31')
 
 
 # uses ----
@@ -56,7 +53,8 @@ coef_var <- get_coef_var(uses)
 uses_month <- bin_uses(uses, 'month')
 
 
-# subsets ---- 
+# subsetting ---- 
+
 subs = list()
 subs[['one']] = list()
 subs[['two']] = list()
@@ -92,7 +90,8 @@ if (subsetting == 'freq') {
   
 } else if (subsetting == 'time') {
   
-  sub_cuts <- get_cuts_time(tweets)
+  diff_start <- get_diff_start(tweets, method='edges', limit=2)
+  sub_cuts <- get_cuts_time(tweets, diff_start)
   
   subs[['one']][['cut']] <- sub_cuts %>% filter(CUT=='one') %>% pull(DATE)
   subs[['two']][['cut']] <- sub_cuts %>% filter(CUT=='two') %>% pull(DATE)
