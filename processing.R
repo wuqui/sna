@@ -14,18 +14,20 @@ library(magrittr)
 corpus <- '/Volumes/qjd/twint/'
 lemmas <- list.dirs(corpus, full.names=FALSE, recursive=FALSE)
 cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur', 'upcycling')
-# cases_min <- c('microflat', 'begpacker')
-# lemma <- 'ghosting'
+
+directed <- TRUE
 
 win_size <- 1000
-directed <- TRUE
 layout <- 'kk'
 
 subsetting <- 'time'
+diff_start_method <- 'edges'
+diff_start_limit <- 3
+
 export_edges <- FALSE
 
 
-for (lemma in 'lituation') {
+for (lemma in lemmas) {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
@@ -85,7 +87,7 @@ if (subsetting == 'freq') {
   
 } else if (subsetting == 'time') {
   
-  diff_start <- get_diff_start(tweets, method='edges', limit=2)
+  diff_start <- get_diff_start(tweets, diff_start_method, diff_start_limit)
   sub_cuts <- get_cuts_time(tweets, diff_start)
   
   subs[['one']][['cut']] <- sub_cuts %>% filter(CUT=='one') %>% pull(DATE)
@@ -194,6 +196,8 @@ for (sub in subs) {
     CENT_DEGREE = sub[['net_metrics']][['cent_degree']],
     CENT_EV = sub[['net_metrics']][['cent_ev']],
     SUBSETTING = subsetting,
+    DIFF_START_METHOD = diff_start_method,
+    DIFF_START_LIMIT = diff_start_limit,
     SKIP = skip,
     STAMP = now()
     )

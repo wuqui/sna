@@ -15,6 +15,8 @@
 
 % new commands
 
+  \renewcommand{\hw}[1]{\textbf{#1}}
+
   \newcommand{\lsil}[1]{\lstinline[language=Python]{#1}}
   \newcommand{\mtrc}[1]{\textcolor{blue}{#1}}
 
@@ -33,37 +35,83 @@
 
 % text body
 
+  \cleardoublepage
+
 \section{Introduction}
 
-  \begin{easylist}[itemize]
-    # \hw{Social media} has changed the way we communitate.
-      ## It has changed the social fabric of our society (elections, press vs. \enquote{influencers}) and the sociolinguistic dynamics of how we communicate (fake news)
-      ## It has also changed the language system and the way the language system changes. Much as \hw{cultural innovations} like XXX \enquote{go viral}, new digital modes of communication also affect the way \hw{linguistic innovations} spread. \todo{technical innovation, example like \ol{blockchain}}
-      ## real viruses like Corona seem to spread similarly as linguistic innovations \enquote{go viral} \parencite{EandT2020}
-    # This opens up new research questions and new ways to tackle previous questions in sociolinguistics. (sociolinguistics $\rightarrow$ computational sociolinguistics)
-      # new data
-      # new methods: social network analysis
-    # research questions
-      # How do new words spread?
-      # Which factors influence their spread?
-  \end{easylist}
+  The Corona virus has recently spread with shocking speed and has tragically affected the lives of people around the world. Its fatal consequences have demonstrated the devastating power of exponential contagion.  A leading research group of biologists analysing the spread of Corona have shown that the virus spreads supra-exponentially and they have likened its dynamics to the diffusion of cultural and linguistic innovations such as internet memes. \parencite{EandT2020} Does this confirm the popular perception that certain cultural and linguistic innovations \enquote{go viral}, after all?
+
+  Societies constantly evolve, new products and practices emerge and speakers continually invent and adopt new words which diffuse through social networks of communicative interaction. Influential models in sociolinguistics like the S-curve model \parencite{Milroy1992} and its compatibility with economic models \parencite{Rogers1962} suggest commonalities between the diffusion of cultural and linguistic innovations. These models assume that the diffusion of linguistic innovations across social networks follows universal trajectories and that rates of diffusion depend on sociolinguistic dynamics such as network density and the presence or absence of weak ties \parencite{Granovetter1977}.
+
+  Unlike research on biological and cultural diffusion processes, sociolinguistic research has only fairly recently been provided with datasets that are suitable for large-scale, data-based approaches and that contain the necessary information to study these phenomena empirically using social network analyses.
+
+  The technological innovation of social media platforms like Twitter and the increasing availability of linguistic data from these sources for academic research allow for large-scale usage-based investigations of authentic language use.
+
+  The informal nature and the sheer size of these data have promoted significant advances in the study of new words, as neologisms are often propagated via social media channels and as their inherently low frequency of occurrence requires large corpora. In contrast to modern web corpora, which share these features, the availability of metadata about speakers and their interactions has been particularly important for the advancement of sociolinguistic research.
+
+  For example, recent sociolinguistic work on lexical innovation has used social media data to gain insights about general trajectories \parencite{Nini2017} and geographical patterns \parencite{Eisenstein2014,Grieve2017,Grieve2018} of diffusion and about factors that influence whether new words spread successfully \parencite{Grieveforthcoming}.
+
+  new methods: social networks
+
+    The study of social networks has had a long research tradition in sociolinguistics and has shaped current models of diffusion (e.g. \cite{Milroy1985}). However, large-scale empirical corpus studies using social network analysis have only recently become feasible in the field of sociolinguistics.
+
+      promising in other fields: agent-based modeling
+      also promising for lexical innovation
+      not been done enough
+      I will do it
+
+  \todo{
+    impact of social media
+      social fabric: elections, press, influencers
+      how we communicate: fake news
+      language system: blends, acronyms, hashtags
+  }
+
+  This paper presents an empirical approach to investigate these phenomena by studying the trajectory and sociolinguistic dynamics of how new words diffuse across social networks on Twitter.
+
+  Section X will present the theoretical framework for modelling the diffusion of new words ... and operationalization
+  Section X will indicate the data and methods I use for my empirical investigation
+  Section
 
 \section{Theoretical background}
 
-  \subsection{Modeling the conventionalization of lexical innovations}
+    \hw{Research question}: How do new words diffuse and become conventional lexical items in a language system?
+
+  \subsection{Research perspectives}
+
+    A substantial body of linguistic research has tackled this question from different \hw{perspectives}. \parencite[16]{Schmid2016}
+
+    From a \hw{structural} perspective, main areas of interest include which word-formation processes are involved in forming new words, whether they are formally and semantically transparent, whether they show variation and change in the process of lexicalization and which status the resulting neologisms have in the language system (institutionalization). (e.g. \cite{Bauer1983,Lipka2005}
+
+    \hw{Cognitive} perspectives focus on how individuals process and store lexical innovations. Speakers generally use new words when they experience a communicative need to talk about entities or practices that cannot be expressed by their language's inventory of conventional words yet. In order for neologisms to successfully diffuse, speakers need to successfully negotiate their meaning (co-semiosis) in discourse, others need to adopt the behaviour of using these words (co-adaption). Continued exposure and use of new words can then lead to the entrenchment of new words in the mental lexicon of speakers. \parencite{Schmid2008}
+
+    \hw{Sociolinguistic} perspectives transcend the level of the individual to study the diffusion of new words across speakers. The diffusion of lexical innovations is commonly seen as successful when the majority of the speech community has accepted a new word as a conventional lexical unit that can and is being used in communicative practice.
+
+  \subsection{The S-curve model}
+
+    \hw{S-curve models} of linguistic change \parencite{Labov2007,Milroy1992,Nevalainen2015} assume universal sociolinguistic dynamics for the diffusion of linguistic innovations.
 
     \begin{easylist}[itemize]
-      # Research question: how do new words spread in the speech community?
-      # previous perspectives
-        ## \hw{structural}: language system, lexicalization, instutionalization, word-formation processes etc. \cite{Bauer1983,Lipka2005}
-        ## \hw{cognitive} \parencite{Schmid2008}
-        ## \hw{sociolinguistic}: S-curves \parencite{Labov2007,Milroy1992}
-      # current framework: based on the EC-Model \parencite{Schmid2020}
-        ## spread across usage contexts
-        ## spread across speakers
+
+      # The \hw{trajectory} of spread is expected to follow an S-curve shape, with low rates of diffusion in early stages, followed by a period of accelerating spread with a tipping point at the mid point in the diffusion curve after which diffusion slows down and the curve flattens towards the end of the diffusion process.
+
+      # These temporal trajectories are assumed to correspond to the \hw{sociolinguistic dynamics} of which individuals and groups interact with each other and adopt the target innovation.
+
+        ## In the \hw{first stage} of slow diffusion only a small number of early adopters take up the innovative words. The individuals who use the new word typically form dense networks connected by strong ties. The structure of tight-knit communities of potentially like-minded individuals of similar backgrounds facilitates the successful negotiation of meaning (co-semiosis) of new words. High rates of interactions in these communities leads to high rates of exposure for individuals, which fosters co-adaption, entrenchment and usualization of new words in these communities.
+
+        ## In cases of successful diffusion the initial stages are followed by an \hw{acceleration in spread} when new words increasingly reach speakers outside these tight-knit communities via weak ties \parencite{Granovetter1977}. Rates of diffusion increase substantially when speakers that are not part of the initial group of early adopters start to accomodate the new words, allowing the innovations to reach a broader spectrum of the speech community.
+
+        ## In \hw{later stages}, rates of diffusion slow down again as the majority of the speech community has already adopted the new words while smaller pockets speakers remain reluctant to take up the new words.
+
+      # S-curve models have mainly been applied to the \hw{linguistic domains} of phonology and syntax. Fundamental differences between lexemes and linguistic items on other levels such as phonemes and grammatical constructions might affect whether the validity and reliability of such models for \emph{lexical} innovation.
+
+        ## For example, grammatical constructions such as the \ol{going to} future used to express a speaker's future intention serve to fulfill relatively abstract communicative needs that remain stable over time. By contrast, on the lexical level, linguistic innovations are typically tied to concrete cultural referents such as products and practices whose conceptual relevance is much more volatile over time. For example, many lexical innovations such as \ol{millennium bug} denoting the fear of a computer crash at the beginning of the new millennium can show high rates of diffusion and become entrenched and conventional among the majority of the speech community. Without continual conceptual relevance in public discourse, however, these words fail pass on to the next generation of speakers. S-curves are commonly assumed to be found when linguistic innovations compete for \hw{\enquote{semantic carrying capacity}} \parencite{Nini2017}, however, in many if not most cases of \emph{lexical} innovation the conceptual carrying capacity is far from stable over time which represents a critical deviation from the traditional assumptions behind S-curves in language change.
+
+        ## However, the generally strong theoretical and empirical basis of the S-curve model for language innovation and change, also from studies on the diffusion of cultural innovations \parencite{Rogers1962}, and the precise formulation of the sociolinguistic dynamics underlying different phases of diffusion still make it an attractive \hw{blueprint} for the empirical study of the sociolinguistic diffusion of lexical innovations.
+
     \end{easylist}
 
-  \subsection{Investigation the conventionalization of lexical innovations empirically}
+  \subsection{Empirical approaches}
 
     \begin{easylist}[itemize]
       # Previous work has produced some important insights.
@@ -75,7 +123,7 @@
 
       \begin{easylist}[itemize]
         # traditional corpora \parencite{Elsen2004}
-        # web corpora \cite{Renouf2006,Kerremans2012}
+        # web corpora \parencite{Renouf2006,Kerremans2012,Lemnitzer,Gerard2017,Cartier2017}
           ## linguistic creativity and innovation happen there
           ## big amounts of data
             ### big neologism samples
@@ -90,11 +138,26 @@
             ## influencers
       \end{easylist}
 
-  \subsection{Goal: investigating the sociolinguistic dynamics}
+  \subsection{Current framework: the EC-Model (Schmid 2020)}
+    \nocite{Schmid2020}
+
+    The EC-Model integrates both structural, cognitive and sociolinguistic perspectives on language structure, variation and change.
+
+    \hw{Entrenchment}: individuals
+
+    \hw{Conventionalization}: society, sociolinguistics $\rightarrow$ focus of this paper
+
+    \hw{Usualization}
+
+    \hw{Diffusion}
+
+      definition
+
+  \subsection{Operationalization}
 
     \begin{easylist}[itemize]
       # going beyond frequency
-      # sociolinguistic information
+      # sociolinguistic dynamics
         ## number of users
         ## social network characteristics
         ## influencers
@@ -106,13 +169,17 @@
 
     \begin{easylist}[itemize]
       # corpus
-        ## longitudinal: retrospective
+        ## longitudinal: retrospective, starting from early attestations
         ## big data
         ## social network information
       # sample
         ## basis: bottom-up selection by NeoCrawler \parencite{Kerremans2018}
+        ## covering candidates from clusters found in earlier empirical work \parencite{Kerremans2015}
+          ### no diffusion
+          ### topical
+          ### recurrent
+          ### advanced
         ## extension
-          ### quite stable: not topical
           ### reasonably successful: e.g. technical innovations like \ol{blockchain}
           ### sociolinguistically interesting: e.g. political terms such as \ol{covfefe}
     \end{easylist}
@@ -129,50 +196,69 @@
         ## edges: interactions
     \end{easylist}
 
-\section{Sample selection}
+\section{Sample}
 
-  \subsection{General sample}
+  \subsection{Neologism candidates}
 
     \begin{easylist}[itemize]
-      # clustering: the words can be clustered in these groups \parencite{Kerremans2015}
-      # distinguishing between stable and unstable usage: \mtrc{coefficient of variation}
-      # distinguishing between degree of success: \mtrc{cumulative usage intensity}
-        ## no success
-        ## limited
+
+      # previous categorization \parencite{Kerremans2015}
+        ## no diffusion
+        ## topical
+        ## recurrent
         ## advanced
-    # S-curves
-      ## we don't expect S-curve trajectories for \hw{topical} neologisms because of variable conceptual salience (cf. \cite{Nini2017})
-      ## for stable neologisms we might expect S-curves \mtrc{model testing for S-curves}
-        ### according to sociolinguistic theory we expect certain sociolinguistic dynamics in their spread
-        ### in the following sections we will employ social network analysis to empirically test these longstanding hypotheses
+
+      # dimensions
+
+        ## overall degree of diffusion (synchronic): successful vs. unsuccessful: \mtrc{usage frequency}, \mtrc{degree centralization}
+          ### no success
+          ### limited
+          ### advanced
+
+        ## temporal dynamics of diffusion (diachronic)
+          ## stability: stable vs. topical \mtrc{coefficient of variation}
+          ## trend
+            ## diffusion: increasing degree of diffusion
+            ## centralization: decreasing degree of diffusion
+          ## speed
+
     \end{easylist}
 
   \subsection{Case studies}
 
     \begin{easylist}[itemize]
+
       # criteria
-        ## stable
-        ## successful
-        ## sociolinguistically marked vs. unmarked
-        ## comparable in frequency
+
+        ## covering clusters of neolgism candidates
+        ## frequency counts comparable
+
       # cases \parencite{Kerremans2015}
-        ## unsuccessful: \ol{microflat} (will be excluded)
-        ## advanced: \ol{ghosting}
-        ## increasing: \ol{lituation}
-        ## centralized: \ol{alt-left}
-        ## decreasing: \ol{solopreneur}
+        ## no diffusion: \ol{microflat}
+        ## limited
+          ### topical: \ol{poppygate}
+          ### centralized: \ol{alt-left}
+          ### decreasing: \ol{solopreneur}
+        ## advanced diffusion:
+          ### advanced: \ol{upcycling}
+          ### increasing: \ol{hyperlocal}
+
     \end{easylist}
 
 \section{Frequency}
 
   \begin{easylist}[itemize]
 
-    # baseline assumptions
-      # speech community: frequency = conventionality
-        ## high freq. = majority of speakers show entrenchment
-      # individuals: exposure $\rightarrow$ entrenchment
+    # Frequency is usually taken as the measure to approximate the degree of conventionality and entrenchment of linguistic entities.
+
+    # There are a number of underlying assumptions.
+
+      ## speech community: frequency = conventionality
+        ### high freq. = majority of speakers show entrenchment
+      ## individuals: exposure $\rightarrow$ entrenchment
 
     # problems
+
       ## temporal dynamics (e.g. \ol{millenium bug})
       ## output != input ~\parencite{Stefanowitsch2017}
       ## high freq != many speakers
@@ -180,7 +266,7 @@
 
   \end{easylist}
 
-  \subsection{Cumulated frequencies}
+  \subsection{Overall degree of diffusion}
 
     \begin{figure}[H]
       \caption{Cumulative counts for unique speakers that have used the target neologisms.}
@@ -208,12 +294,14 @@
       \end{subfigure}
     \end{figure}
 
-  \subsection{Temporal dynamics: coefficient of variation}
+  \subsection{Temporal dynamics}
 
-    \begin{easylist}[itemize]
-      # most volatile candidates: \ol{poppygate}, \ol{burkini} etc.
-      # will be excluded from in-depth analyses
-    \end{easylist}
+    \subsubsection{Coefficient of variation}
+
+      \begin{easylist}[itemize]
+        # most volatile candidates: \ol{poppygate}, \ol{burkini} etc.
+        # will be excluded from in-depth analyses
+      \end{easylist}
 
   \subsection{Speaker counts}
 

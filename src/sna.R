@@ -1,8 +1,10 @@
 library(tidygraph)
 library(igraph)
 library(ggraph)
+
 # install.packages("devtools")
 # devtools::install_github("RMHogervorst/gephi")
+# devtools::install_github("https://github.com/RMHogervorst/gephi.git")
 library(gephi)
 
 
@@ -100,14 +102,15 @@ create_net <- function (edges, nodes, directed) {
 
   
 # export to Gephi
+# install.packages("devtools")
+devtools::install_github("RMHogervorst/gephi")
 net_to_gephi <- function (net, lemma, sub) {
   dir <- 'out/edges/'
-  f_out_edges <- paste0(lemma, '_', sub[['sub']], '.csv')
-  gephi_write_edges(net, path=paste0(dir, f_out_edges))
-  # f_out_nodes <- paste0(lemma, '_', sub[['sub']], '_nodes.csv')
+  f_out_edges <- paste0(lemma, '_', sub[['sub']], '_edges.csv')
+  f_out_nodes <- paste0(lemma, '_', sub[['sub']], '_nodes.csv')
+  # gephi_write_edges(net, path=paste0(dir, f_out_edges))
   # gephi_write_nodes(net, path=paste0(dir, f_out_nodes))
-  # f_out_both <- paste0(lemma, '_', sub[['sub']], '_both.csv')
-  # gephi_write_both(net, pathedges=paste0(dir, f_out_edges), pathnodes=paste0(dir, f_out_nodes))
+  gephi_write_both(net, pathedges=paste0(dir, f_out_edges), pathnodes=paste0(dir, f_out_nodes))
 }
 
 
