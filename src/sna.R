@@ -102,8 +102,6 @@ create_net <- function (edges, nodes, directed) {
 
   
 # export to Gephi
-# install.packages("devtools")
-devtools::install_github("RMHogervorst/gephi")
 net_to_gephi <- function (net, lemma, sub) {
   dir <- 'out/edges/'
   f_out_edges <- paste0(lemma, '_', sub[['sub']], '_edges.csv')
@@ -121,7 +119,8 @@ get_net_metrics <- function (net, directed, subset, subsetting) {
       'cent_degree' = centralization.degree(net, normalized=TRUE)$centralization, # could use `mode=IGRAPH_IN` to only consider in-degree
       'cent_ev' = centralization.evcent(net, normalized=TRUE)$centralization,
       'modularity' = NA,
-      'communities_n'= NA
+      'communities_n'= NA,
+      'density' = igraph::graph.density(igraph::simplify(net, remove.multiple=TRUE), loops=FALSE)
   )
   if (subset[['sub']] != 'full' & subsetting == 'freq') {
     communities <- cluster_edge_betweenness(net, directed=directed, weights=NULL)
@@ -134,7 +133,6 @@ get_net_metrics <- function (net, directed, subset, subsetting) {
     # cent_close = centralization.closeness(net, normalized=TRUE)$centralization,
     # 'reciprocity' = reciprocity(net), # proportion of mutual connections
     # 'transitivity'= transitivity(net), # probability that two neighbors of a vertex are connected, i.e. ratio of triangles and connected triples
-    # 'density' = igraph::graph.density(igraph::simplify(net, remove.multiple=TRUE)), # ratio of observed vs. potential edges
     # 'assortativity' = assortativity_degree(net), # propensity of similar nodes to be connected
     # 'clique_size_max' = clique_num(net), # size of biggest clique
     # 'comp_unconn' = count_components(net) # n. of unconnected components

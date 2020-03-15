@@ -1,8 +1,4 @@
-\documentclass[
-  a4paper,
-  % twocolumn,
-  % draft
-  ]{scrartcl}
+\documentclass[a4paper]{scrartcl}
 
 % packages
 
@@ -30,17 +26,25 @@
   \author{Quirin Würschinger\\ LMU Munich}
   \maketitle
 
-\listoftodos
+% \listoftodos
 
 \tableofcontents
 
-% text body
+\cleardoublepage
 
-  \cleardoublepage
+\listoffigures
+
+\listoftables
+
+\cleardoublepage
+
+% text body
 
 \section{Introduction}
 
   The coronavirus has recently spread with shocking speed and has tragically affected the lives of people around the world. Its fatal consequences have demonstrated the devastating power of exponential diffusion in social networks. A leading research group of biologists analysing the contagion of Covid-19 have shown that the virus spreads supra-exponentially and that it resembles the diffusion of cultural and linguistic innovations such as internet memes.~\parencite{EandT2020} Does this confirm the popular perception that certain cultural and linguistic innovations \enquote{go viral}?
+
+  \todo{state gist of the paper}
 
   Societies constantly evolve, new products and practices emerge and speakers continually invent and adopt new words which diffuse through social networks of communicative interaction. Influential models in sociolinguistics like the S-curve model~\parencite{Milroy1992} share fundamental features with economic models~\parencite{Rogers1962} of diffusion and show commonalities between the spread of cultural and linguistic innovations. These models assume that the diffusion of innovations across social networks follows universal trajectories and that rates of spread depend on sociolinguistic dynamics such as network density and the presence or absence of weak ties~\parencite{Granovetter1977}. Unlike research on biological and cultural diffusion processes, sociolinguistic research has only fairly recently been provided with data sources that are equally suitable for large-scale, data-based approaches that use social network analyses to study these phenomena empirically.
 
@@ -50,7 +54,7 @@
 
   The size of these data as well as their informal nature allow corpus studies on the use and spread of new words which are often propagated via social media channels. In contrast to modern web corpora, which share these features, the availability of metadata about speakers and their interactions has been particularly important for the advancement of sociolinguistic research. Recent sociolinguistic work on lexical innovation has, for example, used data from social media users to gain insights about general trajectories~\parencite{Nini2017} and geographical patterns~\parencite{Eisenstein2014,Grieve2017,Grieve2018} of diffusion and about factors that influence whether new words spread successfully~\parencite{Grieveforthcoming}.
 
-  Social network analysis analyses interactional patterns between language users and allows to zoom in on sociolinguistic dynamics of diffusion to see, for examples, whether the adoption of new words remains limited to closely connected sub-communities, whether they reach bigger parts of the speech community and whether certain individuals or groups influence this process. While the study of social networks has had a long research tradition in sociolinguistics and has shaped current models of diffusion (e.g. \cite{Milroy1985}), new data sources have only fairly made it feasible to conduct large-scale empirical analyses using this approach. Advances in data and methodology of this kind put computational sociolinguistics in an excellent position to tackle old research questions in new ways, to test long-standing theoretical models empirically and to explore new questions and insights about language and society.
+  Social network analysis analyses interactional patterns between language users and allows to zoom in on the sociolinguistic dynamics of diffusion to see, for examples, whether the adoption of new words remains limited to closely connected sub-communities, whether they reach bigger parts of the speech community and whether certain individuals or groups influence this process. While the study of social networks has had a long research tradition in sociolinguistics and has shaped current models of diffusion (e.g. \cite{Milroy1985}), new data sources have only fairly made it feasible to conduct large-scale empirical analyses using this approach. Advances in data and methodology of this kind put computational sociolinguistics in an excellent position to tackle old research questions in new ways, to test long-standing theoretical models empirically and to explore new questions and insights about language and society.
 
   Social network analyses of social media data have been successfully employed in diverse fields, for example to study the spread of diseases~\parencite{Lu2018}, opinions~\parencite{West2014} and political attitudes~\parencite{Pew-Research-Center2019}. So far the application of similar approaches to the study of lexical innovation remains scarce, although recent work shows promising results in testing mathematical models for the diffusion of new words in social networks.~\parencite{Goel2016}
 
@@ -257,35 +261,56 @@
 
   \end{easylist}
 
-  \subsection{Overall degree of diffusion}
+  \subsection{Cumulative counts}
 
     \begin{figure}[H]
-      \caption{Cumulative counts for unique speakers that have used the target neologisms.}
+      \caption{Cumulative frequency counts for case study words.}
       \centering
       \begin{subfigure}{.45\linewidth}
         \caption{\ol{ghosting}}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/users/uu_ghosting.pdf}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_ghosting.pdf}
       \end{subfigure}
       \begin{subfigure}{.45\linewidth}
         \caption{\ol{lituation}}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/users/uu_lituation.pdf}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_lituation.pdf}
       \end{subfigure}
 
       \begin{subfigure}{.45\linewidth}
         \caption{\ol{alt-left}}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/users/uu_alt-left.pdf}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_alt-left.pdf}
       \end{subfigure}
       \begin{subfigure}{.45\linewidth}
         \caption{\ol{solopreneur}}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/users/uu_solopreneur.pdf}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_solopreneur.pdf}
       \end{subfigure}
     \end{figure}
 
   \subsection{Temporal dynamics}
+
+    \begin{figure}
+      \caption{Temporal dynamics in usage frequency for case studies.}
+      \centering
+      \begin{subfigure}{.45\linewidth}
+        \caption{\ol{upcycling}}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_upcycling_time.pdf}
+      \end{subfigure}
+      \begin{subfigure}{.45\linewidth}
+        \caption{\ol{hyperlocal}}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
+      \end{subfigure}
+      \begin{subfigure}{.45\linewidth}
+        \caption{\ol{alt-left}}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-left_time.pdf}
+      \end{subfigure}
+      \begin{subfigure}{.45\linewidth}
+        \caption{\ol{solopreneur}}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_solopreneur_time.pdf}
+      \end{subfigure}
+    \end{figure}
 
     \subsubsection{Coefficient of variation}
 
@@ -294,206 +319,141 @@
         # will be excluded from in-depth analyses
       \end{easylist}
 
+\section{Social network analysis}
+
+  I will go beyond frequency and look into the sociolinguistic dynamics more closely
+
+  \begin{easylist}[itemize]
+    # sociolinguistic dynamics of diffusion over time
+    # sociolinguistic conventionality status of neologism
+  \end{easylist}
+
   \subsection{Speaker counts}
 
-      I will go beyond frequency and look into the sociolinguistic dynamics more closely
+  \subsection{Centralization over time}
+
+    \subsubsection{Overview of changes in centralization for case studies.}
+
+      \begin{figure}[H]
+        \caption{Degree centralization over time for case study words.}
+        \centering
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_diac.pdf}
+      \end{figure}
+
+    \subsubsection{Advanced / from the start: \ol{upcycling}}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{upcycling} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/upcycling_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/upcycling_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/upcycling_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/upcycling_four.pdf}
+        \end{subfigure}
+      \end{figure}
+
+    \subsubsection{Advanced / increasing: \ol{hyperlocal}}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{hyperlocal} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_four.pdf}
+        \end{subfigure}
+      \end{figure}
+
+    \subsubsection{Limited / limited: \ol{alt-left}}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{alt-left} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_four.pdf}
+        \end{subfigure}
+      \end{figure}
+
+    \subsubsection{Limited / decreasing: \ol{solopreneur}}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{solopreneur} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/solopreneur_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/solopreneur_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/solopreneur_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/solopreneur_four.pdf}
+        \end{subfigure}
+      \end{figure}
+
+    \subsubsection{Biggest changes in the full sample}
 
       \begin{easylist}[itemize]
-        # sociolinguistic dynamics of diffusion over time
-        # sociolinguistic conventionality status of neologism
+        # increasing diffusion
+        # centralization
       \end{easylist}
-
-\section{Diffusion over time}
-
-  \subsection{Advanced: \ol{ghosting}}
-
-    \begin{figure}[H]
-      \caption{Usage frequency for \ol{ghosting}.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/uses/ui_ghosting_time.pdf}
-    \end{figure}
-
-    \begin{figure}[H]
-      \caption{Social network of diffusion for \ol{ghosting} over time.}
-      \centering
-      \begin{subfigure}{.45\linewidth}
-        \caption{First stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_one.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Second stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_two.pdf}
-      \end{subfigure}\\
-      \begin{subfigure}{.45\linewidth}
-        \caption{Third stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_three.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Fourth stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/ghosting_four.pdf}
-      \end{subfigure}
-    \end{figure}
-
-  \subsection{Advanced: \ol{upcycling}}
-
-    \begin{figure}[H]
-      \caption{Usage frequency for \ol{upcycling}.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/uses/ui_upcycling_time.pdf}
-    \end{figure}
-
-    \begin{figure}[H]
-      \caption{Social network of diffusion for \ol{upcycling} over time.}
-      \centering
-      \begin{subfigure}{.45\linewidth}
-        \caption{First stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/upcycling_one.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Second stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/upcycling_two.pdf}
-      \end{subfigure}\\
-      \begin{subfigure}{.45\linewidth}
-        \caption{Third stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/upcycling_three.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Fourth stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/upcycling_four.pdf}
-      \end{subfigure}
-    \end{figure}
-
-  \subsection{Increasing diffusion: \ol{lituation}}
-
-    \begin{figure}[H]
-      \caption{Usage frequency of \ol{lituation} over time.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/uses/ui_lituation_time.pdf}
-    \end{figure}
-
-    \begin{figure}[H]
-      \caption{Social network of diffusion for \ol{lituation} over time.}
-      \centering
-      \begin{subfigure}{.45\linewidth}
-        \caption{First stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_one.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Second stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_two.pdf}
-      \end{subfigure}\\
-      \begin{subfigure}{.45\linewidth}
-        \caption{Third stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_three.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Fourth stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/lituation_four.pdf}
-      \end{subfigure}
-    \end{figure}
-
-  \subsection{Centralized use: \ol{alt-left}}
-
-    \begin{figure}[H]
-      \caption{Usage frequency of \ol{alt-left} over time.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/uses/ui_alt-left_time.pdf}
-    \end{figure}
-
-    \begin{figure}[H]
-      \caption{Social network of diffusion for \ol{alt-left} over time.}
-      \centering
-      \begin{subfigure}{.45\linewidth}
-        \caption{First stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_one.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Second stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_two.pdf}
-      \end{subfigure}\\
-      \begin{subfigure}{.45\linewidth}
-        \caption{Third stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_three.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Fourth stage}
-        \centering
-        \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/alt-left_four.pdf}
-      \end{subfigure}
-    \end{figure}
-
-  \subsection{Narrowing: \ol{solopreneur}}
-
-    \begin{figure}[H]
-      \caption{Usage frequency of \ol{solopreneur} over time.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/uses/ui_solopreneur_time.pdf}
-    \end{figure}
-
-    \begin{figure}[H]
-      \caption{Social network of diffusion for \ol{solopreneur} over time.}
-      \centering
-      % \begin{subfigure}{.45\linewidth}
-      %   \caption{First stage}
-      %   \centering
-      %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_one.pdf}
-      % \end{subfigure}
-      % \begin{subfigure}{.45\linewidth}
-      %   \caption{Second stage}
-      %   \centering
-      %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_two.pdf}
-      % \end{subfigure}\\
-      % \begin{subfigure}{.45\linewidth}
-      %   \caption{Third stage}
-      %   \centering
-      %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_three.pdf}
-      % \end{subfigure}
-      % \begin{subfigure}{.45\linewidth}
-      %   \caption{Fourth stage}
-      %   \centering
-      %   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{/Users/quirin/promo/sna/gephi/plots/solopreneur_four.pdf}
-      % \end{subfigure}
-    \end{figure}
-
-  \subsection{Overall diachronic development for case studies}
-
-    \begin{figure}[H]
-      \caption{Degree centralization over time for case study words.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/cases_cent_diac.pdf}
-    \end{figure}
-
-\section{Full sample}
-
-  \subsection{Diachronic development}
-
-    \begin{figure}
-      \caption{Degree centralization over time for the full sample.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/full_cent_diac.pdf}
-    \end{figure}
-
-  \subsection{Biggest changes}
-
-    \begin{easylist}[itemize]
-      # increasing diffusion
-      # centralization
-    \end{easylist}
 
 \section{Networks vs. frequency}
 
@@ -504,18 +464,18 @@
       \begin{subfigure}{.45\linewidth}
         \caption{Full sample.}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/full_cent_freq_overall.pdf}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/full_cent_freq_overall.pdf}
       \end{subfigure}
       \begin{subfigure}{.45\linewidth}
         \caption{Case studies.}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{/Users/quirin/promo/sna/out/cases_cent_freq_overall.pdf}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_freq_overall.pdf}
       \end{subfigure}
     \end{figure}
 
   \subsection{Correlation}
 
-  \subsection{Grouping and interpretation}
+  \subsection{Discrepancies between frequency and centralization}
 
     Divergences between frequency and network analysis
 

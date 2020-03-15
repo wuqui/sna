@@ -29,12 +29,12 @@ diff_start_method <- 'edges'
 diff_start_limit <- 3
 
 cases <- c(
-  'ghosting', 
-  'lituation', 
+  'upcycling',
   'alt-left', 
   'solopreneur',
-  'hyperlocal',
-  'upcycling'
+  'hyperlocal'
+  # 'ghosting', 
+  # 'lituation', 
   )
 
 ```
@@ -182,7 +182,7 @@ df_comp %>%
 
 ```{r}
 plt <- df_comp %>%
-  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV) %>%
+  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
     SUBSET != 'full',
     LEMMA %in% cases
@@ -292,13 +292,16 @@ plt
 df_comp %>%
   filter(
     SUBSET %in% c('one', 'two', 'three', 'four'),
-    LEMMA %in% successful_diffs
+    LEMMA %in% unsuccessful_diffs
     # USES_TOT >= 10000
-    # USES > 10000
+    # USES > 1000
     ) %>%
   group_by(SUBSET) %>%
-  summarize(CENT_AVG = mean(CENT_DEGREE)) %>%
-  ggplot(., aes(x=SUBSET, y=CENT_AVG, group=1)) +
+  summarize(
+    DENS_AVG = mean(DENSITY),
+    CENT_AVG = mean(CENT_DEGREE)
+    ) %>%
+  ggplot(., aes(x=SUBSET, y=DENS_AVG, group=1)) +
     geom_line() +
     geom_point() +
     scale_y_continuous('degree centralization') +
@@ -329,6 +332,16 @@ df_comp %>%
     EDGES_LAST = EDGES
     ) %>%
   arrange((CENT_DIFF))
+```
+
+
+## Density
+
+```{r}
+df_comp %>%
+  select(LEMMA, SUBSET, USES_TOT, CENT_DEGREE, DENSITY) %>%
+  filter(SUBSET == 'four') %>%
+  arrange(DENSITY)
 ```
 
 

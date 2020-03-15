@@ -13,7 +13,7 @@ library(magrittr)
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 lemmas <- list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-cases <- c('ghosting', 'lituation', 'alt-left', 'solopreneur', 'upcycling')
+cases <- c('upcycling', 'hyperlocal', 'alt-left', 'solopreneur')
 
 directed <- TRUE
 
@@ -193,6 +193,7 @@ for (sub in subs) {
     NODES = sub[['net_metrics']][['nodes_n']],
     COMMUNITIES = sub[['net_metrics']][['communities_n']],
     MODULARITY = sub[['net_metrics']][['modularity']],
+    DENSITY = sub[['net_metrics']][['density']],
     CENT_DEGREE = sub[['net_metrics']][['cent_degree']],
     CENT_EV = sub[['net_metrics']][['cent_ev']],
     SUBSETTING = subsetting,
