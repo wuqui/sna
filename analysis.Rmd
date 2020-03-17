@@ -68,7 +68,7 @@ df_comp %<>%
 ## success
 
 ```{r}
-df_comp %>%
+df_success <- df_comp %>%
   select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
   filter(SUBSET != 'full') %>%
   group_by(LEMMA) %>%
@@ -335,13 +335,83 @@ df_comp %>%
 ```
 
 
-## Density
+# Density
+
+## overall
 
 ```{r}
 df_comp %>%
   select(LEMMA, SUBSET, USES_TOT, CENT_DEGREE, DENSITY) %>%
   filter(SUBSET == 'four') %>%
   arrange(DENSITY)
+```
+
+
+## over time
+
+### case studies
+
+```{r}
+df_comp %>%
+  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, DENSITY) %>%
+  filter(
+    SUBSET != 'full',
+    LEMMA %in% c(cases, 'twitterer', 'robo-signing', 'covfefe')
+  ) %>%
+  ggplot(., aes(x=SUBSET, y=DENSITY)) + # group=1
+    geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
+    geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
+    guides(group=TRUE) +
+    ggtitle('Diffusion over time: changes in degree centralization') +
+    scale_y_continuous('density') +
+    scale_x_discrete('subset')
+
+# ggsave('out/cases_cent_diac.pdf', width=6, height=4)
+```
+
+
+### full sample
+
+```{r}
+df_comp %>%
+  filter(
+    SUBSET %in% c('one', 'two', 'three', 'four'),
+    LEMMA %in% unsuccessful_diffs,
+    USES_TOT >= 10000
+    ) %>%
+  group_by(SUBSET) %>%
+  summarize(
+    DENS_AVG = mean(DENSITY)
+    ) %>%
+  ggplot(., aes(x=SUBSET, y=DENS_AVG, group=1)) +
+    geom_line() +
+    geom_point() +
+    scale_y_continuous('density') +
+    scale_x_discrete('subsets')
+```
+
+
+### biggest changes
+
+```{r}
+df_comp %>%
+  select(LEMMA, SUBSET, CENT_DEGREE, DENSITY, EDGES, USES_TOT) %>%
+  filter(
+    SUBSET %in% c(
+      'one', 
+      'four'
+      )
+    # USES_TOT >= 10000
+    ) %>%
+  dplyr::group_by(LEMMA) %>%
+  dplyr::mutate(DENS_DIFF = DENSITY - lag(DENSITY, default=DENSITY[1])) %>%
+  drop_na() %>%
+  select(-SUBSET) %>%
+  rename(
+    DENS_LAST = DENSITY,
+    EDGES_LAST = EDGES
+    ) %>%
+  arrange((DENS_DIFF))
 ```
 
 
