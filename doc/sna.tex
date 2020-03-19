@@ -1,4 +1,9 @@
-\documentclass[a4paper]{scrartcl}
+\documentclass[a4paper, abstract=on]{scrartcl}
+
+% ignore warnings
+
+  \usepackage{silence}
+  \WarningFilter{latex}{Marginpar on page}
 
 % packages
 
@@ -10,12 +15,20 @@
     \usepackage{subcaption}
     \usepackage[super]{nth}
 
+    % load filenames containing whitespace
+    \usepackage{etoolbox}
+    \makeatletter
+    \patchcmd{\Ginclude@eps}{"#1"}{#1}{}{}
+    \makeatother
+
 % new commands
 
   \renewcommand{\hw}[1]{\textbf{#1}}
 
   \newcommand{\lsil}[1]{\lstinline[language=Python]{#1}}
   \newcommand{\mtrc}[1]{\textcolor{blue}{#1}}
+
+  \newcommand{\sw}[1]{\texttt{#1}}
 
 \begin{document}
 
@@ -30,13 +43,19 @@
 
 \tableofcontents
 
-\cleardoublepage
+  \cleardoublepage
 
 \listoffigures
 
 \listoftables
 
-\cleardoublepage
+  \cleardoublepage
+
+% abstract
+
+  \begin{abstract}
+    Societies constantly evolve and produce innovative products and practices. Speakers invent new words to communicate efficiently. The resulting lexical innovations diffuse in social networks, some of them fail to catch on while other become part of the lexicon.
+  \end{abstract}
 
 % text body
 
@@ -103,13 +122,15 @@
   \subsection{Current framework: the EC-Model (Schmid 2020)}
     \nocite{Schmid2020}
 
-    I adopt the EC-Model as it offers an approach integrating both structural, cognitive and sociolinguistic perspectives on the diffusion of lexical innovations.
+    I use the Entrenchment-and-Conventionalization-Model~\parencite{Schmid2020} as a framework for modelling the diffusion of lexical innovations.
 
-    \hw{Entrenchment}: individuals, not (too) relevant for the present approach
+      The EC-Model provides an approach integrating both structural, cognitive and sociolinguistic perspectives on the diffusion of lexical innovations.
+
+      The model also differentiates between the level of the individual (\enquote{entrenchment}) and the community (\enquote{conventionalization}).
+
+      Here I will only briefly outline the most important concept relevant for studying the sociolinguistic aspects of diffusion here.
 
     \hw{Conventionalization}:
-
-      society, sociolinguistics $\rightarrow$ focus of this paper
 
       definition: \enquote{Conventionalization is the continual process of establishing and re-adapting regularities of communicative behaviour among the members of a speech community, which is achieved by repeated usage activities in usage events and subject to the exigencies of the entrenchment processes taking place in the minds of speakers.}~\parencite{Schmid2020}
 
@@ -117,43 +138,54 @@
 
     \hw{Diffusion} \enquote{Linking the three aspects of speakers, cotexts, and contexts, I define diffusion as a process that brings about a change in the number of speakers and communities who conform to a regularity of co-semiotic behaviour and a change in the types of cotexts and contexts in which they conform to it.}~\parencite{Schmid2020}
 
-    strong emphasis on spread across users and communities
+      less relevant for sociolinguistic aspects and for this study
+        cotexts
+        contexts
+
+    According to the EC-Model, for studying the sociolinguistic aspects of diffusion, investigating \enquote{changes in the number of speakers and communities} is thus essential.
 
 \section{Measuring the diffusion of lexical innovations}
 
   \subsection{Previous approaches}
 
-    Empirical approaches studying the diffusion of lexical innovations have only recently become feasible with the advent of new data sources and computational methods.
+    \begin{easylist}[itemize]
 
-    Earlier work had to rely on \hw{traditional linguistic corpora}. Due to the low-frequency nature of neologisms general linguistic corpora do not allow to study broad ranges of neologisms and thus pose limits to making broad and robust generalizations about the nature lexical innovation. Despite these limitations, case studies on selected neologisms~\parencite{Hohenhaus2006} and studies on specific domains of neology~\parencite{Elsen2004} managed to shed light on the spread of new words in more specific domains.
+      # \hw{before frequency} Empirical approaches studying the diffusion of lexical innovations have only recently become feasible with the advent of new data sources and computational methods.
 
-    The advent of \hw{web corpora} in the last two decades has provided researchers with bigger and less formal data to study lexical innovation.
+      # Earlier work had to rely on \hw{traditional linguistic corpora}. Due to the low-frequency nature of neologisms general linguistic corpora do not allow to study broad ranges of neologisms and thus pose limits to making broad and robust generalizations about the nature lexical innovation. Despite these limitations, case studies on selected neologisms~\parencite{Hohenhaus2006} and studies on specific domains of neology~\parencite{Elsen2004} managed to shed light on the spread of new words in more specific domains.
 
-      The sheer size of big corpora $\rightarrow$ bigger samples
+      # The advent of \hw{web corpora} in the last two decades has provided researchers with bigger and less formal data to study lexical innovation.
 
-      monitoring corpora~\parencite{Davies2013}: tracking dynamics of diffusion, closer to coining
+        ## The sheer size of big corpora $\rightarrow$ bigger samples
 
-      In particular, a range of tools enabled the creation of specialized corpora for the investigation of neologisms.~\parencite{Renouf2006,Kerremans2012,Lemnitzer,Gerard2017,Cartier2017}
+        ## monitoring corpora~\parencite{Davies2013}: tracking dynamics of diffusion, closer to coining
 
-      the nature of web corpus data is particularly suitable for investigating lexical innovations as
-        language on the web is very creative,
-        more informal sources, bigger spectrum of language use
-        new words often first occur on the web
-        and use on the web significantly influences whether these new formations catch on or not.
+        ## In particular, a range of tools enabled the creation of specialized corpora for the investigation of neologisms.~\parencite{Renouf2006,Kerremans2012,Lemnitzer,Gerard2017,Cartier2017}
 
-    social media corpora \cite{Grieve2016,Eisenstein2014}
-      size
-      nature
-        creative, hotbed
-        authentic language use
-        driving force
+        ## the nature of web corpus data is particularly suitable for investigating lexical innovations as
+          ### language on the web is very creative,
+          ### more informal sources, bigger spectrum of language use
+          ### new words often first occur on the web
+          ### and use on the web significantly influences whether these new formations catch on or not.
 
-    this is all
+        ## Web corpora thus promise insights into diffusion across
+          ### contexts: e.g. whether new words such as \ol{blockchain} are increasingly used in less formal
+          ### cotexts: e.g. whether new words such as \ol{} are increasingly used in more divers
 
-      social network information
-        users
-        community characteristics
-        influencers
+      # social media corpora \cite{Grieve2016,Eisenstein2014}
+        ## size
+        ## nature: similar to web corpora
+          ### creative, hotbed
+          ### authentic language use
+          ### driving force
+        ## social network information
+
+      # \hw{social network analysis} getting at \enquote{changes in the numbers and communities of speakers} by using social network information
+        ## number of users: active and passive
+        ## interactions between users: influencers
+        ## network properties: density, centralization
+
+    \end{easylist}
 
   \subsection{Going beyond frequency}
 
@@ -163,7 +195,10 @@
 
     The reliance on usage frequency as a measure for different phenomena in these diverse research contexts has faced substantial criticism. \cite{Stefanowitsch2017} provide an excellent overview of the theoretical assumptions and problems that underlie frequency-based approaches in corpus linguistics.
 
-    \todo{freq. is particularly poorly suited in the case of lex. inn. as new words are (1) highly socially indexical and thus especially prone to be used only by certain sub-communities, (2) topical which makes freq. less reliable bc. it fails to capture \enquote{dormant} passive knowledge of the words}
+    \todo{freq. esp. insufficient for lex. inn.}
+      % as new words are
+        (1) highly socially indexical and thus especially prone to be used only by certain sub-communities,
+        (2) topical which makes freq. less reliable bc. it fails to capture \enquote{dormant} passive knowledge of the words
 
     When assessing the suitability of usage frequency as a measure for the diffusion and conventionality of neologisms a set of assumptions underlying the frequency-based approach need to be disentangled. While these theoretical and methodological considerations generally apply to all corpus-linguistic work, the focus will be on the current issue of the paper.
 
@@ -190,149 +225,278 @@
 
 \section{Data}
 
-  \subsection{Twitter}
+    For my empirical study I have selected about 100 neologisms to study their diffusion on Twitter from their early attestations to the end of 2018. More information about the sample can be found in Section XXX.
 
-    \begin{easylist}[itemize]
-      # Twitter
-        ## demographics
-        ## anatomy of a tweet
-      # corpus
-        ## longitudinal: retrospective, starting from early attestations
-        ## big data
-        ## social network information
-    \end{easylist}
+  \subsection{Twitter data}
+
+    Twitter\footnote{\url{http://www.twitter.com}} is a popular micro-blogging and social media platform that was started in 2006.
+      one of the most popular social media platforms
+
+    representativity
+      limited: certain user groups over-represented.
+      good enough: generally okay \parencite{Grieve2019a}
+
+    advantages of data
+      hotbed: influential hotbed for technical, cultural and linguistic innovations
+      longitudinal: retrospective, starting from early attestations
+      big data
+      social network information
+
+    scope of the present study:
+      I only study diffusion of new words \emph{on Twitter}
+        considering both frequency and social network characteristics might be more robust and allow more generalization than just frequency
+
+    data retrieval
+      I have used the tool \sw{twint}
+      to download all tweets containing the target word
+      as searchable via the Advanced Search Function on Twitter's official website
+
+    data overview: table
+
+  \subsection{Methodology}
+
+    anatomy of a tweet
+
+    post-processing
+      treatment of hashtags
+      filter uses as user handles
+      duplicate removal
+
+    social network analysis
+      software
+        \sw{R}: \sw{tidygraph}, \sw{ggraph}
+        \sw{Gephi}
+      constructing the networks
+        elements: legitimate~\parencite{Goel2016}
+          users = nodes
+          interactions (replies, mentions) = edges
+        subsetting: time slices
+            start of diffusion process: >= 3 edges
+            4 phases of equally sized time windows
+        network metrics
+          centralization
+          network density
+        visualizations
 
   \subsection{Neologism sample}
 
-    \qpar{Neologism candidates}
+    Full sample
 
-      \begin{easylist}[itemize]
+      Previous empirical approaches to the spread of neologisms have discovered a number of prototypical pathways of diffusion.~\parencite{Kerremans2015}
+        no diffusion
+        topical
+        recurrent
+        advanced
 
-        # previous categorization~\parencite{Kerremans2015}
-          ## no diffusion
-          ## topical
-          ## recurrent
-          ## advanced
+      dimensions
 
-        # dimensions
+        overall degree of diffusion (synchronic): successful vs. unsuccessful: \mtrc{usage frequency}, \mtrc{degree centralization}
+          no success
+          limited
+          advanced
 
-          ## overall degree of diffusion (synchronic): successful vs. unsuccessful: \mtrc{usage frequency}, \mtrc{degree centralization}
-            ### no success
-            ### limited
-            ### advanced
+        temporal dynamics of diffusion (diachronic)
+          stability: stable vs. topical \mtrc{coefficient of variation}
+          trend
+            diffusion: increasing degree of diffusion
+            centralization: decreasing degree of diffusion
+          speed
 
-          ## temporal dynamics of diffusion (diachronic)
-            ## stability: stable vs. topical \mtrc{coefficient of variation}
-            ## trend
-              ## diffusion: increasing degree of diffusion
-              ## centralization: decreasing degree of diffusion
-            ## speed
+    Case studies
 
-      \end{easylist}
-
-    \qpar{Case studies}
-
-      \begin{easylist}[itemize]
-        # criteria
-          ## covering clusters of neologism candidates
-          ## frequency counts comparable
-        # cases~\parencite{Kerremans2015}
-          ## no diffusion: \ol{microflat}
-          ## limited
-            ### topical: \ol{poppygate}
-            ### centralized: \ol{alt-left}
-            ### decreasing: \ol{solopreneur}
-          ## advanced diffusion:
-            ### advanced: \ol{upcycling}
-            ### increasing: \ol{hyperlocal}
-      \end{easylist}
+      criteria
+        covering clusters of neologism candidates
+        frequency counts comparable
+      cases~\parencite{Kerremans2015}
+        no diffusion: \ol{microflat}
+        limited
+          topical: \ol{poppygate}
+          centralized: \ol{alt-left}
+          decreasing: \ol{solopreneur}
+        advanced diffusion:
+          advanced: \ol{upcycling}
+          increasing: \ol{hyperlocal}
 
 \section{Frequency}
 
   \subsection{Cumulated usage intensity}
 
-    \begin{figure}[H]
-      \caption{Cumulative frequency counts for case study words.}
-      \centering
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{ghosting}}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_ghosting.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{lituation}}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_lituation.pdf}
-      \end{subfigure}
+    As described in Section XXX, the degree of conventionality is often approximated by a word's total number of uses observed in a corpus.
 
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{alt-left}}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_alt-left.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{solopreneur}}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_solopreneur.pdf}
-      \end{subfigure}
-    \end{figure}
+      rationale: potential exposure for individuals / society
+
+      I will use frequency as a baseline approach before I zoom in on the sociolinguistics aspects using network analysis.
+
+    full sample
+
+      The words in my sample span a broad range of total uses
+        min
+        max
+        mean
+        median
+
+      time spans are different
+        min
+        max
+        mean
+        median
+
+      Here you can find 5 items around the
+        min
+        25\%
+        50\%
+        75\%
+        max
+
+      discussion:
+        broad range is covered
+        concurs with intuition
+
+    case studies
+
+      Figure XXX presents the cumulative usage frequency for the case study lemmas:
+
+        \begin{figure}[H]
+          \caption{Cumulative frequency counts for case study words.}
+          \centering
+          \begin{subfigure}{.3\linewidth}
+            \caption{\ol{upskill}}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_upskill.pdf}
+          \end{subfigure}
+          \begin{subfigure}{.3\linewidth}
+            \caption{\ol{hyperlocal}}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_hyperlocal.pdf}
+          \end{subfigure}
+          \begin{subfigure}{.3\linewidth}
+            \caption{\ol{solopreneur}}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_solopreneur.pdf}
+          \end{subfigure}
+
+          \begin{subfigure}{.3\linewidth}
+            \caption{\ol{alt-right}}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_alt-right.pdf}
+          \end{subfigure}
+          \begin{subfigure}{.3\linewidth}
+            \caption{\ol{alt-left}}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_alt-left.pdf}
+          \end{subfigure}
+          \begin{subfigure}{.3\linewidth}
+            \caption{\ol{poppygate}}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_poppygate.pdf}
+          \end{subfigure}
+        \end{figure}
+
+      frequencies are roughly in the same range (percentiles from the full sample)
+
+      to improve
+        uncovering temporal dynamics
 
   \subsection{Temporal dynamics of usage intensity}
 
-    \begin{figure}
-      \caption{Temporal dynamics in usage frequency for case studies.}
-      \centering
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{upcycling}}
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_upcycling_time.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{hyperlocal}}
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{alt-left}}
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-left_time.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{\ol{solopreneur}}
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_solopreneur_time.pdf}
-      \end{subfigure}
-    \end{figure}
+    instead of cumulative counts we now look at raw counts over time (in monthly bins)
 
-    \subsubsection{Coefficient of variation}
+    case studies
 
-      \begin{easylist}[itemize]
-        # most volatile candidates: \ol{poppygate}, \ol{burkini} etc.
-        # will be excluded from in-depth analyses
-      \end{easylist}
+      \begin{figure}
+        \caption{Temporal dynamics in usage frequency for case studies.}
+        \centering
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{upcycling}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_upcycling_time.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{hyperlocal}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{solopreneur}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_solopreneur_time"}
+        \end{subfigure}
 
-\section{Social networks analysis}
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{alt-right}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-right_time.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{alt-left}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-left_time.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{poppygate}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_poppygate_time.pdf}
+        \end{subfigure}
+      \end{figure}
 
-  \subsection{Method}
+    different patterns
+      stability
+      trend
+      speed of diffusion
 
-    \begin{easylist}[itemize]
-      # basis for networks: interactions between users
-        ## mentions
-        ## retweets
-      # network structure
-        ## nodes: users
-        ## edges: interactions
-    \end{easylist}
+    stability: shows that freq. is problematic
+      \enquote{dormant}
+        spikes distort representativity of frequency for degree of conventionality
+          underestimate: \ol{poppygate} not forgotten in troughs
+          overestimate: cumulating hides the fact that words like \ol{millenium} do get lost
+
+    full sample
+
+      coefficient of variation
+        most volatile
+        least volatile
+
+      volatile patterns are the rule than the exception for \emph{lexical innovation}
+        due to nature of \emph{lexical} innovation
+          bound to cultural conceptual salience (variable \enquote{semantic carrying capacity}~\parencite{Nini2017})
+        needs to be accounted for
+
+        trend
+          increasing: looks successful
+          decreasing: looks unsuccessful
+
+\section{Social networks of diffusion}
 
   \subsection{Cumulated speaker counts}
 
-  \subsection{Overall centralization}
-
   \subsection{Centralization over time}
 
-    \subsubsection{Overview of changes in centralization for case studies.}
+    going beyond frequency
 
-      \begin{figure}[H]
-        \caption{Degree centralization over time for case study words.}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_diac.pdf}
-      \end{figure}
+    def. diffusion:
+      numbers of users
+      communities
+
+    subsetting / time slices
+      start of diffusion process
+      4 quarters
+
+    explain: degree centralization
+
+    case studies
+
+      example where freq. meets nets
+
+      example where nets add to freq.: \ol{alt-left}
+
+      \subsubsection{Overview of changes in centralization for case studies.}
+
+        \begin{figure}[H]
+          \caption{Degree centralization over time for case study words.}
+          \centering
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_diac.pdf}
+        \end{figure}
+
+    full samples
+
+      biggest changes
+
+      density
+
 
     \subsubsection{Advanced / from the start: \ol{upcycling}}
 
@@ -449,47 +613,58 @@
         # centralization
       \end{easylist}
 
+  \subsection{Overall centralization}
+
+    most diffused
+    least diffused
+
 \section{Networks vs. frequency}
-
-  \subsection{Plots}
-
-    \begin{figure}
-      \centering
-      \begin{subfigure}{.45\linewidth}
-        \caption{Full sample.}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/full_cent_freq_overall.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.45\linewidth}
-        \caption{Case studies.}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_freq_overall.pdf}
-      \end{subfigure}
-    \end{figure}
 
   \subsection{Correlation}
 
+    There is a significant correlation ($p = 0.015$) between frequency and centralization
+
   \subsection{Discrepancies}
 
-    Divergences between frequency and network analysis
+    However, we also see discrepancies
 
-      \begin{easylist}[itemize]
-        # advanced
-        # topical
-        # little dispersion
-          ## political camps:
-            ### propaganda: \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
-            ### Brexit terms: \ol{Brexiteer}, \ol{Brexiter}, \ol{Brexit}
-          ## technical
-      \end{easylist}
+      plots
 
-    $\rightarrow$ case studies
+        \begin{figure}
+          \centering
+          \begin{subfigure}{.45\linewidth}
+            \caption{Full sample.}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/full_cent_freq_overall.pdf}
+          \end{subfigure}
+          \begin{subfigure}{.45\linewidth}
+            \caption{Case studies.}
+            \centering
+            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_freq_overall.pdf}
+          \end{subfigure}
+        \end{figure}
+
+      cluster analysis
+
+        freq. overestimating
+          topical
+          propaganda: \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
+          Brexit terms: \ol{Brexiteer}, \ol{Brexiter}, \ol{Brexit}
+          nerds
+          technical
+
+        freq. underestimating: XXX
+          topical words
+
+    Social network metrics certainly add to freq.
 
 \section{Conclusion}
 
-  \begin{easylist}[itemize]
-    # going beyond frequency is important
-  \end{easylist}
+  freq. proves to be a pretty good indicators
+  but
+    temporal dynamics important
+    social network dynamics important, esp. w.r.t. new words
+  social network analysis can be an important tool for sociolinguistics
 
 % bibliography
 

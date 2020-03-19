@@ -29,12 +29,16 @@ diff_start_method <- 'edges'
 diff_start_limit <- 3
 
 cases <- c(
-  'upcycling',
-  'alt-left', 
+  # 'upcycling',
+  # 'ghosting',
+  # 'lituation'
+  # 'circular economy',
+  'upskill',
+  'hyperlocal',
   'solopreneur',
-  'hyperlocal'
-  # 'ghosting', 
-  # 'lituation', 
+  'alt-left',
+  'alt-right',
+  'poppygate'
   )
 
 ```
@@ -57,10 +61,11 @@ df_comp %<>%
     SKIP != TRUE,
     SUBSETTING == subsetting,
     # established words
-    !LEMMA %in% c('Anglo-Saxon', 'climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis ')
+    !LEMMA %in% c('Anglo-Saxon', 'climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis '),
     # successful words: USES_TOT >= 10000
     # unsuccessful words: USES_TOT <= 10000
     # weird words: big dick energy
+    !LEMMA %in% c('cookprocessor')
   )
 ```
 
@@ -102,7 +107,7 @@ unsuccessful_uses_min <- df_comp %>%
 
 ```{r include=FALSE}
 corpus <- '/Volumes/qjd/twint/'
-lemma <- 'big dick energy'
+lemma <- 'alt-left'
 
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
@@ -116,7 +121,8 @@ tweets <- filter_tweets(tweets)
 tweets %>%
   select(tweet, date) %>%
   # slice(., sample(1:n())) #random selection
-  arrange(date)
+  arrange(date) %>%
+  View()
 ```
 
 
@@ -181,11 +187,16 @@ df_comp %>%
 ### Diachronic
 
 ```{r}
-plt <- df_comp %>%
+cent_diac_incr <- c('robo-signing', 'circular economy', 'alt-right', 'Brexiteer')
+cent_diac_const <- c('upskill')
+cent_diac_decr <- c('blockchain', 'newsjacking', 'overtourism')
+
+
+df_comp %>%
   select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
     SUBSET != 'full',
-    LEMMA %in% cases
+    LEMMA %in% c(cases)
     # LEMMA %in% c(cases, 'hyperlocal', 'blockchain', 'climate denial', 'man bun', 'upskill', 'deep learning')
     # overtourism: diff too big for case study scale; 
     # , 'broflake', 'climate crisis', 'incel', 'overtourism'
@@ -198,7 +209,7 @@ plt <- df_comp %>%
     scale_y_continuous('degree centrality') +
     scale_x_discrete('subset')
 
-ggplotly(plt)
+# ggplotly(plt)
 # ggsave('out/cases_cent_diac.pdf', width=6, height=4)
 ```
 
@@ -223,16 +234,16 @@ df_comp %>%
 
 # Full sample
 
-## Usage intensity
+# Usage intensity
 
 ```{r}
 df_comp %>%
   filter(SUBSET == 'full') %>%
-  arrange(desc(USES))
+  arrange(desc(USES_TOT))
 ```
 
 
-## Edges
+# Edges
 
 ```{r include=FALSE}
 df_comp %>%
@@ -243,11 +254,11 @@ df_comp %>%
 ```
 
 
-## Degree centrality
+# Degree centrality
 
-### Overall
+## Overall
 
-#### List
+### List
 
 ```{r}
 df_comp %>%
@@ -263,7 +274,7 @@ df_comp %>%
 ```
 
 
-#### Plot
+### Plot
 
 ```{r}
 plt <- df_comp %>%
@@ -352,11 +363,14 @@ df_comp %>%
 ### case studies
 
 ```{r}
-df_comp %>%
+dens_incr <- c('robo-signing')
+dens_decr <- c('deep learning', 'artificial intelligence')
+
+plt <- df_comp %>%
   select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, DENSITY) %>%
   filter(
     SUBSET != 'full',
-    LEMMA %in% c(cases, 'twitterer', 'robo-signing', 'covfefe')
+    LEMMA %in% c(cases, dens_decr)
   ) %>%
   ggplot(., aes(x=SUBSET, y=DENSITY)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
@@ -366,6 +380,7 @@ df_comp %>%
     scale_y_continuous('density') +
     scale_x_discrete('subset')
 
+ggplotly(plt)
 # ggsave('out/cases_cent_diac.pdf', width=6, height=4)
 ```
 
@@ -421,8 +436,10 @@ df_comp %>%
 
 ### Plot
 
+#### Full sample
+
 ```{r}
-plt <- df_comp %>%
+df_comp %>%
   filter(
     SUBSET == 'four',
     # USES_TOT %in% (150000:500000)
@@ -438,12 +455,60 @@ plt <- df_comp %>%
       trans='log'
       ) +
     scale_x_continuous(
+      'degree centralization (log)',
+      trans='log'
+      )
+
+# ggplotly(plt)
+ggsave('out/full_cent_freq_overall.pdf', width=6, height=4)
+```
+
+
+#### Case studies
+
+```{r}
+df_cases <- df_comp %>%
+  filter(
+    SUBSET == 'full',
+    LEMMA %in% c(cases),
+    !LEMMA %in% c('poppygate', 'upskill')
+    )
+
+cases_freq_min <- df_cases %>%
+  select(USES_TOT) %>%
+  arrange(USES_TOT) %>%
+  slice(1:1) %>%
+  pull(USES_TOT)
+  
+
+cases_freq_max <- df_cases %>%
+  select(USES_TOT) %>%
+  arrange(desc(USES_TOT)) %>%
+  slice(1:1) %>%
+  pull(USES_TOT)
+
+df_comp %>%
+  filter(
+    SUBSET == 'full',
+    USES_TOT >= cases_freq_min,
+    USES_TOT <= cases_freq_max,
+    !LEMMA %in% c('big dick energy', 'slut shaming', 'cuckold', 'shareable', 'Brexiteer', 'incel', 'dashcam')
+    ) %>%
+  select(LEMMA, CENT_DEGREE, USES_TOT, USES, EDGES) %>%
+  ggplot(., aes(x=CENT_DEGREE, y=USES_TOT)) +
+    geom_text(aes(label=LEMMA), color='black', hjust=-0.1, vjust=-0.1) + 
+    geom_point() + 
+    geom_text(data=df_cases, aes(label=LEMMA), color='blue', hjust=-0.1, vjust=-0.1) +
+    # geom_point() +
+    scale_y_continuous(
+      'usage frequency (log)', 
+      trans='log'
+      ) +
+    scale_x_continuous(
       'degree centralization'
       # trans='log'
       )
 
-ggplotly(plt)
-# ggsave('out/full_cent_freq_overall.pdf', width=6, height=4)
 # ggsave('out/cases_cent_freq_overall.pdf', width=6, height=4)
 ```
 
