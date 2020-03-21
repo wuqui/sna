@@ -30,12 +30,12 @@ read_f <- function(fpath) {
       # name = col_character(),
       # place = col_character(),
       tweet = col_character(),
-      mentions = col_character()
+      mentions = col_character(),
       # urls = col_character(),
       # photos = col_character(),
-      # replies_count = col_double(),
-      # retweets_count = col_double(),
-      # likes_count = col_double(),
+      replies_count = col_double(),
+      retweets_count = col_double(),
+      likes_count = col_double()
       # location = col_logical(),
       # hashtags = col_character(),
       # link = col_character(),

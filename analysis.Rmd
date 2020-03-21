@@ -24,21 +24,24 @@ library(magrittr)
 # Variables
 
 ```{r include=FALSE}
+corpus <- '/Volumes/qjd/twint/'
+
 subsetting = 'time'
 diff_start_method <- 'edges'
 diff_start_limit <- 3
 
 cases <- c(
-  # 'upcycling',
-  # 'ghosting',
   # 'lituation'
-  # 'circular economy',
+  # 'alt-right',
+  # 'poppygate',
+  # 'ghosting',
+  # 'upcycling',
   'upskill',
+  'circular economy',
   'hyperlocal',
   'solopreneur',
   'alt-left',
-  'alt-right',
-  'poppygate'
+  'birther'
   )
 
 ```
@@ -106,9 +109,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-corpus <- '/Volumes/qjd/twint/'
-lemma <- 'alt-left'
-
+lemma <- 'hyperlocal'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -119,9 +120,9 @@ tweets <- filter_tweets(tweets)
 
 ```{r}
 tweets %>%
-  select(tweet, date) %>%
+  select(tweet, date, replies_count, retweets_count, likes_count) %>%
   # slice(., sample(1:n())) #random selection
-  arrange(date) %>%
+  arrange(desc(likes_count)) %>%
   View()
 ```
 
@@ -197,9 +198,6 @@ df_comp %>%
   filter(
     SUBSET != 'full',
     LEMMA %in% c(cases)
-    # LEMMA %in% c(cases, 'hyperlocal', 'blockchain', 'climate denial', 'man bun', 'upskill', 'deep learning')
-    # overtourism: diff too big for case study scale; 
-    # , 'broflake', 'climate crisis', 'incel', 'overtourism'
   ) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
@@ -234,12 +232,48 @@ df_comp %>%
 
 # Full sample
 
-# Usage intensity
+# Frequency
+
+## Total
 
 ```{r}
 df_comp %>%
   filter(SUBSET == 'full') %>%
+  # filter(LEMMA %in% c(cases)) %>%
   arrange(desc(USES_TOT))
+```
+
+
+## Cumulative
+
+```{r}
+# cases = c('microflat', 'poppygate')
+
+# uses_lemmas <- NULL
+# lemmas_done <- uses_lemmas %>% distinct(LEMMA) %>% pull()
+# 
+# for (lemma in c('upskill', 'circular economy')) {
+#   if (!lemma %in% lemmas_done) {
+#     tweets <- load_data(corpus, lemma)
+#     tweets <- postproc(tweets)
+#     tweets <- filter_tweets(tweets)
+#     uses <- get_uses(tweets)
+#     uses_month <- bin_uses(uses, 'month')
+#     uses_month %<>%
+#       mutate(LEMMA = lemma) %>%
+#       mutate(USES_CUM = cumsum(USES))
+#     uses_lemmas <- bind_rows(uses_lemmas, uses_month)
+#   }
+# }
+
+uses_lemmas %>%
+  filter(LEMMA %in% cases) %>%
+  ggplot(data=., aes(x=DATE, y=USES_CUM)) +
+    geom_line(aes(color=LEMMA, linetype=LEMMA)) +
+    scale_y_continuous('cumulative usage frequency') +
+    scale_x_date('')
+
+# ggsave('out/freq_cum_cases.pdf', width=6, height=4)
 ```
 
 
@@ -460,7 +494,7 @@ df_comp %>%
       )
 
 # ggplotly(plt)
-ggsave('out/full_cent_freq_overall.pdf', width=6, height=4)
+# ggsave('out/full_cent_freq_overall.pdf', width=6, height=4)
 ```
 
 
@@ -527,7 +561,9 @@ df_comp %>%
 ```
 
 
-### Correlation
+# Correlations
+
+## FREQ X NETWORKS
 
 ```{r}
 df_corr <- df_comp %>%
@@ -540,6 +576,23 @@ df_corr <- df_comp %>%
 cor.test(df_corr$USES, df_corr$CENT_DEGREE)
 ```
 
+## COEF_VAR
+
+```{r}
+df_comp %>%
+  # cor.test(df_corr$CENT_DEGREE, df_corr$COEF_VAR)
+  # filter(SUBSET == 'full') %>%
+  select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP)) %>%
+  summarize(
+    # P = cor.test(COEF_VAR, CENT_DEGREE)$p.value,
+    # EST = cor.test(COEF_VAR, CENT_DEGREE)$estimate
+    P = cor.test(COEF_VAR, USES_TOT)$p.value,
+    EST = cor.test(COEF_VAR, USES_TOT)$estimate
+    # P = cor.test(CENT_DEGREE, USES)$p.value,
+    # EST = cor.test(CENT_DEGREE, USES)$estimate
+    )
+```
+
 
 # Coefficient of variation
 
@@ -547,7 +600,7 @@ cor.test(df_corr$USES, df_corr$CENT_DEGREE)
 df_comp %>%
   filter(
     SUBSET == 'full',
-    USES_TOT >= 1000
+    USES_TOT >= 100000
     ) %>%
   select(LEMMA, USES_TOT, COEF_VAR) %>%
   arrange(desc(COEF_VAR))

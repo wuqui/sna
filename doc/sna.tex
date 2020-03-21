@@ -278,6 +278,11 @@
           network density
         visualizations
 
+    The resulting networks are interactional rather than static.~\parencite{Goel2016} This makes them more similar to communities of practice than to traditional sociolinguistic networks based on static speaker characteristics such socio-economic status.
+      In the case of lexical innovation networks that are based on whether speakers provide valuable information. In cases such as \ol{alt-left}, for example, interactional networks show whether usage of the term remains centralized to a tight-knit community of speakers or whether it diffuses to be used by other sub-communities.
+        Whether communities are distinct depends on whether users communicate with each other. While the reasons for theses communicative affiliations remain unknown (age, gender, socio-economic status), they are certainly real in mutually engage in communicative interaction.
+          It would be interesting to complement this information with static information, however such data are currently not obtainable.
+
   \subsection{Neologism sample}
 
     Full sample
@@ -357,39 +362,9 @@
       Figure XXX presents the cumulative usage frequency for the case study lemmas:
 
         \begin{figure}[H]
-          \caption{Cumulative frequency counts for case study words.}
+          \caption{Cumulative increase in usage frequency for case studies.}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/freq_cum_cases.pdf}
           \centering
-          \begin{subfigure}{.3\linewidth}
-            \caption{\ol{upskill}}
-            \centering
-            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_upskill.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.3\linewidth}
-            \caption{\ol{hyperlocal}}
-            \centering
-            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_hyperlocal.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.3\linewidth}
-            \caption{\ol{solopreneur}}
-            \centering
-            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_solopreneur.pdf}
-          \end{subfigure}
-
-          \begin{subfigure}{.3\linewidth}
-            \caption{\ol{alt-right}}
-            \centering
-            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_alt-right.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.3\linewidth}
-            \caption{\ol{alt-left}}
-            \centering
-            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_alt-left.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.3\linewidth}
-            \caption{\ol{poppygate}}
-            \centering
-            \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/users/uu_poppygate.pdf}
-          \end{subfigure}
         \end{figure}
 
       frequencies are roughly in the same range (percentiles from the full sample)
@@ -407,29 +382,29 @@
         \caption{Temporal dynamics in usage frequency for case studies.}
         \centering
         \begin{subfigure}{.3\linewidth}
-          \caption{\ol{upcycling}}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_upcycling_time.pdf}
+          \caption{\ol{upskill}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_upskill_time"}
+        \end{subfigure}
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{circular economy}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_circular economy_time"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{hyperlocal}}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
         \end{subfigure}
+
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{solopreneur}}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_solopreneur_time"}
-        \end{subfigure}
-
-        \begin{subfigure}{.3\linewidth}
-          \caption{\ol{alt-right}}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-right_time.pdf}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-left}}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-left_time.pdf}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
-          \caption{\ol{poppygate}}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_poppygate_time.pdf}
+          \caption{\ol{birther}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_birther_time.pdf}
         \end{subfigure}
       \end{figure}
 
@@ -497,7 +472,6 @@
 
       density
 
-
     \subsubsection{Advanced / from the start: \ol{upcycling}}
 
       \begin{figure}[H]
@@ -533,7 +507,7 @@
         \begin{subfigure}{.45\linewidth}
           \caption{First stage}
           \centering
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_one.pdf}
+          % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_one.pdf}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
           \caption{Second stage}
@@ -549,6 +523,33 @@
           \caption{Fourth stage}
           \centering
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_four.pdf}
+        \end{subfigure}
+      \end{figure}
+
+    \subsubsection{Advanced / increasing: \ol{circular economy}}
+
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{circular economy} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{"../gephi/plots/circular economy_one"}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{"../gephi/plots/circular economy_two"}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{"../gephi/plots/circular economy_three"}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{"../gephi/plots/circular economy_four"}
         \end{subfigure}
       \end{figure}
 
@@ -664,6 +665,7 @@
   but
     temporal dynamics important
     social network dynamics important, esp. w.r.t. new words
+      cross-checking other data sources (NOW corpus) shows validity
   social network analysis can be an important tool for sociolinguistics
 
 % bibliography
