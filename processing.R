@@ -26,7 +26,7 @@ diff_start_limit <- 3
 export_edges <- FALSE
 
 
-for (lemma in c('upskill')) {
+for (lemma in c(cases)) {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE

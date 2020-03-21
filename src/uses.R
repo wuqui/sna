@@ -226,16 +226,18 @@ plt_uses <- function (
   sub_cuts,
   sub_limits
 ) {
+  USES_TOT <- uses_month %>% summarize(USES_TOT = sum(USES)) %>% pull(USES_TOT)
   sub_limits %<>% filter(SUB != 'full')
+  sub_cuts %<>% rename(subset = CUT)
   ggplot(data=uses_month, aes(x=DATE, y=USES)) +
     geom_line() +
     geom_point() +
     geom_smooth() +
-    ggtitle(lemma) +
+    ggtitle(paste0('n = ', USES_TOT)) +
     scale_y_continuous("Tweets / month") + 
     scale_x_date("") +
     # geom_vline(data=sub_limits, aes(xintercept=DATE, color=SUB)) +
-    geom_vline(data=sub_cuts, aes(xintercept=DATE, color=CUT))
+    geom_vline(data=sub_cuts, aes(xintercept=DATE), color='royalblue4', linetype='dashed')
 }
 
 

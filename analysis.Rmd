@@ -200,12 +200,13 @@ df_comp %>%
     LEMMA %in% c(cases)
   ) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
-    geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
+    geom_point(aes(group=LEMMA, color=LEMMA)) +
     geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
     guides(group=TRUE) +
-    ggtitle('Diffusion over time: changes in degree centralization') +
     scale_y_continuous('degree centrality') +
-    scale_x_discrete('subset')
+    scale_x_discrete('subset') +
+    scale_color_discrete('lemma') +
+    scale_linetype_discrete(guide=FALSE)
 
 # ggplotly(plt)
 # ggsave('out/cases_cent_diac.pdf', width=6, height=4)
@@ -271,7 +272,9 @@ uses_lemmas %>%
   ggplot(data=., aes(x=DATE, y=USES_CUM)) +
     geom_line(aes(color=LEMMA, linetype=LEMMA)) +
     scale_y_continuous('cumulative usage frequency') +
-    scale_x_date('')
+    scale_x_date('') +
+    scale_color_discrete('lemma') +
+    scale_linetype_discrete(guide=FALSE)
 
 # ggsave('out/freq_cum_cases.pdf', width=6, height=4)
 ```
@@ -486,11 +489,13 @@ df_comp %>%
     # geom_point() +
     scale_y_continuous(
       'usage frequency (log)', 
-      trans='log'
+      trans='log',
+      labels=function(x)round(x,-3)
       ) +
     scale_x_continuous(
       'degree centralization (log)',
-      trans='log'
+      trans='log',
+      labels=function(x)round(x,3)
       )
 
 # ggplotly(plt)
@@ -501,11 +506,13 @@ df_comp %>%
 #### Case studies
 
 ```{r}
+subset <- 'four'
+
 df_cases <- df_comp %>%
   filter(
-    SUBSET == 'full',
+    SUBSET == subset,
     LEMMA %in% c(cases),
-    !LEMMA %in% c('poppygate', 'upskill')
+    !LEMMA %in% c('upskill')
     )
 
 cases_freq_min <- df_cases %>%
@@ -523,20 +530,20 @@ cases_freq_max <- df_cases %>%
 
 df_comp %>%
   filter(
-    SUBSET == 'full',
+    SUBSET == subset,
     USES_TOT >= cases_freq_min,
     USES_TOT <= cases_freq_max,
     !LEMMA %in% c('big dick energy', 'slut shaming', 'cuckold', 'shareable', 'Brexiteer', 'incel', 'dashcam')
     ) %>%
   select(LEMMA, CENT_DEGREE, USES_TOT, USES, EDGES) %>%
   ggplot(., aes(x=CENT_DEGREE, y=USES_TOT)) +
-    geom_text(aes(label=LEMMA), color='black', hjust=-0.1, vjust=-0.1) + 
+    geom_text(aes(label=LEMMA), color='black', hjust=.4, vjust=-.6) + 
+    geom_text(data=df_cases, aes(label=LEMMA), color='blue', hjust=.4, vjust=-.6) +
     geom_point() + 
-    geom_text(data=df_cases, aes(label=LEMMA), color='blue', hjust=-0.1, vjust=-0.1) +
-    # geom_point() +
     scale_y_continuous(
       'usage frequency (log)', 
-      trans='log'
+      trans='log',
+      labels=function(x)round(x,-3)
       ) +
     scale_x_continuous(
       'degree centralization'
