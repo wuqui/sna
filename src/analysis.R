@@ -5,7 +5,7 @@ read_df_comp <- function (f_path) {
 }
 
 
-get_uses_tot <- function (df_comp, lemma) {
+get_uses_tot_lemma <- function (df_comp, lemma) {
   df_comp %>%
   filter(LEMMA == lemma) %>%
   summarize(USES_TOT = max(USES_TOT)) %>%

@@ -193,14 +193,14 @@
 
     Frequency measures are widely used to study linguistic phenomena on all levels, from investigating phonological preferences between communities, to studying the increasing establishment of grammatical constructions like the \ol{going to}-future over time, to assessing the degree to which words are conventional lexical units of a language. Usage frequency is thus commonly used by a diverse set of linguistic sub-disciplines. From a structural perspective, for example, co-occurrence frequencies of multi-word units such as \ol{handsome man} are taken as an indicator for whether these are free combinations or more or less fixed collocations in a language system. Historical linguistics investigates phenomena like language change and grammaticalization, by analysing changes in usage frequency of certain constructions like the \ol{going to}-future over time. Cognitive and psycholinguistic research commonly relies on frequency measures to approximate the degree to which speakers are familiar with words that are presented as linguistic stimuli in experiments to control for effects on experimental results.
 
-    The reliance on usage frequency as a measure for different phenomena in these diverse research contexts has faced substantial criticism. \cite{Stefanowitsch2017} provide an excellent overview of the theoretical assumptions and problems that underlie frequency-based approaches in corpus linguistics.
+    The reliance on usage frequency as a measure for different phenomena in these diverse research contexts has faced substantial criticism. \cite{Stefanowitsch2017} provide a good overview of the theoretical assumptions and problems that underlie frequency-based approaches in corpus linguistics.
 
     \todo{freq. esp. insufficient for lex. inn.}
       % as new words are
         (1) highly socially indexical and thus especially prone to be used only by certain sub-communities,
         (2) topical which makes freq. less reliable bc. it fails to capture \enquote{dormant} passive knowledge of the words
 
-    When assessing the suitability of usage frequency as a measure for the diffusion and conventionality of neologisms a set of assumptions underlying the frequency-based approach need to be disentangled. While these theoretical and methodological considerations generally apply to all corpus-linguistic work, the focus will be on the current issue of the paper.
+    When assessing the suitability of usage frequency as a measure for the diffusion and conventionality of neologisms a set of assumptions underlying the frequency-based approach need to be disentangled. While these theoretical and methodological considerations generally apply to all corpus-linguistic work, the focus will be on the current issue of lexical innovation.
 
     I adopt Schmid's EC-Model~\parencite{Schmid2020} as a framework for defining and delimitating the concepts of \enquote{conventionalization} and \enquote{diffusion}.
 
@@ -210,7 +210,9 @@
 
     Aside from the sociolinguistic perspective on diffusion (\enquote{number of speakers and communities}), Schmid conceptualizes diffusion as a multi-dimensional process that also takes into account changes on the syntagmatic (\enquote{cotexts}) and pragmatic (\enquote{contexts}) level. This paper will focus on the sociolinguistic dimension of diffusion and will leave an integrative approach including all three perspectives for further research.
 
-    Applying this definition to the context of lexical innovation thus implies that the successful diffusion of a new word is marked by it being known and used by an increasing \enquote{number of speakers and communities}. By contrast, in a strict sense, usage frequency counts of a lexeme in a corpus simply represent the total number of tokens produced by \emph{all} speakers who have \emph{contributed} to the \emph{target text corpus}. The discrepancy between the theoretical definition of diffusion adopted here and the exact information contained by frequency show that this operationalization relies on a number of assumptions that let it only approximate the construct to be measured.
+    Applying this definition to the context of lexical innovation thus implies that the successful diffusion of a new word is marked by it being known and used by an increasing \enquote{number of speakers and communities}.
+
+    By contrast, in a strict sense, usage frequency counts of a lexeme represent the total number of tokens produced by \emph{all} speakers who have \emph{contributed} to the \emph{target text corpus}. The discrepancy between the theoretical definition of diffusion adopted here and the exact information contained by frequency show that this operationalization relies on a number of assumptions that let it only approximate the construct to be measured.
 
     Firstly, usage frequency does not provide direct information as to how many \emph{individual speakers} have used a new word. Especially in the case of neology, there are certain new words that are disproportionally used and propagated by a relatively small, but more active and dedicated users of the new term. This leads to high overall frequency counts which falsely suggest that larger parts of the speech community have adopted the term.
 
@@ -225,7 +227,7 @@
 
 \section{Data}
 
-    For my empirical study I have selected about 100 neologisms to study their diffusion on Twitter from their early attestations to the end of 2018. More information about the sample can be found in Section XXX.
+    For my empirical study I have selected XXX neologisms to study their diffusion on Twitter from their early attestations to the end of 2018. More information about the sample can be found in Section XXX.
 
   \subsection{Twitter data}
 
@@ -303,9 +305,9 @@
         temporal dynamics of diffusion (diachronic)
           stability: stable vs. topical \mtrc{coefficient of variation}
           trend
-            diffusion: increasing degree of diffusion
-            centralization: decreasing degree of diffusion
-          speed
+            increasing: potential diffusion
+            decreasing: potential centralization
+          time window: speed and lifespan
 
     Case studies
 
@@ -324,57 +326,149 @@
 
 \section{Frequency}
 
-  \subsection{Cumulated usage intensity}
 
-    As described in Section XXX, the degree of conventionality is often approximated by a word's total number of uses observed in a corpus.
+  \subsection{Cumulative frequency}
 
-      rationale: potential exposure for individuals / society
+    As described in Section XXX, the degree of conventionality is often approximated by a how many times a word has been used in a corpus. A common way to use this information is to rely on cumulated frequency counts which sum up the total number of uses.
 
-      I will use frequency as a baseline approach before I zoom in on the sociolinguistics aspects using network analysis.
+    The present sample of neologisms covers a broad frequency range. Table \ref{tab:freq_total} presents candidates from four groups: six examples around the minimum, the median and the maximum total usage frequency as well as six words that will serve as case studies in the following sections.
 
-    full sample
+    \begin{table}
+      \caption{Total usage frequency in the corpus.}
+      \label{tab:freq_total}
+      \centering
+      \begin{subtable}{.45\linewidth}
+        \subcaption{Examples around the minimum.}
+        \centering
+        \begin{tabular}{lr}
+          \toprule
+          lexeme & freq\\
+          \midrule
+          microflat & 426 \\
+          dogfishing  & 399 \\
+          begpacker & 283 \\
+          halfalogue  & 245 \\
+          rapugee & 182 \\
+          bediquette  & 164 \\
+          \bottomrule
+        \end{tabular}
+      \end{subtable}
+      \hfill
+      \begin{subtable}{.45\linewidth}
+        \subcaption{Examples around the median.}
+        \centering
+        \begin{tabular}{lr}
+          \toprule
+          lexeme & freq\\
+          \midrule
+          white fragility & 26,688  \\
+          monthiversary & 23,607  \\
+          helicopter parenting  & 26,393  \\
+          deepfake  & 20,101  \\
+          newsjacking & 20,930  \\
+          twittosphere  & 20,035  \\
+          \bottomrule
+        \end{tabular}
+      \end{subtable}
 
-      The words in my sample span a broad range of total uses
-        min
-        max
-        mean
-        median
+      \begin{subtable}{.45\linewidth}
+        \subcaption{Examples around the maximum.}
+        \label{subtab:freq_total_max}
+        \centering
+        \begin{tabular}{lr}
+          \toprule
+          lexeme & freq\\
+          \midrule
+          tweeter & 7,367,174 \\
+          fleek & 3,412,807 \\
+          bromance  & 2,662,767 \\
+          twitterverse  & 1,486,873 \\
+          blockchain  & 1,444,300 \\
+          smartwatch  & 1,106,906 \\
+          \bottomrule
+        \end{tabular}
+      \end{subtable}
+      \hfill
+      \begin{subtable}{.45\linewidth}
+        \subcaption{Case study selection.}
+        \label{subtab:freq_total_cases}
+        \centering
+        \begin{tabular}{lr}
+          \toprule
+          lexeme & freq\\
+          \midrule
+          solopreneur & 282,026 \\
+          hyperlocal  & 209,937 \\
+          alt-left  & 167,124 \\
+          circular economy  & 96,140  \\
+          upskill & 57,941  \\
+          poppygate & 3,807 \\
+          \bottomrule
+        \end{tabular}
+      \end{subtable}
+    \end{table}
 
-      time spans are different
-        min
-        max
-        mean
-        median
+    In a strict sense, usage frequency only captures how many tokens of a word were produced by all speakers who have contributed to the corpus at hand. Investigating the degree to which new words diffuse to new speakers and speaker communities on the basis of frequency counts thus depends on several inferences that are commonly accepted as sufficiently reliable.
 
-      Here you can find 5 items around the
-        min
-        25\%
-        50\%
-        75\%
-        max
+    \begin{enumerate}
+      \item Frequency counts indicate how many speakers have used the term.
+      \item The number of speakers who have used the term indicates how many speakers are familiar with the term, whether they have actively used it or not.
+      \item The number of speakers who are familiar with the term indicate how many communities of speakers are familiar with the term.
+    \end{enumerate}
 
-      discussion:
-        broad range is covered
-        concurs with intuition
+    These assumptions are to a large extent plausible and have empirically been proven to be effective for investigating both degrees of entrenchment of lexemes in individual speakers as well their conventionality in the speech community.
+
+    For example, neologisms that show the very high frequency counts such as \ol{smartwatch} have certainly been used by (1)~many speakers. It also seems very unlikely that about the about 1 million active uses observed stem exclusively from a tight-knit community of techno-enthusiasts and that the rest of the speech community has never been exposed to the term.
+
+    However, even among the group of high-frequency lexemes in Table \ref{subtab:freq_total_max}, words that show similar total usage frequencies such as \ol{twitterverse} and \ol{blockchain}, for which meaning transcriptions seem unnecessary, might indeed differ significantly regarding their conventionality in different parts of the speech community.
+
+    Assessing the status of less-established neologisms like \ol{hyperlocal} and \ol{solopreneur}
+
+     the pathways and degrees of diffusion of neologisms in earlier stages
+
+
+
+    For studying the spread of new words, however, frequency counts only provide a limited picture. In the following sections I will assess the value of usage frequency and compare and complement it with social network information about the diffusion of lexical innovations.
+
+
+
+    The words in the sample that have gathered the most uses
+
+
+    good
+      works well, fits intuition
+    to improve
+      uncovering temporal dynamics
+
+    cumulative counts
+
+      what it can reveal
+        approx. users
+        taking into account lifespan of words
+
+
+    Potential distortions
+      uses != users: This can distort the picture, e.g. if some speakers have a much stronger preference to use the term than the average or the amount of words contributed by by each speaker is not balanced.
+
 
     case studies
 
-      Figure XXX presents the cumulative usage frequency for the case study lemmas:
+      Figure XXX presents the cumulative usage frequency for the case study neologisms:
 
         \begin{figure}[H]
-          \caption{Cumulative increase in usage frequency for case studies.}
+          \caption{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/freq_cum_cases.pdf}
           \centering
         \end{figure}
+        \footnotetext{For better visibility \ol{alt-right} was omitted from this plot because of its high usage frequency.}
 
-      frequencies are roughly in the same range (percentiles from the full sample)
-
-      to improve
-        uncovering temporal dynamics
+      X is most frequent
+      Y is oldest
+      \ol{poppygate}
 
   \subsection{Temporal dynamics of usage intensity}
 
-    instead of cumulative counts we now look at raw counts over time (in monthly bins)
+    instead of cumulative counts we now look at absolute frequency counts over time (in monthly bins)
 
     case studies
 
@@ -386,17 +480,17 @@
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_upskill_time"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
-          \caption{\ol{circular economy}}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_circular economy_time"}
-        \end{subfigure}
-        \begin{subfigure}{.3\linewidth}
           \caption{\ol{hyperlocal}}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
         \end{subfigure}
-
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{solopreneur}}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_solopreneur_time"}
+        \end{subfigure}
+
+        \begin{subfigure}{.3\linewidth}
+          \caption{\ol{alt-right}}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_alt-right_time"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-left}}

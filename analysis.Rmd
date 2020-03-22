@@ -34,14 +34,14 @@ diff_start_limit <- 3
 
 cases <- c(
   # 'lituation'
-  # 'alt-right',
   # 'ghosting',
   # 'upcycling',
   # 'birther'
+  # 'circular economy',
   'upskill',
-  'circular economy',
   'hyperlocal',
   'solopreneur',
+  'alt-right',
   'alt-left',
   'poppygate'
   )
@@ -66,12 +66,15 @@ df_comp %<>%
     SKIP != TRUE,
     SUBSETTING == subsetting,
     # established words
-    !LEMMA %in% c('Anglo-Saxon', 'climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis '),
+    !LEMMA %in% c('Anglo-Saxon', 'climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis', 'artificial intelligence'),
     # successful words: USES_TOT >= 10000
     # unsuccessful words: USES_TOT <= 10000
     # weird words: big dick energy
     !LEMMA %in% c('cookprocessor')
   )
+
+df_comp %>%
+  View()
 ```
 
 
@@ -199,7 +202,10 @@ df_comp %>%
   select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
     SUBSET != 'full',
-    LEMMA %in% c(cases)
+    LEMMA %in% c(cases, 'alt-right'),
+    # 'social justice warrior', 'baecation', 'tookkah', 'upskirting', 'helicopter parenting', 
+    # 'glamping', 'lifehack', 'alt-right', 'lituation', 'baeless'
+    !LEMMA %in% c('circular economy')
   ) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA)) +
@@ -237,7 +243,63 @@ df_comp %>%
 
 # Frequency
 
-## Total
+## dataset statistics
+
+```{r}
+df_stats <- tibble(
+  STAT = c('MIN', 'MAX', 'MEAN', 'MEDIAN'),
+  VALUE = c(min(df_comp$USES_TOT), max(df_comp$USES_TOT), mean(df_comp$USES_TOT), median(df_comp$USES_TOT))
+  )
+
+exs_min <- df_comp %>% 
+  filter(SUBSET == 'full') %>%
+  arrange(USES_TOT) %>%
+  select(LEMMA, USES_TOT) %>%
+  top_n(-6, USES_TOT) %>%
+  mutate(GROUP = 'min')
+  
+exs_max <- df_comp %>% 
+  filter(SUBSET == 'full') %>%
+  arrange(desc(USES_TOT)) %>%
+  select(LEMMA, USES_TOT) %>%
+  top_n(6, USES_TOT) %>%
+  mutate(GROUP = 'max')
+
+exs_median <- df_comp %>% 
+  filter(SUBSET == 'full') %>%
+  arrange(desc(USES_TOT)) %>%
+  filter(USES_TOT <= df_stats %>% filter(STAT == 'MEDIAN') %>% pull(VALUE)) %>%
+  select(LEMMA, USES_TOT) %>%
+  top_n(6, USES_TOT) %>%
+  mutate(GROUP = 'median')
+
+exs_mean <- df_comp %>% 
+  filter(SUBSET == 'full') %>%
+  arrange(USES_TOT) %>%
+  filter(USES_TOT >= df_stats %>% filter(STAT == 'MEAN') %>% pull(VALUE)) %>%
+  select(LEMMA, USES_TOT) %>%
+  top_n(-6, USES_TOT) %>%
+  mutate(GROUP = 'mean')
+
+exs_cases <- df_comp %>%
+  filter(SUBSET == 'full') %>%
+  arrange(desc(USES_TOT)) %>%
+  filter(LEMMA %in% cases) %>%
+  select(LEMMA, USES_TOT) %>%
+  mutate(GROUP = 'case')
+
+df_examples <- bind_rows(exs_min, exs_max, exs_median, exs_mean, exs_cases)
+
+df_examples %<>% 
+  mutate(GROUP = factor(GROUP, c('min', 'median', 'mean', 'max', 'case'))) %>%
+  arrange(GROUP)
+
+# write_csv(df_examples, 'out/df_examples.csv')
+```
+
+
+
+## list of totals
 
 ```{r}
 df_comp %>%
@@ -247,15 +309,13 @@ df_comp %>%
 ```
 
 
-## Cumulative
+## cumulative
 
 ```{r}
-# cases = c('microflat', 'poppygate')
-
 # uses_lemmas <- NULL
-# lemmas_done <- uses_lemmas %>% distinct(LEMMA) %>% pull()
-# 
-# for (lemma in c('upskill', 'circular economy')) {
+lemmas_done <- uses_lemmas %>% distinct(LEMMA) %>% pull()
+
+# for (lemma in c('alt-right')) {
 #   if (!lemma %in% lemmas_done) {
 #     tweets <- load_data(corpus, lemma)
 #     tweets <- postproc(tweets)
@@ -272,7 +332,7 @@ df_comp %>%
 uses_lemmas %>%
   mutate(LEMMA = fct_reorder(LEMMA, USES_CUM, max, .desc=TRUE)) %>%
   filter(LEMMA %in% c(cases)) %>%
-  filter(LEMMA != 'birther') %>%
+  filter(LEMMA != 'alt-right') %>%
   ggplot(data=., aes(x=DATE, y=USES_CUM)) +
     geom_line(aes(color=LEMMA, linetype=LEMMA)) +
     scale_y_continuous('cumulative usage frequency') +
@@ -370,15 +430,12 @@ df_comp %>%
 df_comp %>%
   select(LEMMA, SUBSET, CENT_DEGREE, EDGES, USES_TOT) %>%
   filter(
-    SUBSET %in% c(
-      'one', 
-      'four'
-      ),
+    SUBSET %in% c('one', 'four'),
     USES_TOT >= 10000
     ) %>%
   dplyr::group_by(LEMMA) %>%
   dplyr::mutate(CENT_DIFF = CENT_DEGREE - lag(CENT_DEGREE, default=CENT_DEGREE[1])) %>%
-  drop_na() %>%
+  filter(SUBSET == 'four') %>%
   select(-SUBSET) %>%
   rename(
     CENT_LAST = CENT_DEGREE,
@@ -457,12 +514,12 @@ df_comp %>%
     SUBSET %in% c(
       'one', 
       'four'
-      )
-    # USES_TOT >= 10000
+      ),
+    USES_TOT >= 10000
     ) %>%
   dplyr::group_by(LEMMA) %>%
   dplyr::mutate(DENS_DIFF = DENSITY - lag(DENSITY, default=DENSITY[1])) %>%
-  drop_na() %>%
+  filter(SUBSET == 'four') %>%
   select(-SUBSET) %>%
   rename(
     DENS_LAST = DENSITY,
@@ -529,7 +586,7 @@ cases_freq_min <- df_cases %>%
   
 cases_freq_max <- df_cases %>%
   dplyr::summarise(USES_MAX = max(USES_TOT)) %>%
-  mutate(USES_MAX = get_uses_tot(df_comp, 'birther')) %>%
+  mutate(USES_MAX = get_uses_tot_lemma(df_comp, 'birther')) %>%
   pull(USES_MAX)
 
 df_comp %>%
