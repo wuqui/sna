@@ -67,10 +67,6 @@ load_data <- function (corpus, lemma) {
 }
 
 
-read_df_comp <- function (f_path) {
-  read_csv(f_path) %>%
-    mutate(SUBSET = factor(SUBSET, levels=c('one', 'two', 'three', 'four', 'full')))
-}
 
 
 # skip large lemmas

@@ -14,10 +14,12 @@ source('src/postproc.R')
 source('src/uses.R')
 source('src/users.R')
 source('src/sna.R')
+source('src/analysis.R')
 
 library(corrr)
 library(tidyr)
 library(magrittr)
+library(forcats)
 ```
 
 
@@ -33,15 +35,15 @@ diff_start_limit <- 3
 cases <- c(
   # 'lituation'
   # 'alt-right',
-  # 'poppygate',
   # 'ghosting',
   # 'upcycling',
+  # 'birther'
   'upskill',
   'circular economy',
   'hyperlocal',
   'solopreneur',
   'alt-left',
-  'birther'
+  'poppygate'
   )
 
 ```
@@ -268,7 +270,9 @@ df_comp %>%
 # }
 
 uses_lemmas %>%
-  filter(LEMMA %in% cases) %>%
+  mutate(LEMMA = fct_reorder(LEMMA, USES_CUM, max, .desc=TRUE)) %>%
+  filter(LEMMA %in% c(cases)) %>%
+  filter(LEMMA != 'birther') %>%
   ggplot(data=., aes(x=DATE, y=USES_CUM)) +
     geom_line(aes(color=LEMMA, linetype=LEMMA)) +
     scale_y_continuous('cumulative usage frequency') +
@@ -277,6 +281,7 @@ uses_lemmas %>%
     scale_linetype_discrete(guide=FALSE)
 
 # ggsave('out/freq_cum_cases.pdf', width=6, height=4)
+# write_csv(uses_lemmas, 'out/uses_lemmas.csv')
 ```
 
 
@@ -512,28 +517,27 @@ df_cases <- df_comp %>%
   filter(
     SUBSET == subset,
     LEMMA %in% c(cases),
-    !LEMMA %in% c('upskill')
+    !LEMMA %in% c(
+      'upskill',
+      'poppygate'
+      )
     )
 
 cases_freq_min <- df_cases %>%
-  select(USES_TOT) %>%
-  arrange(USES_TOT) %>%
-  slice(1:1) %>%
-  pull(USES_TOT)
+  dplyr::summarise(USES_MIN = min(USES_TOT)) %>%
+  pull(USES_MIN)
   
-
 cases_freq_max <- df_cases %>%
-  select(USES_TOT) %>%
-  arrange(desc(USES_TOT)) %>%
-  slice(1:1) %>%
-  pull(USES_TOT)
+  dplyr::summarise(USES_MAX = max(USES_TOT)) %>%
+  mutate(USES_MAX = get_uses_tot(df_comp, 'birther')) %>%
+  pull(USES_MAX)
 
 df_comp %>%
   filter(
     SUBSET == subset,
     USES_TOT >= cases_freq_min,
     USES_TOT <= cases_freq_max,
-    !LEMMA %in% c('big dick energy', 'slut shaming', 'cuckold', 'shareable', 'Brexiteer', 'incel', 'dashcam')
+    !LEMMA %in% c('big dick energy', 'slut shaming', 'cuckold', 'shareable', 'Brexiteer', 'incel', 'dashcam', 'refugee crisis')
     ) %>%
   select(LEMMA, CENT_DEGREE, USES_TOT, USES, EDGES) %>%
   ggplot(., aes(x=CENT_DEGREE, y=USES_TOT)) +
@@ -607,7 +611,7 @@ df_comp %>%
 df_comp %>%
   filter(
     SUBSET == 'full',
-    USES_TOT >= 100000
+    USES_TOT >= 1000
     ) %>%
   select(LEMMA, USES_TOT, COEF_VAR) %>%
   arrange(desc(COEF_VAR))
