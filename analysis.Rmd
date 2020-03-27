@@ -193,16 +193,16 @@ df_comp %>%
 ### Diachronic
 
 ```{r}
-cent_diac_incr <- c('robo-signing', 'circular economy', 'alt-right', 'Brexiteer')
-cent_diac_const <- c('upskill')
-cent_diac_decr <- c('blockchain', 'newsjacking', 'overtourism')
+# cent_diac_incr <- c('robo-signing', 'circular economy', 'alt-right', 'Brexiteer')
+# cent_diac_const <- c('upskill')
+# cent_diac_decr <- c('blockchain', 'newsjacking', 'overtourism')
 
 
 df_comp %>%
   select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
     SUBSET != 'full',
-    LEMMA %in% c(cases, 'alt-right'),
+    LEMMA %in% c(cases),
     # 'social justice warrior', 'baecation', 'tookkah', 'upskirting', 'helicopter parenting', 
     # 'glamping', 'lifehack', 'alt-right', 'lituation', 'baeless'
     !LEMMA %in% c('circular economy')
@@ -313,7 +313,7 @@ df_comp %>%
 
 ```{r}
 # uses_lemmas <- NULL
-lemmas_done <- uses_lemmas %>% distinct(LEMMA) %>% pull()
+# lemmas_done <- uses_lemmas %>% distinct(LEMMA) %>% pull()
 
 # for (lemma in c('alt-right')) {
 #   if (!lemma %in% lemmas_done) {
@@ -586,7 +586,6 @@ cases_freq_min <- df_cases %>%
   
 cases_freq_max <- df_cases %>%
   dplyr::summarise(USES_MAX = max(USES_TOT)) %>%
-  mutate(USES_MAX = get_uses_tot_lemma(df_comp, 'birther')) %>%
   pull(USES_MAX)
 
 df_comp %>%
