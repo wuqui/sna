@@ -48,6 +48,7 @@ packrat/lib*/
 doc/*
 !doc/*.tex
 !doc/*.sty
+!doc/*.bib
 !doc/*.pdf
 # !doc/images/
 
