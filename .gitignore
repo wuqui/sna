@@ -47,6 +47,7 @@ packrat/lib*/
 # LaTeX
 doc/*
 !doc/*.tex
+!doc/*.sty
 !doc/*.pdf
 # !doc/images/
 
