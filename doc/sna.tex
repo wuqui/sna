@@ -8,18 +8,7 @@
 % packages
 
   \usepackage{packages}
-
-  % extensions for paper
-
-    \bibliography{references}
-    \usepackage{subcaption}
-    \usepackage[super]{nth}
-
-    % load filenames containing whitespace
-    \usepackage{etoolbox}
-    \makeatletter
-    \patchcmd{\Ginclude@eps}{"#1"}{#1}{}{}
-    \makeatother
+  \bibliography{/Users/quirin/promo/bib/references.bib}
 
 % new commands
 
@@ -56,7 +45,7 @@
 
     Our results show that frequency counts lend themselves to approximate overall degrees of diffusion with varying success. While absolute counts can be misleading, incorporating temporal dynamics of use provides a better picture of diffusion. However, frequency-based information alone fail to capture important sociolinguistic characteristics. Social network information are shown to add valuable information about whether new words are known and used by an increasing number of individuals and communities of speakers. Firstly, we distinguish different pathways of diffusion depending on whether and to which degree new words show increasing vs. decreasing centralized use over time. Secondly, we show that social network information allow for more fine-grained assessments of degrees of diffusion, for example when new words are used with increasing frequency while their remains limited to certain parts of the speech community. Lastly, we compare our results based on usage frequency and on social network analysis. Besides notable discrepancies, we find a significant correlation between both types of information which serves to cross-validate both approaches.
 
-    Our results suggest that social network information can complement frequency counts and that using information from both sources provides a more reliable and differentiated view of the sociolinguistic dynamics of  diffusion. We suggest that this is particularly important for investigating the diffusion of lexical innovations, as new words are often marked by high social indexicality and show substantial differences in use between communities of speakers. More generally, however, social network analysis shows great potential to study sociolinguistic dynamics of language variation and change on all linguistic levels.
+    Our results suggest that social network information can complement frequency counts and that using information from both sources provides a more reliable and differentiated view of the sociolinguistic dynamics of diffusion. We suggest that this is particularly important for investigating the diffusion of lexical innovations, as new words are often marked by high social indexicality and show substantial differences in use between communities of speakers. More generally, however, social network analysis shows great potential to study sociolinguistic dynamics of language variation and change on all linguistic levels.
 
 
     \vspace{2\baselineskip}
@@ -69,29 +58,66 @@
 
 \section{Introduction}
 
-  Societies continually evolve, new products and practices emerge, and speakers coin and adopt new words when they interact and share information with each other. How do these words spread in social networks of communicative interaction?
+  Societies continually evolve, new products and practices emerge, and speakers coin and adopt new words when they interact and share information. How do these words spread in social networks of communicative interaction?
 
   The disease Covid-19 has recently spread through social contagion with shocking speed and has tragically affected the lives of people around the world. Its fatal consequences have demonstrated the devastating power of exponential diffusion in social networks. In a recent paper analysing contagion patterns of diseases in \emph{Nature Physics}, \textcite{Hebert-Dufresne2020} have suggested that the spread of viruses follows principles of complex contagion through social reinforcement and that it matches the dynamics of diffusion of cultural and linguistic innovations such as new words and internet memes. Does this confirm the widespread perception that new words \enquote{go viral}?
 
   Influential sociolinguistic models of the spread of linguistic innovations like the S-curve model~\parencite{Milroy1992} share fundamental features with earlier economic models~\parencite{Rogers1962} of diffusion and show commonalities between the spread of cultural and linguistic innovations. These models assume that diffusion in social networks follows universal trajectories and that rates of spread depend on social dynamics such as network density and the presence or absence of weak ties~\parencite{Granovetter1977}. Unlike research on biological and cultural diffusion processes, however, sociolinguistic research has only recently been provided with data sources that are equally suitable for large-scale, data-based approaches that use social network analysis to study these phenomena empirically.
 
-  Social media platforms like Twitter have changed the way we communicate and how information spreads, and they offer large amounts of data for empirical research. Sociological research has been concerned with pressing issues regarding the impact of online social networks for the spread of hate speech, fake news and the power of \enquote{influencers}, bots and institutions on public opinions and elections, which increasingly strain the social fabric. For (socio-)linguists, social media data provide large amounts of authentic language use which open up new possibilities for the empirical study of language variation and change. The size of these datasets as well as their informal nature allow for large-scale studies on the use and spread of new words, for example to gain insights about general trajectories~\parencite{Nini2017} or about factors that influence whether new words spread successfully~\parencite{Grieve2018b}. Moreover, metadata about speakers allows to study aspects of diffusion that go beyond what can be captured by usage frequency alone. Recent work has, for example, used Twitter data to investigate the geographical spread of lexical innovations.~\parencite{Eisenstein2014,Grieve2017,Grieve2018} of diffusion.
+  Social media platforms like Twitter have changed the way we communicate and how information spreads, and they offer large amounts of data for empirical research. Sociological research has been concerned with pressing issues regarding the impact of online social networks for the spread of hate speech, fake news and the power of \enquote{influencers}, bots and institutions on public opinions and elections, which increasingly strain the social fabric. For (socio-)linguists, social media data provide large amounts of authentic language use which open up new possibilities for the empirical study of language variation and change. The size of these datasets as well as their informal nature allows for large-scale studies on the use and spread of new words, for example, to gain insights about general trajectories~\parencite{Nini2017} or about factors that influence whether new words spread successfully~\parencite{Grieve2018b}. Moreover, metadata about speakers allows studying aspects of diffusion that go beyond what can be captured by usage frequency alone. Recent work has, for example, used Twitter data to investigate the geographical spread of lexical innovations.~\parencite{Eisenstein2014,Grieve2017,Grieve2018} of diffusion.
 
-  Data about the communicative interaction of speakers additionally allows to perform network analyses of the social dynamics of diffusion processes. Network science approaches to social media data have been successfully employed in diverse fields, for example, to study the spread of diseases~\parencite{Lu2018}, opinions~\parencite{West2014} and political attitudes~\parencite{Pew-Research-Center2019}. While the study of social networks has a long research tradition in sociolinguistics and has shaped influential models of diffusion (e.g. \cite{Milroy1985}), large-scale network analyses of sociolinguistic phenomena have only recently become more widespread. These new data sources and methodological advances put computational sociolinguistics in an excellent position to gain new insights and to test long-standing theoretical models empirically.
+  Data about the communicative interaction of speakers additionally allows performing network analyses of the social dynamics of diffusion processes. Network science approaches to social media data have been successfully employed in diverse fields, for example, to study the spread of diseases~\parencite{Lu2018}, opinions~\parencite{West2014} and political attitudes~\parencite{Pew-Research-Center2019}. While the study of social networks has a long research tradition in sociolinguistics and has shaped influential models of diffusion (e.g. \cite{Milroy1985}), large-scale network analyses of sociolinguistic phenomena have only recently become more widespread. These new data sources and methodological advances put computational sociolinguistics in an excellent position to gain new insights and to test long-standing theoretical models empirically.
 
-  In the area of lexical innovation, this can serve to evaluate important theoretical concepts like the role of early adopters, network density and weak ties for the diffusion of new words. For example, earlier approaches have used computational modelling to test the validity of the S-curve model ~\parencite{Blythe2012} and to model processes of simple and complex contagion of linguistic innovations in social networks~\parencite{Goel2016}. Applying social network analysis to bigger samples of neologisms and tracking their diffusion on social media datasets promises to shed light on whether the adoption of new words remains limited to closely connected sub-communities or whether they reach bigger parts of the speech community and whether certain individuals or groups drive this process.
+  In the area of lexical innovation, this can serve to evaluate important theoretical concepts like the role of early adopters, network density and weak ties in the diffusion of new words. For example, earlier approaches have used computational modelling to test the validity of the S-curve model ~\parencite{Blythe2012} and to model processes of simple and complex contagion of linguistic innovations in social networks~\parencite{Goel2016}. Applying social network analysis to bigger samples of neologisms and tracking their diffusion on social media datasets promises to shed light on whether the adoption of new words remains limited to closely connected sub-communities or whether they reach larger parts of the speech community and whether individuals or groups drive this process.
 
-  This paper studies the diffusion of lexical innovations on Twitter. Taking frequency as a baseline, we conduct a longitudinal study monitoring the spread of a broad sample of neologisms to analyse their cumulated usage frequency as well as the temporal dynamics underlying their spread. We additionally conduct social network analyses of our neologism sample to get a better picture of the sociolinguistic dynamics at play and to assess different pathways and overall degrees of diffusion. Lastly, we compare both approaches to assess their validity and we combine information from both sources to arrive at a more differentiated picture of diffusion.
+  This paper makes use of the new data sources and methods outlined above to study the diffusion of lexical innovations on Twitter. Taking usage frequency as a baseline, we conduct a longitudinal study monitoring the spread of a broad sample of neologisms to analyse their cumulated usage frequency as well as the temporal dynamics underlying their spread. We additionally conduct social network analyses of our neologism sample to get a better picture of the sociolinguistic dynamics at play and to assess different pathways and overall degrees of diffusion. Lastly, we compare both approaches to assess their validity, and we combine information from both sources to arrive at a more differentiated picture of diffusion.
+
+  The paper is structured as follows. Section 2 presents an overview of previous attempts to modelling and measuring the diffusion of lexical innovations in order to contextualise and define the present theoretical framework and its operationalisation for the empirical study. Section 3 provides information regarding the collection and composition of the Twitter dataset and the sample of neologisms this study is based on. Section 4 describes the methodological procedure for analysing diffusion in this dataset and focuses on the construction and analysis of social networks. Section 5 presents the empirical results obtained from using usage frequency and social network analysis to study diffusion and from comparing both approaches. Section 6 summarises and discusses these results and suggests theoretical implications and directions for future work.
 
 \section{Modeling the diffusion of lexical innovations}
 
-  How do new words diffuse and become conventional lexical items in a language system?
+    Speakers continually coin new words, yet most fail to spread successfully and fall into oblivion. How do new words diffuse to be known and used by more and more speakers and to become conventional lexemes in a language system? And how can diffusion be modelled theoretically and measured empirically?
+
+    Neologisms are on a continuum from entirely novel word-formations to established lexemes that are familiar to the majority of the speech community. They have spread to some extent, but are still perceived as new or unknown by many speakers.
+
+      On one end of the continuum, \enquote{nonce-formations} are new words that have been coined in a concrete communicative situation, but do not diffuse because speakers do not use them in future usage contexts and they are not adopted by the interlocutors.~\parencite{Hohenhaus1996}
+
+      Fully established words form the other end of the continuum. They are known and used by most or all members of the speech community, and they are typically also codified in dictionaries. This latter, lexicographic feature marks speakers' agreement on how these words are to be used and their status as conventional lexical units in the language system.
+
+      Neologisms occupy an intermediate position between both poles and can be defined as
+
+        \blockquote[{\cite[31]{Kerremans2015}}]{
+          [\dots] lexical units, that have been manifested in use and thus are no longer nonce-formations, but have not yet occurred frequently and are not widespread enough in a given period to have become part and parcel of the lexicon of the speech community and the majority of its members.
+        }
+
+    Diffusion thus represents the process that transports successful neologisms along this continuum, becoming increasingly conventional in the speech community.
+
+      A more precise definition is provided by \citeauthor{Schmid2020}: \blockquote[\cite{Schmid2020}]{I define diffusion as a process that brings about a change in the number of speakers and communities who conform to a regularity of co-semiotic behaviour and a change in the types of cotexts and contexts in which they conform to it.} \todo{page?}
+      this definition includes three dimensions of diffusion
+        cotext
+        context
+        speakers
+
+      i will focus on sociolinguistic dimension in this paper
+        spread across
+          speakers
+          communities
+
+      previous work has taken at
+        structural and
+        cognitive perspectives
+
+      i will focus on the sociolinguistic perspective
+
+      most relevant and important model: S-curve model
+
+
 
   \subsection{Research perspectives}
 
     A substantial body of linguistic research has tackled this question from different \hw{perspectives}. \parencite[16]{Schmid2016}
 
-    From a \hw{structural} perspective, main areas of interest include which word-formation processes are involved in forming new words, whether they are formally and semantically transparent, whether they show variation and change in the process of lexicalization and which status the resulting neologisms have in the language system (institutionalization). (e.g. \cite{Bauer1983,Lipka2005}
+    From a \hw{structural} perspective, main areas of interest include which word-formation processes are involved in forming new words, whether they are formally and semantically transparent, whether they change in the process of lexicalization and which status the resulting neologisms have in the language system (institutionalization). \parencite[e.g.][]{Bauer1983,Lipka2005}
 
     \hw{Cognitive} perspectives focus on how individuals process and store lexical innovations. Speakers generally use new words when they experience a communicative need to talk about entities or practices that cannot be expressed by their language's inventory of conventional words yet. In order for neologisms to successfully diffuse, speakers need to successfully negotiate their meaning (co-semiosis) in discourse, others need to adopt the behaviour of using these words (co-adaption). Continued exposure and use of new words can then lead to the entrenchment of new words in the mental lexicon of speakers.~\parencite{Schmid2008}
 
@@ -107,15 +133,15 @@
 
       # These temporal trajectories are assumed to correspond to the \hw{sociolinguistic dynamics} of which individuals and groups interact with each other and adopt the target innovation.
 
-        ## In the \hw{first stage} of slow diffusion only a small number of early adopters take up the innovative words. The individuals who use the new word typically form dense networks connected by strong ties. The structure of tight-knit communities of potentially like-minded individuals of similar backgrounds facilitates the successful negotiation of meaning (co-semiosis) of new words. High rates of interactions in these communities leads to high rates of exposure for individuals, which fosters co-adaption, entrenchment and usualization of new words in these communities.
+        ## In the \hw{first stage} of slow diffusion only few early adopters take up the innovative words. The individuals who use the new word typically form dense networks connected by strong ties. The structure of tight-knit communities of potentially like-minded individuals of similar backgrounds facilitates the successful negotiation of meaning (co-semiosis) of new words. High rates of interactions in these communities leads to high rates of exposure for individuals, which fosters co-adaption, entrenchment and usualization of new words in these communities.
 
-        ## In cases of successful diffusion the initial stages are followed by an \hw{acceleration in spread} when new words increasingly reach speakers outside these tight-knit communities via weak ties~\parencite{Granovetter1977}. Rates of diffusion increase substantially when speakers that are not part of the initial group of early adopters start to accomodate the new words, allowing the innovations to reach a broader spectrum of the speech community.
+        ## In cases of successful diffusion the initial stages are followed by an \hw{acceleration in spread} when new words increasingly reach speakers outside these tight-knit communities via weak ties~\parencite{Granovetter1977}. Rates of diffusion increase substantially when speakers that are not part of the initial group of early adopters start to accommodate the new words, allowing the innovations to reach a broader spectrum of the speech community.
 
         ## In \hw{later stages}, rates of diffusion slow down again as the majority of the speech community has already adopted the new words while smaller pockets speakers remain reluctant to take up the new words.
 
       # S-curve models have mainly been applied to the \hw{linguistic domains} of phonology and syntax. Fundamental differences between lexemes and linguistic items on other levels such as phonemes and grammatical constructions might affect the validity and reliability of such models for \emph{lexical} innovation.
 
-        ## For example, grammatical constructions such as the \ol{going to} future used to express a speaker's future intention serve to fulfill relatively abstract communicative needs that remain stable over time. By contrast, on the lexical level, linguistic innovations are typically tied to concrete cultural referents such as products and practices whose conceptual relevance is much more volatile over time. For example, many lexical innovations such as \ol{millennium bug} denoting the fear of a computer crash at the beginning of the new millennium can show high rates of diffusion and become entrenched and conventional among the majority of the speech community. Without continual conceptual relevance in public discourse, however, these words fail pass on to the next generation of speakers. S-curves are commonly assumed to be found when linguistic innovations compete for \hw{\enquote{semantic carrying capacity}}~\parencite{Nini2017}, however, in many if not most cases of \emph{lexical} innovation the conceptual carrying capacity is far from stable over time which represents a critical deviation from the traditional assumptions behind S-curves in language change.
+        ## For example, grammatical constructions such as the \ol{going to} future used to express a speaker's future intention serve to fulfil relatively abstract communicative needs that remain stable over time. By contrast, on the lexical level, linguistic innovations are typically tied to concrete cultural referents such as products and practices whose conceptual relevance is much more volatile over time. For example, many lexical innovations such as \ol{millennium bug} denoting the fear of a computer crash at the beginning of the new millennium can show high rates of diffusion and become entrenched and conventional among the majority of the speech community. Without continual conceptual relevance in public discourse, however, these words fail pass on to the next generation of speakers. S-curves are commonly assumed to be found when linguistic innovations compete for \hw{\enquote{semantic carrying capacity}}~\parencite{Nini2017}, however, in many if not most cases of \emph{lexical} innovation the conceptual carrying capacity is far from stable over time which represents a critical deviation from the traditional assumptions behind S-curves in language change.
 
         ## However, the generally strong theoretical and empirical basis of the S-curve model for language innovation and change, also from studies on the diffusion of cultural innovations~\parencite{Rogers1962}, and the precise formulation of the sociolinguistic dynamics underlying different phases of diffusion still make it an attractive \hw{blueprint} for the empirical study of the sociolinguistic diffusion of lexical innovations.
 
@@ -154,7 +180,7 @@
 
       # \hw{before frequency} Empirical approaches studying the diffusion of lexical innovations have only recently become feasible with the advent of new data sources and computational methods.
 
-      # Earlier work had to rely on \hw{traditional linguistic corpora}. Due to the low-frequency nature of neologisms general linguistic corpora do not allow to study broad ranges of neologisms and thus pose limits to making broad and robust generalizations about the nature lexical innovation. Despite these limitations, case studies on selected neologisms~\parencite{Hohenhaus2006} and studies on specific domains of neology~\parencite{Elsen2004} managed to shed light on the spread of new words in more specific domains.
+      # Earlier work had to rely on \hw{traditional linguistic corpora}. Due to the low-frequency nature of neologisms general linguistic corpora do not allow studying broad ranges of neologisms and thus pose limits to making broad and robust generalizations about the nature lexical innovation. Despite these limitations, case studies on selected neologisms~\parencite{Hohenhaus2006} and studies on specific domains of neology~\parencite{Elsen2004} managed to shed light on the spread of new words in more specific domains.
 
       # The advent of \hw{web corpora} in the last two decades has provided researchers with bigger and less formal data to study lexical innovation.
 

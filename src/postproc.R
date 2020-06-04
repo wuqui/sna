@@ -1,8 +1,7 @@
 library(stringr)
 
 rem_dupls <- function (tweets) {
-  tweets %>% distinct(id, .keep_all=TRUE)
-  return(tweets)
+  tweets %<>% distinct(id, .keep_all=TRUE)
 }
 
 

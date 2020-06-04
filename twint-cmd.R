@@ -2,9 +2,9 @@
 library(stringr)
 
 # variables
-lemma <- 'ghosting'
+lemma <- 'Anglo-Saxon'
 start <- '2019-01-01'
-end <- '2019-12-31'
+end <- '2019-11-05'
 
 cmd_twint <- str_c("twint -s '", lemma, "' --since ", start, " --until ", end, " -o", " '", lemma, "_", start, "_", end, ".csv'", " --csv --hashtags --count -l en")
 

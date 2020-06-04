@@ -72,9 +72,6 @@ df_comp %<>%
     # weird words: big dick energy
     !LEMMA %in% c('cookprocessor')
   )
-
-df_comp %>%
-  View()
 ```
 
 
@@ -114,7 +111,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'hyperlocal'
+lemma <- 'Anglo-Saxon'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -127,8 +124,7 @@ tweets <- filter_tweets(tweets)
 tweets %>%
   select(tweet, date, replies_count, retweets_count, likes_count) %>%
   # slice(., sample(1:n())) #random selection
-  arrange(desc(likes_count)) %>%
-  View()
+  # arrange(desc(likes_count)) %>%
 ```
 
 
@@ -202,7 +198,8 @@ df_comp %>%
   select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
     SUBSET != 'full',
-    LEMMA %in% c(cases),
+    # LEMMA %in% c(cases),
+    LEMMA %in% c('Anglo-Saxon'),
     # 'social justice warrior', 'baecation', 'tookkah', 'upskirting', 'helicopter parenting', 
     # 'glamping', 'lifehack', 'alt-right', 'lituation', 'baeless'
     !LEMMA %in% c('circular economy')

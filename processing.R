@@ -23,10 +23,10 @@ subsetting <- 'time'
 diff_start_method <- 'edges'
 diff_start_limit <- 3
 
-export_edges <- FALSE
+export_edges <- TRUE
 
 
-for (lemma in c('alt-right')) {
+for (lemma in c('Anglo-Saxon')) {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
@@ -38,7 +38,7 @@ if (exists('df_comp') == FALSE) {
 # load data ----
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
-tweets <- filter_tweets(tweets)
+# tweets <- filter_tweets(tweets)
 
 
 # uses ----
