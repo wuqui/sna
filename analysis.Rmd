@@ -66,7 +66,7 @@ df_comp %<>%
     SKIP != TRUE,
     SUBSETTING == subsetting,
     # established words
-    !LEMMA %in% c('Anglo-Saxon', 'climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis', 'artificial intelligence'),
+    !LEMMA %in% c('climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis', 'artificial intelligence', 'yellow', 'Anglo-Saxon'),
     # successful words: USES_TOT >= 10000
     # unsuccessful words: USES_TOT <= 10000
     # weird words: big dick energy
@@ -199,10 +199,10 @@ df_comp %>%
   filter(
     SUBSET != 'full',
     # LEMMA %in% c(cases),
-    LEMMA %in% c('Anglo-Saxon'),
+    LEMMA %in% c('yellow', 'Anglo-Saxon'),
     # 'social justice warrior', 'baecation', 'tookkah', 'upskirting', 'helicopter parenting', 
     # 'glamping', 'lifehack', 'alt-right', 'lituation', 'baeless'
-    !LEMMA %in% c('circular economy')
+    # !LEMMA %in% c('circular economy')
   ) %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA)) +

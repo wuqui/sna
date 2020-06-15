@@ -1,0 +1,4 @@
+#+TITLE: SNA
+#+AUTHOR: QW
+
+* TODO consolidate current version

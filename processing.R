@@ -6,6 +6,7 @@ source('src/postproc.R')
 source('src/uses.R')
 source('src/users.R')
 source('src/sna.R')
+source('src/analysis.R')
 
 ## packages
 library(magrittr)
@@ -23,10 +24,10 @@ subsetting <- 'time'
 diff_start_method <- 'edges'
 diff_start_limit <- 3
 
-export_edges <- TRUE
+export_edges <- FALSE
 
 
-for (lemma in c('Anglo-Saxon')) {
+for (lemma in c('')) {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
