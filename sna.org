@@ -1,7 +1,11 @@
 #+TITLE: SNA
 #+AUTHOR: QW
 
-* TODO consolidate current version
+* DONE consolidate current version
 :CLOCKBOOK:
 CLOCK: [2020-06-15 Mo 16:59]--[2020-06-15 Mon 19:50] =>  2:51
+:END:
+* TODO write
+:CLOCKBOOK:
+CLOCK: [2020-06-15 Mon 22:25]
 :END:
