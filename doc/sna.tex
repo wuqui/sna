@@ -245,11 +245,44 @@ most relevant and important model: S-curve model
 
   temporal dynamics (e.g. \ol{millennium bug})
 
+
 \section{Data}
 
-I base my empirical study on a selection of a test
+  \subsection{Neologism sample}
 
-For my empirical study, I have selected XXX neologisms to study their diffusion on Twitter from their early attestations to the end of 2018. More information about the sample can be found in Section XXX.
+    I base my empirical study on a selection of 100 neologisms and study their use on Twitter from the early stages of their diffusion to the end of 2018. The lexemes were selected to cover a broad spectrum of lexical innovation. Previous work by \textcite[115--147]{Kerremans2015WebNew} has identified four main clusters of neologisms on the conventionalization continuum: `non-conventionalization', `topicality or transitional conventionalization', `recurrent semi-conventionalization' and `advanced conventionalization`. My sample largely contains neologisms taken from the NeoCrawler, which uses dictionary-matching to retrieve a semi-automatic, bottom-up selection of recent neologisms on the web and on Twitter~\parencite{Kerremans2019UsingDatamining}. I have additionally included lexemes that were statistically identified as increasing in frequency on Twitter in recent years by \textcite{Grieve2016AnalyzingLexical}.
+
+
+
+  dimensions
+
+    overall degree of diffusion (synchronic): successful vs. unsuccessful: \mtrc{usage frequency}, \mtrc{degree centralization}
+      no success
+      limited
+      advanced
+
+    temporal dynamics of diffusion (diachronic)
+      stability: stable vs. topical \mtrc{coefficient of variation}
+      trend
+      increasing: potential diffusion
+      decreasing: potential centralization
+      time window: speed and lifespan
+
+    Case studies
+      criteria
+      covering clusters of neologism candidates
+      frequency counts comparable
+      cases~\parencite{Kerremans2015WebNew}
+      no diffusion: \ol{microflat}
+      limited
+      topical: \ol{poppygate}
+      centralized: \ol{alt-left}
+      decreasing: \ol{solopreneur}
+      advanced diffusion:
+      advanced: \ol{upcycling}
+      increasing: \ol{hyperlocal}
+
+
 
   \subsection{Twitter data}
 
@@ -277,74 +310,38 @@ For my empirical study, I have selected XXX neologisms to study their diffusion 
 
   data overview: table
 
-  \subsection{Methodology}
+
+
+\section{Method}
 
   anatomy of a tweet
 
   post-processing
-  treatment of hashtags
-  filter uses as user handles
-  duplicate removal
+    treatment of hashtags
+    filter uses as user handles
+    duplicate removal
 
   social network analysis
-  software
-  \sw{R}: \sw{tidygraph}, \sw{ggraph}
-  \sw{Gephi}
-  constructing the networks
-  elements: legitimate~\parencite{Goel2016SocialDynamics}
-  users = nodes
-  interactions (replies, mentions) = edges
-  subsetting: time slices
-  start of diffusion process: >= 3 edges
-  4 phases of equally sized time windows
-  network metrics
-  centralization
-  network density
-  visualizations
+    software
+      \sw{R}: \sw{tidygraph}, \sw{ggraph}
+      \sw{Gephi}
+    constructing the networks
+      elements: legitimate~\parencite{Goel2016SocialDynamics}
+      users = nodes
+      interactions (replies, mentions) = edges
+    subsetting: time slices
+      start of diffusion process: >= 3 edges
+      4 phases of equally sized time windows
+    network metrics
+      centralization
+      network density
+      visualizations
 
-  The resulting networks are interactional rather than static.~\parencite{Goel2016SocialDynamics} This makes them more similar to communities of practice than to traditional sociolinguistic networks based on static speaker characteristics such socio-economic status.
-  In the case of lexical innovation networks that are based on whether speakers provide valuable information. In cases such as \ol{alt-left}, for example, interactional networks show whether usage of the term remains centralized to a tight-knit community of speakers or whether it diffuses to be used by other sub-communities.
-  Whether communities are distinct depends on whether users communicate with each other. While the reasons for theses communicative affiliations remain unknown (age, gender, socio-economic status), they are certainly real in mutually engage in communicative interaction.
-  It would be interesting to complement this information with static information, however such data are currently not obtainable.
-
-  \subsection{Neologism sample}
-
-  Full sample
-
-  Previous empirical approaches to the spread of neologisms have discovered a number of prototypical pathways of diffusion.~\parencite{Kerremans2015WebNew}
-  no diffusion
-  topical
-  recurrent
-  advanced
-
-  dimensions
-
-  overall degree of diffusion (synchronic): successful vs. unsuccessful: \mtrc{usage frequency}, \mtrc{degree centralization}
-  no success
-  limited
-  advanced
-
-  temporal dynamics of diffusion (diachronic)
-  stability: stable vs. topical \mtrc{coefficient of variation}
-  trend
-  increasing: potential diffusion
-  decreasing: potential centralization
-  time window: speed and lifespan
-
-  Case studies
-
-  criteria
-  covering clusters of neologism candidates
-  frequency counts comparable
-  cases~\parencite{Kerremans2015WebNew}
-  no diffusion: \ol{microflat}
-  limited
-  topical: \ol{poppygate}
-  centralized: \ol{alt-left}
-  decreasing: \ol{solopreneur}
-  advanced diffusion:
-  advanced: \ol{upcycling}
-  increasing: \ol{hyperlocal}
+    result: interactional networks
+      The resulting networks are interactional rather than static.~\parencite{Goel2016SocialDynamics} This makes them more similar to communities of practice than to traditional sociolinguistic networks based on static speaker characteristics such socio-economic status.
+      In the case of lexical innovation networks that are based on whether speakers provide valuable information. In cases such as \ol{alt-left}, for example, interactional networks show whether usage of the term remains centralized to a tight-knit community of speakers or whether it diffuses to be used by other sub-communities.
+      Whether communities are distinct depends on whether users communicate with each other. While the reasons for theses communicative affiliations remain unknown (age, gender, socio-economic status), they are certainly real in mutually engage in communicative interaction.
+      It would be interesting to complement this information with static information, however such data are currently not obtainable.
 
 \section{Frequency}
 
