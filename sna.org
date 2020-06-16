@@ -1,11 +1,52 @@
 #+TITLE: SNA
 #+AUTHOR: QW
 
-* DONE consolidate current version
+* Strategy
+- two modes
+  - writing
+  - editing
+- writing: towards a shitty draft
+  - only most important points
+  - language can be messy
+  - keep pace
+- editing
+- attitude
+  - be persistent
+  - be patient
+  - be relaxed
+- motivation
+  - time pressure will ease
+  - treats
+    - I can treat myself to a new Macbook
+    - Stressless Sessel
+  - diss progress
+    - will boost me to about 40% of my diss
+    - 1 paper about web stuff
+    - 1 paper about embeddings (with McGillivray)
+ 
+* Agenda
+** DONE consolidate current version
 :CLOCKBOOK:
 CLOCK: [2020-06-15 Mo 16:59]--[2020-06-15 Mon 19:50] =>  2:51
 :END:
-* TODO write
+** DONE read and indent
 :CLOCKBOOK:
-CLOCK: [2020-06-15 Mon 22:25]
+CLOCK: [2020-06-15 Mon 22:25]--[2020-06-15 Mon 23:23] =>  0:58
 :END:
+** TODO write data
+:LOGBOOK:
+- Note taken on [2020-06-16 Di 13:39] \\
+  | wc | 6227 |
+:END:
+:CLOCKBOOK:
+CLOCK: [2020-06-16 Di 19:10]
+CLOCK: [2020-06-16 Tue 08:29]--[2020-06-16 Di 13:40]  =>  5:11
+:END:
+** TODO send mail to Schmid
+- Hast Du nächste Woche Zeit für Korrekturlesen?
+- Dann würde ich dir Anfang der Woche das Paper schicken.
+** TODO write method
+** TODO write results
+** TODO write conclusion
+** misc
+*** TODO put list of lexemes in Appendix
