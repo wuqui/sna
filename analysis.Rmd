@@ -111,7 +111,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'Anglo-Saxon'
+lemma <- 'upskill'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -122,7 +122,7 @@ tweets <- filter_tweets(tweets)
 
 ```{r}
 tweets %>%
-  select(tweet, date, replies_count, retweets_count, likes_count) %>%
+  select(tweet, date, replies_count, retweets_count, likes_count)
   # slice(., sample(1:n())) #random selection
   # arrange(desc(likes_count)) %>%
 ```
@@ -132,7 +132,7 @@ tweets %>%
 
 ```{r}
 df_comp %>%
-  filter(LEMMA == 'hyperlocal') %>%
+  filter(LEMMA == 'upskill') %>%
   select(LEMMA, USES_TOT, SUBSET, USES)
 ```
 
@@ -193,13 +193,11 @@ df_comp %>%
 # cent_diac_const <- c('upskill')
 # cent_diac_decr <- c('blockchain', 'newsjacking', 'overtourism')
 
-
 df_comp %>%
   select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
     SUBSET != 'full',
-    # LEMMA %in% c(cases),
-    LEMMA %in% c('yellow', 'Anglo-Saxon'),
+    LEMMA %in% c(cases)
     # 'social justice warrior', 'baecation', 'tookkah', 'upskirting', 'helicopter parenting', 
     # 'glamping', 'lifehack', 'alt-right', 'lituation', 'baeless'
     # !LEMMA %in% c('circular economy')
@@ -237,6 +235,14 @@ df_comp %>%
 
 
 # Full sample
+
+# Number of lexemes
+
+```{r}
+df_comp %>%
+  distinct(LEMMA)
+```
+
 
 # Frequency
 
@@ -291,6 +297,7 @@ df_examples %<>%
   mutate(GROUP = factor(GROUP, c('min', 'median', 'mean', 'max', 'case'))) %>%
   arrange(GROUP)
 
+df_examples
 # write_csv(df_examples, 'out/df_examples.csv')
 ```
 
