@@ -1,17 +1,17 @@
 \documentclass[draft, a4paper, abstract=on]{scrartcl}
 
-%section{ignore warnings}
+%section{Ignore warnings}
 
   \usepackage{silence}
   \WarningFilter{latex}{Marginpar on page}
 
-%section{packages}
+%section{Packages}
 
   \usepackage{packages}
   \addbibresource{~/promo/bib/references.bib}
   \usepackage{url}
 
-%section{new commands}
+%section{New commands}
 
   \renewcommand{\hw}[1]{\textbf{#1}}
 
@@ -21,18 +21,18 @@
   \newcommand{\sw}[1]{\texttt{#1}}
 
 \begin{document}
-%section{title}
+%section{Title}
 
   \title{Social networks of lexical innovation}
   \subtitle{Investigating the diffusion of neologisms on Twitter}
   \author{Quirin Würschinger\\ LMU Munich}
   \maketitle
 
-%section{todos}
+%section{Todos}
 
 \listoftodos
 
-%section{abstract}
+%section{Abstract}
   \cleardoublepage
 
   \begin{abstract}
@@ -250,67 +250,28 @@ most relevant and important model: S-curve model
 
   \subsection{Neologism sample}
 
-    I base my empirical study on a selection of 100 neologisms and study their use on Twitter from the early stages of their diffusion to the end of 2018. The lexemes were selected to cover a broad spectrum of lexical innovation. Previous work by \textcite[115--147]{Kerremans2015WebNew} has identified four main clusters of neologisms on the conventionalization continuum: `non-conventionalization', `topicality or transitional conventionalization', `recurrent semi-conventionalization' and `advanced conventionalization`. My sample largely contains neologisms taken from the NeoCrawler, which uses dictionary-matching to retrieve a semi-automatic, bottom-up selection of recent neologisms on the web and on Twitter~\parencite{Kerremans2019UsingDatamining}. I have additionally included lexemes that were statistically identified as increasing in frequency on Twitter in recent years by \textcite{Grieve2016AnalyzingLexical}.
+  I base my empirical study on a selection of 100 neologisms and study their use on Twitter from the start of the platform in 2006 to the end of 2018.
 
+  The lexemes were selected to cover a broad spectrum of lexical innovation. Previous work by \textcite[115--147]{Kerremans2015WebNew} has identified four main clusters of neologisms on the conventionalization continuum: `non-conventionalization', `topicality or transitional conventionalization', `recurrent semi-conventionalization' and `advanced conventionalization`. My sample was designed to cover these categories and largely contains neologisms taken from the NeoCrawler, which uses dictionary-matching to retrieve a semi-automatic, bottom-up selection of recent neologisms on the web and on Twitter~\parencite{Kerremans2019UsingDatamining}. I have additionally included lexemes that were statistically identified as increasing in frequency on Twitter in recent years by \textcite{Grieve2016AnalyzingLexical}.
 
-
-  dimensions
-
-    overall degree of diffusion (synchronic): successful vs. unsuccessful: \mtrc{usage frequency}, \mtrc{degree centralization}
-      no success
-      limited
-      advanced
-
-    temporal dynamics of diffusion (diachronic)
-      stability: stable vs. topical \mtrc{coefficient of variation}
-      trend
-      increasing: potential diffusion
-      decreasing: potential centralization
-      time window: speed and lifespan
-
-    Case studies
-      criteria
-      covering clusters of neologism candidates
-      frequency counts comparable
-      cases~\parencite{Kerremans2015WebNew}
-      no diffusion: \ol{microflat}
-      limited
-      topical: \ol{poppygate}
-      centralized: \ol{alt-left}
-      decreasing: \ol{solopreneur}
-      advanced diffusion:
-      advanced: \ol{upcycling}
-      increasing: \ol{hyperlocal}
-
-
+  I limit my selection to neologisms whose diffusion started after 2006 to have full coverage of the incipient stages of their spread on Twitter.
 
   \subsection{Twitter data}
 
-  Twitter\footnote{\url{http://www.twitter.com}} is a popular micro-blogging and social media platform that was started in 2006.
-  one of the most popular social media platforms
+    Twitter is a popular micro-blogging platform that was started in 2006 and has become one of the most popular social media platforms today.
 
-  representativity
-  limited: certain user groups over-represented.
-  good enough: generally okay \parencite{Grieve2019MappingLexical}
+    The Twitter community is not a perfect reflection of society and the speech community as a whole, of course, since certain social groups are over- or underrepresented according to social variables such as age. Nevertheless, its broad user base and informal nature allow for a more representative picture of language use than domain-specific studies of, for example, newspaper corpora. Twitter corpora have been successfully used to identify patterns of sociolinguistic variation in numerous previous studies. A recent study by \textcite{Grieve2019MappingLexical} has, for example, shown the reliability of large-scale Twitter datasets for studying lexical variation.
 
-  advantages of data
-  hotbed: influential hotbed for technical, cultural and linguistic innovations
-  longitudinal: retrospective, starting from early attestations
-  big data
-  social network information
+    Twitter is particularly well-suited for studying lexical innovation due to the scale and types of data it provides and due to the nature of language use on Twitter. The enormous size of Twitter's search index facilitates the quantitative study of neologisms, which requires large-scale datasets due to their inherently low frequency of occurrence. Twitter is widely used to discuss trends in society and technology, which makes it a good environment for studying the emergence of linguistic innovations. The informal and interactional nature of communication on Twitter fosters the rapid adoption of linguistic innovations, and the use of neologisms on social media platforms like Twitter often precedes and drives the diffusion of new words in more formal sources or on the web \parencite{Wurschinger2016UsingWeb}.
 
-  scope of the present study:
-  I only study diffusion of new words \emph{on Twitter}
-  considering both frequency and social network characteristics might be more robust and allow more generalization than just frequency
+    \todo{retrospective, longitudinal, social network information, scope of the paper}
+    % limited to Twitter, yet combination of frequency and SNA more robust
 
-  data retrieval
-  I have used the tool \sw{twint}
-  to download all tweets containing the target word
-  as searchable via the Advanced Search Function on Twitter's official website
+    The data for this study were collected using the Python library \emph{twint}, which emulates Twitter's Advanced Search Function. For each word in the sample, I performed a search query to retrospectively retrieve all tweets found in the search index. Due to the large volume of more frequent lexemes, I limited the sample to contain only candidates for which I could collect all entries found in the index. During post-processing, I removed duplicate tweets, all tweets that did not contain the target lexeme in the tweet text, and all instances where it only occurred as part of a username.
 
-  data overview: table
+    The combined dataset for all 100 neologisms contains 29,912,050 tweets from May 2006. The first tweet dates from 5 May, 2006 and involves the neologism \emph{tweeter}, the last tweet in the collection is from 31 December, 2018, and includes \emph{dotard}.
 
-
+    \todo{retweets?}
 
 \section{Method}
 
@@ -343,9 +304,10 @@ most relevant and important model: S-curve model
       Whether communities are distinct depends on whether users communicate with each other. While the reasons for theses communicative affiliations remain unknown (age, gender, socio-economic status), they are certainly real in mutually engage in communicative interaction.
       It would be interesting to complement this information with static information, however such data are currently not obtainable.
 
-\section{Frequency}
+\section{Results}
+  \section{Frequency}
 
-  \subsection{Total usage frequency}
+    \subsection{Total usage frequency}
 
   As described in Section XXX, the degree of conventionality is often approximated by a how many times a word has been used in a corpus. A common way to use this information is to rely on cumulated frequency counts which sum up the total number of uses.
 
@@ -440,7 +402,7 @@ most relevant and important model: S-curve model
 
   However, even among the group of high-frequency lexemes in Table \ref{subtab:freq_total_max}, words that show similar total usage frequencies such as \ol{twitterverse} and \ol{blockchain}, for which semantic transcriptions even seem unnecessary, might indeed differ significantly regarding their conventionality in different parts of the speech community. For assessing and comparing the pathways of diffusion of less-established neologisms like \ol{hyperlocal} and \ol{solopreneur} total frequency counts alone provide a very limited picture.
 
-  \subsection{Cumulative frequency}
+    \subsection{Cumulative frequency}
 
   Cumulative frequency plots can supplement total frequency counts by additional information about the temporal dynamics of diffusion. Figure presents this information for all six cases.
 
@@ -467,7 +429,7 @@ most relevant and important model: S-curve model
   Y is oldest
   \ol{poppygate}
 
-  \subsection{Temporal dynamics of usage intensity}
+    \subsection{Temporal dynamics of usage intensity}
 
   instead of cumulative counts we now look at absolute frequency counts over time (in monthly bins)
 
@@ -532,9 +494,9 @@ most relevant and important model: S-curve model
   going beyond frequency
   In the following sections I will assess the value of usage frequency and compare and complement it with social network information about the diffusion of lexical innovations.
 
-\section{Social networks of diffusion}
+  \section{Social networks of diffusion}
 
-  \subsection{Centralization over time}
+    \subsection{Centralization over time}
 
   going beyond frequency
 
@@ -554,7 +516,7 @@ most relevant and important model: S-curve model
 
   example where nets add to freq.: \ol{alt-left}
 
-    \subsubsection{Overview of changes in centralization for case studies.}
+      \subsubsection{Overview of changes in centralization for case studies.}
 
   \begin{figure}[H]
   \caption{Degree centralization over time for case study words.}
@@ -562,7 +524,7 @@ most relevant and important model: S-curve model
   \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_diac.pdf}
   \end{figure}
 
-    \subsubsection{Advanced / increasing: \ol{hyperlocal}}
+      \subsubsection{Advanced / increasing: \ol{hyperlocal}}
 
   \begin{figure}[H]
   \caption{Social network of diffusion for \ol{hyperlocal} over time.}
@@ -589,7 +551,7 @@ most relevant and important model: S-curve model
   \end{subfigure}
   \end{figure}
 
-    \subsubsection{Limited / limited: \ol{alt-left}}
+      \subsubsection{Limited / limited: \ol{alt-left}}
 
   \begin{figure}[H]
   \caption{Social network of diffusion for \ol{alt-left} over time.}
@@ -616,7 +578,7 @@ most relevant and important model: S-curve model
   \end{subfigure}
   \end{figure}
 
-    \subsubsection{Full sample}
+      \subsubsection{Full sample}
 
   density
   successful
@@ -624,18 +586,18 @@ most relevant and important model: S-curve model
 
   biggest changes
 
-  \subsection{Overall centralization}
+    \subsection{Overall centralization}
 
   most diffused
   least diffused
 
-\section{Networks vs. frequency}
+  \section{Networks vs. frequency}
 
-  \subsection{Correlation}
+    \subsection{Correlation}
 
   There is a significant correlation ($p = 0.015$) between frequency and centralization
 
-  \subsection{Discrepancies}
+    \subsection{Discrepancies}
 
   However, we also see discrepancies
 
@@ -669,6 +631,7 @@ most relevant and important model: S-curve model
 
   Social network metrics certainly add to freq.
 
+\section{Discussion}
 \section{Conclusion}
 
 freq. proves to be a pretty good indicators
@@ -678,7 +641,7 @@ social network dynamics important, esp. w.r.t. new words
 cross-checking other data sources (NOW corpus) shows validity
 social network analysis can be an important tool for sociolinguistics
 
-%section{bibliography}
+%section{Bibliography}
 
 \printbibliography
 
