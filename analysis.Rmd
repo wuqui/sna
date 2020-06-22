@@ -99,7 +99,6 @@ successful_uses_min <- df_comp %>%
   filter(USES > 1000) %>%
   pull(LEMMA)
   
-  
 unsuccessful_uses_min <- df_comp %>%
   filter(USES < 1000) %>%
   pull(LEMMA)
@@ -122,7 +121,8 @@ tweets <- filter_tweets(tweets)
 
 ```{r}
 tweets %>%
-  select(tweet, date, replies_count, retweets_count, likes_count)
+  select(tweet, date, replies_count, retweets_count, likes_count) %>%
+  arrange((tweet))
   # slice(., sample(1:n())) #random selection
   # arrange(desc(likes_count)) %>%
 ```
@@ -246,6 +246,34 @@ df_comp %>%
 
 # Frequency
 
+## total n. of tweets
+
+```{r}
+n_tweets <- df_comp %>%
+  select(LEMMA, SUBSET, USES_TOT) %>%
+  filter(SUBSET=='full') %>%
+  dplyr::summarise(n_tweets = sum(USES_TOT)) %>%
+  pull(n_tweets)
+```
+
+
+## date range
+
+```{r}
+first_tweet <- df_comp %>%
+  filter(SUBSET=='full') %>%
+  select(LEMMA, START, END) %>%
+  arrange(START) %>%
+  top_n(-1, START)
+
+df_comp %>%
+  filter(SUBSET=='full') %>%
+  select(LEMMA, START, END) %>%
+  arrange(START) %>%
+  top_n(1, START)
+```
+
+
 ## dataset statistics
 
 ```{r}
@@ -303,7 +331,7 @@ df_examples
 
 
 
-## list of totals
+## total freq. per lemma
 
 ```{r}
 df_comp %>%

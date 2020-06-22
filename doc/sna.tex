@@ -11,6 +11,12 @@
   \addbibresource{~/promo/bib/references.bib}
   \usepackage{url}
 
+  %subsection{extensions for the paper}
+
+    \usepackage{siunitx}
+    \sisetup{group-minimum-digits=4}
+
+
 %section{New commands}
 
   \renewcommand{\hw}[1]{\textbf{#1}}
@@ -21,6 +27,9 @@
   \newcommand{\sw}[1]{\texttt{#1}}
 
 \begin{document}
+
+% \begin{comment}
+
 %section{Title}
 
   \title{Social networks of lexical innovation}
@@ -247,12 +256,11 @@ most relevant and important model: S-curve model
 
 
 \section{Data}
-
   \subsection{Neologism sample}
 
   I base my empirical study on a selection of 100 neologisms and study their use on Twitter from the start of the platform in 2006 to the end of 2018.
 
-  The lexemes were selected to cover a broad spectrum of lexical innovation. Previous work by \textcite[115--147]{Kerremans2015WebNew} has identified four main clusters of neologisms on the conventionalization continuum: `non-conventionalization', `topicality or transitional conventionalization', `recurrent semi-conventionalization' and `advanced conventionalization`. My sample was designed to cover these categories and largely contains neologisms taken from the NeoCrawler, which uses dictionary-matching to retrieve a semi-automatic, bottom-up selection of recent neologisms on the web and on Twitter~\parencite{Kerremans2019UsingDatamining}. I have additionally included lexemes that were statistically identified as increasing in frequency on Twitter in recent years by \textcite{Grieve2016AnalyzingLexical}.
+  The lexemes were selected to cover a broad spectrum of lexical innovation. Previous work by \textcite[115--147]{Kerremans2015WebNew} has identified four main clusters of neologisms on the conventionalization continuum: `non-conventionalization', `topicality or transitional conventionalization', `recurrent semi-conventionalization' and `advanced conventionalization`. My sample was designed to cover these categories and largely contains neologisms taken from the NeoCrawler, which uses dictionary-matching to retrieve a semi-automatic, bottom-up selection of recent neologisms on the web and on Twitter~\parencite{Kerremans2019UsingDatamining}. I have additionally included several lexemes that were statistically identified to have been increasing in frequency on Twitter in recent years by \textcite{Grieve2016AnalyzingLexical}.
 
   I limit my selection to neologisms whose diffusion started after 2006 to have full coverage of the incipient stages of their spread on Twitter.
 
@@ -267,133 +275,127 @@ most relevant and important model: S-curve model
     \todo{retrospective, longitudinal, social network information, scope of the paper}
     % limited to Twitter, yet combination of frequency and SNA more robust
 
-    The data for this study were collected using the Python library \emph{twint}, which emulates Twitter's Advanced Search Function. For each word in the sample, I performed a search query to retrospectively retrieve all tweets found in the search index. Due to the large volume of more frequent lexemes, I limited the sample to contain only candidates for which I could collect all entries found in the index. During post-processing, I removed duplicate tweets, all tweets that did not contain the target lexeme in the tweet text, and all instances where it only occurred as part of a username.
-
-    The combined dataset for all 100 neologisms contains 29,912,050 tweets from May 2006. The first tweet dates from 5 May, 2006 and involves the neologism \emph{tweeter}, the last tweet in the collection is from 31 December, 2018, and includes \emph{dotard}.
-
-    \todo{retweets?}
+    The data for this study were collected using the Python library \emph{twint}, which emulates Twitter's Advanced Search Function. For each word in the sample, I performed a search query to retrospectively retrieve all tweets found in the search index. Due to the large volume of more frequent lexemes, I limited the sample to contain only candidates for which I could collect all entries found in Twitter's index. The combined dataset for all 100 lexemes in the sample contains 29,912,050 tweets. The first tweet dates from 5 May, 2006 and involves the neologism \emph{tweeter}, the last tweet in the collection is from 31 December, 2018, and includes \emph{dotard}.
 
 \section{Method}
 
-  anatomy of a tweet
+  During post-processing, I removed duplicates, tweets that do not contain tokens of the target neologism in the tweet text, and all instances where tokens only occurred as parts of usernames.\footnote{The post-processing as well as all quantitative analyses were performed in R~\parencite{RCoreTeam2018LanguageEnvironment} and the full source code used is available on GitHub: \url{https://github.com/wuqui/sna}} Hashtag uses were included in the analysis. Retweets were excluded, since \emph{twint} does not consistently provide metadata which would allow to include retweeting in the social network analysis. The resulting dataset contains about 30 Mio. tweets containing one of the 100 neologism under investigation.
 
-  post-processing
-    treatment of hashtags
-    filter uses as user handles
-    duplicate removal
+  To investigate the diffusion of these lexemes in terms of usage intensity \parencite{Stefanowitsch2017CorpusbasedPerspective}, I compared time-series data based on the neologisms' frequency of occurrence over time. I binned the number of tweets per lexeme in monthly intervals to weaken uninterpretable effects of daily fluctuations in use, and to achieve a reasonable resolution to compare the use of all lexemes over varying time windows of up to 12 years. I visualize the resulting time series as seen in Figure XXX. I add the \emph{loess} function to indicate the smoothed development of usage frequency over time.
 
-  social network analysis
-    software
-      \sw{R}: \sw{tidygraph}, \sw{ggraph}
-      \sw{Gephi}
-    constructing the networks
-      elements: legitimate~\parencite{Goel2016SocialDynamics}
-      users = nodes
-      interactions (replies, mentions) = edges
-    subsetting: time slices
-      start of diffusion process: >= 3 edges
-      4 phases of equally sized time windows
-    network metrics
-      centralization
-      network density
-      visualizations
+  I calculated the coefficient of variance for all time series to capture different degrees of stability vs. volatility in the use of neologisms over time. The coefficient of variance~($c_{v}$) is a measure of the ratio of the standard deviation to the mean: $c_{v} = \frac{\sigma}{\mu}$. Higher values indicate higher degrees of variation in the use of a neologism, e.g. topical use of words such as \emph{burquini}; lower values indicate relatively stable use of words such as \emph{twitterverse}.
 
-    result: interactional networks
-      The resulting networks are interactional rather than static.~\parencite{Goel2016SocialDynamics} This makes them more similar to communities of practice than to traditional sociolinguistic networks based on static speaker characteristics such socio-economic status.
-      In the case of lexical innovation networks that are based on whether speakers provide valuable information. In cases such as \ol{alt-left}, for example, interactional networks show whether usage of the term remains centralized to a tight-knit community of speakers or whether it diffuses to be used by other sub-communities.
-      Whether communities are distinct depends on whether users communicate with each other. While the reasons for theses communicative affiliations remain unknown (age, gender, socio-economic status), they are certainly real in mutually engage in communicative interaction.
-      It would be interesting to complement this information with static information, however such data are currently not obtainable.
+  To investigate the diffusion across social networks over time, I subset the time series into four time slices of equal size, relative to the total period of diffusion observed for each neologism. I set the starting point of diffusion to the first week in which there were more than two interactions using the target lexeme in the dataset. This threshold was introduced to distinguish early, isolated ad-hoc uses of neologisms by single speakers from the start of accomodation processes during which new words increasingly spread in social networks of users on Twitter. This limit was validated empirically by testing different combinations of threshold values for the offset of number of users and interactions among early uses. Setting a low minimum level of interactions per week proved to reduce distortions in the size of time windows, and enabled a more robust coverage of the relevant periods of diffusion. For each neologism, I divided the time window from the start of its diffusion to the end of the period covered by the dataset into four equal time slices that are relative to the varying starting points of diffusion for all words in the sample. The starting points of each time slice are marked by dashed vertical lines in the usage frequency plots presented below (e.g. Figure XXX).
+
+  To investigate the social dynamics of diffusion over time, I created social networks for each of these subsets. Nodes in the network represent speakers who have actively used the term in a tweet and speakers who have been involved in usage events in the form of a reply or a mention in interaction with others. The resulting graphs represent networks of communicative interaction. Communities are formed based on the dynamic communicative behaviour observed rather than on information about users' social relations as found in follower--followee networks. This methodology is supported by previous research, which suggest that interactional networks of this kind are better indicators of social structure, since the dynamic communicative behaviour observed is more reliable and socially meaningful than static network information.~\parencite{Goel2016SocialDynamics, Huberman2008SocialNetworks} While users often follow thousands of accounts, their number of interactions with others provides a better picture of their individual social networks, which is much more limited in size~\parencite{Dunbar1992NeocortexSize}.
+
+  To construct the networks, I extracted users and interactions from the dataset to build a directed graph.\footnote{I used several \emph{R} packages~\parencite{RCoreTeam2018LanguageEnvironment} from the \emph{tidyverse}~\parencite{Wickham2019WelcomeTidyverse} for the network pre-processing, \emph{igraph} and \emph{tidygraph} were used for constructing the networks.} Nodes in the graph correspond to individual Twitter users, edges represent interactions between users. I capture multiple interactions between speakers by using edge weights, and I account for active vs. passive roles in interaction by using directed edges. I assessed the social diffusion of all neologisms quantitatively by generating and comparing several network metrics, and I produced network visualizations for all subsets for more detailed, qualitative analyses.
+
+  On the graph level, I rely on the measures of \emph{degree centralization} and \emph{modularity} to quantify the degree of diffusion for each subset.
+
+  Degree centralization~\parencite{Freeman1978CentralitySocial} is a graph-level measure for the distribution of node centralities in a graph. Nodes have high centrality scores when they are involved in many interactions in the network and thus play a `central' role in the social graph of users. The degree centrality of a graph indicates the extent of the variation of degree centalities of nodes in the graph. A graph is highly centralized when the connections of nodes in the network are skewed, so that they center around one or few individual nodes. In the context of diffusion, the graph of a neologism would show have high centralization in early stages, for example, when its use is largely confined to one or few centralized clusters of speakers. Diffusion leads to decreasing centralization when use of the term extends to new speakers and communities and the distribution of interactions in the speech community shows greater dispersion.
+
+  The normalized degree centralization of a graph is calculated by dividing its centrality score by the maximum theoretical score for a graph with the same number of nodes. This enables the comparison of graphs of different sizes, which is essential for drawing comparisons across lexems in the present context. The neologisms under investigation differ with regard to their lifespan and usage intensity, which results in substantial quantitative differences in network size. This needs to be controlled for to allow for an investigation of structural differences of the communities involved in their use.
+
+  Modularity~\parencite{Blondel2008FastUnfolding} is a popular measure for detecting the community structure of graphs. It is commonly used to identify clusters in a network and provides an overall measure for the strength of division of a network into modules. In the social context, this corresponds to the extent to which the social network of a community is fragmented into sub-communities. Networks with high modularity are characterized by dense connections within sub-communities, but sparse connections across sub-communities. In the context of the spread of new words on Twitter, diffusion leads from use limited to one or few densely connected communities to use in more and more independent communities. This leads to higher degrees of modularity of the full graph representing the speech community as a whole.
+
+  Modularity complements degree centralization since it provides additional information about the number and size of sub-communities who use the target words. However, it is sensitive to the number of edges and nodes in a graph and thus cannot provide reliable results for comparing graphs of different size. I thus mainly rely on degree centralization to analyze diffusion over time and differences in degrees of diffusion between lexemes on the macro-level. Its conceptual clarity and reliable normalization allow for robust comparisons on the macro-level.
+
+  For visualizing network graphs, I rely on the Force Atlas 2 algorithm~\parencite{Jacomy2014ForceAtlas2Continuous} as implemented in \emph{Gephi}~\parencite{Bastian2009GephiOpen}. Attempts to evaluate and compare these visualizations with results obtained from different algorithms such as Multi-Dimensional Scaling and Kamada Kawai in \emph{R} showed similar results across methods for parts of the dataset, but could not be scaled to include the full dataset due to computational limitations. Force Atlas 2 is particularly well-suited for handling social networks in big data contexts and has been widely applied in network science approaches to Twitter data~ \parencite{Bruns2012HowLong,Gerlitz2013MiningOne,Bliss2012TwitterReciprocal}. To assess and visualize the influence of individual users in the social network, I use the PageRank algorithm~\parencite{Brin1998AnatomyLargeScale} (visualized by node size) and I account for varying degrees of strength in the connection between users by using edge weigths for repeated interactions (visualized by edge thickness).
+
 
 \section{Results}
-  \section{Frequency}
+
+
+  \section{Frequency of use}
 
     \subsection{Total usage frequency}
 
-  As described in Section XXX, the degree of conventionality is often approximated by a how many times a word has been used in a corpus. A common way to use this information is to rely on cumulated frequency counts which sum up the total number of uses.
+  As described in Section XXX, the degree of conventionality of new words is commonly approximated by a how many times they have been used in a corpus. A common way to use this information is to rely on cumulated frequency counts which sum up the total number of uses.
 
-  The present sample of neologisms covers a broad frequency range. Table \ref{tab:freq_total} presents candidates from four groups: six examples around the minimum, the median and the maximum total usage frequency as well as six words that will serve as case studies in the following sections.
+  The present sample of neologisms covers a broad specturm of usage frequency. Table \ref{tab:freq_total} presents candidates in four groups: six examples around the minimum, the median and the maximum total usage frequency observed in the dataset as well as six words that will serve as case studies in the following sections.
 
   \begin{table}
-  \caption{Total usage frequency in the corpus.}
-  \label{tab:freq_total}
-  \centering
-  \begin{subtable}{.45\linewidth}
-  \subcaption{Least frequent neologisms in the sample.}
-  \centering
-  \begin{tabular}{lr}
-  \toprule
-  lexeme & freq\\
-  \midrule
-  microflat & 426 \\
-  dogfishing  & 399 \\
-  begpacker & 283 \\
-  halfalogue  & 245 \\
-  rapugee & 182 \\
-  bediquette  & 164 \\
-  \bottomrule
-  \end{tabular}
-  \end{subtable}
-  \hfill
-  \begin{subtable}{.45\linewidth}
-  \subcaption{Examples around the median.}
-  \centering
-  \begin{tabular}{lr}
-  \toprule
-  lexeme & freq\\
-  \midrule
-  white fragility & 26,688  \\
-  monthiversary & 23,607  \\
-  helicopter parenting  & 26,393  \\
-  deepfake  & 20,101  \\
-  newsjacking & 20,930  \\
-  twittosphere  & 20,035  \\
-  \bottomrule
-  \end{tabular}
-  \end{subtable}
+    \caption{Total usage frequency in the corpus.}
+    \label{tab:freq_total}
+    \centering
+    \begin{subtable}{.45\linewidth}
+      \subcaption{Least frequent lexemes.}
+      \centering
+      \begin{tabular}{l S[table-format=3]}
+        \toprule
+        lexeme     & {freq} \\
+        \midrule
+        microflat  & 426    \\
+        dogfishing & 399    \\
+        begpacker  & 283    \\
+        halfalogue & 245    \\
+        rapugee    & 182    \\
+        bediquette & 164    \\
+        \bottomrule
+      \end{tabular}
+    \end{subtable}
+    \hfill
+    \begin{subtable}{.45\linewidth}
+      \subcaption{Examples around the median.}
+      \centering
+      \begin{tabular}{l S[table-format=5]}
+        \toprule
+        lexeme               & {freq} \\
+        \midrule
+        white fragility      & 26688  \\
+        monthiversary        & 23607  \\
+        helicopter parenting & 26393  \\
+        deepfake             & 20101  \\
+        newsjacking          & 20930  \\
+        twittosphere         & 20035  \\
+        \bottomrule
+      \end{tabular}
+    \end{subtable}
 
-  \begin{subtable}{.45\linewidth}
-  \subcaption{Most frequent examples in the sample.}
-  \label{subtab:freq_total_max}
-  \centering
-  \begin{tabular}{lr}
-  \toprule
-  lexeme & freq\\
-  \midrule
-  tweeter & 7,367,174 \\
-  fleek & 3,412,807 \\
-  bromance  & 2,662,767 \\
-  twitterverse  & 1,486,873 \\
-  blockchain  & 1,444,300 \\
-  smartwatch  & 1,106,906 \\
-  \bottomrule
-  \end{tabular}
-  \end{subtable}
-  \hfill
-  \begin{subtable}{.45\linewidth}
-  \subcaption{Case study selection.}
-  \label{subtab:freq_total_cases}
-  \centering
-  \begin{tabular}{lr}
-  \toprule
-  lexeme & freq\\
-  \midrule
-  alt-right & 1012150 \\
-  solopreneur & 282026  \\
-  hyperlocal  & 209937  \\
-  alt-left  & 167124  \\
-  upskill & 57941 \\
-  poppygate & 3807  \\
-  \bottomrule
-  \end{tabular}
-  \end{subtable}
+    \begin{subtable}{.45\linewidth}
+      \subcaption{Most frequent lexemes.}
+      \label{subtab:freq_total_max}
+      \centering
+      \begin{tabular}{l S[table-format=7]}
+        \toprule
+        lexeme       & {freq}  \\
+        \midrule
+        tweeter      & 7367174 \\
+        fleek        & 3412807 \\
+        bromance     & 2662767 \\
+        twitterverse & 1486873 \\
+        blockchain   & 1444300 \\
+        smartwatch   & 1106906 \\
+        \bottomrule
+      \end{tabular}
+    \end{subtable}
+    \hfill
+    \begin{subtable}{.45\linewidth}
+      \subcaption{Case study selection.}
+      \label{subtab:freq_total_cases}
+      \centering
+      \begin{tabular}{l S[table-format=7]}
+        \toprule
+        lexeme       & {freq}  \\
+        \midrule
+        alt-right    & 1012150 \\
+        solopreneur  & 282026  \\
+        hyperlocal   & 209937  \\
+        alt-left     & 167124  \\
+        upskill      & 57941   \\
+        poppygate    & 3807    \\
+        \bottomrule
+      \end{tabular}
+    \end{subtable}
   \end{table}
 
   In a strict sense, usage frequency only captures how many tokens of a word were produced by all speakers who have contributed to the corpus at hand. Investigating the degree to which new words diffuse to new speakers and speaker communities on the basis of frequency counts thus depends on several inferences that are commonly accepted as sufficiently reliable.
 
   \begin{enumerate}
-  \item Frequency counts indicate how many speakers have used the term.
-  \item The number of speakers who have used the term indicates how many speakers are familiar with the term, whether they have actively used it or not.
-  \item The number of speakers who are familiar with the term indicate how many communities of speakers are familiar with the term.
+    \item Frequency counts indicate how many speakers have used the term.
+    \item The number of speakers who have used the term indicates how many speakers are familiar with the term, whether they have actively used it or not.
+    \item The number of speakers who are familiar with the term indicate how many communities of speakers are familiar with the term.
   \end{enumerate}
 
   These assumptions are to a large extent plausible and have empirically been proven to be effective for investigating both degrees of entrenchment of lexemes in individual speakers as well their conventionality in the speech community.
@@ -407,10 +409,10 @@ most relevant and important model: S-curve model
   Cumulative frequency plots can supplement total frequency counts by additional information about the temporal dynamics of diffusion. Figure presents this information for all six cases.
 
   \begin{figure}
-  \caption{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
-  \label{fig:freq_cum_cases}
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/freq_cum_cases.pdf}
-  \centering
+    \caption{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
+    \label{fig:freq_cum_cases}
+    \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/freq_cum_cases.pdf}
+    \centering
   \end{figure}
   \footnotetext{For better visibility \ol{alt-right} was omitted from this plot because of its high usage frequency.}
 
@@ -436,33 +438,33 @@ most relevant and important model: S-curve model
   case studies
 
   \begin{figure}
-  \caption{Temporal dynamics in usage frequency for case studies.}
-  \centering
-  \begin{subfigure}{.3\linewidth}
-  \caption{\ol{upskill}}
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_upskill_time"}
-  \end{subfigure}
-  \begin{subfigure}{.3\linewidth}
-  \caption{\ol{hyperlocal}}
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
-  \end{subfigure}
-  \begin{subfigure}{.3\linewidth}
-  \caption{\ol{solopreneur}}
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_solopreneur_time"}
-  \end{subfigure}
+    \caption{Temporal dynamics in usage frequency for case studies.}
+    \centering
+    \begin{subfigure}{.3\linewidth}
+      \caption{\ol{upskill}}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_upskill_time"}
+    \end{subfigure}
+    \begin{subfigure}{.3\linewidth}
+      \caption{\ol{hyperlocal}}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
+    \end{subfigure}
+    \begin{subfigure}{.3\linewidth}
+      \caption{\ol{solopreneur}}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_solopreneur_time"}
+    \end{subfigure}
 
-  \begin{subfigure}{.3\linewidth}
-  \caption{\ol{alt-right}}
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_alt-right_time"}
-  \end{subfigure}
-  \begin{subfigure}{.3\linewidth}
-  \caption{\ol{alt-left}}
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-left_time.pdf}
-  \end{subfigure}
-  \begin{subfigure}{.3\linewidth}
-  \caption{\ol{poppygate}}
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_poppygate_time.pdf}
-  \end{subfigure}
+    \begin{subfigure}{.3\linewidth}
+      \caption{\ol{alt-right}}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_alt-right_time"}
+    \end{subfigure}
+    \begin{subfigure}{.3\linewidth}
+      \caption{\ol{alt-left}}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-left_time.pdf}
+    \end{subfigure}
+    \begin{subfigure}{.3\linewidth}
+      \caption{\ol{poppygate}}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_poppygate_time.pdf}
+    \end{subfigure}
   \end{figure}
 
   different patterns
@@ -518,65 +520,65 @@ most relevant and important model: S-curve model
 
       \subsubsection{Overview of changes in centralization for case studies.}
 
-  \begin{figure}[H]
-  \caption{Degree centralization over time for case study words.}
-  \centering
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_diac.pdf}
-  \end{figure}
+      \begin{figure}[H]
+        \caption{Degree centralization over time for case study words.}
+        \centering
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_diac.pdf}
+      \end{figure}
 
       \subsubsection{Advanced / increasing: \ol{hyperlocal}}
 
-  \begin{figure}[H]
-  \caption{Social network of diffusion for \ol{hyperlocal} over time.}
-  \centering
-  \begin{subfigure}{.45\linewidth}
-  \caption{First stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_one.pdf}
-  \end{subfigure}
-  \begin{subfigure}{.45\linewidth}
-  \caption{Second stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_two.pdf}
-  \end{subfigure}\\
-  \begin{subfigure}{.45\linewidth}
-  \caption{Third stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_three.pdf}
-  \end{subfigure}
-  \begin{subfigure}{.45\linewidth}
-  \caption{Fourth stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_four.pdf}
-  \end{subfigure}
-  \end{figure}
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{hyperlocal} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_four.pdf}
+        \end{subfigure}
+      \end{figure}
 
       \subsubsection{Limited / limited: \ol{alt-left}}
 
-  \begin{figure}[H]
-  \caption{Social network of diffusion for \ol{alt-left} over time.}
-  \centering
-  \begin{subfigure}{.45\linewidth}
-  \caption{First stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_one.pdf}
-  \end{subfigure}
-  \begin{subfigure}{.45\linewidth}
-  \caption{Second stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_two.pdf}
-  \end{subfigure}\\
-  \begin{subfigure}{.45\linewidth}
-  \caption{Third stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_three.pdf}
-  \end{subfigure}
-  \begin{subfigure}{.45\linewidth}
-  \caption{Fourth stage}
-  \centering
-  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_four.pdf}
-  \end{subfigure}
-  \end{figure}
+      \begin{figure}[H]
+        \caption{Social network of diffusion for \ol{alt-left} over time.}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{First stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Second stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_two.pdf}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \caption{Third stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Fourth stage}
+          \centering
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_four.pdf}
+        \end{subfigure}
+      \end{figure}
 
       \subsubsection{Full sample}
 
@@ -604,17 +606,17 @@ most relevant and important model: S-curve model
   plots
 
   \begin{figure}[H]
-  \centering
-  \begin{subfigure}{.45\linewidth}
-  \caption{Full sample.}
-  \centering
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/full_cent_freq_overall.pdf}
-  \end{subfigure}
-  \begin{subfigure}{.45\linewidth}
-  \caption{Case studies.}
-  \centering
-  \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_freq_overall.pdf}
-  \end{subfigure}
+    \centering
+    \begin{subfigure}{.45\linewidth}
+      \caption{Full sample.}
+      \centering
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/full_cent_freq_overall.pdf}
+    \end{subfigure}
+    \begin{subfigure}{.45\linewidth}
+      \caption{Case studies.}
+      \centering
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_freq_overall.pdf}
+    \end{subfigure}
   \end{figure}
 
   cluster analysis
@@ -632,17 +634,29 @@ most relevant and important model: S-curve model
   Social network metrics certainly add to freq.
 
 \section{Discussion}
+
+\begin{qitem}
+  # freq. proves to be a pretty good indicators
+  # but
+    ## temporal dynamics important
+    ## social network dynamics important, esp. w.r.t. new words
+  # cross-checking other data sources (NOW corpus) shows validity
+  # social network analysis can be an important tool for sociolinguistics
+    # extend sociolinguistic research (on geographical variation; desideratum in \cite{Grieve2019MappingLexical})
+\end{qitem}
+
 \section{Conclusion}
 
-freq. proves to be a pretty good indicators
-but
-temporal dynamics important
-social network dynamics important, esp. w.r.t. new words
-cross-checking other data sources (NOW corpus) shows validity
-social network analysis can be an important tool for sociolinguistics
 
 %section{Bibliography}
 
 \printbibliography
+
+\section*{Acknowledgements}
+
+\begin{itemize}
+  \item UI: Max, Fabi
+  \item SNA: Kauermann group
+\end{itemize}
 
 \end{document}

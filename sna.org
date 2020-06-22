@@ -1,21 +1,34 @@
 #+TITLE: SNA
 #+AUTHOR: QW
 
-* Strategy
-- two modes
-  - writing
-  - editing
-- writing: towards a shitty draft
-  - only most important points
-  - language can be messy
-  - keep pace
-- editing
-- attitude
-  - be persistent
-  - be patient
-  - be relaxed
-- motivation
-  - time pressure will ease
+* writing
+|---------+-----------------------+-----------------------+----------+----------+----------+--------+--------|
+| project |  t_start              |  t_end                |    dur_d |  dur_hms |  w_start |  w_end | w_done |
+|---------+-----------------------+-----------------------+----------+----------+----------+--------+--------|
+| SNA     | [2020-06-21 So 14:14] | [2020-06-21 So 15:14] | 0.041666 | 00:59:59 |     5668 |   5775 |    107 |
+| SNA     | [2020-06-21 So 15:34] | [2020-06-21 So 16:55] |  0.05625 | 01:21:00 |     5775 |   6008 |    233 |
+| SNA     | [2020-06-21 So 17:27] | [2020-06-21 So 18:36] | 0.047917 | 01:09:00 |     6008 |   6214 |    206 |
+| SNA     | [2020-06-21 So 18:47] | [2020-06-21 So 19:48] | 0.042361 | 01:00:59 |     6214 |   6233 |     19 |
+| SNA     | [2020-06-22 Mo 16:22] | [2020-06-22 Mo 17:29] | 0.046528 | 01:07:00 |     6241 |   6379 |    138 |
+| SNA     | [2020-06-22 Mo 17:55] |                       |          |          |     6381 |        |        |
+|---------+-----------------------+-----------------------+----------+----------+----------+--------+--------|
+|         |                       |                       |        0 | 05:37:58 |          |        |    703 |
+|---------+-----------------------+-----------------------+----------+----------+----------+--------+--------|
+#+TBLFM: @>$8=vsum(@2..@-1)::@>$5=vsum(@2..@-1); T::$4=date(<$3>)-date(<$2>)::$5=$4 * 24 * 60 * 60; T::$8=$7 - $6
+
+* procrastination
+** word counting table
+:CLOCKBOOK:
+CLOCK: [2020-06-21 So 11:37]--[2020-06-21 So 12:35] =>  0:58
+:END:
+** org-ref
+:CLOCKBOOK:
+CLOCK: [2020-06-21 So 12:36]--[2020-06-21 So 13:36] =>  1:00
+:END:
+
+
+* motivation
+  - time pressure for promo will ease
   - treats
     - I can treat myself to a new Macbook
     - Stressless Sessel
@@ -23,8 +36,9 @@
     - will boost me to about 40% of my diss
     - 1 paper about web stuff
     - 1 paper about embeddings (with McGillivray)
- 
-* Agenda
+
+
+* agenda
 ** DONE consolidate current version
 :CLOCKBOOK:
 CLOCK: [2020-06-15 Mo 16:59]--[2020-06-15 Mon 19:50] =>  2:51
@@ -33,20 +47,36 @@ CLOCK: [2020-06-15 Mo 16:59]--[2020-06-15 Mon 19:50] =>  2:51
 :CLOCKBOOK:
 CLOCK: [2020-06-15 Mon 22:25]--[2020-06-15 Mon 23:23] =>  0:58
 :END:
-** TODO write data
-:LOGBOOK:
-- Note taken on [2020-06-16 Di 13:39] \\
-  | wc | 6227 |
-:END:
-:CLOCKBOOK:
-CLOCK: [2020-06-16 Di 19:10]
-CLOCK: [2020-06-16 Tue 08:29]--[2020-06-16 Di 13:40]  =>  5:11
-:END:
-** TODO send mail to Schmid
+** DONE send mail to Schmid
 - Hast Du nächste Woche Zeit für Korrekturlesen?
 - Dann würde ich dir Anfang der Woche das Paper schicken.
-** TODO write method
-** TODO write results
-** TODO write conclusion
-** misc
+** PROJ write remaining parts
+*** DONE write data
+:CLOCKBOOK:
+CLOCK: [2020-06-16 Di 19:10]--[2020-06-16 Di 20:23] =>  1:13
+CLOCK: [2020-06-16 Tue 08:29]--[2020-06-16 Di 13:40]  =>  5:11
+:END:
+*** DONE write method
+:CLOCKBOOK:
+CLOCK: [2020-06-21 So 18:45]--[2020-06-21 So 19:50] =>  1:05
+CLOCK: [2020-06-21 So 17:25]--[2020-06-21 So 18:35] =>  1:10
+CLOCK: [2020-06-21 So 15:34]--[2020-06-21 So 16:58] =>  1:24
+CLOCK: [2020-06-21 So 14:13]--[2020-06-21 So 15:15] =>  1:02
+CLOCK: [2020-06-20 Sat 12:29]--[2020-06-20 Sa 13:00] =>  0:31
+CLOCK: [2020-06-20 Sat 11:09]--[2020-06-20 Sat 12:16] =>  1:07
+CLOCK: [2020-06-20 Sat 10:00]--[2020-06-20 Sat 10:56] =>  0:56
+CLOCK: [2020-06-16 Di 21:00]--[2020-06-16 Di 21:32] =>  0:32
+:END:
+*** TODO write results
+:CLOCKBOOK:
+CLOCK: [2020-06-22 Mo 16:24]
+:END:
+*** TODO write discussion
+*** TODO write conclusion
+** PROJ edit text
+** PROJ misc
+*** DONE check research topic style
+:CLOCKBOOK:
+CLOCK: [2020-06-22 Mo 15:20]--[2020-06-22 Mo 15:47] =>  0:27
+:END:
 *** TODO put list of lexemes in Appendix
