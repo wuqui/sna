@@ -1,4 +1,8 @@
-\documentclass[draft, a4paper, abstract=on]{scrartcl}
+\documentclass[
+  a4paper,
+  abstract=on,
+  captions=tableabove
+  ]{scrartcl}
 
 %section{Ignore warnings}
 
@@ -62,6 +66,7 @@
 % text body
 
 \section{Introduction}
+  \label{sec:intro}
 
 Societies continually evolve, new products and practices emerge, and speakers coin and adopt new words when they interact and share information. How do these new words spread in social networks of communicative interaction?
 
@@ -80,12 +85,13 @@ This paper makes use of social media data and social network analysis to study t
 The paper is structured as follows. Section 2 presents an overview of previous attempts to modelling and measuring the diffusion of lexical innovations in order to contextualise and define the present theoretical framework and its operationalisation for the empirical study. Section 3 provides information regarding the present sample of neologisms and the collection and composition of the Twitter dataset this study is based on. Section 4 describes the methodological procedure for analysing diffusion in this dataset, focusing on the construction and analysis of social networks. Section 5 presents the empirical results obtained from using usage frequency and social network analysis to study diffusion, and from comparing both approaches. Section 6 summarises and discusses these results and suggests theoretical implications and directions for future work.
 
 \section{Modeling the diffusion of lexical innovations}
+  \label{sec:modeling-diff}
 
 Speakers continually coin new words, yet most fail to spread successfully and fall into oblivion. How do new words diffuse to be known and used by more and more speakers and to become conventional lexemes in a language system? And how can diffusion be modelled theoretically and measured empirically?
 
-Neologisms are on a continuum from entirely novel word-formations to established lexemes that are familiar to the majority of the speech community. Neologisms have spread to some extent, but are still perceived as new or unknown by many speakers. On one end of the continuum, `nonce-formations' are new words that have been coined in a concrete communicative situation, but are not adopted by interlocutors to be used in future usage contexts and do not enter a process of continuous diffusion.~\parencite{Hohenhaus1996AdhocwortbildungTerminologie} Fully established words form the other end of the continuum. They are known and used by most or all members of the speech community and codified in dictionaries. This latter, lexicographic feature marks speakers' agreement on how these words are to be used and is a sign of their status as conventional lexical units in the language system.
+Neologisms are on a continuum from entirely novel word-formations to established lexemes that are familiar to the majority of the speech community. Neologisms have spread to some extent, but are still perceived as new or unknown by many speakers. On one end of the continuum, `nonce-formations' are new words that have been coined in a concrete communicative situation, but are not adopted by interlocutors to be used in future usage contexts and do not enter a process of continuous diffusion.~ \parencite{Hohenhaus1996AdhocWortbildungTerminologie}
 
-Neologisms occupy an intermediate position between both poles and can be defined as
+Fully established words form the other end of the continuum. They are known and used by most or all members of the speech community and codified in dictionaries. This latter, lexicographic feature marks speakers' agreement on how these words are to be used and is a sign of their status as conventional lexical units in the language system. Neologisms occupy an intermediate position between both poles and can be defined as
 
 \blockquote[{\cite[31]{Kerremans2015WebNew}}]{
 [\dots] lexical units, that have been manifested in use and thus are no longer nonce-formations, but have not yet occurred frequently and are not widespread enough in a given period to have become part and parcel of the lexicon of the speech community and the majority of its members.
@@ -97,14 +103,17 @@ A more precise definition is provided by \citeauthor{Schmid2020DynamicsLinguisti
 
 this definition includes three dimensions of diffusion
 
-  cotext
-  context
-  speakers
+  cotexts
+  contexts
+  speakers: number and groups
 
 i will focus on sociolinguistic dimension in this paper
   spread across
     speakers
     communities
+
+context: largely fixed as it is limited to use on Twitter
+  comparison of contexts outside the scope of this paper; initial work: \parencite{Wurschinger2016UsingWeb}
 
 previous work has taken at
   structural and
@@ -112,9 +121,11 @@ previous work has taken at
 
 i will focus on the sociolinguistic perspective
 
+
 most relevant and important model: S-curve model
 
   \subsection{Research perspectives}
+    \label{subsec:research-perspectives}
 
   A substantial body of linguistic research has tackled this question from different \hw{perspectives}. \parencite[16]{Schmid2016EnglishMorphology}
 
@@ -126,6 +137,7 @@ most relevant and important model: S-curve model
 
 
   \subsection{The S-curve model}
+    \label{subsec:s-curve-model}
 
   \hw{S-curve models} of linguistic change~\parencite{Milroy1992LinguisticVariation, Nevalainen2015DescriptiveAdequacy, Labov2007TransmissionDiffusion} assume universal sociolinguistic dynamics for the diffusion of linguistic innovations.
 
@@ -143,7 +155,7 @@ most relevant and important model: S-curve model
 
   # S-curve models have mainly been applied to the \hw{linguistic domains} of phonology and syntax. Fundamental differences between lexemes and linguistic items on other levels such as phonemes and grammatical constructions might affect the validity and reliability of such models for \emph{lexical} innovation.
 
-  ## For example, grammatical constructions such as the \ol{going to} future used to express a speaker's future intention serve to fulfil relatively abstract communicative needs that remain stable over time. By contrast, on the lexical level, linguistic innovations are typically tied to concrete cultural referents such as products and practices whose conceptual relevance is much more volatile over time. For example, many lexical innovations such as \ol{millennium bug} denoting the fear of a computer crash at the beginning of the new millennium can show high rates of diffusion and become entrenched and conventional among the majority of the speech community. Without continual conceptual relevance in public discourse, however, these words fail pass on to the next generation of speakers. S-curves are commonly assumed to be found when linguistic innovations compete for \hw{\enquote{semantic carrying capacity}}~\parencite{Nini2017ApplicationGrowth}, however, in many if not most cases of \emph{lexical} innovation the conceptual carrying capacity is far from stable over time which represents a critical deviation from the traditional assumptions behind S-curves in language change.
+  ## For example, grammatical constructions such as the \emph{going to} future used to express a speaker's future intention serve to fulfil relatively abstract communicative needs that remain stable over time. By contrast, on the lexical level, linguistic innovations are typically tied to concrete cultural referents such as products and practices whose conceptual relevance is much more volatile over time. For example, many lexical innovations such as \emph{millennium bug} denoting the fear of a computer crash at the beginning of the new millennium can show high rates of diffusion and become entrenched and conventional among the majority of the speech community. Without continual conceptual relevance in public discourse, however, these words fail pass on to the next generation of speakers. S-curves are commonly assumed to be found when linguistic innovations compete for \hw{\enquote{semantic carrying capacity}}~\parencite{Nini2017ApplicationGrowth}, however, in many if not most cases of \emph{lexical} innovation the conceptual carrying capacity is far from stable over time which represents a critical deviation from the traditional assumptions behind S-curves in language change.
 
   ## However, the generally strong theoretical and empirical basis of the S-curve model for language innovation and change, also from studies on the diffusion of cultural innovations~\parencite{Rogers1962DiffusionInnovations}, and the precise formulation of the sociolinguistic dynamics underlying different phases of diffusion still make it an attractive \hw{blueprint} for the empirical study of the sociolinguistic diffusion of lexical innovations.
 
@@ -151,6 +163,7 @@ most relevant and important model: S-curve model
 
 
   \subsection{Current framework: the EC-Model (Schmid 2020)}
+    \label{subsec:ec-model}
 
   I use the Entrenchment-and-Conventionalization-Model~\parencite{Schmid2020DynamicsLinguistic} as a framework for modelling the diffusion of lexical innovations.
 
@@ -175,7 +188,9 @@ most relevant and important model: S-curve model
   According to the EC-Model, for studying the sociolinguistic aspects of diffusion, investigating \enquote{changes in the number of speakers and communities} is thus essential.
 
 \section{Measuring the diffusion of lexical innovations}
+  \label{sec:measuring-diff}
   \subsection{Previous approaches}
+    \label{subsec:previous-approaches}
 
   \begin{easylist}[itemize]
 
@@ -198,8 +213,8 @@ most relevant and important model: S-curve model
   ### and use on the web significantly influences whether these new formations catch on or not.
 
   ## Web corpora thus promise insights into diffusion across
-  ### contexts: e.g. whether new words such as \ol{blockchain} are increasingly used in less formal
-  ### cotexts: e.g. whether new words such as \ol{} are increasingly used in more divers
+  ### contexts: e.g. whether new words such as \emph{blockchain} are increasingly used in less formal
+  ### cotexts: e.g. whether new words such as \emph{} are increasingly used in more divers
 
   % # social media corpora \cite{Grieve2016AnalyzingLexical,Eisenstein2014DiffusionLexical}
   % ## size
@@ -217,10 +232,11 @@ most relevant and important model: S-curve model
   \end{easylist}
 
   \subsection{Going beyond frequency}
+    \label{subsec:beyond-freq}
 
   The conventionality of linguistic units is commonly assessed by counting how often they are found to be used in linguistic corpora, with high frequencies of occurrence seen as indicators of high levels of conventionality. Diffusion as a process that drives increasing conventionalization is thus commonly assumed to be reflected by increases in the usage frequency of linguistic innovations. Previous research on lexical innovation has been largely limited to this approach and has evaluated the spread and the overall success of new words on the basis of the number of tokens found in linguistic corpora. This paper takes usage frequency as a baseline and uses social network analysis to go beyond frequency to discover sociolinguistic dynamics of diffusion and conventionality that have eluded previous frequency-based approaches.
 
-  Frequency measures are widely used to study linguistic phenomena on all levels, from investigating phonological preferences between communities, to studying the increasing establishment of grammatical constructions like the \ol{going to}-future over time, to assessing the degree to which words are conventional lexical units of a language. Usage frequency is thus commonly used by a diverse set of linguistic sub-disciplines. From a structural perspective, for example, co-occurrence frequencies of multi-word units such as \ol{handsome man} are taken as an indicator for whether these are free combinations or more or less fixed collocations in a language system. Historical linguistics investigates phenomena like language change and grammaticalization, by analysing changes in usage frequency of certain constructions like the \ol{going to}-future over time. Cognitive and psycholinguistic research commonly relies on frequency measures to approximate the degree to which speakers are familiar with words that are presented as linguistic stimuli in experiments to control for effects on experimental results.
+  Frequency measures are widely used to study linguistic phenomena on all levels, from investigating phonological preferences between communities, to studying the increasing establishment of grammatical constructions like the \emph{going to}-future over time, to assessing the degree to which words are conventional lexical units of a language. Usage frequency is thus commonly used by a diverse set of linguistic sub-disciplines. From a structural perspective, for example, co-occurrence frequencies of multi-word units such as \emph{handsome man} are taken as an indicator for whether these are free combinations or more or less fixed collocations in a language system. Historical linguistics investigates phenomena like language change and grammaticalization, by analysing changes in usage frequency of certain constructions like the \emph{going to}-future over time. Cognitive and psycholinguistic research commonly relies on frequency measures to approximate the degree to which speakers are familiar with words that are presented as linguistic stimuli in experiments to control for effects on experimental results.
 
   The reliance on usage frequency as a measure for different phenomena in these diverse research contexts has faced substantial criticism. \cite{Stefanowitsch2017CorpusbasedPerspective} provide a good overview of the theoretical assumptions and problems that underlie frequency-based approaches in corpus linguistics.
 
@@ -252,11 +268,14 @@ most relevant and important model: S-curve model
 
   how much the words might have diffused outside the \emph{target text corpus}
 
-  temporal dynamics (e.g. \ol{millennium bug})
+  temporal dynamics (e.g. \emph{millennium bug})
+
 
 
 \section{Data}
+  \label{sec:data}
   \subsection{Neologism sample}
+    \label{subsec:neo-sample}
 
   I base my empirical study on a selection of 100 neologisms and study their use on Twitter from the start of the platform in 2006 to the end of 2018.
 
@@ -265,6 +284,7 @@ most relevant and important model: S-curve model
   I limit my selection to neologisms whose diffusion started after 2006 to have full coverage of the incipient stages of their spread on Twitter.
 
   \subsection{Twitter data}
+    \label{subsec:twitter-data}
 
     Twitter is a popular micro-blogging platform that was started in 2006 and has become one of the most popular social media platforms today.
 
@@ -278,6 +298,7 @@ most relevant and important model: S-curve model
     The data for this study were collected using the Python library \emph{twint}, which emulates Twitter's Advanced Search Function. For each word in the sample, I performed a search query to retrospectively retrieve all tweets found in the search index. Due to the large volume of more frequent lexemes, I limited the sample to contain only candidates for which I could collect all entries found in Twitter's index. The combined dataset for all 100 lexemes in the sample contains 29,912,050 tweets. The first tweet dates from 5 May, 2006 and involves the neologism \emph{tweeter}, the last tweet in the collection is from 31 December, 2018, and includes \emph{dotard}.
 
 \section{Method}
+  \label{sec:method}
 
   During post-processing, I removed duplicates, tweets that do not contain tokens of the target neologism in the tweet text, and all instances where tokens only occurred as parts of usernames.\footnote{The post-processing as well as all quantitative analyses were performed in R~\parencite{RCoreTeam2018LanguageEnvironment} and the full source code used is available on GitHub: \url{https://github.com/wuqui/sna}} Hashtag uses were included in the analysis. Retweets were excluded, since \emph{twint} does not consistently provide metadata which would allow to include retweeting in the social network analysis. The resulting dataset contains about 30 Mio. tweets containing one of the 100 neologism under investigation.
 
@@ -305,57 +326,28 @@ most relevant and important model: S-curve model
 
 
 \section{Results}
+  \label{sec:results}
 
-
-  \section{Frequency of use}
+  \subsection{Frequency of use}
+    \label{subsec:freq}
 
     \subsection{Total usage frequency}
+      \label{subsec:total-freq}
 
-  As described in Section XXX, the degree of conventionality of new words is commonly approximated by a how many times they have been used in a corpus. A common way to use this information is to rely on cumulated frequency counts which sum up the total number of uses.
+  The degree of diffusion of new words is commonly approximated by a how many times speakers have used these words in a corpus. The most fundamental way of using this information is to cumulate usage counts and to rely on the total number of uses observed. In the following, I will use this most fundamental measure of diffusion as a baseline before I zoom in to get a more differentiated picture of the temporal and social dynamics of diffusion.
 
-  The present sample of neologisms covers a broad specturm of usage frequency. Table \ref{tab:freq_total} presents candidates in four groups: six examples around the minimum, the median and the maximum total usage frequency observed in the dataset as well as six words that will serve as case studies in the following sections.
+  The present sample of neologisms covers a broad spectrum of usage frequency. Table~\ref{tab:freq-total} presents the candidates under investigation in four groups: six examples around the minimum, the median and the maximum total usage frequency observed in the corpus as well as six words that will serve as case studies in the following sections.
+
+  \todo{selection criteria for cases}
+  % typical examples, dynamics in usage intensity and social characteristics of diffusion
 
   \begin{table}
     \caption{Total usage frequency in the corpus.}
-    \label{tab:freq_total}
+    \label{tab:freq-total}
     \centering
     \begin{subtable}{.45\linewidth}
-      \subcaption{Least frequent lexemes.}
-      \centering
-      \begin{tabular}{l S[table-format=3]}
-        \toprule
-        lexeme     & {freq} \\
-        \midrule
-        microflat  & 426    \\
-        dogfishing & 399    \\
-        begpacker  & 283    \\
-        halfalogue & 245    \\
-        rapugee    & 182    \\
-        bediquette & 164    \\
-        \bottomrule
-      \end{tabular}
-    \end{subtable}
-    \hfill
-    \begin{subtable}{.45\linewidth}
-      \subcaption{Examples around the median.}
-      \centering
-      \begin{tabular}{l S[table-format=5]}
-        \toprule
-        lexeme               & {freq} \\
-        \midrule
-        white fragility      & 26688  \\
-        monthiversary        & 23607  \\
-        helicopter parenting & 26393  \\
-        deepfake             & 20101  \\
-        newsjacking          & 20930  \\
-        twittosphere         & 20035  \\
-        \bottomrule
-      \end{tabular}
-    \end{subtable}
-
-    \begin{subtable}{.45\linewidth}
       \subcaption{Most frequent lexemes.}
-      \label{subtab:freq_total_max}
+      \label{subtab:freq-total-max}
       \centering
       \begin{tabular}{l S[table-format=7]}
         \toprule
@@ -372,8 +364,46 @@ most relevant and important model: S-curve model
     \end{subtable}
     \hfill
     \begin{subtable}{.45\linewidth}
+      \subcaption{Examples around the median.}
+      \label{subtab:freq-total-median}
+      \centering
+      \begin{tabular}{l S[table-format=5]}
+        \toprule
+        lexeme               & {freq} \\
+        \midrule
+        white fragility      & 26688  \\
+        monthiversary        & 23607  \\
+        helicopter parenting & 26393  \\
+        deepfake             & 20101  \\
+        newsjacking          & 20930  \\
+        twittosphere         & 20035  \\
+        \bottomrule
+      \end{tabular}
+    \end{subtable}
+
+   \vspace{\baselineskip}
+
+    \begin{subtable}{.45\linewidth}
+      \subcaption{Least frequent lexemes.}
+      \label{subtab:freq-total-min}
+      \centering
+      \begin{tabular}{l S[table-format=3]}
+        \toprule
+        lexeme               & {freq} \\
+        \midrule
+        microflat            & 426    \\
+        dogfishing           & 399    \\
+        begpacker            & 283    \\
+        halfalogue           & 245    \\
+        rapugee              & 182    \\
+        bediquette           & 164    \\
+        \bottomrule
+      \end{tabular}
+    \end{subtable}
+    \hfill
+    \begin{subtable}{.45\linewidth}
       \subcaption{Case study selection.}
-      \label{subtab:freq_total_cases}
+      \label{subtab:freq-total-cases}
       \centering
       \begin{tabular}{l S[table-format=7]}
         \toprule
@@ -390,23 +420,19 @@ most relevant and important model: S-curve model
     \end{subtable}
   \end{table}
 
-  In a strict sense, usage frequency only captures how many tokens of a word were produced by all speakers who have contributed to the corpus at hand. Investigating the degree to which new words diffuse to new speakers and speaker communities on the basis of frequency counts thus depends on several inferences that are commonly accepted as sufficiently reliable.
+  As described in Section~\ref{sec:modeling-diff}, successful diffusion involves an increase in the number of speakers and communities who know and use a new word. The clustering of neologisms on the basis of their total usage frequency presented in Table~\ref{tab:freq-total} largely seems to fit intuitions about diverging degrees of diffusion.
 
-  \begin{enumerate}
-    \item Frequency counts indicate how many speakers have used the term.
-    \item The number of speakers who have used the term indicates how many speakers are familiar with the term, whether they have actively used it or not.
-    \item The number of speakers who are familiar with the term indicate how many communities of speakers are familiar with the term.
-  \end{enumerate}
+\todo{rationale: cumulated potential exposure}
 
-  These assumptions are to a large extent plausible and have empirically been proven to be effective for investigating both degrees of entrenchment of lexemes in individual speakers as well their conventionality in the speech community.
+  Neologisms that show the highest total frequency counts such as \emph{smartwatch} can plausibly be assumed to be familiar to many speakers. It seems unlikely that its roughly 1 Mio. active uses stem exclusively from only few, tight-knit communities of users (e.g. techno-enthusiasts) and it seems likely that big parts of the speech community have been exposed to the term.
 
-  The frequency-based division of neologisms into groups as presented in Table \ref{tab:freq_total}, for example, largely seems to fit common intuition. Neologisms that show very high frequency counts such as \ol{smartwatch} have certainly been used by (1)~many speakers. It is also unlikely that its roughly 1 million active uses stem exclusively from (3)~one or few tight-knit communities of techno-enthusiasts and that the rest of the speech community (2)~has never been exposed to the term.
+  However, total frequency counts only provide a limited picture of diffusion as they are insensitive to the temporal dynamics of usage. Words that are similar in terms of aggregated frequency counts might differ regarding their degrees of conventionality at a given point in time.
 
-  However, even among the group of high-frequency lexemes in Table \ref{subtab:freq_total_max}, words that show similar total usage frequencies such as \ol{twitterverse} and \ol{blockchain}, for which semantic transcriptions even seem unnecessary, might indeed differ significantly regarding their conventionality in different parts of the speech community. For assessing and comparing the pathways of diffusion of less-established neologisms like \ol{hyperlocal} and \ol{solopreneur} total frequency counts alone provide a very limited picture.
+    For example, even among the most frequent neologisms in the sample presented in Table~\ref{subtab:freq-total-max}, words like \emph{twitterverse} and \emph{blockchain} have almost identical total frequency counts, but differ significantly with regard to their usage profiles. The neologism \emph{twitterverse} has been in use ever since the start of Twitter, while the diffusion of the much younger \emph{blockchain} only started in 2012. Due to its shorter lifespan, \emph{blockchain} accumulated roughly the same number of uses, but shows significantly higher usage intensity in the more recent past, and is most likely familiar to bigger parts of the speech community. Similar effects are even more pronounced in lower ranges of the frequency spectrum, which will be discussed below.
 
     \subsection{Cumulative frequency}
 
-  Cumulative frequency plots can supplement total frequency counts by additional information about the temporal dynamics of diffusion. Figure presents this information for all six cases.
+Plotting the cumulative increase in usage frequency of new words complements total counts by adding temporal information about their trajectory of diffusion. Figure~\ref{fig:freq_cum_cases} presents this information for six cases.
 
   \begin{figure}
     \caption{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
@@ -414,22 +440,35 @@ most relevant and important model: S-curve model
     \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/freq_cum_cases.pdf}
     \centering
   \end{figure}
-  \footnotetext{For better visibility \ol{alt-right} was omitted from this plot because of its high usage frequency.}
+  \footnotetext{For better visibility \emph{alt-right} was omitted from this plot because its high usage frequency would have inhibited the readability of the other lexemes.}
 
-  Most importantly,
-  lifespan
-  1 comparison: e.g. \ol{alt-left} vs. \ol{alt-right}
-
-  introduce cases
+While the end points of the graph show the total frequency counts as shown in Table~\ref{subtab:freq-total-cases}, the offsets and slopes of the trajectories of usage intensity additionally reveal differences in the temporal dynamics between lexemes.
 
 
-  Potential distortions
-  uses != users: This can distort the picture, e.g. if some speakers have a much stronger preference to use the term than the average or the amount of words contributed by by each speaker is not balanced.
+
+starting points
+
+  The selected cases differ regarding the starting points of their diffusion. While the oldest new word, \emph{hyperlocal}, started to spread in 2009, \emph{alt-left} is the newest candidate and enters the scene with a late, but very steep increase in 2016.
+
+    \emph{solopreneur} vs. \emph{hyperlocal}
+
+    lifespan
+      relatively comparable in my sample, but can have effects quickly:
+      extreme example: \emph{millenium bug}
+        A major drawback of total frequency counts is that they are insensitive to temporal dynamics of use. In extreme cases, words such as \emph{millenium bug}, which was used to refer to anticipated technical problems caused by the turn of the century, show relatively high aggregated frequency counts today, but are unfamiliar to an increasingly large fraction of the speech community.
+slopes
 
 
-  X is most frequent
-  Y is oldest
-  \ol{poppygate}
+slopes
+
+    \emph{solopreneur} vs. \emph{hyperlocal}:
+      more steady increase of \emph{hyperlocal}
+      \emph{solopreneur} comes in later with very steep increase, ends up on top
+
+  drawback: dynamics not captured
+    volatility: \emph{solopreneur}
+    lack of further uses: \emph{alt-left}
+
 
     \subsection{Temporal dynamics of usage intensity}
 
@@ -441,28 +480,28 @@ most relevant and important model: S-curve model
     \caption{Temporal dynamics in usage frequency for case studies.}
     \centering
     \begin{subfigure}{.3\linewidth}
-      \caption{\ol{upskill}}
+      \caption{\emph{upskill}}
       \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_upskill_time"}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
-      \caption{\ol{hyperlocal}}
+      \caption{\emph{hyperlocal}}
       \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
-      \caption{\ol{solopreneur}}
+      \caption{\emph{solopreneur}}
       \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_solopreneur_time"}
     \end{subfigure}
 
     \begin{subfigure}{.3\linewidth}
-      \caption{\ol{alt-right}}
+      \caption{\emph{alt-right}}
       \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_alt-right_time"}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
-      \caption{\ol{alt-left}}
+      \caption{\emph{alt-left}}
       \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_alt-left_time.pdf}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
-      \caption{\ol{poppygate}}
+      \caption{\emph{poppygate}}
       \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_poppygate_time.pdf}
     \end{subfigure}
   \end{figure}
@@ -475,8 +514,9 @@ most relevant and important model: S-curve model
   stability: shows that freq. is problematic
   \enquote{dormant}
   spikes distort representativity of frequency for degree of conventionality
-  underestimate: \ol{poppygate} not forgotten in troughs
-  overestimate: cumulating hides the fact that words like \ol{millenium} do get lost
+  underestimate: \emph{poppygate} not forgotten in troughs
+  overestimate: cumulating hides the fact that words like \emph{millenium} do get lost
+
 
   full sample
 
@@ -496,9 +536,10 @@ most relevant and important model: S-curve model
   going beyond frequency
   In the following sections I will assess the value of usage frequency and compare and complement it with social network information about the diffusion of lexical innovations.
 
-  \section{Social networks of diffusion}
+  \subsection{Social networks of diffusion}
+    \label{subsec:sna}
 
-    \subsection{Centralization over time}
+    \subsubsection{Centralization over time}
 
   going beyond frequency
 
@@ -516,9 +557,9 @@ most relevant and important model: S-curve model
 
   example where freq. meets nets
 
-  example where nets add to freq.: \ol{alt-left}
+  example where nets add to freq.: \emph{alt-left}
 
-      \subsubsection{Overview of changes in centralization for case studies.}
+      \qpar{Overview of changes in centralization for case studies.}
 
       \begin{figure}[H]
         \caption{Degree centralization over time for case study words.}
@@ -526,10 +567,10 @@ most relevant and important model: S-curve model
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/cases_cent_diac.pdf}
       \end{figure}
 
-      \subsubsection{Advanced / increasing: \ol{hyperlocal}}
+      \qpar{Advanced / increasing: \emph{hyperlocal}}
 
       \begin{figure}[H]
-        \caption{Social network of diffusion for \ol{hyperlocal} over time.}
+        \caption{Social network of diffusion for \emph{hyperlocal} over time.}
         \centering
         \begin{subfigure}{.45\linewidth}
           \caption{First stage}
@@ -553,10 +594,10 @@ most relevant and important model: S-curve model
         \end{subfigure}
       \end{figure}
 
-      \subsubsection{Limited / limited: \ol{alt-left}}
+      \qpar{Limited / limited: \emph{alt-left}}
 
       \begin{figure}[H]
-        \caption{Social network of diffusion for \ol{alt-left} over time.}
+        \caption{Social network of diffusion for \emph{alt-left} over time.}
         \centering
         \begin{subfigure}{.45\linewidth}
           \caption{First stage}
@@ -580,7 +621,7 @@ most relevant and important model: S-curve model
         \end{subfigure}
       \end{figure}
 
-      \subsubsection{Full sample}
+      \qpar{Full sample}
 
   density
   successful
@@ -588,18 +629,21 @@ most relevant and important model: S-curve model
 
   biggest changes
 
-    \subsection{Overall centralization}
+    \subsubsection{Overall centralization}
 
   most diffused
   least diffused
 
-  \section{Networks vs. frequency}
+  \subsection{Networks vs. frequency}
+    \label{subsec:nets-vs-freq}
 
-    \subsection{Correlation}
+    \subsubsection{Correlation}
+      \label{subsubsec:corr}
 
   There is a significant correlation ($p = 0.015$) between frequency and centralization
 
-    \subsection{Discrepancies}
+    \subsubsection{Discrepancies}
+      \label{subsubsec:discrepancies}
 
   However, we also see discrepancies
 
@@ -623,8 +667,8 @@ most relevant and important model: S-curve model
 
   freq. overestimating
   topical
-  propaganda: \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
-  Brexit terms: \ol{Brexiteer}, \ol{Brexiter}, \ol{Brexit}
+  propaganda: \emph{alt-right}, \emph{alt-left}, \emph{covfefe}, \emph{birther}
+  Brexit terms: \emph{Brexiteer}, \emph{Brexiter}, \emph{Brexit}
   nerds
   technical
 
@@ -634,19 +678,83 @@ most relevant and important model: S-curve model
   Social network metrics certainly add to freq.
 
 \section{Discussion}
+  \label{sec:discussion}
 
-\begin{qitem}
-  # freq. proves to be a pretty good indicators
-  # but
-    ## temporal dynamics important
-    ## social network dynamics important, esp. w.r.t. new words
-  # cross-checking other data sources (NOW corpus) shows validity
-  # social network analysis can be an important tool for sociolinguistics
-    # extend sociolinguistic research (on geographical variation; desideratum in \cite{Grieve2019MappingLexical})
-\end{qitem}
+  %subsection{Summary}
+
+    \begin{qitem}
+      # I have investigated the diffusion of new words on Twitter.
+      # I have focused on diffusion as regards the spread to new speakers and communities.
+      # I have used frequency as a baseline and have gone beyond frequency to zoom in on the sociolinguistic dynamics of diffusion.
+      # I have shown that Social Network Analysis can complement frequency measures
+    \end{qitem}
+
+  %subsection{Discussion}
+
+    \begin{qitem}
+      # freq. empirically proves to be a pretty good indicator
+
+      # drawbacks of cumulated, total counts: temporal dynamics important
+
+      # but rough approximation due to inferences
+        ## active vs. passive use
+        ## number of speakers
+        ## groups of speakers
+
+      # temporal dynamics important
+        ## time window: age, lifespan
+          ### starting point: late: very new words, would be under-represented by total counts
+          ### end point: words might have already grown out of use (e.g. \emph{millenium bug}) > over-represented by total counts
+          ### length: quick vs. slow and steady increase: topicality
+
+        ## volatility: high topicality / highly fluctuating communicative need (cf. \emph{going to}-future); thus fluctuating ``semantic carrying capacity''~\parencite{Grieve2018MappingLexical}
+
+        # dynamics in usage intensity might reflect social dynamics
+          ## s. S-curve model: early adopters etc.
+          ## e.g.: fast rise due to rapid spread in certain communities
+          ## hard to infer from usage frequency > SNA needed
+
+      # social network dynamics important
+        ## esp. w.r.t. new words: often community-specific; are coined within tight-knit comminuties and (cf. grammatical change) and have socio-indexical function (e.g. youth language)
+      # cross-validation between
+      # cross-checking other data sources (NOW corpus) shows validity
+      # social network analysis can be an important tool for sociolinguistics
+        ## extend sociolinguistic research (on geographical variation; desideratum in \cite{Grieve2019MappingLexical})
+    \end{qitem}
+
+  %subsection{Directions for future work}
+
+    \begin{qitem}
+      # cross-validation of frequency and SNA information
+        ## systematic comparison with web data, e.g. NOW corpus~\parencite{Davies2013CorpusNews}; early attempts:~\cite{Wurschinger2016UsingWeb}
+        ## questionnaires; early work:~\cite{Kerremans2015WebNew}
+      # investigation on diffusion across
+        # contexts: different web registers~\parencite{Biber2016RegisterVariation}
+        # cotexts: use word embeddings to study
+          ## semantic innovation, meaning change
+          ## and variation and change between communities~\parencite{Tredici2019YouShall} 
+    \end{qitem}
 
 \section{Conclusion}
+  \label{sec:conclusion}
 
+
+  Summary
+
+    \begin{qitem}
+      # I have investigated the diffusion of new words on Twitter.
+      # I have focused on diffusion as regards the spread to new speakers and communities.
+      # I have used frequency as a baseline and have gone beyond frequency to zoom in on the sociolinguistic dynamics of diffusion.
+      # I have shown that Social Network Analysis can complement frequency measures
+    \end{qitem}
+
+  Importance of/for computational sociolinguistics
+
+    \begin{qitem}
+      # new data like Twitter
+      # new methods like SNA, simulations, AI for embeddings
+      # progress: ideas, scholars and progress will ``go viral''
+    \end{qitem}
 
 %section{Bibliography}
 

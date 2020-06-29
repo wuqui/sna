@@ -110,7 +110,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'upskill'
+lemma <- 'alt-right'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -125,6 +125,28 @@ tweets %>%
   arrange((tweet))
   # slice(., sample(1:n())) #random selection
   # arrange(desc(likes_count)) %>%
+```
+
+
+## plot usage frequency
+
+```{r}
+uses <- get_uses(tweets)
+uses_month <- bin_uses(uses, 'month')
+
+plt <- ggplot(data=uses_month, aes(x=DATE, y=USES)) +
+  geom_line() +
+  geom_point() +
+  # ggtitle(paste0('n = ', USES_TOT)) +
+  scale_y_continuous("Tweets / month") + 
+  scale_x_date(
+    "", 
+    limits = as.Date(c('2006-01-01','2018-12-31')),
+    breaks = '1 year',
+    date_labels = '%Y'
+    )
+
+ggsave(file=paste0('~/Desktop/', lemma, '.png'), plot=plt, width=6, height=3)
 ```
 
 
@@ -241,6 +263,17 @@ df_comp %>%
 ```{r}
 df_comp %>%
   distinct(LEMMA)
+```
+
+
+# Age
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select(LEMMA, AGE, USES=USES_TOT) %>%
+  mutate(USES_AGE = USES / AGE) %>%
+  arrange(desc(USES_AGE))
 ```
 
 
@@ -367,7 +400,7 @@ uses_lemmas %>%
   filter(LEMMA != 'alt-right') %>%
   ggplot(data=., aes(x=DATE, y=USES_CUM)) +
     geom_line(aes(color=LEMMA, linetype=LEMMA)) +
-    scale_y_continuous('cumulative usage frequency') +
+    scale_y_continuous('cumulative usage frequency', labels=scales::comma) +
     scale_x_date('') +
     scale_color_discrete('lemma') +
     scale_linetype_discrete(guide=FALSE)
@@ -375,6 +408,21 @@ uses_lemmas %>%
 # ggsave('out/freq_cum_cases.pdf', width=6, height=4)
 # write_csv(uses_lemmas, 'out/uses_lemmas.csv')
 ```
+
+
+## decreasing frequency
+
+```{r}
+df_comp %>%
+  select(LEMMA, SUBSET, USES) %>%
+  filter(SUBSET %in% c('one', 'four')) %>%
+  dplyr::group_by(LEMMA) %>%
+  dplyr::mutate(FREQ_DIFF = USES - lag(USES, default=USES[1])) %>%
+  filter(SUBSET == 'four') %>%
+  select(-SUBSET) %>%
+  arrange(desc(FREQ_DIFF))
+```
+
 
 
 # Edges
@@ -730,3 +778,12 @@ df_comp %>%
     USERS_ALL = sum(USERS_TOT)
     )
 ```
+
+# temp
+
+
+```{r}
+df_comp %>%
+  filter(LEMMA=='blockchain')
+```
+
