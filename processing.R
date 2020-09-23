@@ -14,6 +14,7 @@ library(magrittr)
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 lemmas <- list.dirs(corpus, full.names=FALSE, recursive=FALSE)
+cases <- c('upskill', 'hyperlocal', 'solopreneur', 'alt-right', 'alt-left', 'poppygate' )
 
 directed <- TRUE
 

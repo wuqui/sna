@@ -232,10 +232,15 @@ plt_uses <- function (
   ggplot(data=uses_month, aes(x=DATE, y=USES)) +
     geom_line() +
     geom_point() +
-    geom_smooth() +
+    # geom_smooth() +
     ggtitle(paste0('n = ', USES_TOT)) +
     scale_y_continuous("Tweets / month") + 
-    scale_x_date("") +
+    scale_x_date(
+      "", 
+      limits = as.Date(c('2006-01-01','2018-12-31')),
+      breaks = '1 year',
+      date_labels = '%Y'
+      ) +
     # geom_vline(data=sub_limits, aes(xintercept=DATE, color=SUB)) +
     geom_vline(data=sub_cuts, aes(xintercept=DATE), color='royalblue4', linetype='dashed')
 }
