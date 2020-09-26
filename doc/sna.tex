@@ -20,7 +20,6 @@
     \usepackage{siunitx}
     \sisetup{group-minimum-digits=4}
 
-
 %section{New commands}
 
   \renewcommand{\hw}[1]{\textbf{#1}}
@@ -335,13 +334,13 @@ most relevant and important model: S-curve model
 
   The degree of diffusion of new words is commonly approximated by a how many times speakers have used these words in a corpus. The most fundamental way of using this information is to cumulate usage counts and to rely on the total number of uses observed.
 
-  The underlying assumption is that neologisms that have been used very frequently are likely to be conventional among a large group of users who have actively produced the observed uses (\enquote{corpus-as-output}~\parencite{Stefanowitsch2017CorpusbasedPerspective}) and among a large group of users who have been passively exposed to these neologisms (\enquote{corpus-as-input}).
+  The underlying assumption is that neologisms that have been used very frequently are likely to be conventional among a large group of users who have actively produced the observed uses (\enquote{corpus-as-output}~\parencite{Stefanowitsch2017CorpusbasedPerspective}) or have been passively exposed to these neologisms (\enquote{corpus-as-input}).
 
-  In the following, I will use this most fundamental measure of diffusion as a baseline before I zoom in to get a more differentiated picture of the temporal and social dynamics of diffusion.
+  In the following, I will use this most basic measure of diffusion as a baseline before I zoom in to get a more differentiated picture of the temporal and social dynamics of diffusion.
 
-  The present sample of neologisms covers a broad spectrum of usage frequency. Table~\ref{tab:freq-total} presents the candidates under investigation in four groups: six examples around the minimum, the median and the maximum total usage frequency observed in the corpus as well as six words that will serve as case studies in the following sections.
+  The present sample of neologisms covers a broad spectrum of usage frequency. Table~\ref{tab:freq-total} presents the candidates under investigation in four groups: six examples around the minimum, around the median and around the maximum total usage frequency observed in the corpus as well as six words that will serve as case studies in the following sections.
 
-  I have selected these cases to illustrate prototypical examples that differ in terms of their diffusion with regard to their usage intensity and social characteristics of diffusion.
+  These cases reflect a diverse set of prototypical examples of diffusion patterns, and I will use these cases to illustrate more detailed characteristics of diffusion before I present the general patterns found for the full sample of neologisms.
 
   \begin{table}
     \caption{Total usage frequency in the corpus.}
@@ -422,17 +421,13 @@ most relevant and important model: S-curve model
     \end{subtable}
   \end{table}
 
-  As described in Section~\ref{sec:modeling-diff}, successful diffusion involves an increase in the number of speakers and communities who know and use a new word. The clustering of neologisms on the basis of their total usage frequency presented in Table~\ref{tab:freq-total} largely seems to fit intuitions about diverging degrees of diffusion.
+  As described in Section~\ref{sec:modeling-diff}, successful diffusion involves an increase in the number of speakers and communities who know and use a new word. The clustering of neologisms on the basis of their total usage frequency presented in Table~\ref{tab:freq-total} largely seems to fit intuitions about diverging degrees of diffusion. Neologisms that show the highest total frequency counts such as \emph{smartwatch} or \emph{blockchain} can plausibly be assumed to be familiar to big parts of the speech community.
 
-  Neologisms that show the highest total frequency counts such as \emph{smartwatch} can plausibly be assumed to be familiar to big parts of the speech community.
-
-  However, total frequency counts only provide a limited picture of diffusion as they are insensitive to the temporal dynamics of usage. Words that are similar in terms of aggregated frequency counts might differ regarding their degrees of conventionality at a given point in time.
-
-    For example, even among the most frequent neologisms in the sample presented in Table~\ref{subtab:freq-total-max}, words like \emph{twitterverse} and \emph{blockchain} have almost identical total frequency counts, but differ significantly with regard to their usage profiles. The neologism \emph{twitterverse} has been in use ever since the start of Twitter, while the diffusion of the much younger \emph{blockchain} only started in 2012. Due to its shorter lifespan, \emph{blockchain} accumulated roughly the same number of uses, but shows significantly higher usage intensity in the more recent past, and is most likely familiar to bigger parts of the speech community. Similar effects are even more pronounced in lower ranges of the frequency spectrum, which will be discussed below.
+  However, total frequency counts only provide a limited picture of diffusion as they are insensitive to the temporal dynamics of usage. Words that are similar in terms of aggregated frequency counts might differ regarding their degrees of conventionality at a given point in time. Even among the most frequent neologisms in the sample presented in Table~\ref{subtab:freq-total-max}, words like \emph{twitterverse} and \emph{blockchain}, for example, have similar total frequency counts, but differ significantly with regard to their usage profiles. The neologism \emph{twitterverse} has been in use ever since the start of Twitter, while the diffusion of the much younger \emph{blockchain} only started in 2012. Due to its shorter lifespan, \emph{blockchain} accumulated roughly the same number of uses, but shows significantly higher usage intensity in the more recent past, and could be assumed to be familiar to bigger parts of the speech community. Similar effects are even more pronounced in lower ranges of the frequency spectrum, which will be discussed below.
 
     \subsection{Cumulative frequency}
 
-Plotting the cumulative increase in usage frequency of new words complements total counts by adding temporal information about their trajectory of diffusion. Figure~\ref{fig:freq_cum_cases} presents this information for six cases.
+Plotting the cumulative increase in usage frequency of new words complements total counts by adding temporal information about their trajectory of diffusion. Figure~\ref{fig:freq_cum_cases} presents this information for the case study selection.
 
   \begin{figure}
     \caption{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
@@ -440,53 +435,38 @@ Plotting the cumulative increase in usage frequency of new words complements tot
     \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/freq_cum_cases.pdf}
     \centering
   \end{figure}
-  \footnotetext{For better visibility \emph{alt-right} was omitted from this plot because its high usage frequency would have inhibited the readability of the other lexemes.}
+  \footnotetext{\emph{alt-right} was omitted from this plot because its high usage frequency would have inhibited the interpretability of the other lexemes; its frequency over time is presented in Figure \ref{subfig:freq_temp_alt-right}.}
 
-  While the end points of the graph mark the total frequency counts as shown in Table~\ref{subtab:freq-total-cases}, the offsets and slopes of the trajectories of usage frequency add important information about the temporal dynamics of use.
+  While the end points of the graph mark the total frequency counts as shown in Table~\ref{subtab:freq-total-cases}, the offsets and slopes of the trajectories of usage frequency add important information about the temporal dynamics of diffusion. As can be seen, the selected cases differ regarding their starting points of diffusion, which determine the neologisms' lifespan.
 
-  The selected cases differ regarding their starting points of diffusion.
+    The term \emph{hyperlocal}, for example, is the oldest new word among the selected cases, and it is commonly used to refer to information that is strongly focused on local facts and events. While it was hardly used in the first years of Twitter, it started to increase in its use in 2009, and it was added to the OED's Third Edition in 2015.
 
-  For example, \emph{hyperlocal} as the oldest new word among the selected cases started to diffuse in 2010, while \emph{solopreneur} only shows a significant increase in its usage intensity in 2014, but accumulates the highest total number of uses.
+    Around this time, the neologism \emph{solopreneur} only starts to significantly increase in its usage. A blend of \emph{solo} and \emph{entrepeneur}, it keeps a low, flat trajectory of sporadic use for about 7 years after its first appearance in the corpus. The first two attestations in the corpus indicate the sense of novelty and scepticism towards the term in its early phases:
 
-  Such differences regarding the lifespan of neologisms might indicate different dynamics and degrees of diffusion, but are not captured by total frequency counts.
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \begin{enumerate}
+      \item I'm trying to figure out if I like the term \enquote{solopreneur} I just read. (27 July, 2007)
+      \item hmmmmmmm new word added to my vocab = ``solopreneur'' !! (6 January, 2008)
+    \end{enumerate}
 
-  The divergence between their lifespan and total number of uses is reflected by differences in their dynamics of usage intensity.
-  The slopes of the trajectories indicate different degrees of usage intensity.
-  While \emph{hyperlocal} shows a relatively consistent increase over a longer period of time, \emph{solopreneur} features a later, but much steeper increase in use and eventually reaches a higher total number of uses.
+    Speakers increasingly \enquote{like the term} and \enquote{add them to their vocabulary} only much later, after 2014, when the phenomenon of individual entrepreneurship attracts increasing conceptual salience in the community, which seems to be both reflected and propagated by the publication of several self-help books for entrepreneurs in this year, which all explicitly use the new term in their titles (e.g. \enquote{Free Tools for Writers, Bloggers and Solopreneurs} by Karen Banes).
 
-  data example: release of book? -> topical use
-
-  An even shorter and steeper increase is found in the use of \emph{alt-left}, which is the latest neologisms to enter the scene in 2016. While \emph{alt-left} reaches comparable total counts, its usage is much less consistent and largely goes back to a period of highly intensive use in 2017, soon after which its use stagnates considerably.
-
-  implications: topical? one group?
- 
-  \emph{millenium bug} \marginpar{already used below}
+    The consequent spike in usage intensity for results in a higher overall number of uses for \emph{solopreneur} as compared with \emph{hyperlocal}, even though the use of the former term has been restricted to a much smaller time period. While mere absolute frequency counts are blind to the lifespan of neologisms, an analysis of the temporal trajectory provides valuable additional information about the dynamics of diffusion. In this case, a relatively short period of very intense use might be a sign of high levels of usualization within one community of likeminded speakers, as opposed to more diverse, sustained diffusion across the whole speech community.
 
 
-  Plots of the cumulative increase in usage intensity
-    go beyond absolute counts
-    and reveal differences
-      regarding the lifespan
-      and slopes
-
-  but to get a higher resolution, we need
-    temporal dynamics
-    sociolinguistic information
-
-  These differences regarding the starting points of diffusion determine the lifespan of neologisms.
-  Total counts do not take into account the lifespan of words.
-  differences between younger and older words
-  Words like \emph{alt-left}, who are relatively young and whose usage goes back to a short period of highly intensive use,
-    diffusion over-estimated
-      if use goes back to only one group
+'exposure' even before 'lifespan'?
 
 
+    differences between younger and older words
+    Words like \emph{alt-left}, who are relatively young and whose usage goes back to a short period of highly intensive use,
+      diffusion over-estimated
+        if use goes back to only one group
+       
   In addition to the total number of uses observed, such differences in dynamics of usage intensity
       affect
-        exposure
+        exposure: people who joined Twitter later (younger)
         diffusion
         social dynamics
-
 
     \emph{solopreneur} vs. \emph{hyperlocal}
 
@@ -496,7 +476,18 @@ Plotting the cumulative increase in usage frequency of new words complements tot
         A major drawback of total frequency counts is that they are insensitive to temporal dynamics of use. In extreme cases, words such as \emph{millenium bug}, which was used to refer to anticipated technical problems caused by the turn of the century, show relatively high aggregated frequency counts today, but are unfamiliar to an increasingly large fraction of the speech community.
 
 
-  slopes:
+intermediate points: exposure
+
+
+slopes:
+  no longer in use? obsolete?
+  topicality
+
+    Correspondingly, the slopes of the cumulative trajectories indicate different degrees of usage intensity over time. While \emph{hyperlocal} shows a relatively consistent increase over a longer period of time, \emph{solopreneur} features a later, but much steeper increase in use.
+
+    The divergence between their lifespan and total number of uses is reflected by differences in their dynamics of usage intensity.
+
+    An even shorter and steeper increase is found in the use of \emph{alt-left}, which is the latest neologisms to enter the scene in 2016. While \emph{alt-left} reaches comparable total counts, its usage is much less consistent and largely goes back to a period of highly intensive use in 2017, soon after which its use stagnates considerably.
 
     \emph{solopreneur} vs. \emph{hyperlocal}:
       similar starting point
@@ -506,6 +497,32 @@ Plotting the cumulative increase in usage frequency of new words complements tot
   drawback: dynamics not captured
     volatility: \emph{solopreneur}
     not used (much) anymore: \emph{alt-left}
+
+
+
+
+  --> temporal dynamics need to be studied
+
+  implications: topical? one group?
+
+
+  Plots of the cumulative increase in usage intensity
+    go beyond absolute counts
+    and reveal differences
+      regarding the lifespan
+      and slopes
+
+  but to get a higher resolution, we need
+    temporal dynamics:
+    dynamics of slopes not easily interpretable
+      suggest smoothness
+      don't highlight obsolete words
+    relevant for better picture of diffusion
+
+
+
+
+
 
 
     \subsection{Temporal dynamics of usage intensity}
@@ -532,6 +549,7 @@ Plotting the cumulative increase in usage frequency of new words complements tot
 
     \begin{subfigure}{.3\linewidth}
       \caption{\emph{alt-right}}
+      \label{subfig:freq_temp_alt-right}
       \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-right_time"}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
