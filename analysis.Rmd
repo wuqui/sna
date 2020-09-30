@@ -110,7 +110,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'alt-right'
+lemma <- 'solopreneur'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -121,8 +121,8 @@ tweets <- filter_tweets(tweets)
 
 ```{r}
 tweets %>%
-  select(tweet, date, replies_count, retweets_count, likes_count) %>%
-  arrange((tweet))
+  select(date, tweet, replies_count, retweets_count, likes_count) %>%
+  arrange((date))
   # slice(., sample(1:n())) #random selection
   # arrange(desc(likes_count)) %>%
 ```

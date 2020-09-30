@@ -14,7 +14,7 @@ library(magrittr)
 # variables ----
 corpus <- '/Volumes/qjd/twint/'
 lemmas <- list.dirs(corpus, full.names=FALSE, recursive=FALSE)
-cases <- c('upskill', 'hyperlocal', 'solopreneur', 'alt-right', 'alt-left', 'poppygate' )
+cases <- c('upskill', 'hyperlocal', 'solopreneur', 'alt-right', 'alt-left', 'poppygate')
 
 directed <- TRUE
 
@@ -28,7 +28,7 @@ diff_start_limit <- 3
 export_edges <- FALSE
 
 
-for (lemma in c('')) {
+for (lemma in cases) {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
