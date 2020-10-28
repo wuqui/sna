@@ -471,29 +471,29 @@ Figure \ref{fig:freq-abs} presents the absolute frequency counts over time for t
     \centering
     \begin{subfigure}{.3\linewidth}
       \caption{\ol{upskill}}
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_upskill_time"}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_upskill_gam.pdf"}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
       \caption{\ol{hyperlocal}}
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{../out/uses/ui_hyperlocal_time.pdf}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_hyperlocal_gam.pdf"}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
       \caption{\ol{solopreneur}}
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_solopreneur_time"}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_solopreneur_gam.pdf"}
     \end{subfigure}
 
     \begin{subfigure}{.3\linewidth}
       \caption{\ol{alt-right}}
       \label{subfig:freq_temp_alt-right}
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_alt-right_time"}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-right_gam.pdf"}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
       \caption{\ol{alt-left}}
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_alt-left_time.pdf"}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-left_gam.pdf"}
     \end{subfigure}
     \begin{subfigure}{.3\linewidth}
       \caption{\ol{poppygate}}
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"../out/uses/ui_poppygate_time.pdf"}
+      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_gam.pdf"}
     \end{subfigure}
     \caption{Temporal dynamics in usage frequency for the case study neologisms.}
     \label{fig:freq-abs}
@@ -664,15 +664,24 @@ coefficient of variation
 
       \begin{table}[H]
         \centering
-        \caption{Correlations of degree centralization with the variables usage frequency (\textsc{freq}), coefficient of variation (\textsc{var}) and lifespan (\textsc{age}) across the full sample of neologisms ($n=100$), based on the Spearman correlation coefficient \parencite{Spearman1961ProofMeasurement}.}
+        \caption{Correlations of degree centralization with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{variability}), and observed lifespan (\textsc{lifespan}) across the full sample of neologisms ($n=100$); reporting correlation coefficients and \emph{p}-values for Spearman's $\rho$~\parencite{Spearman1961ProofMeasurement} and Kendall's $\tau$~\parencite{Kendall1938NewMeasure}.}
         \label{tab:correlations}
-        \begin{tabular}{>{\scshape}l S[table-format=1.2] S[table-format=1.2e1]}
+        \begin{tabular}{
+          >{\scshape}l
+          ||
+          S[table-format=2.2, round-mode=places, round-precision=2]
+          S[table-format=1.5, round-mode=places, round-precision=5]
+          |
+          S[table-format=2.2, round-mode=places, round-precision=2]
+          S[table-format=1.5, round-mode=places, round-precision=5]
+          }
           \toprule
-               & $\rho$ & p       \\
+               & \multicolumn{2}{c}{Spearman} & \multicolumn{2}{c}{Kendall}\\
+               & $\rho$     & p          & $\tau$     & p          \\
           \midrule
-          freq & -0.40  & 5.34e-5 \\
-          age  & -0.29  & 3.67e-3 \\
-          var  & 0.29   & 3.45e-3 \\
+          frequency   & -0.3974644 & 0.00005338 & -0.2743764 & 0.00005727 \\
+          lifespan    & -0.2894037 & 0.003668   & -0.2029075 & 0.002932   \\
+          variability & 0.2922202  & 0.003449   & 0.1956298  & 0.004118   \\
           \bottomrule
         \end{tabular}
       \end{table}
