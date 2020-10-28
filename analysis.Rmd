@@ -110,7 +110,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'solopreneur'
+lemma <- 'poppygate'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -144,9 +144,11 @@ plt <- ggplot(data=uses_month, aes(x=DATE, y=USES)) +
     limits = as.Date(c('2006-01-01','2018-12-31')),
     breaks = '1 year',
     date_labels = '%Y'
-    )
+    ) +
+  geom_smooth(method='gam')
 
-ggsave(file=paste0('~/Desktop/', lemma, '.png'), plot=plt, width=6, height=3)
+plt
+# ggsave(file=paste0('~/Desktop/', lemma, '.png'), plot=plt, width=6, height=3)
 ```
 
 
@@ -710,35 +712,50 @@ df_comp %>%
 
 # Correlations
 
-## FREQ X NETWORKS
-
 ```{r}
 df_corr <- df_comp %>%
   filter(
-    # SUBSET != 'full'
+    SUBSET == 'full'
     # EDGES >= 100
     ) %>%
   select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP))
-  
-cor.test(df_corr$USES, df_corr$CENT_DEGREE)
 ```
+
+
+```{r}
+df_corr %>%
+  ggplot(., aes(x=USES, y=CENT_DEGREE)) +
+    geom_point() +
+    scale_x_continuous(trans='log') +
+    scale_y_continuous(trans='log') +
+    geom_smooth(method='glm')
+```
+
+
+
+## FREQ X NETWORKS
+
+```{r}
+cor.test(df_corr$USES, df_corr$CENT_DEGREE,
+         method='spearman')
+```
+
+## AGE x NET
+
+```{r}
+cor.test(df_corr$AGE, df_corr$CENT_DEGREE,
+         method='spearman')
+```
+
 
 ## COEF_VAR
 
 ```{r}
-df_comp %>%
-  # cor.test(df_corr$CENT_DEGREE, df_corr$COEF_VAR)
-  # filter(SUBSET == 'full') %>%
-  select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP)) %>%
-  summarize(
-    # P = cor.test(COEF_VAR, CENT_DEGREE)$p.value,
-    # EST = cor.test(COEF_VAR, CENT_DEGREE)$estimate
-    P = cor.test(COEF_VAR, USES_TOT)$p.value,
-    EST = cor.test(COEF_VAR, USES_TOT)$estimate
-    # P = cor.test(CENT_DEGREE, USES)$p.value,
-    # EST = cor.test(CENT_DEGREE, USES)$estimate
-    )
+cor.test(df_corr$COEF_VAR, df_corr$CENT_DEGREE, 
+         method='spearman')
 ```
+
+
 
 
 # Coefficient of variation
