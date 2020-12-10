@@ -110,7 +110,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'poppygate'
+lemma <- 'upskill'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -148,7 +148,7 @@ plt <- ggplot(data=uses_month, aes(x=DATE, y=USES)) +
   geom_smooth(method='gam')
 
 plt
-# ggsave(file=paste0('~/Desktop/', lemma, '.png'), plot=plt, width=6, height=3)
+ggsave(file=paste0('~/promo/sna/doc/img/ui_', lemma, '_gam.pdf'), plot=plt, width=6, height=3)
 ```
 
 
@@ -226,6 +226,7 @@ df_comp %>%
     # 'glamping', 'lifehack', 'alt-right', 'lituation', 'baeless'
     # !LEMMA %in% c('circular economy')
   ) %>%
+  # filter(LEMMA != 'alt-right') %>%
   ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
     geom_point(aes(group=LEMMA, color=LEMMA)) +
     geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
@@ -446,14 +447,14 @@ df_comp %>%
 
 ```{r}
 df_comp %>%
-  select(LEMMA, SUBSET, USES_TOT, CENT_DEGREE, CENT_EV) %>%
+  select(LEMMA, SUBSET, USES_TOT, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
     SUBSET == 'full'
     # USES >= 2
     ) %>%
   arrange(
     (CENT_DEGREE)
-    # desc(CENT_EV)
+    # (DENSITY)
   )
 ```
 
@@ -712,18 +713,10 @@ df_comp %>%
 
 # Correlations
 
-```{r}
-df_corr <- df_comp %>%
-  filter(
-    SUBSET == 'full'
-    # EDGES >= 100
-    ) %>%
-  select(-c(LEMMA, SUBSET, START, END, SKIP, STAMP))
-```
-
+## exploratory plots
 
 ```{r}
-df_corr %>%
+df_comp %>%
   ggplot(., aes(x=USES, y=CENT_DEGREE)) +
     geom_point() +
     scale_x_continuous(trans='log') +
@@ -732,19 +725,65 @@ df_corr %>%
 ```
 
 
-
-## FREQ X NETWORKS
+## create correlation matrix
 
 ```{r}
-cor.test(df_corr$USES, df_corr$CENT_DEGREE,
+df_corr <- df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select_if(is.numeric) %>%
+  correlate(method='spearman')
+```
+
+
+## plot all correlations
+
+```{r}
+df_corr %>%
+  shave() %>%
+  rplot() + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+
+## check one variable
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  select_if(is.numeric) %>%
+  correlate(method='spearman') %>%
+  focus(DENSITY) %>%
+  mutate(rowname = reorder(rowname, DENSITY)) %>%
+  ggplot(aes(rowname, DENSITY)) +
+    geom_col() +
+    coord_flip()
+```
+
+
+## correlation test (for p-value)
+
+```{r}
+cor.test(df_corr$USERS_TOT, df_corr$CENT_DEGREE,
          method='spearman')
 ```
 
-## AGE x NET
+
+## SUBSET ONE X FOUR
 
 ```{r}
-cor.test(df_corr$AGE, df_corr$CENT_DEGREE,
-         method='spearman')
+df_comp %>%
+  filter(SUBSET == 'one') %>%
+  select(CENT_DEGREE)
+
+cent_deg_two <- df_comp %>%
+  filter(SUBSET == 'two') %>%
+  select(CENT_DEGREE)
+
+splt <- df_comp %>%
+  filter(SUBSET %in% c('one', 'four')) %>%
+  dplyr::group_split(SUBSET)
+      
+cor.test(splt[[1]][1:99, ]$CENT_DEGREE, splt[[2]][1:99, ]$CENT_DEGREE)
 ```
 
 
