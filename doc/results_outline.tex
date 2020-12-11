@@ -2,20 +2,37 @@
 freq
 
   cumulated counts: total exposure
+    variable: \textsc{frequency}
+    stats
+      cases
+      sample
+
     high vs. low
 
-  over time
+  temporal dynamics
 
-    cum. freq.: total lifespan
-      long (but moderate use): \ol{hyperlocal}
-      short (but intense use): \ol{solopreneur}
+    cum. freq.:
+      slopes
 
-    abs. freq.
-      gradual increase: \ol{upskill}
-      stable use: \ol{hyperlocal}
-      obsolete words: \ol{solopreneur} (+ \ol{millenium bug})
-      new but intense: \ol{alt-right}, \ol{alt-left}
-      topical: \ol{poppygate}
+    frequency over time
+      variable: \textsc{lifespan}
+        long (but moderate use): \ol{hyperlocal}
+        short (but intense use): \ol{solopreneur}
+
+      variable: \textsc{volatility}
+        plots and corpus data
+          gradual increase: \ol{upskill}
+          consistent use: \ol{hyperlocal}
+          volatile
+            obsolete words: \ol{solopreneur} (+ \ol{millenium bug})
+            new but intense: \ol{alt-right}, \ol{alt-left}
+            topical: \ol{poppygate}
+
+        coefficient of variation
+          selected cases
+          full sample
+            top $k$
+            bottom $k$
 
 sna
 
@@ -35,3 +52,10 @@ sna
     increasing: \ol{hyperlocal}
     decreasing: \ol{solopreneur}
     limited: \ol{alt-left}
+
+freq vs. sna
+
+  correlations
+    total frequency
+    lifespan
+    volatility
