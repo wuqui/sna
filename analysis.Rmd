@@ -799,13 +799,30 @@ cor.test(df_corr$COEF_VAR, df_corr$CENT_DEGREE,
 
 # Coefficient of variation
 
+## case studies
+
 ```{r}
 df_comp %>%
   filter(
     SUBSET == 'full',
-    USES_TOT >= 1000
+    AGE >= 365,
+    # USES_TOT >= 10000,
+    LEMMA %in% cases
     ) %>%
-  select(LEMMA, USES_TOT, COEF_VAR) %>%
+  select(LEMMA, USES_TOT, COEF_VAR, AGE) %>%
+  arrange((COEF_VAR))
+```
+
+## full samples
+
+```{r}
+df_comp %>%
+  filter(
+    SUBSET == 'full',
+    AGE >= 365,
+    # USES_TOT >= 2000
+    ) %>%
+  select(LEMMA, USES_TOT, COEF_VAR, AGE) %>%
   arrange(desc(COEF_VAR))
 ```
 
