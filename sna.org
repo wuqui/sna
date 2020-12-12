@@ -99,9 +99,13 @@ CLOCK: [2020-10-27 Tue 18:20]--[2020-10-27 Tue 19:04] =>  0:44
 CLOCK: [2020-10-26 Mon 11:37]--[2020-10-26 Mon 19:01] =>  7:24
 :END:
 ***** DONE absolute counts
-***** TODO coefficient of variation
+***** DONE coefficient of variation
 :CLOCKBOOK:
-CLOCK: [2020-12-12 Sat 15:47]
+CLOCK: [2020-12-12 Sat 15:47]--[2020-12-12 Sat 19:32] =>  3:45
+:END:
+***** TODO summary
+:CLOCKBOOK:
+CLOCK: [2020-12-12 Sat 21:36]--[2020-12-12 Sat 23:46] =>  2:10
 :END:
 **** TODO sna
 *** TODO discussion
@@ -168,12 +172,20 @@ https://stackoverflow.com/a/40857495/4165300
 | [2020-12-12 Sat 15:48] | [2020-12-12 Sat 16:36] | 0.033334 | 00:48:00 |    8370 |  8470 |    100 |
 | [2020-12-12 Sat 16:50] | [2020-12-12 Sat 17:42] | 0.036111 | 00:51:59 |    8470 |  8649 |    179 |
 | [2020-12-12 Sat 18:06] | [2020-12-12 Sat 19:26] | 0.055555 | 01:19:59 |    8649 |  8880 |    231 |
+| [2020-12-12 Sat 21:40] | [2020-12-12 Sat 22:28] | 0.033333 | 00:47:59 |    8880 |  8951 |     71 |
+| [2020-12-12 Sat 22:53] | [2020-12-12 Sat 23:46] | 0.036806 | 00:53:00 |    8951 |  9076 |    125 |
 |------------------------+------------------------+----------+----------+---------+-------+--------|
-|                        |                        |        0 | 33:09:45 |         |       |   2490 |
+|                        |                        |        0 | 34:50:44 |         |       |   2686 |
 |------------------------+------------------------+----------+----------+---------+-------+--------|
 #+TBLFM: @>$7=vsum(@5..@-1)::@>$4=vsum(@5..@-1); T::$3=date(<$2>)-date(<$1>)::$4=$3 * 24 * 60 * 60; T::$7=$6 - $5
 
 ** analysis
+#+call: make-plot()
+
+[[file:out/track-writing.png]]
+
+[[file:out/track-writing.html]]
+
 *** process data
 #+name: analyze-data
 #+BEGIN_SRC jupyter-python :var data=tbl-write
@@ -217,13 +229,14 @@ df_dur['time_day_ts'] = df_dur['date'] + df_dur['time_day_td']
 
 df_dur.drop(columns='time_day_td', inplace=True)
 
-chart = (alt.Chart(df_dur)
-         .mark_rule()
+chart = alt.Chart(df_dur)\
+         .mark_rule()\
          .encode(
              x=alt.X('date:T', title=''),
-             y=alt.Y('hoursminutes(time_day_ts):T', title='hours / day')
-         )
-         )
+             y=alt.Y('hoursminutes(time_day_ts):T', title='hours / day'),
+             tooltip='date:T'
+         )\
+         .interactive()
 
 chart.save('out/track-writing.png', scale_factor=2.0)
 chart.save('out/track-writing.html')

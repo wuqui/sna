@@ -42,7 +42,7 @@
 
 %section{Todos}
 
-\listoftodos
+  % \listoftodos
 
 %section{Abstract}
   \cleardoublepage
@@ -478,14 +478,17 @@ most relevant and important model: S-curve model
         \centering
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{upskill}}
+          \label{subfig:freq_temp_upskill}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_upskill_gam.pdf"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{hyperlocal}}
+          \label{subfig:freq_temp_hyperlocal}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_hyperlocal_gam.pdf"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{solopreneur}}
+          \label{subfig:freq_temp_solopreneur}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_solopreneur_gam.pdf"}
         \end{subfigure}
 
@@ -496,10 +499,12 @@ most relevant and important model: S-curve model
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-left}}
+          \label{subfig:freq_temp_alt-left}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-left_gam.pdf"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{poppygate}}
+          \label{subfig:freq_temp_poppygate}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_gam.pdf"}
         \end{subfigure}
         \caption{Temporal dynamics in usage frequency for the case study neologisms.}
@@ -608,33 +613,64 @@ most relevant and important model: S-curve model
 
       Among the neologisms that were used the most consistently, i.e. exhibit the lowest degrees of variation, we find words whose frequency-based measures suggested high degrees of conventionality. For example, \ol{twitterverse} is listed among the most frequent neologisms in Table~\ref{subtab:freq-total-max} and is also one of the oldest neologisms, with its first attestation in the corpus dating back to 19 December, 2006.
 
-      By contrast, the group of lexemes that show the highest degree of variation in usage frequency is comprised by neologisms with lower degrees of conventionality, which are generally less frequent and were coined more recently. Notably, topical spikes play a crucial role in the diffusion processes of all examples in this category: the diffusion of \ol{alt-left} and \ol{birther}\footnote{\enquote{proponent of the \enquote{birther movement}, a conspiracy theory which claims that President Obama's birth certificate was forged, and that he was not born in the USA.}} was promoted by extralinguistic political events, \ol{upskirting}\footnote{\mn{The habit or practice of taking upskirt photographs or videos.} (OED)} and \ol{youthquake}\footnote{\mn{a significant cultural, political, or social change arising from the actions or influence of young people} (\url{https://languages.oup.com/word-of-the-year/2017/})} were advanced through increased metalinguistic salience after they were added and awarded Word of the Year 2017 by the OED. Both \ol{poppygate} and \ol{cherpumple}\footnote{\mn{Cherpumple is short for cherry, pumpkin and apple pie. The apple pie is baked in spice cake, the pumpkin in yellow and the cherry in white.} (\url{https://en.wikipedia.org/wiki/Cherpumple}); typically consumed during the holiday season in the US.} exhibit recurrent topicality, and are typically only used in the contexts of their seasonal relevance in autumn and winter.
+      By contrast, the group of lexemes that show the highest degree of variation in usage frequency is comprised by neologisms with lower degrees of conventionality, which are generally less frequent and were coined more recently. Notably, topical spikes play a crucial role in the diffusion processes of all examples in this category: the diffusion of \ol{alt-left} and \ol{birther}\footnote{\enquote{proponent of the \enquote{birther movement}, a conspiracy theory which claims that President Obama's birth certificate was forged, and that he was not born in the USA.}} was promoted by extralinguistic political events, \ol{upskirting}\footnote{\mn{The habit or practice of taking upskirt photographs or videos.} (OED)} and \ol{youthquake}\footnote{\mn{a significant cultural, political, or social change arising from the actions or influence of young people} (\url{https://languages.oup.com/word-of-the-year/2017/})} were advanced through increased metalinguistic salience after they were added to the OED and awarded Word of the Year 2017 by Oxford University Press. Both \ol{poppygate} and \ol{cherpumple}\footnote{\mn{Cherpumple is short for cherry, pumpkin and apple pie. The apple pie is baked in spice cake, the pumpkin in yellow and the cherry in white.} (\url{https://en.wikipedia.org/wiki/Cherpumple}); typically consumed during the holiday season in the US.} exhibit recurrent topicality, and are typically only used in the contexts of their seasonal relevance in autumn and winter.
 
       The selected cases cover the spectrum of variability in usage frequency found in the full sample of neologisms, and the coefficients of variation are in line with the previous analysis of the frequency-based time-series visualizations presented in Figure~\ref{fig:freq-abs}.
 
 
       \subsubsection{Summary of frequency-based measures}
 
-        In summary, even for neologisms whose total frequency counts are similar, we find strong differences in the degrees to which these words are used consistently over time. Investigating the temporal dynamics of usage intensity provides additional information about the pathways and degrees of diffusion of the neologisms in the sample.
+        So far, I have used frequency-based visualizations and metrics to assess the degrees and pathways of diffusion of neologisms.
 
-        For example, \ol{hyperlocal}, \ol{solopreneur}, and \ol{alt-left}, are all in the medium range of neologisms if grouped by total usage frequency as in Table~\ref{subtab:freq-total-cases}. Taking this crudest measure as an indicator of degrees of diffusion, it would seem that these words are roughly equally conventional among users on Twitter.
+        In a first step, I used the most common measure for assessing the conventionality of new words: their total frequency of occurrence in the corpus. In the following steps, I extended the frequency-based approach by including temporal information in the analysis. Zooming in on temporal dynamics of use surfaced different pathways of diffusion. Notably, it revealed substantial differences in the diachronic usage profiles of neologisms with comparable total frequency counts.
 
-        However, the picture changes considerably once we are taking into account the temporal dynamics underlying their use.
+        \marginpar{total frequency} Within the group of selected cases, \ol{hyperlocal}, \ol{solopreneur}, and \ol{alt-left}, for example, would all be placed in the medium range of the conventionality continuum if grouped by total usage frequency alone, as presented in Table~\ref{subtab:freq-total-cases}. Taking this crudest measure as an indicator of degrees of diffusion, it would seem that these words are roughly equally conventional among users on Twitter.
 
-        \marginpar{trend} The cumulative increase in uses over time presented in Figure~\ref{fig:freq_cum_cases} indicate a consistent linear trend for the use of \ol{hyperlocal}, a rapid surge of diffusion followed by a slightly negative, concave trend in its later stages for \ol{solopreneur}. Featuring an even more extreme spurt of diffusion, the use of \ol{alt-left} explodes in August 2017, yet its popularity quickly implodes soon after, and it seems to attract very little popularity among the majority of speakers after that.
+        However, adding the temporal dynamics of diffusion to the picture reveals significant differences between their diachronic usage profiles, which seem important for assessing their pathways and degrees of diffusion.
+
+        \marginpar{hyperlocal}
+
+        Visualising the cumulative increase in uses over time (Table~\ref{fig:freq_cum_cases}) for \ol{hyperlocal}, for example, shows a stable linear trend, which indicates that its total frequency count has been the product of relatively consistent use over time. Its temporal usage profile in Figure~\ref{subfig:freq_temp_hyperlocal} confirms this observation
 
         lifespan
-        variation
+
+        and presents an initial period of accelerated diffusion followed by an extended stable level of consistent use over the last five years of its observed lifespan. This consistency is further corroborated by its low coefficient of variation (Table~\ref{subtab:coef-var-cases}). In sum, the balanced nature of this frequency-based usage profile suggests a relatively organic trajectory of diffusion, culminating in a fairly advanced degree of conventionality in the recent past. The fact that \ol{hyperlocal} was added to the OED in 2015 supports these observations and assumptions.
+
+        \marginpar{solopreneur}
+
+          By comparison, \ol{solopreneur},
+
+          results
+            higher total frequency counts
+            trend
+              rapid surge of diffusion
+              followed by a slightly negative, concave trend in its later stages
+            lifespan
+            variation in use: strong
+
+          diffusion and conventionalization
+            pathway: topical
+            degree: limited
+
+        \marginpar{alt-left}
+
+          results
+            trend
+              explosion: Featuring an even more extreme spurt of diffusion, the use of \ol{alt-left} explodes in August 2017,
+              implosion: yet its popularity quickly vanishes soon after, and it seems to attract very little popularity among the majority of speakers after that.
+
+            lifespan: young
+            variation: the highest
+          diffusion and conventionalization
+            pathway: topical
+            degree: limited
 
 
-
-      --> big differences in volatility
-      --> big differences in dynamics of usage frequency
-      --> social network analysis
-        open questions
-          how many
-          users?
-          user groups?
+      open questions
+        how many
+        users?
+        user groups?
+    --> social network analysis
 
 
 
@@ -660,8 +696,6 @@ going beyond frequency
     bound to cultural conceptual salience (variable \enquote{semantic carrying capacity}~\parencite{Nini2017ApplicationGrowth})
     social indexicality
     open nature of the lexicon
-
-
 
 
   full sample
@@ -790,7 +824,7 @@ going beyond frequency
 
       \begin{table}[H]
         \centering
-        \caption{Correlations of \textsc{centrality} (\enquote{degree centralization}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{variability}), and observed lifespan (\textsc{lifespan}) across the full sample of neologisms ($n=100$); reporting correlation coefficients and \emph{p}-values for Spearman's $\rho$~\parencite{Spearman1961ProofMeasurement} and Kendall's $\tau$~\parencite{Kendall1938NewMeasure}.}
+        \caption{Correlations of \textsc{centrality} (\enquote{degree centralization}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{variation in frequency}), and observed lifespan (\textsc{lifespan}) across the full sample of neologisms ($n=100$); reporting correlation coefficients and \emph{p}-values for Spearman's $\rho$~\parencite{Spearman1961ProofMeasurement} and Kendall's $\tau$~\parencite{Kendall1938NewMeasure}.}
         \label{tab:correlations}
         \begin{tabular}{
           >{\scshape}l
@@ -802,12 +836,12 @@ going beyond frequency
           S[table-format=1.5, round-mode=places, round-precision=5]
           }
           \toprule
-               & \multicolumn{2}{c}{Spearman} & \multicolumn{2}{c}{Kendall}\\
-               & $\rho$     & p          & $\tau$     & p          \\
+          & \multicolumn{2}{c}{Spearman} & \multicolumn{2}{c}{Kendall} \\
+          & $\rho$                       & p & $\tau$ & p              \\
           \midrule
-          frequency   & -0.3974644 & 0.00005338 & -0.2743764 & 0.00005727 \\
-          lifespan    & -0.2894037 & 0.003668   & -0.2029075 & 0.002932   \\
-          variability & 0.2922202  & 0.003449   & 0.1956298  & 0.004118   \\
+          usage frequency        & -0.3974644 & 0.00005338 & -0.2743764 & 0.00005727 \\
+          lifespan               & -0.2894037 & 0.003668   & -0.2029075 & 0.002932   \\
+          variation in frequency & 0.2922202  & 0.003449   & 0.1956298  & 0.004118   \\
           \bottomrule
         \end{tabular}
       \end{table}
