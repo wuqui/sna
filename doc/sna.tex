@@ -508,40 +508,97 @@ most relevant and important model: S-curve model
 
       \qpar{Volatility}
 
-        The absolute counts provide a more detailed picture of temporal dynamics of use, however. While the cumulative counts in Figure \ref{fig:freq_cum_cases} suggest smooth trajectories, the plots in Figure \ref{fig:freq-abs} indicate that the selected cases differ significantly in terms of the consistency with which they are used in the corpus.
+        Besides, the absolute frequency counts over time provide a more detailed picture of the temporal dynamics of use. While the cumulative counts in Figure \ref{fig:freq_cum_cases} suggest smooth trajectories, the plots in Figure \ref{fig:freq-abs} indicate that the selected cases differ significantly in terms of the consistency with which they are used in the corpus.
 
         gradual increase
 
-          The neologisms \ol{upskill} shows the smoothest trajectory of diffusion among the candidate neologisms. Aside from two smaller spikes, at the end of 2016 and 2018, it has steadily increased in its use since its first attestation in the corpus at the end of 2007. Neither its frequency counts, nor the corpus data suggest that its diffusion was triggered or propagated by topical events or the determining impact of influential users or user groups. After a long period of very slow, but consistent increase in frequency, its diffusion has accelerated in recent years. While its future remains uncertain, its previous trajectory resembles most closely the earlier phases of spread as predicted by S-curve models.
+        The neologism \ol{upskill} shows the smoothest trajectory of diffusion among the candidate neologisms. Aside from two smaller spikes, at the end of 2016 and 2018, it has gradually increased in its use since its first attestation in the corpus at the end of 2007. Neither its frequency counts, nor the corpus data suggest that its spread was triggered or propagated by specific topical events or the determining influence of individual influential users or user groups. After a long period of very slow, but consistent increase in frequency, its diffusion has accelerated in recent years. While its future remains uncertain, its previous trajectory resembles most closely the earlier phases of spread as predicted by S-curve models.
 
-        consistent use: \ol{hyperlocal}
-          initial high
-          somewhat stable
-          established
+        While \ol{hyperlocal} also exhibits a marked increase in usage frequency during its earlier stages, its peak of popularity is followed by a decline in use, after which it settles at a relative stable level of about \num{1000} tweets per month. This coincides with the OED's decision to take up \ol{hyperlocal} in its 2015 edition. Despite fluctuations, \ol{hyperlocal} has been used relatively consistently in the recent past, and seems to attract a stable community of users on Twitter.
 
-        volatile
-          \ol{solopreneur}
-            less stable than \ol{hyperlocal}
-            impact of influencers and books
-            popularity tends to decline
+        The neologisms \ol{solopreneur} has been in use since 2007 and shows an overall increase in usage frequency, but its use fluctuates more strongly than that of \ol{hyperlocal}. After its initial peak around 2015, which coincides with the release of several self-help books featuring the term, its frequency plummets, becomes less stable, and shows an overall downward trend.
 
-          \ol{alt-left} and \ol{alt-right}
-            \ol{alt-right}
-              older
-              stable in the beginning and end
-              massive spike
-            \ol{alt-left}
-              younger
-              same spike
-              vanishes again
+        As was mentioned above, \ol{alt-right} and \ol{alt-left} are closely related. Both terms show high levels of volatility in their usage frequency. The former, older term showed significant diffusion in 2016, particularly in the period following up to Donald Trump's election, after which \ol{alt-right} was consistently used to a relatively high degree, at about \num{25000} comments per month. Its counterpart, \ol{alt-left}, enters the scene much later, during the infamous Charlottesville Rally in 2017, whose topical effect causes a huge spike in the use of both terms. However, unlike \ol{alt-right}, which returns to its previous usage intensity, the use of \ol{alt-left} seems to largely disappear from Twitter in the aftermath of the event.
 
-        topical: \ol{poppygate}
-          no gradual trajectory of diffusion
-          consistent use in the form of recurrent spikes
-            \enquote{topicality}~\parencite{Fischer1998LexicalChange}
-            \enquote{recurrent semi-conventionalization}~\parencite{Kerremans2015WebNew})
+        The last example among the selected candidates, \ol{poppygate}, also exhibits high degrees of volatility, and it features the most distinctive pattern of spikes in its usage intensity. Unlike the single topical spike for \ol{alt-right} and \ol{alt-left}, its use follows a recurrent, regular pattern: speakers use it almost exclusively around Remembrance Day, which takes place in November. The term \ol{poppygate} represents a last category of neologisms in the sample, who show wide fluctions in usage intensity, but for which these patterns follow a regular temporal pattern. \marginpar{\enquote{topicality}~\parencite{Fischer1998LexicalChange}; \enquote{recurrent semi-conventionalization}~\parencite{Kerremans2015WebNew})}
+
 
     \subsection{Coefficient of variation}
+
+      \begin{table}
+        \caption{Coefficient of variation (\textsc{var})\protect\footnotemark}
+        \label{tab:coef-var}
+        \centering
+        \begin{subtable}[t]{.3\linewidth}
+          \centering
+          \begin{tabular}{
+              l
+              S[table-format=1.2, round-mode=places, round-precision=2]
+            }
+            \toprule
+            Lexeme      & \textsc{var} \\
+            \midrule
+            hyperlocal  & 0.9783703    \\
+            upskill     & 1.1399599    \\
+            solopreneur	& 1.2046616    \\
+            alt-right   & 1.8054940    \\
+            poppygate   & 4.7535750    \\
+            alt-left    & 5.3112621    \\
+            \bottomrule
+          \end{tabular}
+          \subcaption{Selected cases.}
+          \label{subtab:coef-var-cases}
+        \end{subtable}
+        \begin{subtable}[t]{.3\linewidth}
+          \centering
+          \begin{tabular}{
+              l
+              S[table-format=1.2, round-mode=places, round-precision=2]
+            }
+            \toprule
+            Lexeme      & \textsc{var} \\
+            \midrule
+            followership  & 0.7147413 \\
+            lituation     & 0.7174908 \\
+            twitterverse  & 0.7215036 \\
+            detweet       & 0.7436056 \\
+            remoaners     & 0.7605029 \\
+            twittersphere & 0.7670257 \\
+            % baecation   & 0.7705697 \\
+            % foodventure & 0.7714314 \\
+            % broette     & 0.7726448 \\
+            % upcycling   & 0.7995218 \\
+            \bottomrule
+          \end{tabular}
+          \subcaption{Neologisms with the lowest coefficient of variation.}
+          \label{subtab:coef-var-cases}
+        \end{subtable}
+        \begin{subtable}[t]{.3\linewidth}
+          \centering
+          \begin{tabular}{
+              l
+              S[table-format=1.2, round-mode=places, round-precision=2]
+            }
+            \toprule
+            Lexeme      & \textsc{var} \\
+            \midrule
+            upskirting    & 9.3861492 \\
+            youthquake    & 6.3218380 \\
+            alt-left      & 5.3112621 \\
+            birther       & 5.0001924 \\
+            poppygate     & 4.7535750 \\
+            cherpumple    & 4.6909168 \\
+            % climate     & 14752     \\
+            % incel       & 3.0090748 \\
+            % neckbuds    & 2.9861481 \\
+            % bloggergate & 2.7765687 \\
+            \bottomrule
+          \end{tabular}
+          \subcaption{Neologisms with the highest coefficient of variation.}
+          \label{subtab:coef-var-cases}
+        \end{subtable}
+      \end{table}
+    \footnotetext{Neologisms that have a lifespace shorter than one year and/or were used in less than \num{2000} comments ($n = 5$) were excluded since the coefficient of variation does not provide a robust measure for these outliers.}
 
   --> capture this quantitatively
   --> extend analysis to full sample
