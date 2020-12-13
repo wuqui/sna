@@ -319,14 +319,14 @@ most relevant and important model: S-curve model
 
   Modularity~\parencite{Blondel2008FastUnfolding} is a popular measure for detecting the community structure of graphs. It is commonly used to identify clusters in a network and provides an overall measure for the strength of division of a network into modules. In the social context, this corresponds to the extent to which the social network of a community is fragmented into sub-communities. Networks with high modularity are characterized by dense connections within sub-communities, but sparse connections across sub-communities. In the context of the spread of new words on Twitter, diffusion leads from use limited to one or few densely connected communities to use in more and more independent communities. This is reflected by higher degrees of modularity of the full graph representing the speech community as a whole. Modularity complements degree centralization since it provides additional information about the number and size of sub-communities who use the target words. I rely on the modularity algorithm to perform community detection, and I visualize the 8 biggest subcommunties in each graph by color.
 
-  Since modularity is sensitive to the number of edges and nodes in a graph, and thus cannot provide reliable results for comparing graphs of different size, I use degree centralization to analyze diffusion over time, and to assess differences in degrees of diffusion between lexemes on the macro-level. Its conceptual clarity and reliable normalization allow for more robust comparisons on the macro-level.
+  Since modularity is sensitive to the number of edges and nodes in a graph, and thus cannot provide reliable results for comparing graphs of different size, I use degree centralization to analyse diffusion over time, and to assess differences in degrees of diffusion between lexemes on the macro-level. Its conceptual clarity and reliable normalization allow for more robust comparisons on the macro-level.
 
   For visualizing network graphs, I rely on the Force Atlas 2 algorithm~\parencite{Jacomy2014ForceAtlas2Continuous} as implemented in \emph{Gephi}~\parencite{Bastian2009GephiOpen}. Attempts to evaluate and compare these visualisations with results obtained from different algorithms such as Multi-Dimensional Scaling and Kamada Kawai showed similar results across methods for parts of the dataset, but could not be used for the full dataset due to the computational complexity involved in the generation of large-size graphs of high-frequency neologism. Force Atlas 2 is particularly well-suited for handling social networks in big data contexts and has been widely applied in network science approaches to Twitter data~ \parencite{Bruns2012HowLong,Gerlitz2013MiningOne,Bliss2012TwitterReciprocal}. To assess and visualize the influence of individual users in the social network, I use the PageRank algorithm~\parencite{Brin1998AnatomyLargeScale} (visualized by node size), and I account for varying degrees of strength in the connection between users by using edge weigths for repeated interactions (visualized by edge thickness).
 
 \section{Results}
   \label{sec:results}
 
-  \subsection{Frequency-based measures of diffusion}
+  \subsection{Usage frequency as an indicator of diffusion}
     \label{subsec:freq}
 
     \subsubsection{Total usage frequency}
@@ -630,88 +630,32 @@ most relevant and important model: S-curve model
 
         Lastly, \ol{alt-left} is in the same range of total usage frequency, but its use is much more unevenly dispersed across the corpus than that of the remaining selected cases. The term is much younger, and its cumulative increase in uses illustrates that diffusion is largely limited to a very short, highly intensive period of use, after which it shows a strong negativ trend in its usage frequency. Its diachronic frequency profile and its coefficient of variation correspondingly demonstrate very high levels of fluctuations in its use. Since the short period of intense use of \ol{alt-left} can clearly be traced back to participants of the Unite the Right Rally in Charlottesville in August 2017, it seems plausible that its popularity has never extended beyond this topical event and beyond this particular community of like-minded individuals.
         
-        The frequency-based analysis of the three neologisms discussed above demonstrates that usage frequency counts, particularly when combined with an analysis of their underlying temporal dynamics, can help to approximate the spread and success of neologisms to a certain degree. However, the results also point to substantial limitations of frequency-based approaches to studying diffusion. The present data demonstrate high degrees of variation in the degrees of diffusion of neologims that are similar in terms of their frequency of occurrence in the corpus. Such discrepancies could partly be resolved by in-depth analyses of temporal usage profiles in combination with insights from corpus data and extralinguistic events.
-
-        These in-depth analyses of diffusion are not possible by a systematic frequency-based analysis alone, however, and they cannot be extended for large-scale analyses of bigger samples of neologisms. It hence remains unknown to which degree frequency-based metrics adequately capture pathways and degrees of diffusion. In the following section, I will address the limitations of the frequency-based approach by using Social Network Analysis to get a more differentiated view on the sociolinguistic aspects of diffusion.
+        The frequency-based analysis of the three neologisms discussed above demonstrates that usage frequency counts, particularly when combined with an analysis of their underlying temporal dynamics, can help to approximate the spread and success of neologisms to a certain degree. However, the results also point to substantial limitations of frequency-based approaches to studying diffusion. The present data demonstrate high degrees of variation in the degrees of diffusion of neologims that are similar in terms of their frequency of occurrence in the corpus. Such discrepancies could partly be resolved by in-depth analyses of temporal usage profiles in combination with insights from corpus data and extralinguistic events. These in-depth analyses of diffusion are not possible by a systematic frequency-based analysis alone, however, and they cannot be extended for large-scale analyses of bigger samples of neologisms. It hence remains unknown to which degree frequency-based metrics adequately capture pathways and degrees of diffusion. In the following section, I will address the limitations of the frequency-based approach by using Social Network Analysis to get a more differentiated view on the sociolinguistic aspects of diffusion.
 
 
   \subsection{Social Network Analysis}
+    \label{subsec:sna}
 
     As discussed in Section~\ref{subsec:ec-model}, from a theoretical, sociolinguistic perspective, the degree of diffusion of lexical innovations crucially depends on the degree to which new words spread to become familiar among new speakers and communities of speakers.  
 
     Frequency-based analyses, as presented in the previous section, can by definition only provide information about the distribution of occurrences in the corpus, they cannot provide direct evidence about the size and composition of the community of speakers who produced these uses.
 
-    Social network analysis, by contrast, is based on the communicative behaviour of speakers in the corpus and can thus provide direct insights into the social characteristics of speakers and groups of speakers. This allows for a more direct operationalization of theoretical model of diffusion. The structural characteristics of the social network of speakers who have used a target neologism can be used to measure whether the term has been used by a broad section of the speech community, or whether its use remains limited to smaller communities. 
+    Social network analysis, by contrast, is based on the communicative behaviour of speakers in the corpus and can thus provide direct insights into the social characteristics of speakers and groups of speakers. This allows for a more direct operationalization of the theoretical model of diffusion. The structural characteristics of the social network of speakers who have used a target neologism can be used to measure whether the term has been used by a broad section of the speech community, or whether its use remains limited to smaller communities. 
 
+    As described in Section~\ref{sec:method}, the social network analysis is based on the communicative behaviour of the speakers in the corpus. Speakers are represented by nodes in the network graph, and interactions between users in the form of replies or mentions are represented as edges between nodes. The network structure of the resulting graphs is then interpreted to analyse the degree to which the target neologisms have diffused in these networks. To monitor diffusion over time, I split the observed lifespan of each neologism into four equally-sized time slices. These time windows are marked by dashed vertical lines in Figure~\ref{fig:freq-abs}. I then generated network graphs for each time window for each neologism in the sample to allow both for analysing the individual pathways of diffusion of neologisms over time as well as comparing degrees of diffusion between neologisms.
 
+    \subsubsection{Pathways of diffusion}
 
-
-going beyond frequency
-
-  results
-
-    total frequency $\neq$ number users/communities
-      similar counts, different underlying temporal patterns (trend, lifespan, volatility)
-    frequency time-series
-      slopes (trend)
-        gradual diffusion: \ol{upskill}
-      lifespan
-        overestimate: obsolete: \ol{millenium bug}
-        underestimate: new, but established: \ol{coronavirus}
-      volatility
-        one-hit wonders: \ol{alt-left}
-        consistent use: \ol{hyperlocal}
-
-  particularly important for \emph{lexical} \emph{innovations} due to the nature of the process
-
-    bound to cultural conceptual salience (variable \enquote{semantic carrying capacity}~\parencite{Nini2017ApplicationGrowth})
-    social indexicality
-    open nature of the lexicon
-
-
-  full sample
-
-  stability: shows that freq. is problematic
-    \enquote{dormant}
-    spikes distort representativity of frequency for degree of conventionality
-      In this case, a less steady, more abrupt increase in usage over a relatively short period as with \ol{solopreneur} could be a sign of high usage intensity within one community (\enquote{usualization}), rather than an indication of sustained spread to larger numbers of other speakers and communities (\enquote{diffusion}).
-    underestimate: \ol{poppygate} not forgotten in troughs
-    overestimate: cumulating hides the fact that words like \ol{millenium} do get lost
-
-
-  going beyond frequency
-
-    In the following sections I will assess the value of usage frequency and compare and complement it with social network information about the diffusion of lexical innovations.
-
-  \subsection{Social networks of diffusion}
-    \label{subsec:sna}
-
-    \subsubsection{Centralization over time}
-    (pathways of diffusion)
-
-        going beyond frequency
-
-        def. diffusion:
-            numbers of users
-            communities
-
-        subsetting / time slices
-            start of diffusion process
-            4 quarters
-
-  explain: degree centralization
-
-  case studies
-    example where freq. meets nets
-    example where nets add to freq.: \ol{alt-left}
-
-      \qpar{Overview of changes in centralization for case studies.}
+      Figure~\ref{fig:cent_diac_cases} presents the diachronic development of diffusion for all selected cases. 
 
       \begin{figure}[H]
         \caption{Degree centralization over time for case study words.}
+        \label{fig:cent_diac_cases}
         \centering
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_diac.pdf}
       \end{figure}
+
+      As described in Section~\ref{sec:method}, I rely on degree centralization to measure degrees of diffusion. Diffusion is here modelled as decreasing centralization of the graph, thus lower values of centrality indicate higher degrees of diffusion. For example, the social graph of the users of a new word shows high centralization in early stages when its use is largely confined to one or few centralized clusters of speakers. When increasing diffusion extends the use of the term to new speakers and communities, the distribution of interactions in the speech community typically shows greater dispersion, which would be reflected by a lower centrality of the social graph.
 
       \qpar{Social diffusion over time: \ol{hyperlocal}}
 
@@ -721,37 +665,36 @@ going beyond frequency
           \begin{subfigure}{.45\linewidth}
             \caption{First stage}
             \centering
-            \includegraphics[width=\linewidth]{example-image-a}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_one.pdf}
+            % \includegraphics[width=\linewidth]{example-image-a}
+            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_one.pdf}
           \end{subfigure}
           \begin{subfigure}{.45\linewidth}
             \caption{Second stage}
             \centering
-            \includegraphics[width=\linewidth]{example-image-b}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_two.pdf}
+            % \includegraphics[width=\linewidth]{example-image-b}
+            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_two.pdf}
           \end{subfigure}
           
           \begin{subfigure}{.45\linewidth}
             \caption{Third stage}
             \centering
-            \includegraphics[width=\linewidth]{example-image-c}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_three.pdf}
+            % \includegraphics[width=\linewidth]{example-image-c}
+            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_three.pdf}
           \end{subfigure}
           \begin{subfigure}{.45\linewidth}
             \caption{Fourth stage}
             \centering
-            \includegraphics[width=\linewidth]{example-image-a}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_four.pdf}
+            % \includegraphics[width=\linewidth]{example-image-a}
+            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
           \end{subfigure}
         \end{figure}
 
       \qpar{Full sample}
 
-  density
-  successful
-  unsuccessful
+        successful
+        unsuccessful
 
-  biggest changes
+        biggest changes
 
     \subsubsection{Degrees of social diffusion}
 
@@ -769,25 +712,25 @@ going beyond frequency
             \caption{\ol{upskill}}
             \centering
             \includegraphics[width=\linewidth]{example-image-a}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/upskill_four.pdf}
+            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_upskill_four.pdf}
           \end{subfigure}
           \begin{subfigure}{.45\linewidth}
             \caption{\ol{hyperlocal}}
             \centering
             \includegraphics[width=\linewidth]{example-image-b}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/hyperlocal_four.pdf}
+            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
           \end{subfigure}\\
           \begin{subfigure}{.45\linewidth}
             \caption{\ol{solopreneur}}
             \centering
             \includegraphics[width=\linewidth]{example-image-c}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/solopreneur_four.pdf}
+            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.pdf}
           \end{subfigure}
           \begin{subfigure}{.45\linewidth}
             \caption{\ol{alt-left}}
             \centering
             \includegraphics[width=\linewidth]{example-image-a}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{../gephi/plots/alt-left_four.pdf}
+            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_alt-left_four.pdf}
           \end{subfigure}
         \end{figure}
 
@@ -883,7 +826,10 @@ going beyond frequency
 
       sample: this holds for the full sample
 
-    import for lexical innovation
+    particularly important for \emph{lexical} \emph{innovations} due to the nature of the process
+        bound to cultural conceptual salience (variable \enquote{semantic carrying capacity}~\parencite{Nini2017ApplicationGrowth})
+        social indexicality
+        open nature of the lexicon
 
     but also for other linguistic domains
 
