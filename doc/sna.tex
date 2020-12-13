@@ -309,7 +309,7 @@ most relevant and important model: S-curve model
 
   To investigate the social dynamics of diffusion over time, I generated social networks graphs for each of these subsets. Nodes in the network represent speakers who have actively used the term in a tweet and speakers who have been involved in usage events in the form of a reply or a mention in interaction with others. The resulting graphs represent networks of communicative interaction. Communities are formed based on the dynamic communicative behaviour observed, rather than on information about users' social relations as found in follower--followee networks. This methodology is supported by previous research, which suggest that interactional networks of this kind are better indicators of social structure, since the dynamic communicative behaviour observed is more reliable and socially meaningful than static network information.~\parencite{Goel2016SocialDynamics, Huberman2008SocialNetworks} While users often follow thousands of accounts, their number of interactions with others provides a better picture of their individual social networks, which is much more limited in size~\parencite{Dunbar1992NeocortexSize}.
 
-  To construct the networks, I extracted users and interactions from the dataset to build a directed graph.\footnote{I used several \emph{R} packages~\parencite{RCoreTeam2018LanguageEnvironment} from the \emph{tidyverse}~\parencite{Wickham2019WelcomeTidyverse} for the network pre-processing, \emph{igraph} and \emph{tidygraph} were used for constructing the networks and for calculating network metrics.} Nodes in the graph correspond to individual Twitter users, edges represent interactions between users. I capture multiple interactions between speakers by using edge weights, and I account for active vs. passive roles in interaction by using directed edges. I assessed the social diffusion of all neologisms quantitatively by generating and comparing several network metrics, and I produced network visualizations for all subsets for more detailed, qualitative analyses.
+  To construct the networks, I extracted users and interactions from the dataset to build a directed graph.\footnote{I used several \emph{R} packages~\parencite{RCoreTeam2018LanguageEnvironment} from the \emph{tidyverse}~\parencite{Wickham2019WelcomeTidyverse} for the network pre-processing, \emph{igraph} and \emph{tidygraph} were used for constructing the networks and for calculating network metrics.} Nodes in the graph correspond to individual Twitter users, edges represent interactions between users. I capture multiple interactions between speakers by using edge weights, and I account for active vs. passive roles in interaction by using directed edges. I assessed the social diffusion of all neologisms quantitatively by generating and comparing several network metrics, and I produced network visualisations for all subsets for more detailed, qualitative analyses.
 
   On the graph level, I rely on the measures of \emph{degree centralization} and \emph{modularity} to quantify the degree of diffusion for each subset.
 
@@ -321,7 +321,7 @@ most relevant and important model: S-curve model
 
   Since modularity is sensitive to the number of edges and nodes in a graph, and thus cannot provide reliable results for comparing graphs of different size, I use degree centralization to analyze diffusion over time, and to assess differences in degrees of diffusion between lexemes on the macro-level. Its conceptual clarity and reliable normalization allow for more robust comparisons on the macro-level.
 
-  For visualizing network graphs, I rely on the Force Atlas 2 algorithm~\parencite{Jacomy2014ForceAtlas2Continuous} as implemented in \emph{Gephi}~\parencite{Bastian2009GephiOpen}. Attempts to evaluate and compare these visualizations with results obtained from different algorithms such as Multi-Dimensional Scaling and Kamada Kawai showed similar results across methods for parts of the dataset, but could not be used for the full dataset due to the computational complexity involved in the generation of large-size graphs of high-frequency neologism. Force Atlas 2 is particularly well-suited for handling social networks in big data contexts and has been widely applied in network science approaches to Twitter data~ \parencite{Bruns2012HowLong,Gerlitz2013MiningOne,Bliss2012TwitterReciprocal}. To assess and visualize the influence of individual users in the social network, I use the PageRank algorithm~\parencite{Brin1998AnatomyLargeScale} (visualized by node size), and I account for varying degrees of strength in the connection between users by using edge weigths for repeated interactions (visualized by edge thickness).
+  For visualizing network graphs, I rely on the Force Atlas 2 algorithm~\parencite{Jacomy2014ForceAtlas2Continuous} as implemented in \emph{Gephi}~\parencite{Bastian2009GephiOpen}. Attempts to evaluate and compare these visualisations with results obtained from different algorithms such as Multi-Dimensional Scaling and Kamada Kawai showed similar results across methods for parts of the dataset, but could not be used for the full dataset due to the computational complexity involved in the generation of large-size graphs of high-frequency neologism. Force Atlas 2 is particularly well-suited for handling social networks in big data contexts and has been widely applied in network science approaches to Twitter data~ \parencite{Bruns2012HowLong,Gerlitz2013MiningOne,Bliss2012TwitterReciprocal}. To assess and visualize the influence of individual users in the social network, I use the PageRank algorithm~\parencite{Brin1998AnatomyLargeScale} (visualized by node size), and I account for varying degrees of strength in the connection between users by using edge weigths for repeated interactions (visualized by edge thickness).
 
 \section{Results}
   \label{sec:results}
@@ -479,33 +479,33 @@ most relevant and important model: S-curve model
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{upskill}}
           \label{subfig:freq_temp_upskill}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_upskill_gam.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_upskill_time.pdf"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{hyperlocal}}
           \label{subfig:freq_temp_hyperlocal}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_hyperlocal_gam.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_hyperlocal_time.pdf"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{solopreneur}}
           \label{subfig:freq_temp_solopreneur}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_solopreneur_gam.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_solopreneur_time.pdf"}
         \end{subfigure}
 
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-right}}
           \label{subfig:freq_temp_alt-right}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-right_gam.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-right_time.pdf"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-left}}
           \label{subfig:freq_temp_alt-left}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-left_gam.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-left_time.pdf"}
         \end{subfigure}
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{poppygate}}
           \label{subfig:freq_temp_poppygate}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_gam.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_time.pdf"}
         \end{subfigure}
         \caption{Temporal dynamics in usage frequency for the case study neologisms.}
         \label{fig:freq-abs}
@@ -615,30 +615,18 @@ most relevant and important model: S-curve model
 
       By contrast, the group of lexemes that show the highest degree of variation in usage frequency is comprised by neologisms with lower degrees of conventionality, which are generally less frequent and were coined more recently. Notably, topical spikes play a crucial role in the diffusion processes of all examples in this category: the diffusion of \ol{alt-left} and \ol{birther}\footnote{\enquote{proponent of the \enquote{birther movement}, a conspiracy theory which claims that President Obama's birth certificate was forged, and that he was not born in the USA.}} was promoted by extralinguistic political events, \ol{upskirting}\footnote{\mn{The habit or practice of taking upskirt photographs or videos.} (OED)} and \ol{youthquake}\footnote{\mn{a significant cultural, political, or social change arising from the actions or influence of young people} (\url{https://languages.oup.com/word-of-the-year/2017/})} were advanced through increased metalinguistic salience after they were added to the OED and awarded Word of the Year 2017 by Oxford University Press. Both \ol{poppygate} and \ol{cherpumple}\footnote{\mn{Cherpumple is short for cherry, pumpkin and apple pie. The apple pie is baked in spice cake, the pumpkin in yellow and the cherry in white.} (\url{https://en.wikipedia.org/wiki/Cherpumple}); typically consumed during the holiday season in the US.} exhibit recurrent topicality, and are typically only used in the contexts of their seasonal relevance in autumn and winter.
 
-      The selected cases cover the spectrum of variability in usage frequency found in the full sample of neologisms, and the coefficients of variation are in line with the previous analysis of the frequency-based time-series visualizations presented in Figure~\ref{fig:freq-abs}.
+      The selected cases cover the spectrum of variability in usage frequency found in the full sample of neologisms, and the coefficients of variation are in line with the previous analysis of the frequency-based time-series visualisations presented in Figure~\ref{fig:freq-abs}.
 
 
       \subsubsection{Summary of frequency-based measures}
 
-        So far, I have used frequency-based visualizations and metrics to assess the degrees and pathways of diffusion of neologisms.
+        So far, I have used frequency-based visualisations and metrics to assess the degrees and pathways of diffusion of the neologisms in the sample. In a first step, I used the most common measure for assessing the conventionality of new words: their total frequency of occurrence in the corpus. In the following steps, I extended the frequency-based approach by including temporal information in the analysis. Zooming in on the temporal dynamics of use surfaced different pathways of diffusion. Notably, it revealed substantial differences in the diachronic usage profiles of neologisms with comparable total frequency.
 
-        In a first step, I used the most common measure for assessing the conventionality of new words: their total frequency of occurrence in the corpus. In the following steps, I extended the frequency-based approach by including temporal information in the analysis. Zooming in on temporal dynamics of use surfaced different pathways of diffusion. Notably, it revealed substantial differences in the diachronic usage profiles of neologisms with comparable total frequency counts.
+        \marginpar{total frequency} Within the group of selected cases, \ol{hyperlocal}, \ol{solopreneur}, and \ol{alt-left}, for example, would all be placed in the medium range of the conventionality continuum if grouped by total usage frequency alone, as presented in Table~\ref{subtab:freq-total-cases}. Taking this most basic measure as an indicator of degrees of diffusion, it would seem that these words are roughly equally conventional among users on Twitter. However, adding the temporal dynamics of their use in the corpus to the picture revealed significant differences between their diachronic usage profiles, which seems important for assessing their pathways and degrees of diffusion in a more differentiated and accurate way.
 
-        \marginpar{total frequency} Within the group of selected cases, \ol{hyperlocal}, \ol{solopreneur}, and \ol{alt-left}, for example, would all be placed in the medium range of the conventionality continuum if grouped by total usage frequency alone, as presented in Table~\ref{subtab:freq-total-cases}. Taking this crudest measure as an indicator of degrees of diffusion, it would seem that these words are roughly equally conventional among users on Twitter.
+        Visualising the cumulative increase in uses over time (Table~\ref{fig:freq_cum_cases}) for \ol{hyperlocal}, for example, shows a stable linear trend, which indicates that its total frequency count has been the product of relatively consistent use over its relatively long lifespan. Its temporal usage profile in Figure~\ref{subfig:freq_temp_hyperlocal} and confirms these observations and presents its initial period of accelerated diffusion followed by an extended stable level of relatively consistent use over the last five years of its observed lifespan. This consistency is further corroborated by its low coefficient of variation (Table~\ref{subtab:coef-var-cases}). In sum, the balanced nature of this frequency-based usage profile suggests a relatively organic trajectory of diffusion, culminating in a solid degree of conventionality in the recent past. The fact that \ol{hyperlocal} was added to the OED in 2015 supports these observations.
 
-        However, adding the temporal dynamics of diffusion to the picture reveals significant differences between their diachronic usage profiles, which seem important for assessing their pathways and degrees of diffusion.
-
-        \marginpar{hyperlocal}
-
-        Visualising the cumulative increase in uses over time (Table~\ref{fig:freq_cum_cases}) for \ol{hyperlocal}, for example, shows a stable linear trend, which indicates that its total frequency count has been the product of relatively consistent use over time. Its temporal usage profile in Figure~\ref{subfig:freq_temp_hyperlocal} confirms this observation
-
-        lifespan
-
-        and presents an initial period of accelerated diffusion followed by an extended stable level of consistent use over the last five years of its observed lifespan. This consistency is further corroborated by its low coefficient of variation (Table~\ref{subtab:coef-var-cases}). In sum, the balanced nature of this frequency-based usage profile suggests a relatively organic trajectory of diffusion, culminating in a fairly advanced degree of conventionality in the recent past. The fact that \ol{hyperlocal} was added to the OED in 2015 supports these observations and assumptions.
-
-        \marginpar{solopreneur}
-
-          By comparison, \ol{solopreneur},
+        By comparison, \ol{solopreneur} has a slightly higher overall frequency of occurrence, yet its use is less stable over time. I
 
           results
             higher total frequency counts

@@ -148,7 +148,7 @@ plt <- ggplot(data=uses_month, aes(x=DATE, y=USES)) +
   geom_smooth(method='gam')
 
 plt
-ggsave(file=paste0('~/promo/sna/doc/img/ui_', lemma, '_gam.pdf'), plot=plt, width=6, height=3)
+# ggsave(file=paste0('~/promo/sna/doc/img/ui_', lemma, '_gam.pdf'), plot=plt, width=6, height=3)
 ```
 
 
