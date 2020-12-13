@@ -88,7 +88,7 @@ CLOCK: [2020-06-23 Tue 21:50]--[2020-06-23 Tue 23:47] =>  1:57
 CLOCK: [2020-06-23 Tue 16:35]--[2020-06-23 Tue 20:30] =>  3:55
 CLOCK: [2020-06-22 Mo 16:24]--[2020-06-22 Mon 17:30] =>  1:06
 :END:
-**** TODO frequency
+**** DONE frequency
 ***** DONE total counts
 :CLOCKBOOK:
 CLOCK: [2020-10-20 Tue 20:39]--[2020-10-21 Wed 09:21] => 12:42
@@ -103,20 +103,28 @@ CLOCK: [2020-10-26 Mon 11:37]--[2020-10-26 Mon 19:01] =>  7:24
 :CLOCKBOOK:
 CLOCK: [2020-12-12 Sat 15:47]--[2020-12-12 Sat 19:32] =>  3:45
 :END:
-***** TODO summary
+***** DONE summary
 :CLOCKBOOK:
-CLOCK: [2020-12-13 Sun 10:46]
+CLOCK: [2020-12-13 Sun 13:55]--[2020-12-13 Sun 16:37] =>  2:42
+CLOCK: [2020-12-13 Sun 10:46]--[2020-12-13 Sun 13:07] =>  2:21
 CLOCK: [2020-12-12 Sat 21:36]--[2020-12-12 Sat 23:46] =>  2:10
 :END:
 **** TODO sna
+***** TODO pathways
+***** TODO degrees
+**** TODO freq vs. sna
 *** TODO discussion
 *** TODO conclusion
 *** TODO theoretical framework
 ** TODO edit text
 ** TODO Hans-Jörg
 *** Fragen
-**** consistency/volatility/coefficient of variation
-which terms should I use?
+**** terminology
+***** coefficient of variation
+- consistency
+- volatility
+- fluctuation
+***** diffusion vs. conventionalization
 *** help
 **** theoretical background
 **** discussion
@@ -175,9 +183,12 @@ https://stackoverflow.com/a/40857495/4165300
 | [2020-12-12 Sat 18:06] | [2020-12-12 Sat 19:26] | 0.055555 | 01:19:59 |    8649 |  8880 |    231 |
 | [2020-12-12 Sat 21:40] | [2020-12-12 Sat 22:28] | 0.033333 | 00:47:59 |    8880 |  8951 |     71 |
 | [2020-12-12 Sat 22:53] | [2020-12-12 Sat 23:46] | 0.036806 | 00:53:00 |    8951 |  9076 |    125 |
-| [2020-12-13 Sun 10:37] |                        |          |          |    9076 |       |        |
+| [2020-12-13 Sun 10:37] | [2020-12-13 Sun 11:45] | 0.047222 | 01:07:59 |    9076 |  9110 |     34 |
+| [2020-12-13 Sun 12:04] | [2020-12-13 Sun 13:07] |  0.04375 | 01:03:00 |    9110 |  9213 |    103 |
+| [2020-12-13 Sun 13:57] | [2020-12-13 Sun 14:59] | 0.043056 | 01:02:00 |    9213 |  9502 |    289 |
+| [2020-12-13 Sun 15:15] | [2020-12-13 Sun 16:17] | 0.043055 | 01:01:59 |    9502 |  9683 |    181 |
 |------------------------+------------------------+----------+----------+---------+-------+--------|
-|                        |                        |        0 | 34:50:44 |         |       |   2686 |
+|                        |                        |        0 | 39:05:42 |         |       |   3293 |
 |------------------------+------------------------+----------+----------+---------+-------+--------|
 #+TBLFM: @>$7=vsum(@5..@-1)::@>$4=vsum(@5..@-1); T::$3=date(<$2>)-date(<$1>)::$4=$3 * 24 * 60 * 60; T::$7=$6 - $5
 
@@ -232,13 +243,16 @@ df_dur['time_day_ts'] = df_dur['date'] + df_dur['time_day_td']
 df_dur.drop(columns='time_day_td', inplace=True)
 
 chart = alt.Chart(df_dur)\
-         .mark_rule()\
-         .encode(
-             x=alt.X('date:T', title=''),
-             y=alt.Y('hoursminutes(time_day_ts):T', title='hours / day'),
-             tooltip='date:T'
-         )\
-         .interactive()
+           .mark_rule()\
+           .encode(
+               x=alt.X('date:T', title=''),
+               y=alt.Y('hoursminutes(time_day_ts):T', title='hours / day'),
+               tooltip=[
+                   alt.Tooltip('date:T', title='date'),
+                   alt.Tooltip('hoursminutes(time_day_ts):T', title='duration'),
+               ]
+           )\
+           .interactive(bind_y=False)
 
 chart.save('out/track-writing.png', scale_factor=2.0)
 chart.save('out/track-writing.html')
