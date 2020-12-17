@@ -346,16 +346,16 @@ most relevant and important model: S-curve model
       The present sample of neologisms covers a broad spectrum of usage frequency. Table~\ref{tab:freq-total} presents the candidates under investigation in four groups: six examples around the minimum, around the median, and around the maximum total usage frequency observed in the corpus, as well as six words that will serve as case studies in the following sections. These cases reflect a diverse set of prototypical examples of diffusion patterns, and I will use these cases to illustrate more detailed characteristics of diffusion before I present the general patterns found for the full sample of neologisms.
 
       \begin{table}
-        \caption[Total use frequency counts]{Total usage frequency in the corpus.}
+        \caption[Total use frequency counts]{Total usage frequency (\textsc{freq}) in the corpus.}
         \label{tab:freq-total}
         \centering
-        \begin{subtable}{.45\linewidth}
+        \begin{subtable}{.4\linewidth}
           \subcaption{Most frequent lexemes.}
           \label{subtab:freq-total-max}
           \centering
           \begin{tabular}{l S[table-format=7]}
             \toprule
-            lexeme       & {freq}  \\
+            Lexeme       & {\textsc{freq}}  \\
             \midrule
             tweeter      & 7367174 \\
             fleek        & 3412807 \\
@@ -366,14 +366,13 @@ most relevant and important model: S-curve model
             \bottomrule
           \end{tabular}
         \end{subtable}
-        \hfill
-        \begin{subtable}{.45\linewidth}
+        \begin{subtable}{.4\linewidth}
           \subcaption{Examples around the median.}
           \label{subtab:freq-total-median}
           \centering
           \begin{tabular}{l S[table-format=5]}
             \toprule
-            lexeme               & {freq} \\
+            Lexeme               & {\textsc{freq}} \\
             \midrule
             white fragility      & 26688  \\
             monthiversary        & 23607  \\
@@ -387,31 +386,30 @@ most relevant and important model: S-curve model
 
       \vspace{\baselineskip}
 
-        \begin{subtable}{.45\linewidth}
+        \begin{subtable}{.4\linewidth}
           \subcaption{Least frequent lexemes.}
           \label{subtab:freq-total-min}
           \centering
           \begin{tabular}{l S[table-format=3]}
             \toprule
-            lexeme               & {freq} \\
+            Lexeme     & {\textsc{freq}} \\
             \midrule
-            microflat            & 426    \\
-            dogfishing           & 399    \\
-            begpacker            & 283    \\
-            halfalogue           & 245    \\
-            rapugee              & 182    \\
-            bediquette           & 164    \\
+            microflat  & 426             \\
+            dogfishing & 399             \\
+            begpacker  & 283             \\
+            halfalogue & 245             \\
+            rapugee    & 182             \\
+            bediquette & 164             \\
             \bottomrule
           \end{tabular}
         \end{subtable}
-        \hfill
-        \begin{subtable}{.45\linewidth}
+        \begin{subtable}{.4\linewidth}
           \subcaption{Case study selection.}
           \label{subtab:freq-total-cases}
           \centering
           \begin{tabular}{l S[table-format=7]}
             \toprule
-            lexeme       & {freq}  \\
+            Lexeme       & {\textsc{freq}}  \\
             \midrule
             alt-right    & 1012150 \\
             solopreneur  & 282026  \\
@@ -442,10 +440,10 @@ most relevant and important model: S-curve model
       Visualising the cumulative increase in usage frequency of new words complements total counts by taking into account the temporal dynamics of their usage intensity over time. Figure~\ref{fig:freq_cum_cases} presents this information for the case study selection.
 
       \begin{figure}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/freq_cum_cases.pdf}
         \caption[Cumulative increase in usage frequency]{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
         \label{fig:freq_cum_cases}
+        \centering
+        \includegraphics[width=.8\linewidth]{img/freq_cum_cases.pdf}
       \end{figure}
       \footnotetext{\ol{alt-right} was omitted from this plot because its high usage frequency would have inhibited the interpretability of the other lexemes; its frequency over time is presented in Figure \ref{subfig:freq_temp_alt-right}.}
 
@@ -484,17 +482,21 @@ most relevant and important model: S-curve model
       Most importantly, analysing usage intensity highlights to which degree new words are being used consistently over time. Figure \ref{fig:freq-abs} presents this information for the selected cases. In the following section, I will illustrate prototypical differences by referring to the selected cases, before I discuss the results for the full sample.
 
       \begin{figure}
+        \caption[Temporal dynamics in absolute usage frequency]{Temporal dynamics in usage frequency for the selected neologisms.}
+        \label{fig:freq-abs}
         \centering
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{upskill}}
           \label{subfig:freq_temp_upskill}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_upskill_time.pdf"}
         \end{subfigure}
+        \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{hyperlocal}}
           \label{subfig:freq_temp_hyperlocal}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_hyperlocal_time.pdf"}
         \end{subfigure}
+        \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{solopreneur}}
           \label{subfig:freq_temp_solopreneur}
@@ -506,6 +508,7 @@ most relevant and important model: S-curve model
           \label{subfig:freq_temp_alt-right}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-right_time.pdf"}
         \end{subfigure}
+        \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-left}}
           \label{subfig:freq_temp_alt-left}
@@ -516,8 +519,6 @@ most relevant and important model: S-curve model
           \label{subfig:freq_temp_poppygate}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_time.pdf"}
         \end{subfigure}
-        \caption[Temporal dynamics in absolute usage frequency]{Temporal dynamics in usage frequency for the case study neologisms.}
-        \label{fig:freq-abs}
       \end{figure}
 
       The absolute frequency plots confirm differences regarding the lifespan and dynamics of usage intensity among the neologisms discussed above. In terms of lifespan, Figure \ref{fig:freq-abs} shows that \ol{upskill} and \ol{hyperlocal} are much older than \ol{alt-right} and \ol{alt-left}. The absolute counts also highlight the fact that while there is a low level of use of \ol{solopreneur} since 2007, its main period of diffusion starts much later, in 2014, with a subsequent spike in usage intensity.
@@ -542,11 +543,13 @@ most relevant and important model: S-curve model
       To quantify the degree to which neologisms are used with consistent frequency over time, I calculate and compare the coefficients of variation for each neologism in the sample. This metric captures the overall variation in usage frequency of words over their lifespan relative to their average frequency of occurrence in the corpus. Table~\ref{tab:coef-var} presents the coefficients of variation for the selected cases, as well as for the top and bottom six neologisms that show the highest and lowest degrees of variation in the sample.
 
       \begin{table}
-        \caption[Coefficient of variation]{Coefficients of variations.(\textsc{var})\protect\footnotemark}
+        \caption[Coefficient of variation]{Coefficients of variation (\textsc{var}) for the selected cases, and for six neologism with the highest and lowest scores in the sample.\protect\footnotemark}
         \label{tab:coef-var}
         \centering
         \begin{subtable}[t]{.3\linewidth}
-          % \centering
+          \caption{Selected cases.}
+          \label{subtab:coef-var-cases}
+          \centering
           \begin{tabular}{
               l
               S[table-format=1.2, round-mode=places, round-precision=2]
@@ -562,12 +565,12 @@ most relevant and important model: S-curve model
             alt-left    & 5.3112621    \\
             \bottomrule
           \end{tabular}
-          \caption{Variation among the selected cases.}
-          \label{subtab:coef-var-cases}
         \end{subtable}
         \hfill
         \begin{subtable}[t]{.3\linewidth}
-          % \centering
+          \caption{Lowest scores.}
+          \label{subtab:coef-var-lowest}
+          \centering
           \begin{tabular}{
               l
               S[table-format=1.2, round-mode=places, round-precision=2]
@@ -587,12 +590,12 @@ most relevant and important model: S-curve model
             % upcycling   & 0.7995218 \\
             \bottomrule
           \end{tabular}
-          \caption{Lowest degrees of variation.}
-          \label{subtab:coef-var-lowest}
         \end{subtable}
         \hfill
         \begin{subtable}[t]{.3\linewidth}
-          % \centering
+          \caption{Highest scores.}
+          \label{subtab:coef-highest}
+          \centering
           \begin{tabular}{
               l
               S[table-format=1.2, round-mode=places, round-precision=2]
@@ -612,8 +615,6 @@ most relevant and important model: S-curve model
             % bloggergate & 2.7765687 \\
             \bottomrule
           \end{tabular}
-          \caption{Highest degrees of variation.}
-          \label{subtab:coef-highest}
         \end{subtable}
       \end{table}
       \footnotetext{Neologisms with a lifespan shorter than one year and/or less than \num{2000} tweets ($n = 5$) were excluded since the coefficient of variation does not provide robust measures for these short-lived, infrequent outliers.}
@@ -658,6 +659,8 @@ most relevant and important model: S-curve model
       Table~\ref{tab:cent_last_cases-sample} reports the degree centrality scores for the selected cases, and for six lexemes with the highest and lowest scores in the sample.
 
       \begin{table}
+        \caption[Degree centrality scores for the selected cases and for the full sample]{Degree centrality scores (\textsc{cent}) for the selected cases and six lexemes each for the highest and lowest scores in the sample.}
+        \label{tab:cent_last_cases-sample}
         \begin{subtable}{.3\linewidth}
           \centering
           \caption{Selected cases.}
@@ -708,8 +711,6 @@ most relevant and important model: S-curve model
             \bottomrule
           \end{tabular}
         \end{subtable}
-        \caption[Degree centrality scores for the selected cases and for the full sample]{Degree centrality scores (\textsc{cent}) for the selected cases and six lexemes each for the highest and lowest scores in the sample.}
-        \label{tab:cent_last_cases-sample}
       \end{table}
 
       The neologisms with the lowest scores for degree centrality are also among the most frequent lexemes in the sample. This indicates that frequency and centrality show similar trends when used to assess degrees of diffusion, which can be seen as cross-validation of both approaches. Notable deviations exist, however, and will be further discusse in Section~\ref{sec:discussion}.
@@ -727,39 +728,38 @@ most relevant and important model: S-curve model
         different network characteristics
 
       \begin{figure}[H]
+        \caption[Social networks of diffusion for selected cases]{Social network graphs for the last subset of the selected cases.}
+        \label{fig:cent_last_cases}
         \centering
         \begin{subfigure}{.45\linewidth}
+          \caption{\se{\ol{upskill}}\\ (\num{37044}~nodes)}
+          \label{subfig:cent_last_cases_upskill}
           \centering
           % \includegraphics[width=\linewidth]{example-image-a}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_upskill_four.pdf}
-          \caption{\se{\ol{upskill}}\\ (\num{37044}~nodes)}
-          \label{subfig:cent_last_cases_upskill}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
+          \caption{\se{\ol{hyperlocal}}\\ (\num{26548}~nodes)}
+          \label{subfig:cent_last_cases_hyperlocal}
           \centering
           % \includegraphics[width=\linewidth]{example-image-b}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
-          \caption{\se{\ol{hyperlocal}}\\ (\num{26548}~nodes)}
-          \label{subfig:cent_last_cases_hyperlocal}
         \end{subfigure}\\
         \begin{subfigure}{.45\linewidth}
+          \caption{\se{\ol{solopreneur}}\\ (\num{24585}~nodes)}
+          \label{subfig:cent_last_cases_solopreneur}
           \centering
           % \includegraphics[width=\linewidth]{example-image-c}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.pdf}
-          \caption{\se{\ol{solopreneur}}\\ (\num{24585}~nodes)}
-          \label{subfig:cent_last_cases_solopreneur}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
+          \caption{\se{\ol{alt-left}}\\ (\num{26367}~nodes)}
+          \label{subfig:cent_last_cases_alt-left}
           \centering
           % \includegraphics[width=\linewidth]{example-image-a}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_alt-left_four.pdf}
-          \caption{\se{\ol{alt-left}}\\ (\num{26367}~nodes)}
-          \label{subfig:cent_last_cases_alt-left}
         \end{subfigure}
-        \caption[Social networks of diffusion for selected cases]{Last stages of diffusion for the selected cases.}
-        \label{fig:cent_last_cases}
       \end{figure}
-
 
 
     \subsubsection{Pathways of diffusion}
@@ -767,10 +767,10 @@ most relevant and important model: S-curve model
       Figure~\ref{fig:cent_diac_cases} presents the pathways of diffusion for all selected cases, measured by degree centralization. The diverging trajectories of centralization over time indicate significant differences in the social dynamics of diffusion between neologisms.
 
       \begin{figure}
-        \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_diac.pdf}
         \caption[Centralization over time for the selected cases]{Pathways of diffusion for the selected cases. The graph shows values for the \textsc{degree centrality} of the network graphs over time, each \textsc{subset} representing one of four equally-sized time slices for each neologism.}
         \label{fig:cent_diac_cases}
+        \centering
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_diac.pdf}
       \end{figure}
 
       The two neologisms which show the highest degree of diffusion in the final time window are \ol{hyperlocal} and \ol{upskill}.
@@ -877,6 +877,8 @@ most relevant and important model: S-curve model
       \label{subsubsec:discrepancies}
 
       \begin{figure}[H]
+        \caption{Relationship between total usage frequency (\textsc{freq}) vs. degree centrality (\textsc{cent}).}
+        \label{fig:cent-vs-freq-scatterplot}
         \centering
         \begin{subfigure}{.45\linewidth}
           \caption{Full sample.}
@@ -884,7 +886,7 @@ most relevant and important model: S-curve model
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
-          \caption{Case studies.}
+          \caption{Zooming in on the selected cases.}
           \centering
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
         \end{subfigure}
