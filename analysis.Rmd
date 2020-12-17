@@ -33,11 +33,6 @@ diff_start_method <- 'edges'
 diff_start_limit <- 3
 
 cases <- c(
-  # 'lituation'
-  # 'ghosting',
-  # 'upcycling',
-  # 'birther'
-  # 'circular economy',
   'upskill',
   'hyperlocal',
   'solopreneur',
@@ -45,7 +40,6 @@ cases <- c(
   'alt-left',
   'poppygate'
   )
-
 ```
 
 
@@ -69,7 +63,7 @@ df_comp %<>%
     !LEMMA %in% c('climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis', 'artificial intelligence', 'yellow', 'Anglo-Saxon'),
     # successful words: USES_TOT >= 10000
     # unsuccessful words: USES_TOT <= 10000
-    # weird words: big dick energy
+    # outliers: big dick energy
     !LEMMA %in% c('cookprocessor')
   )
 ```
@@ -110,7 +104,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'upskill'
+lemma <- 'hyperlocal'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
@@ -122,9 +116,8 @@ tweets <- filter_tweets(tweets)
 ```{r}
 tweets %>%
   select(date, tweet, replies_count, retweets_count, likes_count) %>%
-  arrange((date))
+  arrange(desc(retweets_count))
   # slice(., sample(1:n())) #random selection
-  # arrange(desc(likes_count)) %>%
 ```
 
 
