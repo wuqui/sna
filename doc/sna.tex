@@ -47,11 +47,20 @@
 %section{Abstract}
   \cleardoublepage
 
+%section{floats}
+
+  \listoffigures
+  \listoftables
+
+\cleardoublepage
+
+%section{Abstract}
+
   \begin{abstract}
 
     Societies continually evolve and speakers coin and use new words to talk about innovative products and practices. While most lexical innovations fail to catch on, others spread successfully and become part of the lexicon. This paper investigates the diffusion of English neologisms on Twitter. Previous work on lexical innovation has almost exclusively relied on usage frequency counts for measuring diffusion. Taking frequency as a baseline, I use social network analysis to zoom in on the sociolinguistic dynamics of diffusion.
 
-    My results show that frequency counts lend themselves to approximate overall degrees of diffusion with varying success. While absolute counts can be misleading, incorporating temporal dynamics of use provides a better picture of diffusion. However, frequency-based information alone fail to capture important sociolinguistic characteristics. Social network information are shown to add valuable information about whether new words are known and used by an increasing number of individuals and communities of speakers. Firstly, I distinguish different pathways of diffusion depending on whether and to which degree new words show increasing vs. decreasing centralized use over time. Secondly, I show that social network information allow for a more fine-grained assessment of degrees of diffusion, for example when new words are used with increasing frequency when use their remains limited to certain parts of the speech community. Lastly, I compare the results based on usage frequency and on social network analysis. Besides notable discrepancies, we find a significant correlation between both types of information, which serves to cross-validate both approaches.
+    My results show that frequency counts lend themselves to approximate overall degrees of diffusion with varying success. While absolute counts can be misleading, incorporating temporal dynamics of use provides a better picture of diffusion. However, frequency-based information alone fail to capture important sociolinguistic characteristics of diffusion. Social network information are shown to add valuable information about whether new words are known and used by an increasing number of individuals and communities of speakers. Firstly, I distinguish different pathways of diffusion depending on whether and to which degree new words show increasing vs. decreasing centralized use over time. Secondly, I show that social network information allow for a more fine-grained assessment of degrees of diffusion, for example when new words are used with increasing frequency when use their remains limited to certain parts of the speech community. Lastly, I compare the results based on usage frequency and on social network analysis. Besides notable discrepancies, we find a significant correlation between both types of information, which serves to cross-validate both approaches.
 
     My results suggest that social network information can complement frequency counts and that using information from both sources provides a more reliable and differentiated view of the sociolinguistic dynamics of diffusion. I argue that this is particularly important for investigating the diffusion of lexical innovations, as new words are often marked by high social indexicality and show substantial differences in use between communities of speakers. More generally, however, social network analysis shows great potential to study sociolinguistic dynamics of language variation and change beyong the domain of lexical innovation.
 
@@ -337,7 +346,7 @@ most relevant and important model: S-curve model
       The present sample of neologisms covers a broad spectrum of usage frequency. Table~\ref{tab:freq-total} presents the candidates under investigation in four groups: six examples around the minimum, around the median, and around the maximum total usage frequency observed in the corpus, as well as six words that will serve as case studies in the following sections. These cases reflect a diverse set of prototypical examples of diffusion patterns, and I will use these cases to illustrate more detailed characteristics of diffusion before I present the general patterns found for the full sample of neologisms.
 
       \begin{table}
-        \caption{Total usage frequency in the corpus.}
+        \caption[Total use frequency counts]{Total usage frequency in the corpus.}
         \label{tab:freq-total}
         \centering
         \begin{subtable}{.45\linewidth}
@@ -435,7 +444,7 @@ most relevant and important model: S-curve model
       \begin{figure}
         \centering
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/freq_cum_cases.pdf}
-        \caption{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
+        \caption[Cumulative increase in usage frequency]{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
         \label{fig:freq_cum_cases}
       \end{figure}
       \footnotetext{\ol{alt-right} was omitted from this plot because its high usage frequency would have inhibited the interpretability of the other lexemes; its frequency over time is presented in Figure \ref{subfig:freq_temp_alt-right}.}
@@ -507,7 +516,7 @@ most relevant and important model: S-curve model
           \label{subfig:freq_temp_poppygate}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_time.pdf"}
         \end{subfigure}
-        \caption{Temporal dynamics in usage frequency for the case study neologisms.}
+        \caption[Temporal dynamics in absolute usage frequency]{Temporal dynamics in usage frequency for the case study neologisms.}
         \label{fig:freq-abs}
       \end{figure}
 
@@ -533,7 +542,7 @@ most relevant and important model: S-curve model
       To quantify the degree to which neologisms are used with consistent frequency over time, I calculate and compare the coefficients of variation for each neologism in the sample. This metric captures the overall variation in usage frequency of words over their lifespan relative to their average frequency of occurrence in the corpus. Table~\ref{tab:coef-var} presents the coefficients of variation for the selected cases, as well as for the top and bottom six neologisms that show the highest and lowest degrees of variation in the sample.
 
       \begin{table}
-        \caption{Coefficients of variations.(\textsc{var})\protect\footnotemark}
+        \caption[Coefficient of variation]{Coefficients of variations.(\textsc{var})\protect\footnotemark}
         \label{tab:coef-var}
         \centering
         \begin{subtable}[t]{.3\linewidth}
@@ -636,114 +645,213 @@ most relevant and important model: S-curve model
   \subsection{Social Network Analysis}
     \label{subsec:sna}
 
-    As discussed in Section~\ref{subsec:ec-model}, from a theoretical, sociolinguistic perspective, the degree of diffusion of lexical innovations crucially depends on the degree to which new words spread to become familiar among new speakers and communities of speakers.  
+    As discussed in Section~\ref{subsec:ec-model}, from a theoretical, sociolinguistic perspective, the degree of diffusion of lexical innovations depends on the degree to which new words become conventional among new speakers and communities of speakers. Frequency-based analyses, as presented in the previous section, can by definition only provide information about the distribution of occurrences of neologisms in the corpus, they cannot provide direct evidence about the size and composition of the community of speakers who have produced the observed attestations.
 
-    Frequency-based analyses, as presented in the previous section, can by definition only provide information about the distribution of occurrences in the corpus, they cannot provide direct evidence about the size and composition of the community of speakers who produced these uses.
+    Social network analysis, by contrast, is based on data about the communicative behaviour of speakers in the corpus and can thus provide direct insights into the social characteristics of the speech community. This allows for a more direct operationalization of the theoretical model of diffusion. The structural characteristics of the social network of speakers who have used a target neologism can be used to assess whether the term has been used by a broad section of the speech community, or whether its use remains limited to certain parts of the speech community.
 
-    Social network analysis, by contrast, is based on the communicative behaviour of speakers in the corpus and can thus provide direct insights into the social characteristics of speakers and groups of speakers. This allows for a more direct operationalization of the theoretical model of diffusion. The structural characteristics of the social network of speakers who have used a target neologism can be used to measure whether the term has been used by a broad section of the speech community, or whether its use remains limited to smaller communities. 
+    As described in Section~\ref{sec:method}, the social network analysis is based on the interactions between all speakers who have used the neologisms in the sample. Speakers are represented as nodes in the network graph, and interactions between users in the form of replies or mentions are represented as edges between nodes. The network structure of the resulting graphs allows to analyse the degree to which the target neologisms have diffused in these networks. To monitor diffusion over time, I split the observed lifespan of each neologism into four equally-sized time slices. These time windows are marked by dashed vertical lines in Figure~\ref{fig:freq-abs}. I then generate network graphs for each time window for each neologism in the sample to analyse the individual pathways of diffusion over time and to compare degrees of diffusion between all neologisms in the sample.
 
-    As described in Section~\ref{sec:method}, the social network analysis is based on the communicative behaviour of the speakers in the corpus. Speakers are represented by nodes in the network graph, and interactions between users in the form of replies or mentions are represented as edges between nodes. The network structure of the resulting graphs is then interpreted to analyse the degree to which the target neologisms have diffused in these networks. To monitor diffusion over time, I split the observed lifespan of each neologism into four equally-sized time slices. These time windows are marked by dashed vertical lines in Figure~\ref{fig:freq-abs}. I then generated network graphs for each time window for each neologism in the sample to allow both for analysing the individual pathways of diffusion of neologisms over time as well as comparing degrees of diffusion between neologisms.
+    \subsubsection{Degrees of diffusion}
+
+      As discussed in Section~\ref{sec:method}, I rely on degree centralization to measure degrees of diffusion. I operationalize diffusion as decreasing degree centralization of the graph, thus lower values of centrality indicate higher degrees of diffusion. For example, the social graph of the users of a new word shows high centralization in early stages when its use is largely confined to one or few centralized clusters of speakers. When increasing diffusion extends the use of the term to new speakers and communities, the distribution of interactions in the speech community shows greater dispersion, which is reflected by lower centrality scores for the social network of speakers.
+
+      Table~\ref{tab:cent_last_cases-sample} reports the degree centrality scores for the selected cases, and for six lexemes with the highest and lowest scores in the sample.
+
+      \begin{table}
+        \begin{subtable}{.3\linewidth}
+          \centering
+          \caption{Selected cases.}
+          \begin{tabular}{l S[table-format=1.4, round-mode=places, round-precision=4]}
+            \toprule
+            Lexeme      & {\textsc{cent}} \\
+            \midrule
+            upskill     & 0.002061916  \\
+            hyperlocal	& 0.008527674  \\
+            alt-right   & 0.014425502  \\
+            alt-left    & 0.023848081  \\
+            solopreneur	& 0.052339695  \\
+            poppygate   & 0.056645023  \\
+            \bottomrule
+          \end{tabular}
+        \end{subtable}
+        \hfill
+        \begin{subtable}{.3\linewidth}
+          \centering
+          \caption{Lowest scores.}
+          \begin{tabular}{l S[table-format=1.4, round-mode=places, round-precision=4]}
+            \toprule
+            Lexeme          & {\textsc{cent}} \\
+            \midrule
+            baecation       & 0.0005064777 \\
+            fleek           & 0.0009416515 \\
+            ghosting        & 0.0013446084 \\
+            man bun         & 0.0015875456 \\
+            big dick energy	& 0.0018204662 \\
+            twittersphere   & 0.0019679891 \\
+            \bottomrule
+          \end{tabular}
+        \end{subtable}
+        \hfill
+        \begin{subtable}{.3\linewidth}
+          \centering
+          \caption{Highest scores.}
+          \begin{tabular}{l S[table-format=1.4, round-mode=places, round-precision=4]}
+            \toprule
+            Lexeme      & {\textsc{cent}} \\
+            \midrule
+            rapugee     & 0.2579569224 \\
+            levidrome   & 0.2372565853 \\
+            Kushnergate	& 0.2308673469 \\
+            dronography	& 0.1530180700 \\
+            dotard      & 0.0978663785 \\
+            ecocide     & 0.0921670083 \\
+            \bottomrule
+          \end{tabular}
+        \end{subtable}
+        \caption[Degree centrality scores for the selected cases and for the full sample]{Degree centrality scores (\textsc{cent}) for the selected cases and six lexemes each for the highest and lowest scores in the sample.}
+        \label{tab:cent_last_cases-sample}
+      \end{table}
+
+      The neologisms with the lowest scores for degree centrality are also among the most frequent lexemes in the sample. This indicates that frequency and centrality show similar trends when used to assess degrees of diffusion, which can be seen as cross-validation of both approaches. Notable deviations exist, however, and will be further discusse in Section~\ref{sec:discussion}.
+
+      sample
+        lowest: generally most frequent
+        highest: topical, political
+        --> more detailed analysis in Section~\ref{subsec:nets-vs-freq}
+      cases
+        correspond
+        --> show graphs
+
+      Figure~\ref{fig:cent_last_cases} shows the full network plots for the selected cases for the last subset.
+        selection based on comparable number of nodes
+        different network characteristics
+
+      \begin{figure}[H]
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \centering
+          % \includegraphics[width=\linewidth]{example-image-a}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_upskill_four.pdf}
+          \caption{\se{\ol{upskill}}\\ (\num{37044}~nodes)}
+          \label{subfig:cent_last_cases_upskill}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \centering
+          % \includegraphics[width=\linewidth]{example-image-b}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
+          \caption{\se{\ol{hyperlocal}}\\ (\num{26548}~nodes)}
+          \label{subfig:cent_last_cases_hyperlocal}
+        \end{subfigure}\\
+        \begin{subfigure}{.45\linewidth}
+          \centering
+          % \includegraphics[width=\linewidth]{example-image-c}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.pdf}
+          \caption{\se{\ol{solopreneur}}\\ (\num{24585}~nodes)}
+          \label{subfig:cent_last_cases_solopreneur}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \centering
+          % \includegraphics[width=\linewidth]{example-image-a}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_alt-left_four.pdf}
+          \caption{\se{\ol{alt-left}}\\ (\num{26367}~nodes)}
+          \label{subfig:cent_last_cases_alt-left}
+        \end{subfigure}
+        \caption[Social networks of diffusion for selected cases]{Last stages of diffusion for the selected cases.}
+        \label{fig:cent_last_cases}
+      \end{figure}
+
+
 
     \subsubsection{Pathways of diffusion}
 
-      Figure~\ref{fig:cent_diac_cases} presents the diachronic development of diffusion for all selected cases. 
+      Figure~\ref{fig:cent_diac_cases} presents the pathways of diffusion for all selected cases, measured by degree centralization. The diverging trajectories of centralization over time indicate significant differences in the social dynamics of diffusion between neologisms.
 
-      \begin{figure}[H]
-        \caption{Degree centralization over time for case study words.}
-        \label{fig:cent_diac_cases}
+      \begin{figure}
         \centering
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_diac.pdf}
+        \caption[Centralization over time for the selected cases]{Pathways of diffusion for the selected cases. The graph shows values for the \textsc{degree centrality} of the network graphs over time, each \textsc{subset} representing one of four equally-sized time slices for each neologism.}
+        \label{fig:cent_diac_cases}
       \end{figure}
 
-      As described in Section~\ref{sec:method}, I rely on degree centralization to measure degrees of diffusion. Diffusion is here modelled as decreasing centralization of the graph, thus lower values of centrality indicate higher degrees of diffusion. For example, the social graph of the users of a new word shows high centralization in early stages when its use is largely confined to one or few centralized clusters of speakers. When increasing diffusion extends the use of the term to new speakers and communities, the distribution of interactions in the speech community typically shows greater dispersion, which would be reflected by a lower centrality of the social graph.
+      The two neologisms which show the highest degree of diffusion in the final time window are \ol{hyperlocal} and \ol{upskill}.
 
-      \qpar{Social diffusion over time: \ol{hyperlocal}}
+        In the case of \ol{upskill}, we observe little change over time, its degree of diffusion seems advanced from throughout its entire observed lifespan.
 
-        \begin{figure}[H]
-          \caption{Social network of diffusion for \ol{hyperlocal} over time.}
+      limited
+        \ol{alt-left}
+        \ol{alt-right}
+      increasing diff
+        \ol{hyperlocal}
+      decreasing diff
+        \ol{solopreneur}
+        \ol{poppygate}
+      always low
+        \ol{upskill}
+
+
+
+
+      zooming in on \ol{hyperlocal}
+
+      Before I discuss these differences, I will present the full network graphs for all stages of diffusion for the prototypical case of \ol{hyperlocal} (\ref{fig:net_diac_hyperlocal}) to illustrate the social dynamics that are captured by the quantitative measure of degree centrality.
+
+      \begin{figure}
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{\se{Subset 1}\\ (10~September,~2007 -- 8~July~2010; \num{12569}~nodes)}
+          \label{subfig:net_diac_hyperlocal_one}
           \centering
-          \begin{subfigure}{.45\linewidth}
-            \caption{First stage}
-            \centering
-            % \includegraphics[width=\linewidth]{example-image-a}
-            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_one.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.45\linewidth}
-            \caption{Second stage}
-            \centering
-            % \includegraphics[width=\linewidth]{example-image-b}
-            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_two.pdf}
-          \end{subfigure}
-          
-          \begin{subfigure}{.45\linewidth}
-            \caption{Third stage}
-            \centering
-            % \includegraphics[width=\linewidth]{example-image-c}
-            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_three.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.45\linewidth}
-            \caption{Fourth stage}
-            \centering
-            % \includegraphics[width=\linewidth]{example-image-a}
-            \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
-          \end{subfigure}
-        \end{figure}
-
-      \qpar{Full sample}
-
-        successful
-        unsuccessful
-
-        biggest changes
-
-    \subsubsection{Degrees of social diffusion}
-
-      \qpar{Metrics}
-      
-        most diffused
-        least diffused
-
-      \qpar{Network graphs}
-
-        \begin{figure}[H]
-          \caption{Social network of diffusion for \ol{hyperlocal} over time.}
+          % \includegraphics[width=\linewidth]{example-image-a}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_one.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{\se{Subset 2}\\ (9~July,~2010 -- 5~May,~2013; \num{33450}~nodes)}
+          \label{subfig:net_diac_hyperlocal_two}
           \centering
-          \begin{subfigure}{.45\linewidth}
-            \caption{\ol{upskill}}
-            \centering
-            \includegraphics[width=\linewidth]{example-image-a}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_upskill_four.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.45\linewidth}
-            \caption{\ol{hyperlocal}}
-            \centering
-            \includegraphics[width=\linewidth]{example-image-b}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
-          \end{subfigure}\\
-          \begin{subfigure}{.45\linewidth}
-            \caption{\ol{solopreneur}}
-            \centering
-            \includegraphics[width=\linewidth]{example-image-c}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.pdf}
-          \end{subfigure}
-          \begin{subfigure}{.45\linewidth}
-            \caption{\ol{alt-left}}
-            \centering
-            \includegraphics[width=\linewidth]{example-image-a}
-            % \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_alt-left_four.pdf}
-          \end{subfigure}
-        \end{figure}
+          % \includegraphics[width=\linewidth]{example-image-b}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_two.pdf}
+        \end{subfigure}
+
+        \begin{subfigure}{.45\linewidth}
+          \caption{\se{Subset 3}\\ (6~May,~2013 -- 3~March,~2016, \num{29353}~nodes)}
+          \label{subfig:net_diac_hyperlocal_three}
+          \centering
+          % \includegraphics[width=\linewidth]{example-image-c}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_three.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{\se{Subset 4}\\ (4~March,~2016 -- 31~December,~2018, \num{26548}~nodes)}
+          \label{subfig:net_diac_hyperlocal_four}
+          \centering
+          % \includegraphics[width=\linewidth]{example-image-a}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
+        \end{subfigure}
+        \caption[Social networks of diffusion for \ol{hyperlocal}]{Social network of diffusion for \ol{hyperlocal} over time.}
+        \label{fig:net_diac_hyperlocal}
+      \end{figure}
+
+      Figure~\ref{fig:net_diac_hyperlocal} illustrates that \ol{hyperlocal} shows increasing, successful diffusion over time.
+
+      Its use is relatively centralized in its earlier stages, which can be seen from the fact that most speakers who have used the term are closely connected in the social graph in the first quarter of its observed lifespan.
+
+      Inspecting the most influential speakers and sub-communities in the network -- based on PageRank and Modularity scores -- reveals that \ol{hyperlocal} is mainly used by a relatively small community of individual journalists in the first subset, who are early adopters in trying to target news to local audiences and use the term very frequently to label this new approach.
+
+      In Subset 2, the community of journalists grows and starts to include also bigger news outlets such as The Guardian. Additionally, a new community of practice adopts the term: several marketing agencies start to brand their services as \ol{hyperlocal}. At this point, the usage intensity of the term peaks, as was demonstrated in Figure~\ref{subfig:freq_temp_hyperlocal}. However, the social network data indicate that its use is the product of high salience and usualization within a small number of dense sub-communities rather than a sign of advanced diffusion across bigger parts of the speech community.
+
+      The network graphs show that the social diffusion of \ol{hyperlocal} is only significantly advanced in the last two stages. While we see only few weak ties during the earlier stages of its use, the term now increasingly diffuses beyond its early adopters. Inspecting the network reveals that use of term becomes increasingly popular in the world of business and startups and the general public. The network metrics indicate that individual agents and sub-communities now play a far smaller role in its overall use. While it shows less usage intensity during the later stages, the network metrics indicate a high degree of diffusion for the second half of its observed lifespan. The timing of its addition to the OED in 2015 supports these observations. \ol{hyperlocal} seems to have successfully spread beyond its subcommunities of early adopters, and it seems to be used by a diverse community of speakers from different backgrounds, which renders it a case of successful diffusion.
+
+      This process of social diffusion for \ol{hyperlocal} is also reflected in its decreasing measures for graph centrality in Figure~\ref{fig:cent_diac_cases}.
 
 
   \subsection{Networks vs. frequency}
     \label{subsec:nets-vs-freq}
 
-    \subsubsection{Correlation}
+    \subsubsection{Correlations}
       \label{subsubsec:corr}
 
       \begin{table}[H]
         \centering
-        \caption{Correlations of \textsc{centrality} (\enquote{degree centralization}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{variation in frequency}), and observed lifespan (\textsc{lifespan}) across the full sample of neologisms ($n=100$); reporting correlation coefficients and \emph{p}-values for Spearman's $\rho$~\parencite{Spearman1961ProofMeasurement} and Kendall's $\tau$~\parencite{Kendall1938NewMeasure}.}
+        \caption[Correlation matrix for \textsc{centrality}]{Correlations of \textsc{centrality} (\enquote{degree centralization}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{variation in frequency}), and observed lifespan (\textsc{lifespan}) across the full sample of neologisms ($n=100$); reporting correlation coefficients and \emph{p}-values for Spearman's $\rho$~\parencite{Spearman1961ProofMeasurement} and Kendall's $\tau$~\parencite{Kendall1938NewMeasure}.}
         \label{tab:correlations}
         \begin{tabular}{
           >{\scshape}l
@@ -765,41 +873,36 @@ most relevant and important model: S-curve model
         \end{tabular}
       \end{table}
 
-
-    \subsubsection{Discrepancies}
+    \subsubsection{Plotting frequency vs. centrality}
       \label{subsubsec:discrepancies}
 
-  However, we also see discrepancies
+      \begin{figure}[H]
+        \centering
+        \begin{subfigure}{.45\linewidth}
+          \caption{Full sample.}
+          \centering
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{Case studies.}
+          \centering
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
+        \end{subfigure}
+      \end{figure}
 
-  plots
+    \subsubsection{Discrepancies}
 
-  \begin{figure}[H]
-    \centering
-    \begin{subfigure}{.45\linewidth}
-      \caption{Full sample.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
-    \end{subfigure}
-    \begin{subfigure}{.45\linewidth}
-      \caption{Case studies.}
-      \centering
-      \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
-    \end{subfigure}
-  \end{figure}
+      freq.
+        overestimate diffusion
+          topical
+          propaganda: \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
+          Brexit terms: \ol{Brexiteer}, \ol{Brexiter}, \ol{Brexit}
+          nerds
+          technical
 
-  cluster analysis
-
-  freq. overestimating
-  topical
-  propaganda: \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
-  Brexit terms: \ol{Brexiteer}, \ol{Brexiter}, \ol{Brexit}
-  nerds
-  technical
-
-  freq. underestimating: XXX
-  topical words
-
-  Social network metrics certainly add to freq.
+        underestimates diffusion
+          infrequent
+          topical
 
 \section{Discussion}
   \label{sec:discussion}
