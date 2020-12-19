@@ -650,13 +650,15 @@ most relevant and important model: S-curve model
 
     Social network analysis, by contrast, is based on data about the communicative behaviour of speakers in the corpus and can thus provide direct insights into the social characteristics of the speech community. This allows for a more direct operationalization of the theoretical model of diffusion. The structural characteristics of the social network of speakers who have used a target neologism can be used to assess whether the term has been used by a broad section of the speech community, or whether its use remains limited to certain parts of the speech community.
 
-    As described in Section~\ref{sec:method}, the social network analysis is based on the interactions between all speakers who have used the neologisms in the sample. Speakers are represented as nodes in the network graph, and interactions between users in the form of replies or mentions are represented as edges between nodes. The network structure of the resulting graphs allows to analyse the degree to which the target neologisms have diffused in these networks. To monitor diffusion over time, I split the observed lifespan of each neologism into four equally-sized time slices. These time windows are marked by dashed vertical lines in Figure~\ref{fig:freq-abs}. I then generate network graphs for each time window for each neologism in the sample to analyse the individual pathways of diffusion over time and to compare degrees of diffusion between all neologisms in the sample.
+    As described in Section~\ref{sec:method}, the social network analysis is based on the interactions between all speakers who have used the neologisms in the sample. Speakers are represented as nodes in the network graph, and interactions between users in the form of replies or mentions are represented as edges. The network structure of the resulting graphs allows to analyse the degree to which the target neologisms have diffused in these networks.
+
+    To monitor diffusion over time, I split the observed lifespan of each neologism into four equally-sized time slices. These time windows are marked by dashed vertical lines in Figure~\ref{fig:freq-abs}. I then generate network graphs for each time window for each neologism in the sample to analyse the individual pathways of diffusion over time and to compare degrees of diffusion between all neologisms in the sample.
 
     \subsubsection{Degrees of diffusion}
 
-      As discussed in Section~\ref{sec:method}, I rely on degree centralization to measure degrees of diffusion. I operationalize diffusion as decreasing degree centralization of the graph, thus lower values of centrality indicate higher degrees of diffusion. For example, the social graph of the users of a new word shows high centralization in early stages when its use is largely confined to one or few centralized clusters of speakers. When increasing diffusion extends the use of the term to new speakers and communities, the distribution of interactions in the speech community shows greater dispersion, which is reflected by lower centrality scores for the social network of speakers.
+      As discussed in Section~\ref{sec:method}, I mainly rely on degree centralization as a quantitative measure for degrees of diffusion. I consider increasing diffusion to be reflected by decreasing degree centralization of the graph, thus lower values of centrality indicate higher degrees of diffusion. For example, the social graph users of a new word shows high centralization in early stages when its use is largely confined to one or few centralized clusters of speakers. When increasing diffusion extends the use of the term to new speakers and communities, the distribution of interactions in the speech community shows greater dispersion, which should be reflected by lower centrality scores for the social network of speakers.
 
-      Table~\ref{tab:cent_last_cases-sample} reports the degree centrality scores for the selected neologisms, and for six lexemes with the highest and lowest scores in the sample.
+      Table~\ref{tab:cent_last_cases-sample} reports the degree centrality scores for the selected neologisms and for six lexemes with the highest and lowest scores in the sample.
 
       \begin{table}
         \caption[Degree centrality scores for the selected neologisms and for the full sample]{Degree centrality scores (\textsc{cent}) for the selected neologisms and six lexemes each for the highest and lowest scores in the sample; the scores are based on the last subset for each neologisms in the corpus.}
@@ -664,6 +666,7 @@ most relevant and important model: S-curve model
         \begin{subtable}{.3\linewidth}
           \centering
           \caption{Selected neologisms.}
+          \label{subtab:cent_last_cases}
           \begin{tabular}{l S[table-format=1.4, round-mode=places, round-precision=4]}
             \toprule
             Lexeme      & {\textsc{cent}} \\
@@ -713,11 +716,11 @@ most relevant and important model: S-curve model
         \end{subtable}
       \end{table}
 
-      The neologisms with the lowest scores for degree centrality are also among the most frequent lexemes in the sample. This indicates that frequency and centrality show similar trends when used to assess degrees of diffusion, which seems to cross-validation both approaches to some degree. Notable deviations exist, however, and will be further discussed in Section~\ref{subsec:nets-vs-freq}.
+      The neologisms with the lowest scores for degree centrality are also among the most frequent lexemes in the sample. This indicates that frequency and centrality generally tend to produce similar results when used to assess degrees of diffusion, which seems to cross-validate both approaches to some degree. Notable deviations exist, however, and will be further discussed in Section~\ref{subsec:nets-vs-freq}.
 
-      Correspondingly, the neologisms with the highest centrality scores rank among the least frequent example. Notable trends among lexemes with low centrality scores are that they tend to be more recent (e.g. \ol{dronography}\footnote{\enquote{Dronography is the science, art and practice of creating durable images or video by recording light or other electromagnetic radiation by means of a drone flying around or above a certain scene} (Urban Dictionary).}) and/or to exhibit high degrees of topical variation (e.g. \ol{ecocide}\footnote{\enquote{the destruction of large areas of the natural environment as a consequence of human activity} (Merriam Webster Online Dictionary).}). Moreover, this groups includes political terms such as \ol{Kushnergate}\footnote{Referring to a political scandal involving Trump's senior adviser Jared Kushner allegedly meeting Russian officials.} and \ol{rapugee} which are controversially discussed on the left and right ends of the political spectrum. For example, \ol{rapugee} is a derogatory term which was coined after sexual assaults by refugees during New Year's Eve 2015/16 in Cologne, Germany. Previous work has shown that this term was consciously coined and propagated by closely connected far-right activists to disparage refugees, and that its use on Twitter and on the Web has remained largely limited to these communities \parencite{Wurschinger2016UsingWeb}. This low degree of diffusion is reflected by the low centrality score for \ol{rapugee}.
+      Correspondingly, the neologisms with the highest centrality scores rank among the least frequent example. Notable trends among lexemes with low centrality scores are that they tend to be more recent (e.g. \ol{dronography}\footnote{\enquote{Dronography is the science, art and practice of creating durable images or video by recording light or other electromagnetic radiation by means of a drone flying around or above a certain scene} (Urban Dictionary).}) and/or to exhibit high degrees of topical variation (e.g. \ol{ecocide}\footnote{\enquote{the destruction of large areas of the natural environment as a consequence of human activity} (Merriam Webster Online Dictionary).}). Moreover, this groups includes political terms such as \ol{Kushnergate}\footnote{Referring to a political scandal involving Trump's senior adviser Jared Kushner allegedly meeting Russian officials.} and \ol{rapugee} which are controversially discussed on the left and right ends of the political spectrum. For example, \ol{rapugee} is a derogatory term which was coined after sexual assaults by refugees during New Year's Eve 2015/16 in Cologne, Germany. Previous work has shown that this term was consciously coined and propagated by a closely connected community of far-right activists to disparage refugees, and that its use on Twitter and on the Web has remained largely limited to these communities \parencite{Wurschinger2016UsingWeb}. This low degree of diffusion is reflected by the low centrality score for \ol{rapugee}.
 
-      The centrality scores for the selected neologisms indicate a broad spectrum of degrees of diffusion. Figure~\ref{fig:net_last_cases} presents the full network graphs for four of the selected cases to illustrate the differences in the social networks of speakers which are captured by centrality scores.\footnote{The network graphs for \ol{alt-right} and \ol{poppygate} were omitted as their difference in network size does not allow for comparative analyses (\ol{alt-right}: \num{274686} nodes, \ol{poppygate}: \num{2473} nodes).}  
+      The centrality scores for the selected neologisms cover a broad spectrum of degrees of diffusion, as can be seen in Table~\ref{subtab:cent_last_cases}. Figure~\ref{fig:net_last_cases} presents the full network graphs for four of the selected cases to illustrate differences in the social networks of speakers which are captured by centrality scores.\footnote{The network graphs for \ol{alt-right} and \ol{poppygate} were omitted as their difference in network size does not allow for comparative analyses (\ol{alt-right}: \num{274686} nodes, \ol{poppygate}: \num{2473} nodes).}  
 
       \begin{figure}
         \captionsetup[subfigure]{justification=centering}
@@ -735,26 +738,39 @@ most relevant and important model: S-curve model
           \label{subfig:net_last_cases_hyperlocal}
           % \includegraphics[width=\linewidth]{example-image-b}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
-        \end{subfigure}\\
-        \begin{subfigure}{.45\linewidth}
-          \caption{\se{\ol{solopreneur}}\\ (\num{24585}~nodes, \num{20486}~edges)}
-          \label{subfig:net_last_cases_solopreneur}
-          % \includegraphics[width=\linewidth]{example-image-c}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.pdf}
         \end{subfigure}
+
         \begin{subfigure}{.45\linewidth}
           \caption{\se{\ol{alt-left}}\\ (\num{26367}~nodes, \num{32836}~edges)}
           \label{subfig:net_last_cases_alt-left}
           % \includegraphics[width=\linewidth]{example-image-a}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_alt-left_four.pdf}
         \end{subfigure}
+        \begin{subfigure}{.45\linewidth}
+          \caption{\se{\ol{solopreneur}}\\ (\num{24585}~nodes, \num{20486}~edges)}
+          \label{subfig:net_last_cases_solopreneur}
+          % \includegraphics[width=\linewidth]{example-image-c}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.pdf}
+        \end{subfigure}
       \end{figure}
 
-      The network graphs in Figure~\ref{fig:net_last} are sorted according to their degree of diffusion, as measured by centrality scores, from (a) to (d).
+      The network graphs in Figure~\ref{fig:net_last_cases} are sorted according to their degrees of diffusion -- as measured by centrality scores -- from (a) to (d). Note that the number of nodes in each graph is very similar, differences between network graphs are thus due to differences in the underlying social structure of communities rather than a mere function of differences in network size.
 
-      
+      The neologisms \ol{upskill} exhibits the highest degree of diffusion, which is reflected by the highest degree of dispersion of nodes across the graph in Figure~\ref{subfig:net_last_cases_upskill}. At the center of the graph, we find a relatively large community of speakers who are only loosely connected. Many of these speakers are connected via their affiliations to the world of business, where the term \ol{upskill} is most commonly used. However, the use of the term can not be traced back to a small set of densely connected communities. As the high proportion of nodes towards the fringes of the graph reveals, most occurrences of the term are produced by speakers who use the term independently of associations to specific communities. 
+
+      The graph for \ol{hyperlocal} in Figure~\ref{subfig:net_last_cases_hyperlocal} also shows a high degree of diffusion, but its use depends more strongly on a central community of users. This core sub-network of speakers forms several smaller clusters which can be linked to certain domains of interest such as journalism, business, and startups, in which the term is most popular. Notably, we observe a stronger role of individual user accounts such as influencers and marketing agencies, which is illustrated by bigger node sizes, which represent PageRank scores. Yet, as in the graph for \ol{upskill}, the majority of occurrences of \ol{hyperlocal} can be traced back to a high number of speakers from a diverse set of sub-communities, which can be interpreted as a sign of advanced diffusion.
+
+      The social graph for \ol{alt-left} shows very limited diffusion of the term. Almost all of its use can be traced back to one central community of users. This core community of users demonstrates typical characteristics of an echo chamber in that it is dense and features strong ties within the community, but is isolated and has few weak ties connecting it to the rest of the social graph. This observation is in line with the socio-political background of the term, which was coined and propagated by far-right activists in an attempt to unify political efforts (\enquote{\emph{Unite} the Right Rally}) and to distance themselves and protest against the political left. Inspecting the network reveals that the most influential node in the network is Donald Trump, whose use of the term was followed by a sharp increase in usage intensity in the course of the Charlottesville Rally in August 2017. The high degree of social fragmentation in the use of \ol{alt-left} is also reflected in the ration between the number of nodes and edges in its graph, which confirms that its community of speakers is much more closely connected than that of the remaining neologisms\footnote{The numbers of edges per node for all selected cases in descending order: \ol{alt-right}: \num{1.49}, \ol{alt-left}: \num{1.24}, \ol{solopreneur}: \num{0.83}, \ol{hyperlocal}: \num{0.62}, \ol{upskill}: \num{0.62}, \ol{poppygate}: \num{0.53}}. Notably, the same applies to the community of \ol{alt-right}, which occupies the opposite pole of the political spectrum, which seems in line with effects of political polarization in social networks observed in previous work~\parencite{Sunstein2018RepublicDivided}. Overall, \ol{alt-left} thus shows a low degree of diffusion. It has received notable popularity in certain parts of the speech community, but its use remains strongly limited to these communities.
+
+      Lastly, the social network of speakers using the term \ol{solopreneur} also shows a low degree of diffusion. A significant proportion of its use comes from a diverse set of individual speakers and micro-communities, which are placed at the fringes of the graph. However, a relatively well-connected, large core of speakers is responsible for the majority of its use in the corpus. Moreover, unlike the graph of \ol{alt-left}, this central community of users is in turn dominated by the high centrality of a small number of individual accounts. Inspecting the network of users reveals that these \enquote{influencers} are all either proud, self-proclaimed solopreneurs, or coaches and agencies that are using the term to promote their services to aspiring entrepreneurs. Overall, it thus seems that \ol{solopreneur} has shows a low degree of diffusion. It has achieved significant popularity within certain communities, but use in these communities is unevenly dispersed and depends strongly on a small number of individual users. The term does not show signs of advanced diffusion since its use does only extend beyond certain individual speakers and subcommunities to a very limited degree.
+
+
+      summary: centralization seems to capture significant differences in the social structure of communities
+
 
     \subsubsection{Pathways of diffusion}
+
+      Briefly look into diachronic development
 
       Figure~\ref{fig:cent_diac_cases} presents the pathways of diffusion for all selected neologisms, measured by degree centralization. The diverging trajectories of centralization over time indicate significant differences in the social dynamics of diffusion between neologisms.
 
@@ -779,8 +795,6 @@ most relevant and important model: S-curve model
         \ol{poppygate}
       always low
         \ol{upskill}
-
-
 
 
       zooming in on \ol{hyperlocal}
