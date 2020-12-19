@@ -514,6 +514,7 @@ most relevant and important model: S-curve model
           \label{subfig:freq_temp_alt-left}
           \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-left_time.pdf"}
         \end{subfigure}
+        \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{poppygate}}
           \label{subfig:freq_temp_poppygate}
@@ -655,6 +656,7 @@ most relevant and important model: S-curve model
     To monitor diffusion over time, I split the observed lifespan of each neologism into four equally-sized time slices. These time windows are marked by dashed vertical lines in Figure~\ref{fig:freq-abs}. I then generate network graphs for each time window for each neologism in the sample to analyse the individual pathways of diffusion over time and to compare degrees of diffusion between all neologisms in the sample.
 
     \subsubsection{Degrees of diffusion}
+      \label{subsec:degrees-of-diffusion}
 
       As discussed in Section~\ref{sec:method}, I mainly rely on degree centralization as a quantitative measure for degrees of diffusion. I consider increasing diffusion to be reflected by decreasing degree centralization of the graph, thus lower values of centrality indicate higher degrees of diffusion. For example, the social graph users of a new word shows high centralization in early stages when its use is largely confined to one or few centralized clusters of speakers. When increasing diffusion extends the use of the term to new speakers and communities, the distribution of interactions in the speech community shows greater dispersion, which should be reflected by lower centrality scores for the social network of speakers.
 
@@ -760,58 +762,38 @@ most relevant and important model: S-curve model
 
       The graph for \ol{hyperlocal} in Figure~\ref{subfig:net_last_cases_hyperlocal} also shows a high degree of diffusion, but its use depends more strongly on a central community of users. This core sub-network of speakers forms several smaller clusters which can be linked to certain domains of interest such as journalism, business, and startups, in which the term is most popular. Notably, we observe a stronger role of individual user accounts such as influencers and marketing agencies, which is illustrated by bigger node sizes, which represent PageRank scores. Yet, as in the graph for \ol{upskill}, the majority of occurrences of \ol{hyperlocal} can be traced back to a high number of speakers from a diverse set of sub-communities, which can be interpreted as a sign of advanced diffusion.
 
-      The social graph for \ol{alt-left} shows very limited diffusion of the term. Almost all of its use can be traced back to one central community of users. This core community of users demonstrates typical characteristics of an echo chamber in that it is dense and features strong ties within the community, but is isolated and has few weak ties connecting it to the rest of the social graph. This observation is in line with the socio-political background of the term, which was coined and propagated by far-right activists in an attempt to unify political efforts (\enquote{\emph{Unite} the Right Rally}) and to distance themselves and protest against the political left. Inspecting the network reveals that the most influential node in the network is Donald Trump, whose use of the term was followed by a sharp increase in usage intensity in the course of the Charlottesville Rally in August 2017. The high degree of social fragmentation in the use of \ol{alt-left} is also reflected in the ration between the number of nodes and edges in its graph, which confirms that its community of speakers is much more closely connected than that of the remaining neologisms\footnote{The numbers of edges per node for all selected cases in descending order: \ol{alt-right}: \num{1.49}, \ol{alt-left}: \num{1.24}, \ol{solopreneur}: \num{0.83}, \ol{hyperlocal}: \num{0.62}, \ol{upskill}: \num{0.62}, \ol{poppygate}: \num{0.53}}. Notably, the same applies to the community of \ol{alt-right}, which occupies the opposite pole of the political spectrum, which seems in line with effects of political polarization in social networks observed in previous work~\parencite{Sunstein2018RepublicDivided}. Overall, \ol{alt-left} thus shows a low degree of diffusion. It has received notable popularity in certain parts of the speech community, but its use remains strongly limited to these communities.
+      The social graph for \ol{alt-left} shows very limited diffusion of the term. Almost all of its use can be traced back to one central community of users. This core community of users demonstrates typical characteristics of an echo chamber in that it is dense and features strong ties within the community, but is isolated and has few weak ties connecting it to the rest of the social graph. This observation is in line with the socio-political background of the term, which was coined and propagated by far-right activists in an attempt to unify political efforts (\enquote{\emph{Unite} the Right Rally}) and to distance themselves and protest against the political left. Inspecting the network reveals that the most influential node in the network is Donald Trump, whose use of the term was followed by a sharp increase in usage intensity in the course of the Charlottesville Rally in August 2017. The high degree of social fragmentation in the use of \ol{alt-left} is also reflected in the ration between the number of nodes and edges in its graph, which confirms that its community of speakers is much more closely connected than that of the remaining neologisms\footnote{The numbers of edges per node for all selected cases in descending order: \ol{alt-right}: \num{1.49}, \ol{alt-left}: \num{1.24}, \ol{solopreneur}: \num{0.83}, \ol{hyperlocal}: \num{0.62}, \ol{upskill}: \num{0.62}, \ol{poppygate}: \num{0.53}}. Notably, the same applies to the community of \ol{alt-right}, which occupies the opposite pole of the political spectrum, which seems in line with effects of political polarization in social networks observed in previous work~\parencite{Sunstein2018RepublicDivided}. Overall, \ol{alt-left} thus shows a low degree of diffusion. It has received significant popularity in certain parts of the speech community, but its use remains strongly limited to these communities.
 
-      Lastly, the social network of speakers using the term \ol{solopreneur} also shows a low degree of diffusion. A significant proportion of its use comes from a diverse set of individual speakers and micro-communities, which are placed at the fringes of the graph. However, a relatively well-connected, large core of speakers is responsible for the majority of its use in the corpus. Moreover, unlike the graph of \ol{alt-left}, this central community of users is in turn dominated by the high centrality of a small number of individual accounts. Inspecting the network of users reveals that these \enquote{influencers} are all either proud, self-proclaimed solopreneurs, or coaches and agencies that are using the term to promote their services to aspiring entrepreneurs. Overall, it thus seems that \ol{solopreneur} has shows a low degree of diffusion. It has achieved significant popularity within certain communities, but use in these communities is unevenly dispersed and depends strongly on a small number of individual users. The term does not show signs of advanced diffusion since its use does only extend beyond certain individual speakers and subcommunities to a very limited degree.
+      Lastly, the social network of speakers using the term \ol{solopreneur} also shows a low degree of diffusion. A significant proportion of its use comes from a diverse set of individual speakers and micro-communities, which are placed at the fringes of the graph. However, a relatively well-connected, large core of speakers is responsible for the majority of its use in the corpus. Moreover, unlike the example of \ol{alt-left}, this central community of users is in turn dominated by the high centrality of a small number of individual accounts. Inspecting the network of users reveals that these \enquote{influencers} are all either proud, self-proclaimed solopreneurs, or coaches and agencies that are using the term to promote their services to aspiring entrepreneurs. Overall, \ol{solopreneur} thus shows a low degree of diffusion. It has achieved significant popularity within certain communities, but its use in these communities is unevenly distributed and depends strongly on a small number of individual users. The term does not show signs of advanced diffusion since its use does only extend beyond certain individual speakers and subcommunities to a very limited degree.
 
-
-      summary: centralization seems to capture significant differences in the social structure of communities
+      In summary, the social networks of speakers reveal significant differences in the degrees of diffusion for the neologisms in the sample. While the centrality measures generally concur with the results obtained from the frequency-based analysis in Section~\ref{subsec:freq}, the network metrics and visualisation provide a more detailed picture of degrees of social diffusion and highlights certain cases, for which the social dynamics of diffusion diverge from what could be observed by relying on usage frequency alone.
 
 
     \subsubsection{Pathways of diffusion}
 
-      Briefly look into diachronic development
-
-      Figure~\ref{fig:cent_diac_cases} presents the pathways of diffusion for all selected neologisms, measured by degree centralization. The diverging trajectories of centralization over time indicate significant differences in the social dynamics of diffusion between neologisms.
+      The following section will extend the present analysis of degrees of diffusion to investigate the development of social diffusion over time. Figure~\ref{fig:cent_diac_cases} presents the degree centrality scores for the selected neolgisms over time. While the scores for Subset 4 represent the final degrees of diffusion for these terms as presented in Table~\ref{subtab:cent_last_cases} and which are based on the network graphs illustrated in Figure~\ref{fig:net_last_cases}, the previous subsets provide information about their diffusion history. The diverging trajectories of centralization over time indicate significant changes over time as well als differences in the pathways of diffusion between neologisms.
 
       \begin{figure}
-        \caption[Centralization over time for the selected neologisms]{Pathways of diffusion for the selected neologisms. The graph shows values for the \textsc{degree centrality} of the network graphs over time, each \textsc{subset} representing one of four equally-sized time slices for each neologism.}
+        \caption[Centralization over time for the selected neologisms]{Pathways of diffusion for the selected neologisms. The graph shows \textsc{degree centrality} scores over time, each \textsc{subset} representing one network graph which was generated for each of the four equally-sized time slices for each neologism in the sample.}
         \label{fig:cent_diac_cases}
         \centering
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_diac.pdf}
       \end{figure}
 
-      The two neologisms which show the highest degree of diffusion in the final time window are \ol{hyperlocal} and \ol{upskill}.
-
-        In the case of \ol{upskill}, we observe little change over time, its degree of diffusion seems advanced from throughout its entire observed lifespan.
-
-      limited
-        \ol{alt-left}
-        \ol{alt-right}
-      increasing diff
-        \ol{hyperlocal}
-      decreasing diff
-        \ol{solopreneur}
-        \ol{poppygate}
-      always low
-        \ol{upskill}
-
-
-      zooming in on \ol{hyperlocal}
-
-      Before I discuss these differences, I will present the full network graphs for all stages of diffusion for the prototypical case of \ol{hyperlocal} (\ref{fig:net_diac_hyperlocal}) to illustrate the social dynamics that are captured by the quantitative measure of degree centrality.
+      Before I discuss the results for all selected cases, I will present the full network graphs for all stages of diffusion of \ol{hyperlocal} (\ref{fig:net_diac_hyperlocal}) to illustrate the social dynamics underlying the quantitative measures.
 
       \begin{figure}
+        \captionsetup[subfigure]{justification=centering}
         \centering
         \begin{subfigure}{.45\linewidth}
-          \caption{\se{Subset 1}\\ (10~September,~2007 -- 8~July~2010; \num{12569}~nodes)}
+          \caption{\se{Subset 1}\\ 10~Sept,~2007 -- 8~Jul~2010;\\ nodes: \num{12569}, edges: \num{13742}}
           \label{subfig:net_diac_hyperlocal_one}
           \centering
           % \includegraphics[width=\linewidth]{example-image-a}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_one.pdf}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
-          \caption{\se{Subset 2}\\ (9~July,~2010 -- 5~May,~2013; \num{33450}~nodes)}
+          \caption{\se{Subset 2}\\ 9~Jul.,~2010 -- 5~May,~2013;\\ nodes: \num{33450}, edges: \num{34109}}
           \label{subfig:net_diac_hyperlocal_two}
           \centering
           % \includegraphics[width=\linewidth]{example-image-b}
@@ -819,14 +801,14 @@ most relevant and important model: S-curve model
         \end{subfigure}
 
         \begin{subfigure}{.45\linewidth}
-          \caption{\se{Subset 3}\\ (6~May,~2013 -- 3~March,~2016, \num{29353}~nodes)}
+          \caption{\se{Subset 3}\\ 6~May,~2013 -- 3~Mar.,~2016;\\ nodes: \num{29353}, edges: \num{22273}}
           \label{subfig:net_diac_hyperlocal_three}
           \centering
           % \includegraphics[width=\linewidth]{example-image-c}
           \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_three.pdf}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
-          \caption{\se{Subset 4}\\ (4~March,~2016 -- 31~December,~2018, \num{26548}~nodes)}
+          \caption{\se{Subset 4}\\ 4~Mar.,~2016 -- 31~Dec.,~2018;\\ nodes: \num{26548}, edges: \num{16576}}
           \label{subfig:net_diac_hyperlocal_four}
           \centering
           % \includegraphics[width=\linewidth]{example-image-a}
@@ -836,17 +818,27 @@ most relevant and important model: S-curve model
         \label{fig:net_diac_hyperlocal}
       \end{figure}
 
-      Figure~\ref{fig:net_diac_hyperlocal} illustrates that \ol{hyperlocal} shows increasing, successful diffusion over time.
+      Both the quantitative measure in Figure~\ref{fig:cent_diac_cases} and the network visualizations in Figure~\ref{fig:net_diac_hyperlocal} indicate that \ol{hyperlocal} shows increasing, successful diffusion over time.
 
-      Its use is relatively centralized in its earlier stages, which can be seen from the fact that most speakers who have used the term are closely connected in the social graph in the first quarter of its observed lifespan.
+      Its use is relatively centralized in its earlier stages, which can be seen from the fact that most speakers who have used the term are closely connected in the social graph in the first quarter of its observed lifespan. Inspecting the most influential speakers and sub-communities in the network (based on PageRank and Modularity scores) reveals that \ol{hyperlocal} is mainly used by a relatively small community of individual journalists in the first subset, who are early adopters in trying to target news to local audiences and use the term very frequently to label this new approach.
 
-      Inspecting the most influential speakers and sub-communities in the network -- based on PageRank and Modularity scores -- reveals that \ol{hyperlocal} is mainly used by a relatively small community of individual journalists in the first subset, who are early adopters in trying to target news to local audiences and use the term very frequently to label this new approach.
+      In Subset 2, the community of journalists grows and starts to include also bigger news outlets such as The Guardian. Additionally, a new community of practice adopts the term: several marketing agencies start promoting their services using the term \ol{hyperlocal}. At this point, the usage intensity of the term peaks, as was demonstrated in Figure~\ref{subfig:freq_temp_hyperlocal}. However, the social network data indicate that at this point its use is still mainly the product of high salience and usualization within a small number of dense sub-communities rather than a sign of advanced diffusion across bigger parts of the speech community.
 
-      In Subset 2, the community of journalists grows and starts to include also bigger news outlets such as The Guardian. Additionally, a new community of practice adopts the term: several marketing agencies start to brand their services as \ol{hyperlocal}. At this point, the usage intensity of the term peaks, as was demonstrated in Figure~\ref{subfig:freq_temp_hyperlocal}. However, the social network data indicate that its use is the product of high salience and usualization within a small number of dense sub-communities rather than a sign of advanced diffusion across bigger parts of the speech community.
+      The network graphs show that the social diffusion of \ol{hyperlocal} is only significantly advanced in the last two stages. While we see only few weak ties during the earlier stages of its use, the term now increasingly diffuses beyond its early adopters. Inspecting the network reveals that use of term becomes increasingly popular in the world of business and startups as well as the general public. The network metrics indicate that individual agents and sub-communities now play a far smaller role in its overall use. While \ol{hyperlocal} shows less usage intensity during these later stages, the network metrics indicate a high degree of diffusion for the second half of its observed lifespan. The timing of its addition to the OED in 2015 supports these observations. \ol{hyperlocal} has successfully spread beyond its subcommunities of early adopters, and it seems to be used by a diverse community of speakers from different backgrounds, which renders it a case of successful diffusion. This process of increasing diffusion for \ol{hyperlocal} is also reflected in its decreasing measures for graph centrality in Figure~\ref{fig:cent_diac_cases}.
 
-      The network graphs show that the social diffusion of \ol{hyperlocal} is only significantly advanced in the last two stages. While we see only few weak ties during the earlier stages of its use, the term now increasingly diffuses beyond its early adopters. Inspecting the network reveals that use of term becomes increasingly popular in the world of business and startups and the general public. The network metrics indicate that individual agents and sub-communities now play a far smaller role in its overall use. While it shows less usage intensity during the later stages, the network metrics indicate a high degree of diffusion for the second half of its observed lifespan. The timing of its addition to the OED in 2015 supports these observations. \ol{hyperlocal} seems to have successfully spread beyond its subcommunities of early adopters, and it seems to be used by a diverse community of speakers from different backgrounds, which renders it a case of successful diffusion.
+      The remaining cases in Figure~\ref{fig:cent_diac_cases} show different pathways of diffusion, both in terms of their overall degree of diffusion as well as their diachronic trajectory. Due to space limitations, I can only provide an overview of their development over time.
+      
+      Besides \ol{hyperlocal}, the second neologism which exhibits advanced diffusion is \ol{upskill}.
+      
+      In this case, however, we observe little change over time, its degree centrality has been very low since its early attestations in the corpus. This suggests for an organic diffusion process which was not triggered or significantly shaped by the involvement of a small group of influential speakers alone. The term \ol{upskill} has been used by a wide variety of speakers throughout its observed lifespan and shows the highest degree of diffusion among the selected cases.
 
-      This process of social diffusion for \ol{hyperlocal} is also reflected in its decreasing measures for graph centrality in Figure~\ref{fig:cent_diac_cases}.
+      By contrast, \ol{solopreneur} and \ol{poppygate} show a negative trend in terms of diffusion. The term \ol{solopreneur} features low degrees of diffusion in its earlier stages, but its use becomes more centralized over time. This is in contrast with its usage intensity over time (Figure~\ref{subfig:freq_temp_solopreneur}): while its earlier period of moderate use goes back to a decentralized community of users, its increase in usage frequency goes along with a narrowing of its user base. As the network analysis in Figure~\ref{subfig:net_last_cases_solopreneur} demonstrated, it becomes increasingly limited to a relatively small community which shares interest in a small professional niche.   
+
+      The case of \ol{poppygate} exhibits a similar trend towards increasing centralization. Its temporal dynamics show a pattern or recurrent topical usage (Figure~\ref{subfig:freq_temp_poppygate}). The social networks of \ol{poppygate} suggest that while term was used by a broader audience in its earlier stages, its use in the more recent past goes back to certain communities of speakers for which a specific topical event emerges as a salient occasion to use the term. For example, its most recent spike in usage intensity in November 2016 was caused by a controversy about whether Fifa was right to take disciplinary action against the national teams of England and Scotland after their players wore poppy armbands during a football match between the two nations on 11 November. Protests by the football community caused a spike in usage intensity for \ol{poppygate}, but did not trigger its diffusion beyond this community.
+
+      Lastly, \ol{alt-right} and \ol{alt-left} show limited degrees of diffusion over their lifespan. While the centrality of \ol{alt-right} remains fairly stable over time, \ol{alt-left} shows increasing centralization. Both terms are strongly tied to the political discourse surrounding the Unite the Right Rally in the United Stated and consequently exhibit a sharp increase in usage intensity in the course of the event in August 2017 (Figure~\ref{fig:freq-abs}). This increase in use is, however, reflected by increased centrality scores for both lexemes in Figure~\ref{fig:cent_diac_cases}. This period of highly intense use is thus characterised by relatively smaller rather than larger degrees of diffusion for both lexemes. While the use of \ol{alt-right} reverts to more decentralized use afterwards, the use of \ol{alt-left} remains at this high level of centrality. This seems to confirm the echo chamber effect for \ol{alt-left} discussed in Section~\ref{subsec:degrees-of-diffusion}: the term has become conventional and popular among a community of like-minded individuals, but its use remains limited to this community. Given the political orientations involved, it seems plausible that the majority of Twitter users do not want to be associated with this term nor its community of users.  
+
+      In summary, studying the temporal dynamics of social networks highlights changes in the use of neologisms over time and reveals differenct pathways of diffusion in the sample.
 
 
   \subsection{Networks vs. frequency}
