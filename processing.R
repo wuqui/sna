@@ -28,7 +28,7 @@ diff_start_limit <- 3
 export_edges <- FALSE
 
 
-for (lemma in cases) {
+for (lemma in c('alt-right')) {
   
 print(paste0(match(c(lemma), lemmas), ' / ', lemma))
 skip <- FALSE
