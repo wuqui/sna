@@ -335,7 +335,7 @@ most relevant and important model: S-curve model
 \section{Results}
   \label{sec:results}
 
-  \subsection{Usage frequency as an indicator of diffusion}
+  \subsection{Usage frequency and diffusion}
     \label{subsec:freq}
 
     \subsubsection{Total usage frequency}
@@ -644,7 +644,7 @@ most relevant and important model: S-curve model
         The frequency-based analysis of the three neologisms discussed above demonstrates that usage frequency counts, particularly when combined with an analysis of their underlying temporal dynamics, can help to approximate the spread and success of neologisms to a certain degree. However, the results also point to substantial limitations of frequency-based approaches to studying diffusion. The present data demonstrate high degrees of variation in the degrees of diffusion of neologims that are similar in terms of their frequency of occurrence in the corpus. Such discrepancies could partly be resolved by in-depth analyses of temporal usage profiles in combination with insights from corpus data and extralinguistic events. These in-depth analyses of diffusion are not possible by a systematic frequency-based analysis alone, however, and they cannot be extended for large-scale analyses of bigger samples of neologisms. It hence remains unknown to which degree frequency-based metrics adequately capture pathways and degrees of diffusion. In the following section, I will address the limitations of the frequency-based approach by using Social Network Analysis to get a more differentiated view on the sociolinguistic aspects of diffusion.
 
 
-  \subsection{Social Network Analysis}
+  \subsection{Social networks of diffusion}
     \label{subsec:sna}
 
     As discussed in Section~\ref{subsec:ec-model}, from a theoretical, sociolinguistic perspective, the degree of diffusion of lexical innovations depends on the degree to which new words become conventional among new speakers and communities of speakers. Frequency-based analyses, as presented in the previous section, can by definition only provide information about the distribution of occurrences of neologisms in the corpus, they cannot provide direct evidence about the size and composition of the community of speakers who have produced the observed attestations.
@@ -663,7 +663,7 @@ most relevant and important model: S-curve model
       Table~\ref{tab:cent_last_cases-sample} reports the degree centrality scores for the selected neologisms and for six lexemes with the highest and lowest scores in the sample.
 
       \begin{table}
-        \caption[Degree centrality scores for the selected neologisms and for the full sample]{Degree centrality scores (\textsc{cent}) for the selected neologisms and six lexemes each for the highest and lowest scores in the sample; the scores are based on the last subset for each neologisms in the corpus.}
+        \caption[Degree centrality scores]{Degree centrality scores (\textsc{cent}) for the selected neologisms and six lexemes each for the highest and lowest scores in the sample; the scores are based on the last subset for each neologisms in the corpus.}
         \label{tab:cent_last_cases-sample}
         \begin{subtable}{.3\linewidth}
           \centering
@@ -841,54 +841,64 @@ most relevant and important model: S-curve model
       In summary, studying the temporal dynamics of social networks highlights changes in the use of neologisms over time and reveals differenct pathways of diffusion in the sample.
 
 
-  \subsection{Networks vs. frequency}
+  \subsection{Evaluating frequency and networks}
     \label{subsec:nets-vs-freq}
 
-    \subsubsection{Correlations}
-      \label{subsubsec:corr}
+    Having applied both frequency-based and social network based analysis to assess the diffusion of the present sample of neologism, this section will evaluate and compare the results obtained from both approaches. Due to the prevalence of using frequency as a measure for degrees of diffusion in previous work, I will rely on usage frequency as a base of comparison for evaluating the social network approach.\footnote{It should be noted that a strict evaluation of both approaches is impossible without external data about the true degrees of diffusion for all neologisms. While such a gold standard for evaluation is inconceivable in the present context, it would be desirable to use external data sources such as questionnaires, dictionary data or web corpus data for a more rigorous validation of the present approach. This will have to be left for future work.}
 
-      \begin{table}
+    Table~\ref{tab:correlations} reports the correlations between the degree centrality scores which were used in the Social Network Analysis and three frequency-based variables of diffusion. Centrality shows significant positive correlations with total usage frequency (\textsc{frequency}) and \textsc{age}, and a negative correlation with \textsc{volatility}.
+
+    \begin{table}
+      \centering
+      \caption[Correlation matrix for \textsc{centrality}]{Correlations of \enquote{degree centralization} (\textsc{centrality}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{volatility}), and observed lifespan in the corpus (\textsc{age}) for the full sample of neologisms ($n=100$) using Spearman's correlation coefficient~\parencite{Spearman1961ProofMeasurement}.}
+      \label{tab:correlations}
+      \begin{tabular}{>{\scshape}l r r}
+        \toprule
+                    & {$\rho$}    & p               \\
+        \midrule
+        frequency  & \num{-0.40} & $<$ \num{0.001} \\
+        age        & \num{-0.29} & \num{0.004}     \\
+        volatility & \num{0.29}  & \num{0.003}     \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+
+    The positive correlation between \textsc{centrality} and \textsc{frequency} confirms earlier observations in Sections~\ref{subsec:sna} which indicated significant overlap for the neologisms with the highest and lowest scores for frequency and degree centrality. For a closer analysis of the relationship between \textsc{frequency} and \textsc{centrality}, Figure~\ref{fig:cent-vs-freq-scatterplot} presents scatterplots that visualise the relationship between both variables for the full sample and for the selected cases.
+
+    \begin{figure}
+      \caption[Scatterplot of \textsc{usage frequency} and \textsc{centrality}]{Relationship between total \textsc{usage frequency} and degree centrality (\textsc{centralization}) for the full sample of neologisms ($n = 100$) and the selected cases.}
+      \label{fig:cent-vs-freq-scatterplot}
+      \centering
+      \begin{subfigure}{.49\linewidth}
+        \caption{Full sample.}
         \centering
-        \caption[Correlation matrix for \textsc{centrality}]{Correlations of \textsc{centrality} (\enquote{degree centralization}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{variation in frequency}), and observed lifespan (\textsc{lifespan}) across the full sample of neologisms ($n=100$); reporting correlation coefficients and \emph{p}-values for Spearman's $\rho$~\parencite{Spearman1961ProofMeasurement} and Kendall's $\tau$~\parencite{Kendall1938NewMeasure}.}
-        \label{tab:correlations}
-        \begin{tabular}{
-          >{\scshape}l
-          ||
-          S[table-format=2.2, round-mode=places, round-precision=2]
-          S[table-format=1.5, round-mode=places, round-precision=5]
-          |
-          S[table-format=2.2, round-mode=places, round-precision=2]
-          S[table-format=1.5, round-mode=places, round-precision=5]
-          }
-          \toprule
-          & \multicolumn{2}{c}{Spearman} & \multicolumn{2}{c}{Kendall} \\
-          & $\rho$                       & p & $\tau$ & p              \\
-          \midrule
-          usage frequency        & -0.3974644 & 0.00005338 & -0.2743764 & 0.00005727 \\
-          lifespan               & -0.2894037 & 0.003668   & -0.2029075 & 0.002932   \\
-          variation in frequency & 0.2922202  & 0.003449   & 0.1956298  & 0.004118   \\
-          \bottomrule
-        \end{tabular}
-      \end{table}
-
-    \subsubsection{Plotting frequency vs. centrality}
-      \label{subsubsec:discrepancies}
-
-      \begin{figure}
-        \caption{Relationship between total usage frequency (\textsc{freq}) vs. degree centrality (\textsc{cent}).}
-        \label{fig:cent-vs-freq-scatterplot}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
+      \end{subfigure}
+      \begin{subfigure}{.49\linewidth}
+        \caption{Selected cases.}
         \centering
-        \begin{subfigure}{.45\linewidth}
-          \caption{Full sample.}
-          \centering
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
-        \end{subfigure}
-        \begin{subfigure}{.45\linewidth}
-          \caption{Zooming in on the selected neologisms.}
-          \centering
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
-        \end{subfigure}
-      \end{figure}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
+      \end{subfigure}
+    \end{figure}
+    
+    The 
+
+    SNA is confirmed by frequency approach
+      correlations
+        are significant
+      plots
+        overall trend
+        
+    
+
+
+
+        frequency
+        lifespan
+        volatility
+      
+      
+
 
     \subsubsection{Discrepancies}
 
