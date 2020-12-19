@@ -234,6 +234,20 @@ df_comp %>%
 ```
 
 
+#### Nodes and edges
+
+```{r}
+df_comp %>% 
+  filter(
+    SUBSET!='full', 
+    LEMMA=='hyperlocal'
+    ) %>% 
+  mutate(EDGES_NODE = EDGES / NODES) %>%
+  select(SUBSET, NODES, EDGES, EDGES_NODE) %>%
+  arrange((SUBSET))
+```
+
+
 ### Overall
 
 ```{r}
@@ -259,7 +273,9 @@ df_comp %>%
   filter(
     SUBSET=='four', 
     LEMMA %in% cases) %>% 
-  select(LEMMA, NODES, EDGES)
+  mutate(EDGES_NODE = EDGES / NODES) %>%
+  select(LEMMA, NODES, EDGES, EDGES_NODE) %>%
+  arrange(desc(EDGES_NODE))
 ```
 
 # Full sample
