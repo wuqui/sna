@@ -252,6 +252,16 @@ df_comp %>%
 ```
 
 
+### Nodes and edges for Subset 4
+
+```{r}
+df_comp %>% 
+  filter(
+    SUBSET=='four', 
+    LEMMA %in% cases) %>% 
+  select(LEMMA, NODES, EDGES)
+```
+
 # Full sample
 
 # Number of lexemes
@@ -442,8 +452,8 @@ df_comp %>%
 df_comp %>%
   select(LEMMA, SUBSET, USES_TOT, CENT_DEGREE, CENT_EV, DENSITY) %>%
   filter(
-    SUBSET == 'full'
-    # USES >= 2
+    SUBSET == 'four',
+    LEMMA %in% cases
     ) %>%
   arrange(
     (CENT_DEGREE)
