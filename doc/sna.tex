@@ -58,6 +58,8 @@
 
   \begin{abstract}
 
+    \marginpar{outdated}
+
     Societies continually evolve and speakers coin and use new words to talk about innovative products and practices. While most lexical innovations fail to catch on, others spread successfully and become part of the lexicon. This paper investigates the diffusion of English neologisms on Twitter. Previous work on lexical innovation has almost exclusively relied on usage frequency counts for measuring diffusion. Taking frequency as a baseline, I use social network analysis to zoom in on the sociolinguistic dynamics of diffusion.
 
     My results show that frequency counts lend themselves to approximate overall degrees of diffusion with varying success. While absolute counts can be misleading, incorporating temporal dynamics of use provides a better picture of diffusion. However, frequency-based information alone fail to capture important sociolinguistic characteristics of diffusion. Social network information are shown to add valuable information about whether new words are known and used by an increasing number of individuals and communities of speakers. Firstly, I distinguish different pathways of diffusion depending on whether and to which degree new words show increasing vs. decreasing centralized use over time. Secondly, I show that social network information allow for a more fine-grained assessment of degrees of diffusion, for example when new words are used with increasing frequency when use their remains limited to certain parts of the speech community. Lastly, I compare the results based on usage frequency and on social network analysis. Besides notable discrepancies, we find a significant correlation between both types of information, which serves to cross-validate both approaches.
@@ -285,7 +287,7 @@ most relevant and important model: S-curve model
   \subsection{Neologism sample}
     \label{subsec:neo-sample}
 
-  I base my empirical study on a selection of 100 neologisms and study their use on Twitter from the start of the platform in 2006 to the end of 2018.
+  I base my empirical study on a selection of 99 neologisms and study their use on Twitter from the start of the platform in 2006 to the end of 2018.
 
   The lexemes were selected to cover a broad spectrum of lexical innovation. Previous work by \textcite[115--147]{Kerremans2015WebNew} has identified four main clusters of neologisms on the conventionalization continuum: `non-conventionalization', `topicality or transitional conventionalization', `recurrent semi-conventionalization' and `advanced conventionalization`. My sample was designed to cover these categories and largely contains neologisms taken from the NeoCrawler, which uses dictionary-matching to retrieve a semi-automatic, bottom-up selection of recent neologisms on the web and on Twitter~\parencite{Kerremans2019UsingDatamining}. I have additionally included several lexemes that were statistically identified to have been increasing in frequency on Twitter in recent years by \textcite{Grieve2016AnalyzingLexical}.
 
@@ -303,12 +305,12 @@ most relevant and important model: S-curve model
     \todo{retrospective, longitudinal, social network information, scope of the paper}
     % limited to Twitter, yet combination of frequency and SNA more robust
 
-    The data for this study were collected using the Python library \emph{twint}, which emulates Twitter's Advanced Search Function. For each word in the sample, I performed a search query to retrospectively retrieve all tweets found in Twitter's search index. Due to the large volume of more frequent lexemes, I limited the sample to contain only candidates for which I could collect all entries found in Twitter's index. The combined dataset for all 100 lexemes in the sample contains 29,912,050 tweets. The first tweet dates from 5 May, 2006 and involves the neologism \ol{tweeter}, the last tweet in the collection is from 31 December, 2018, and includes \ol{dotard}.
+    The data for this study were collected using the Python library \emph{twint}, which emulates Twitter's Advanced Search Function. For each word in the sample, I performed a search query to retrospectively retrieve all tweets found in Twitter's search index. Due to the large volume of more frequent lexemes, I limited the sample to contain only candidates for which I could collect all entries found in Twitter's index. The combined dataset for all 99 lexemes in the sample contains 29,912,050 tweets. The first tweet dates from 5 May, 2006 and involves the neologism \ol{tweeter}, the last tweet in the collection is from 31 December, 2018, and includes \ol{dotard}.
 
 \section{Method}
   \label{sec:method}
 
-  I processed the dataset to remove duplicate tweets, tweets that do not contain tokens of the target neologism in the tweet text, and all instances where tokens only occurred as parts of usernames.\footnote{The post-processing as well as all quantitative analyses were performed in R~\parencite{RCoreTeam2018LanguageEnvironment}, and the source code is available on GitHub: \url{https://github.com/wuqui/sna}} Hashtag uses were included in the analysis. Retweets were excluded, since \emph{twint} does not consistently provide metadata which would allow to include retweeting activity in the social network analysis. The resulting dataset contains about 30 Mio. tweets which each contain at least one instance of the 100 neologism under investigation.
+  I processed the dataset to remove duplicate tweets, tweets that do not contain tokens of the target neologism in the tweet text, and all instances where tokens only occurred as parts of usernames.\footnote{The post-processing as well as all quantitative analyses were performed in R~\parencite{RCoreTeam2018LanguageEnvironment}, and the source code is available on GitHub: \url{https://github.com/wuqui/sna}} Hashtag uses were included in the analysis. Retweets were excluded, since \emph{twint} does not consistently provide metadata which would allow to include retweeting activity in the social network analysis. The resulting dataset contains about 30 Mio. tweets which each contain at least one instance of the 99 neologism under investigation.
 
   To investigate the diffusion of these lexemes in terms of usage intensity \parencite{Stefanowitsch2017CorpusbasedPerspective}, I compared time-series data based on the neologisms' frequency of occurrence over time. I binned the number of tweets per lexeme in monthly intervals to weaken uninterpretable effects of daily fluctuations in use, and to achieve a reasonable resolution to compare the use of all lexemes, which differ regarding their overall lifespan. I visualize the resulting time series as presented in Figure XXX, adding the \emph{loess} function to indicate the smoothed trajectory of usage frequency over time.
 
@@ -540,6 +542,7 @@ most relevant and important model: S-curve model
 
 
     \subsubsection{Coefficient of variation}
+      \label{subsubsec:coef-var}
 
       To quantify the degree to which neologisms are used with consistent frequency over time, I calculate and compare the coefficients of variation for each neologism in the sample. This metric captures the overall variation in usage frequency of words over their lifespan relative to their average frequency of occurrence in the corpus. Table~\ref{tab:coef-var} presents the coefficients of variation for the selected neologisms, as well as for the top and bottom six neologisms that show the highest and lowest degrees of variation in the sample.
 
@@ -841,34 +844,39 @@ most relevant and important model: S-curve model
       In summary, studying the temporal dynamics of social networks highlights changes in the use of neologisms over time and reveals differenct pathways of diffusion in the sample.
 
 
-  \subsection{Evaluating frequency and networks}
+  \subsection{Evaluating the frequency and network approaches}
     \label{subsec:nets-vs-freq}
 
-    Having applied both frequency-based and social network based analysis to assess the diffusion of the present sample of neologism, this section will evaluate and compare the results obtained from both approaches. Due to the prevalence of using frequency as a measure for degrees of diffusion in previous work, I will rely on usage frequency as a base of comparison for evaluating the social network approach.\footnote{It should be noted that a strict evaluation of both approaches is in principle impossible without external data about the true degrees of diffusion for the neologisms under investigation. While such a gold standard for evaluation is inconceivable in the present context, it would be desirable to use additional data sources such as questionnaires, dictionaries or web corpus data for a more rigorous validation of the present approach. This will have to be left for future work.}
+    Having applied the frequency-based and the social network approach to assess the diffusion of the present sample of neologism, this section will evaluate and compare the results obtained from both approaches. Due to the prevalence of using frequency as an indicator of diffusion in previous work, I will largely rely on usage frequency as a base of comparison for evaluating the social network approach.\footnote{It should be noted that a strict evaluation of both approaches is in principle impossible without external data about the true degrees of diffusion for the neologisms under investigation. While such a gold standard for evaluation is inconceivable in the present context, it would be desirable to use additional data sources such as questionnaires, dictionaries or web corpus data for a more rigorous validation of the present approach. This will have to be left for future work.}
 
-      \subsubsection{\textsc{frequency}}
-
-    Table~\ref{tab:correlations} reports the correlations between the degree centrality scores which were used in the social network analysis and three frequency-based variables of diffusion. Centrality shows significant positive correlations with total usage frequency (\textsc{frequency}) and \textsc{age}, and a negative correlation with \textsc{volatility}.
+    A first evaluation of the social network approach to diffusion relies on the correlations of degree centrality with the total usage frequency of neologisms, with their volatility, and with their age as observed in the corpus. Table~\ref{tab:correlations} reports the correlation coefficients for these variables.
 
     \begin{table}
       \centering
-      \caption[Correlation matrix for \textsc{centrality}]{Correlations of \enquote{degree centralization} (\textsc{centrality}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{volatility}), and observed lifespan in the corpus (\textsc{age}) for the full sample of neologisms ($n=100$) using Spearman's correlation coefficient~\parencite{Spearman1961ProofMeasurement}.}
+      \caption[Correlation matrix for \textsc{centrality}]{Correlations of \enquote{degree centralization} (\textsc{centrality}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{volatility}), and observed lifespan in the corpus (\textsc{age}) for the full sample of neologisms ($n=99$) using Spearman's correlation coefficient~\parencite{Spearman1961ProofMeasurement}.\protect\footnotemark{}}
       \label{tab:correlations}
       \begin{tabular}{>{\scshape}l r r}
         \toprule
-                    & {$\rho$}    & p               \\
+                    & {$\rho$}    & P               \\
         \midrule
-        frequency  & \num{-0.40} & $<$ \num{0.001} \\
+        frequency  & \num{-0.44} & $<$ \num{0.001} \\
         age        & \num{-0.29} & \num{0.004}     \\
-        volatility & \num{0.29}  & \num{0.003}     \\
+        volatility & \num{0.28}  & $<$ \num{0.001} \\
         \bottomrule
       \end{tabular}
     \end{table}
+    \footnotetext{All variables entering the correlation analysis were log-transformed and centred.}
 
-    The positive correlation between \textsc{centrality} and \textsc{frequency} confirms earlier observations in Sections~\ref{subsec:sna} which indicated significant overlap for the neologisms with the highest and lowest scores for frequency and degree centrality. For a closer analysis of the relationship between frequency and centrality, Figure~\ref{fig:cent-vs-freq} presents scatterplots visualising the relationship between both variables for the full sample and for the selected cases.
+    Firstly, centrality shows a significant negative correlation with \textsc{frequency}. This confirms earlier observations in Section~\ref{subsec:sna} which indicated an inverse trend between total usage frequency and centrality. Neologisms whose use is not limited to a centralized network of speakers are on average more frequent. The fact these two central measures for diffusion correlate substantially can be seen as a cross-validation of both approaches. While external data sources would be needed for a more rigorous evaluation, this suggests that both metrics capture important aspects of diffusion.
+
+    Secondly, the \textsc{age} of neologisms in the sample shows a significant negative correlation with centrality. As expected, the use of more recent neologisms tends to still go back to more centralized communities, while neologisms with a longer history of use tend to show more advanced diffusion. Unlike frequency counts, which are directly influenced by the temporal usage history of neologisms, the centrality measure is blind to this information. The fact that it still captures the expected trend thus supports its validity.  
+
+    Lastly, \textsc{volatility} shows a significant positive correlation with centrality. Again, this results is in line with expectations. Neologisms such as \ol{poppygate}, whose use features substantial temporal variations tend to show lower degrees of diffusion than neologisms such as \ol{hyperlocal}, whose use is more consistent and less dependent on the topical salience of extralinguistic events. 
+
+    For a closer analysis of the interactions between these variables beyond correlation coefficients, Figure~\ref{fig:cent-vs-freq} presents all neologisms according to their usage frequency and centrality scores. While Figure~\ref{subfig:cent-vs-freq_sample} covers the full sample, Figure~\ref{subfig:cent-vs-freq_cases} is based on the same data, but zooms in on the frequency range which covers four of the selected cases to provide a clearer view of this section of the graph. 
 
     \begin{figure}
-      \caption[Scatterplot of \textsc{usage frequency} and \textsc{centrality}]{Relationship between total \textsc{usage frequency} and degree centrality (\textsc{centralization}) for the full sample of neologisms ($n = 100$) and the selected cases.}
+      \caption[Scatterplot of \textsc{usage frequency} and \textsc{centrality}]{Relationship between total \textsc{usage frequency} and degree centrality (\textsc{centralization}) for the full sample of neologisms ($n=99$) and the selected cases.}
       \label{fig:cent-vs-freq}
       \centering
       \begin{subfigure}{.49\linewidth}
@@ -885,152 +893,91 @@ most relevant and important model: S-curve model
       \end{subfigure}
     \end{figure}
 
-    Figure~\ref{subfig:cent-vs-freq_sample} indicates a broad spectrum of variation for the relationship between centrality and frequency. Overall, the positive correlation can be clearly identified in the graph: neologisms such as \ol{fleek} show high frequency and low centrality scores and would thus be assigned a high degree of diffusion by both approaches, and the same applies to low-frequency candidates such as \ol{microflat}. Among the considerable degree of variation in the relationship between the two variables, it is to be noted that the observed deviations are almost exclusively found towards the right of the diagonal, i.e. for cases where centrality would predict lower degrees of diffusion than frequency. For examples, while \ol{fleek} and \ol{bromance} are assigned similar scores in terms of their usage frequency, their centrality scores suggest a much lower degree of diffusion for the latter neologism. Similar to cases like \ol{solopreneur} and \ol{alt-left}, centrality thus provides diverging results for cases in which the social network structure suggests that usage intensity overestimates the degree of diffusion of a target neologism since its observed number of uses stems from a disproportionally smaller number of speakers and subcommunities.
+    The general trend in the plot confirms the inverse relation captured by the negative correlation coefficient between centrality and frequency. Neologisms with high frequency such as \ol{fleek} have low centrality scores and would thus be assigned a high degree of diffusion by both approaches. The inverse applies to candidates from the lower end of the frequency spectrum such as \ol{microflat}.
 
-    To study the relationship between frequency and centrality in more detail, Figure~\ref{subfig:cent-vs-freq_cases} zooms in on this interplay at the range of the selected neologisms.
+    However, Figure~\ref{subfig:cent-vs-freq_sample} also shows substantial variation between frequency and centality scores. Notably, the observed deviations are almost exclusively found towards the right of the diagonal trend line, i.e. for cases where centrality would predict lower degrees of diffusion than frequency. For examples, while \ol{fleek} and \ol{bromance} are assigned similar scores in terms of their usage frequency, their centrality scores suggest a much lower degree of diffusion for the latter neologism. Similar to cases like \ol{solopreneur} and \ol{alt-left}, which were discussed in detail in Section~\ref{subsec:degrees-of-diffusion}, centrality thus seems to provide diverging results for cases in which the social network structure suggests that the observed usage intensity overestimates the degree of diffusion of a target neologism since its observed uses go back to a disproportionally smaller number of speakers and subcommunities.
 
+    Analysing these deviations highlights at least two groups neologisms, for which total usage frequency and social network structure seem to diverge in principled ways.
 
-      \subsubsection{\textsc{age}}
-      \subsubsection{\textsc{volatility}}
-    SNA is confirmed by frequency approach
-      correlations
-        are significant
-      plots
-        overall trend
-        
+    A first group contains neologisms which show high degrees of volatility in their frequency of use. As shown above, centrality is significantly correlated with volatility and it seems that total frequency counts overestimate degrees of diffusion for these cases. Figure~\ref{fig:cent-vs-freq} supports this hypothesis in that it highlights many examples that match this pattern. Aside from the selected case \ol{poppygate}, the neologisms \ol{birther}, \ol{covfefe}, \ol{Pizzagate}, \ol{alt-left}, and \ol{Kushnergate} all show high degrees of volatitily, and for all these cases centrality assumes lower degrees of diffusion as predicted by usage frequency. 
+
+    ...
+
+    While \ol{hyperlocal} and \ol{solopreneur} would be assigned similar degrees of diffusion according to total usage frequency, the latter term is assumed to have spread much less successfully according to its centrality score. According to the network analysis \ol{hyperlocal} shows similar degrees of diffusion as more generic, established words such as \ol{twitterer} and \ol{upcycling}, while \ol{solopreneur} is placed it in the neighbourhood of other community-specific, politically loaded terms such as \ol{Pizzagate} and \ol{covfefe}. The political case studies \ol{alt-right} and \ol{alt-left} score similarly low with regard to degree centrality. While \ol{alt-right} is the most frequent neologism in Figure~\ref{subfig:cent-vs-freq_cases}, the network metrics suggest that its total usage frequency overestimates the degree to which it has successfully diffused in the speech community at large.
+
+    Political communities
+
+      \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
+      
+    \subsubsection{Predicting success} 
+
+      centrality scores in Subset 1 show significant correlations with total usage frequency
+      social structure in earlier phases of diffusion seems to have predictive power for determining the success of neologisms
     
-
-
-
-        frequency
-        lifespan
-        volatility
-      
-      
-
-
-    \subsubsection{Discrepancies}
-
-      freq.
-        overestimate diffusion
-          topical
-          propaganda: \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
-          Brexit terms: \ol{Brexiteer}, \ol{Brexiter}, \ol{Brexit}
-          nerds
-          technical
-
-        underestimates diffusion
-          infrequent
-          topical
 
 \section{Discussion}
   \label{sec:discussion}
 
-  %subsection{Summary}
-
-    \begin{qitem}
-      # I have investigated the diffusion of new words on Twitter.
-      # I have focused on diffusion as regards the spread to new speakers and communities.
-      # I have used frequency as a baseline and have gone beyond frequency to zoom in on the sociolinguistic dynamics of diffusion.
-      # I have shown that Social Network Analysis can complement frequency measures
-    \end{qitem}
-
-  %subsection{Discussion}
-
-    frequency can be a reasonable baseline
-    more differentiated view possible through SNA
+    total frequency can be a reasonable baseline
+      but temporal dynamics are important
+        trend
+        age
+        volatility: highly fluctuating communicative need (vs. \ol{going to}-future); thus fluctuating \enquote{semantic carrying capacity}~\parencite{Grieve2018MappingLexical} 
+    
+    more differentiated view of diffusion possible through SNA
     
       case studies
         equally frequent words show different
-          temporal patterns
-          pathways of diffusion
           degrees of diffusion
+          pathways of diffusion
 
-      sample: this holds for the full sample
+      full sample: this also holds true for the full sample
+
+      S-curve model
+        role of early adopters / network structure
+        influencers
+        weak ties
 
     particularly important for \emph{lexical} \emph{innovations} due to the nature of the process
         bound to cultural conceptual salience (variable \enquote{semantic carrying capacity}~\parencite{Nini2017ApplicationGrowth})
-        social indexicality
+        coined consciously within tight-knit communities (c.f. grammatical innovation)
+        strong social indexicality
         open nature of the lexicon
 
     but also for other linguistic domains
 
-    should be used more in (computational) sociolinguistics
+    great potential for (computational) sociolinguistics, sociolinguists should \enquote{upskill}
+      extend sociolinguistic research (on geographical variation; desideratum in \cite{Grieve2019MappingLexical})
 
-    \begin{qitem}
-      # freq. empirically proves to be a pretty good indicator
-
-      # drawbacks of cumulated, total counts: temporal dynamics important
-
-      # but rough approximation due to inferences
-        ## active vs. passive use
-        ## number of speakers
-        ## groups of speakers
-
-      # temporal dynamics important
-        ## time window: age, lifespan
-          ### starting point: late: very new words, would be under-represented by total counts
-          ### end point: words might have already grown out of use (e.g. \ol{millenium bug}) > over-represented by total counts
-          ### length: quick vs. slow and steady increase: topicality
-
-        ## volatility: high topicality / highly fluctuating communicative need (cf. \ol{going to}-future); thus fluctuating ``semantic carrying capacity''~\parencite{Grieve2018MappingLexical}
-
-      # dynamics in usage intensity might reflect social dynamics
-        ## s. S-curve model: early adopters etc.
-        ## e.g.: fast rise due to rapid spread in certain communities
-        ## hard to infer from usage frequency > SNA needed
-
-      # social network dynamics important
-        ## esp. w.r.t. new words: often community-specific; are coined within tight-knit comminuties and (cf. grammatical change) and have socio-indexical function (e.g. youth language)
-      # cross-validation between
-      # cross-checking other data sources (NOW corpus) shows validity
-      # social network analysis can be an important tool for sociolinguistics
-        ## extend sociolinguistic research (on geographical variation; desideratum in \cite{Grieve2019MappingLexical})
-    \end{qitem}
 
   %subsection{Directions for future work}
 
     \begin{qitem}
-      # cross-validation of frequency and SNA information
+      # cross-validation of frequency and SNA information with other data sources
         ## systematic comparison with web data, e.g. NOW corpus~\parencite{Davies2013CorpusNews}; early attempts:~\cite{Wurschinger2016UsingWeb}
         ## questionnaires; early work:~\cite{Kerremans2015WebNew}
-      # investigation on diffusion across
+        ## dictionaries (e.g. Urban Dictionary)
+      # investigate on diffusion across
         # contexts: different web registers~\parencite{Biber2016RegisterVariation}
-        # cotexts: use word embeddings to study
+        # cotexts: study differences in use between communities
           ## semantic innovation, meaning change
-          ## and variation and change between communities~\parencite{Tredici2019YouShall} 
+          ## variation and change between communities: \cite{Tredici2019YouShall}, \cite{Schmid2020BattlingSemantica}
+      # predict the success of lexical innovations
     \end{qitem}
 
 \section{Conclusion}
   \label{sec:conclusion}
 
-  Summary
-
-    \begin{qitem}
-      # I have investigated the diffusion of new words on Twitter.
-      # I have focused on diffusion as regards the spread to new speakers and communities.
-      # I have used frequency as a baseline and have gone beyond frequency to zoom in on the sociolinguistic dynamics of diffusion.
-      # I have shown that Social Network Analysis can complement frequency measures
-    \end{qitem}
-
-  Importance of/for computational sociolinguistics
-
-    \begin{qitem}
-      # new data like Twitter
-      # new methods like SNA, simulations, AI for embeddings
-      # progress: ideas, scholars and progress will ``go viral''
-    \end{qitem}
-
 %section{Bibliography}
 
-\printbibliography
+  \printbibliography
 
-\section*{Acknowledgements}
+% \section*{Acknowledgements}
 
-\begin{itemize}
-  \item UI: Max, Fabi
-  \item SNA: Kauermann group
-  \item Hans-Jörg
-\end{itemize}
+%   \begin{itemize}
+%     \item UI: Max, Fabi
+%     \item SNA: Kauermann group
+%     \item Hans-Jörg
+%   \end{itemize}
 
 \end{document}
