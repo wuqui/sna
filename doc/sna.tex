@@ -844,9 +844,11 @@ most relevant and important model: S-curve model
   \subsection{Evaluating frequency and networks}
     \label{subsec:nets-vs-freq}
 
-    Having applied both frequency-based and social network based analysis to assess the diffusion of the present sample of neologism, this section will evaluate and compare the results obtained from both approaches. Due to the prevalence of using frequency as a measure for degrees of diffusion in previous work, I will rely on usage frequency as a base of comparison for evaluating the social network approach.\footnote{It should be noted that a strict evaluation of both approaches is impossible without external data about the true degrees of diffusion for all neologisms. While such a gold standard for evaluation is inconceivable in the present context, it would be desirable to use external data sources such as questionnaires, dictionary data or web corpus data for a more rigorous validation of the present approach. This will have to be left for future work.}
+    Having applied both frequency-based and social network based analysis to assess the diffusion of the present sample of neologism, this section will evaluate and compare the results obtained from both approaches. Due to the prevalence of using frequency as a measure for degrees of diffusion in previous work, I will rely on usage frequency as a base of comparison for evaluating the social network approach.\footnote{It should be noted that a strict evaluation of both approaches is in principle impossible without external data about the true degrees of diffusion for the neologisms under investigation. While such a gold standard for evaluation is inconceivable in the present context, it would be desirable to use additional data sources such as questionnaires, dictionaries or web corpus data for a more rigorous validation of the present approach. This will have to be left for future work.}
 
-    Table~\ref{tab:correlations} reports the correlations between the degree centrality scores which were used in the Social Network Analysis and three frequency-based variables of diffusion. Centrality shows significant positive correlations with total usage frequency (\textsc{frequency}) and \textsc{age}, and a negative correlation with \textsc{volatility}.
+      \subsubsection{\textsc{frequency}}
+
+    Table~\ref{tab:correlations} reports the correlations between the degree centrality scores which were used in the social network analysis and three frequency-based variables of diffusion. Centrality shows significant positive correlations with total usage frequency (\textsc{frequency}) and \textsc{age}, and a negative correlation with \textsc{volatility}.
 
     \begin{table}
       \centering
@@ -863,26 +865,33 @@ most relevant and important model: S-curve model
       \end{tabular}
     \end{table}
 
-    The positive correlation between \textsc{centrality} and \textsc{frequency} confirms earlier observations in Sections~\ref{subsec:sna} which indicated significant overlap for the neologisms with the highest and lowest scores for frequency and degree centrality. For a closer analysis of the relationship between \textsc{frequency} and \textsc{centrality}, Figure~\ref{fig:cent-vs-freq-scatterplot} presents scatterplots that visualise the relationship between both variables for the full sample and for the selected cases.
+    The positive correlation between \textsc{centrality} and \textsc{frequency} confirms earlier observations in Sections~\ref{subsec:sna} which indicated significant overlap for the neologisms with the highest and lowest scores for frequency and degree centrality. For a closer analysis of the relationship between frequency and centrality, Figure~\ref{fig:cent-vs-freq} presents scatterplots visualising the relationship between both variables for the full sample and for the selected cases.
 
     \begin{figure}
       \caption[Scatterplot of \textsc{usage frequency} and \textsc{centrality}]{Relationship between total \textsc{usage frequency} and degree centrality (\textsc{centralization}) for the full sample of neologisms ($n = 100$) and the selected cases.}
-      \label{fig:cent-vs-freq-scatterplot}
+      \label{fig:cent-vs-freq}
       \centering
       \begin{subfigure}{.49\linewidth}
         \caption{Full sample.}
+        \label{subfig:cent-vs-freq_sample}
         \centering
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
       \end{subfigure}
       \begin{subfigure}{.49\linewidth}
         \caption{Selected cases.}
+        \label{subfig:cent-vs-freq_cases}
         \centering
         \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
       \end{subfigure}
     \end{figure}
-    
-    The 
 
+    Figure~\ref{subfig:cent-vs-freq_sample} indicates a broad spectrum of variation for the relationship between centrality and frequency. Overall, the positive correlation can be clearly identified in the graph: neologisms such as \ol{fleek} show high frequency and low centrality scores and would thus be assigned a high degree of diffusion by both approaches, and the same applies to low-frequency candidates such as \ol{microflat}. Among the considerable degree of variation in the relationship between the two variables, it is to be noted that the observed deviations are almost exclusively found towards the right of the diagonal, i.e. for cases where centrality would predict lower degrees of diffusion than frequency. For examples, while \ol{fleek} and \ol{bromance} are assigned similar scores in terms of their usage frequency, their centrality scores suggest a much lower degree of diffusion for the latter neologism. Similar to cases like \ol{solopreneur} and \ol{alt-left}, centrality thus provides diverging results for cases in which the social network structure suggests that usage intensity overestimates the degree of diffusion of a target neologism since its observed number of uses stems from a disproportionally smaller number of speakers and subcommunities.
+
+    To study the relationship between frequency and centrality in more detail, Figure~\ref{subfig:cent-vs-freq_cases} zooms in on this interplay at the range of the selected neologisms.
+
+
+      \subsubsection{\textsc{age}}
+      \subsubsection{\textsc{volatility}}
     SNA is confirmed by frequency approach
       correlations
         are significant
