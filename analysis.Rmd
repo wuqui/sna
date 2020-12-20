@@ -20,6 +20,7 @@ library(corrr)
 library(tidyr)
 library(magrittr)
 library(forcats)
+library(broom)
 ```
 
 
@@ -60,11 +61,10 @@ df_comp %<>%
     SKIP != TRUE,
     SUBSETTING == subsetting,
     # established words
-    !LEMMA %in% c('climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis', 'artificial intelligence', 'yellow', 'Anglo-Saxon'),
+    !LEMMA %in% c('climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis', 'artificial intelligence', 'yellow', 'Anglo-Saxon', 'fidget spinner', 'cookprocessor')
     # successful words: USES_TOT >= 10000
     # unsuccessful words: USES_TOT <= 10000
     # outliers: big dick energy
-    !LEMMA %in% c('cookprocessor')
   )
 ```
 
@@ -732,7 +732,7 @@ df_comp %>%
 
 # Correlations
 
-## exploratory plots
+## check for potential correlations
 
 ```{r}
 df_comp %>%
@@ -744,33 +744,42 @@ df_comp %>%
 ```
 
 
+
+
+## transform variables
+
+```{r}
+df_comp <- df_comp %>%
+  mutate(CENT_DEGREE_LOG_CENT = scale(log(CENT_DEGREE)), scale=FALSE) %>%
+  mutate(USES_LOG_CENT = scale(log(USES)), scale=FALSE) %>%
+  mutate(USES_TOT_LOG_CENT = scale(log(USES_TOT)), scale=FALSE) %>%
+  mutate(AGE_LOG_CENT = scale(log(AGE)), scale=FALSE) %>%
+  mutate(COEF_VAR_LOG_CENT = scale(log(COEF_VAR)), scale=FALSE)
+```
+
+
 ## create correlation matrix
 
 ```{r}
 df_corr <- df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select_if(is.numeric) %>%
-  correlate(method='spearman')
+  select_if(is.numeric)
 ```
 
-
-## plot all correlations
+### explore correlations
+#### plot all correlations
 
 ```{r}
-df_corr %>%
+df_corr_four %>%
   shave() %>%
   rplot() + 
     theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 
-## check one variable
+#### check one variable vs. all others
 
 ```{r}
-df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select_if(is.numeric) %>%
-  correlate(method='spearman') %>%
+df_corr_four %>%
   focus(DENSITY) %>%
   mutate(rowname = reorder(rowname, DENSITY)) %>%
   ggplot(aes(rowname, DENSITY)) +
@@ -779,38 +788,64 @@ df_comp %>%
 ```
 
 
-## correlation test (for p-value)
+
+## correlation tests: `CENT_DEGREE` X ...
+
+#### number of uses
 
 ```{r}
-cor.test(df_corr$USERS_TOT, df_corr$CENT_DEGREE,
+cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$USES_LOG_CENT, 
+         method='spearman')
+```
+
+#### age
+
+```{r}
+cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$AGE_LOG_CENT,
+         method='spearman')
+```
+
+#### volatility
+
+```{r}
+cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$COEF_VAR_LOG_CENT,
          method='spearman')
 ```
 
 
-## SUBSET ONE X FOUR
+## 'predictive correlations'
+
+### predicting total usage frequency
+
+#### from `CENT_DEGREE` in first subset
 
 ```{r}
+library(tidyr)
+
 df_comp %>%
   filter(SUBSET == 'one') %>%
-  select(CENT_DEGREE)
+  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$USES_TOT_LOG_CENT,  method='spearman'))))
+```
 
-cent_deg_two <- df_comp %>%
-  filter(SUBSET == 'two') %>%
-  select(CENT_DEGREE)
+#### from `USES` in first subset
 
+```{r}
+library(tidyr)
+
+df_comp %>%
+  filter(SUBSET == 'one') %>%
+  do(tidy((cor.test(.$USES_LOG_CENT, .$USES_TOT_LOG_CENT,  method='spearman'))))
+```
+
+
+### prediciting uses in last subset
+
+```{r}
 splt <- df_comp %>%
   filter(SUBSET %in% c('one', 'four')) %>%
   dplyr::group_split(SUBSET)
       
-cor.test(splt[[1]][1:99, ]$CENT_DEGREE, splt[[2]][1:99, ]$CENT_DEGREE)
-```
-
-
-## COEF_VAR
-
-```{r}
-cor.test(df_corr$COEF_VAR, df_corr$CENT_DEGREE, 
-         method='spearman')
+cor.test(splt[[1]][1:99, ]$CENT_DEGREE_LOG_CENT, splt[[2]][1:99, ]$USES_LOG_CENT)
 ```
 
 
