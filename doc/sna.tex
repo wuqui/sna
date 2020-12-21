@@ -12,7 +12,27 @@
 %section{Packages}
 
   \usepackage{packages}
-  \addbibresource{references.bib}
+  
+    % references
+      \usepackage[
+        style=authoryear,
+        backend=biber,
+        maxcitenames=3,
+        maxbibnames=99,
+        eprint=false,
+        isbn=false
+        ]{biblatex}
+
+        % removes `p.` prefix
+        \DeclareFieldFormat{postnote}{#1}
+        \DeclareFieldFormat{multipostnote}{#1}
+
+        % remove notes
+        \AtEveryBibitem{\clearfield{note}}
+        \AtEveryCitekey{\clearfield{note}}
+
+      \addbibresource{references.bib}
+  
   \usepackage{url}
 
   %subsection{extensions for the paper}
@@ -30,8 +50,6 @@
   \newcommand{\sw}[1]{\texttt{#1}}
 
 \begin{document}
-
-% \begin{comment}
 
 %section{Title}
 
@@ -156,7 +174,7 @@ The paper is structured as follows. Section 2 presents an overview of previous a
     \subsubsection{Total usage frequency}
       \label{subsec:total-freq}
 
-      As described in Section~\ref{sec:modeling-diff}, successful diffusion involves an increase in the number of speakers and communities who know and use a new word. The degree of diffusion of new words is often approximated by usage frequency, i.e. by how many times speakers have used these words in the corpus. The most fundamental way of using this information is to cumulate usage counts and to rely on the total number of uses observed. The underlying assumption is that neologisms that have been used very frequently in the corpus are likely to be familiar to a large group of speakers who have actively produced the observed uses (\enquote{corpus-as-output}) or have been passively exposed to these neologisms (\enquote{corpus-as-input}).~\parencite{Stefanowitsch2017CorpusbasedPerspective} Aggregating all instances of usage to total counts is taken to represent the total amount of exposure or active usage, indicating the degree of conventionality in the speech community. In the following, I will use this most basic measure of diffusion as a baseline before I zoom in to get a more differentiated picture of the temporal and social dynamics of diffusion.
+      As described in Section~XXX, successful diffusion involves an increase in the number of speakers and communities who know and use a new word. The degree of diffusion of new words is often approximated by usage frequency, i.e. by how many times speakers have used these words in the corpus. The most fundamental way of using this information is to cumulate usage counts and to rely on the total number of uses observed. The underlying assumption is that neologisms that have been used very frequently in the corpus are likely to be familiar to a large group of speakers who have actively produced the observed uses (\enquote{corpus-as-output}) or have been passively exposed to these neologisms (\enquote{corpus-as-input}).~\parencite{Stefanowitsch2017CorpusbasedPerspective} Aggregating all instances of usage to total counts is taken to represent the total amount of exposure or active usage, indicating the degree of conventionality in the speech community. In the following, I will use this most basic measure of diffusion as a baseline before I zoom in to get a more differentiated picture of the temporal and social dynamics of diffusion.
 
       The present sample of neologisms covers a broad spectrum of usage frequency. Table~\ref{tab:freq-total} presents the candidates under investigation in four groups: six examples around the minimum, around the median, and around the maximum total usage frequency observed in the corpus, as well as six words that will serve as case studies in the following sections. These cases reflect a diverse set of prototypical examples of diffusion patterns, and I will use these cases to illustrate more detailed characteristics of diffusion before I present the general patterns found for the full sample of neologisms.
 
@@ -463,7 +481,7 @@ The paper is structured as follows. Section 2 presents an overview of previous a
   \subsection{Social networks of diffusion}
     \label{subsec:sna}
 
-    As discussed in Section~\ref{subsec:ec-model}, from a theoretical, sociolinguistic perspective, the degree of diffusion of lexical innovations depends on the degree to which new words become conventional among new speakers and communities of speakers. Frequency-based analyses, as presented in the previous section, can by definition only provide information about the distribution of occurrences of neologisms in the corpus, they cannot provide direct evidence about the size and composition of the community of speakers who have produced the observed attestations.
+    As discussed in Section~XXX, from a theoretical, sociolinguistic perspective, the degree of diffusion of lexical innovations depends on the degree to which new words become conventional among new speakers and communities of speakers. Frequency-based analyses, as presented in the previous section, can by definition only provide information about the distribution of occurrences of neologisms in the corpus, they cannot provide direct evidence about the size and composition of the community of speakers who have produced the observed attestations.
 
     Social network analysis, by contrast, is based on data about the communicative behaviour of speakers in the corpus and can thus provide direct insights into the social characteristics of the speech community. This allows for a more direct operationalization of the theoretical model of diffusion. The structural characteristics of the social network of speakers who have used a target neologism can be used to assess whether the term has been used by a broad section of the speech community, or whether its use remains limited to certain parts of the speech community.
 

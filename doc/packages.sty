@@ -14,8 +14,8 @@
     %subsubsection{misc}
 
   % ignore non-breakable space utf8 error
-  \usepackage{newunicodechar}
-  \newunicodechar{ }{ }
+  % \usepackage{newunicodechar}
+  % \newunicodechar{ }{ }
   \usepackage[sharp]{easylist}
   \usepackage{adjustbox}
   \usepackage{comment}
@@ -45,27 +45,6 @@
     %subsubsection{todo notes}
 
   \usepackage{todonotes}
-
-    %subsubsection{references}
-
-      \usepackage[
-        style=authoryear,
-        backend=biber,
-        maxcitenames=3,
-        maxbibnames=99,
-        % doi=false,
-        % url=false,
-        eprint=false,
-        isbn=false
-        ]{biblatex}
-
-        % removes `p.` prefix
-        \DeclareFieldFormat{postnote}{#1}
-        \DeclareFieldFormat{multipostnote}{#1}
-
-        % remove notes
-        \AtEveryBibitem{\clearfield{note}}
-        \AtEveryCitekey{\clearfield{note}}
 
   %subsection{new commands}
 
