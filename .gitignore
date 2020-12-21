@@ -41,19 +41,27 @@ packrat/lib*/
 
 # Q additions
 
+## org mode
 sna.org
 
-# LaTeX
+## LaTeX
 doc/*
 !doc/*.tex
 !doc/*.sty
 !doc/*.bib
 !doc/*.pdf
 
-# output
+## outputs
 out/*
 !out/df_comp.csv
 
-# Gephi graphs
+## docs
+lemmas/*
+
+## Gephi
 gephi/
+
+## R
+sna.Rproj
+packrat/*
 
