@@ -708,11 +708,12 @@ df_comp %>%
       labels=function(x)round(x,-3)
       ) +
     scale_x_continuous(
-      'degree centralization'
-      # trans='log'
+      'degree centralization (log)',
+      trans='log',
+      labels=function(x)round(x,3)
       )
 
-# ggsave('out/cases_cent_freq_overall.pdf', width=6, height=4)
+ggsave('out/cases_cent_freq_overall.pdf', width=6, height=4)
 ```
 
 
@@ -765,8 +766,8 @@ df_corr <- df_comp %>%
   select_if(is.numeric)
 ```
 
-### explore correlations
-#### plot all correlations
+## explore correlations
+### plot all correlations
 
 ```{r}
 df_corr_four %>%
@@ -776,7 +777,7 @@ df_corr_four %>%
 ```
 
 
-#### check one variable vs. all others
+### check one variable vs. all others
 
 ```{r}
 df_corr_four %>%
@@ -791,37 +792,40 @@ df_corr_four %>%
 
 ## correlation tests: `CENT_DEGREE` X ...
 
+### 'normal' correlations
+
 #### number of uses
 
 ```{r}
-cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$USES_LOG_CENT, 
-         method='spearman')
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$USES_LOG_CENT,  method='spearman')))
 ```
 
 #### age
 
 ```{r}
-cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$AGE_LOG_CENT,
-         method='spearman')
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='spearman'))))
 ```
 
 #### volatility
 
 ```{r}
-cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$COEF_VAR_LOG_CENT,
-         method='spearman')
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='spearman')))
 ```
 
 
-## 'predictive correlations'
+### 'predictive correlations'
 
-### predicting total usage frequency
+#### predicting total usage frequency
 
 #### from `CENT_DEGREE` in first subset
 
 ```{r}
-library(tidyr)
-
 df_comp %>%
   filter(SUBSET == 'one') %>%
   do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$USES_TOT_LOG_CENT,  method='spearman'))))
@@ -838,7 +842,7 @@ df_comp %>%
 ```
 
 
-### prediciting uses in last subset
+#### predicting uses in last subset
 
 ```{r}
 splt <- df_comp %>%
@@ -904,13 +908,5 @@ df_comp %>%
     USES_ALL = sum(USES_TOT),
     USERS_ALL = sum(USERS_TOT)
     )
-```
-
-# temp
-
-
-```{r}
-df_comp %>%
-  filter(LEMMA=='blockchain')
 ```
 
