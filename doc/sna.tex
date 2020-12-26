@@ -685,73 +685,76 @@ The paper is structured as follows. Section 2 presents an overview of previous a
   \subsection{Evaluating the frequency and network approaches}
     \label{subsec:nets-vs-freq}
 
-    Having applied the frequency-based and the social network approach to assess the diffusion of the present sample of neologism, this section will evaluate and compare the results obtained from both approaches. Due to the prevalence of using frequency as an indicator of diffusion in previous work, I will largely rely on usage frequency as a base of comparison for evaluating the social network approach.\footnote{It should be noted that a strict evaluation of both approaches is in principle impossible without external data about the true degrees of diffusion for the neologisms under investigation. While such a gold standard for evaluation is inconceivable in the present context, it would be desirable to use additional data sources such as questionnaires, dictionaries or web corpus data for a more rigorous validation of the present approach. This will have to be left for future work.}
+    Having applied the frequency-based and the social network approach to assess the diffusion of the present sample of neologism, this section will evaluate and compare the results obtained from both approaches. Due to the prevalence of using frequency as an indicator of diffusion in previous work, I will largely use frequency as a base of comparison for evaluating the social network approach.\footnote{It should be noted that a strict evaluation of both approaches is in principle impossible without external data about the true degrees of diffusion for the neologisms under investigation. While such a gold standard for evaluation is inconceivable in the present context, it would be desirable to use additional data sources such as questionnaires, dictionaries or web corpus data for a more rigorous validation of the present approach. This will have to be left for future work.}
 
-    A first evaluation of the social network approach to diffusion relies on the correlations of degree centrality with the total usage frequency of neologisms, with their volatility, and with their age as observed in the corpus. Table~\ref{tab:correlations} reports the correlation coefficients for these variables.
+    \subsubsection{Correlations}
 
-    \begin{table}
-      \centering
-      \caption[Correlation matrix for \textsc{centrality}]{Correlations of \enquote{degree centralization} (\textsc{centrality}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{volatility}), and observed lifespan in the corpus (\textsc{age}) for the full sample of neologisms ($n=99$) using Spearman's correlation coefficient~\parencite{Spearman1961ProofMeasurement}.\protect\footnotemark{}}
-      \label{tab:correlations}
-      \begin{tabular}{>{\scshape}l r r}
-        \toprule
-                    & {$\rho$}    & P               \\
-        \midrule
-        frequency  & \num{-0.44} & $<$ \num{0.001} \\
-        age        & \num{-0.29} & \num{0.004}     \\
-        volatility & \num{0.28}  & $<$ \num{0.001} \\
-        \bottomrule
-      \end{tabular}
-    \end{table}
-    \footnotetext{All variables entering the correlation analysis were log-transformed and centred.}
+      A first evaluation of the social network approach to diffusion relies on the correlations of degree centrality with the total usage frequency of neologisms, with their volatility, and with their age as observed in the corpus. Table~\ref{tab:correlations} reports the correlation coefficients for these variables.
 
-    Firstly, centrality shows a significant negative correlation with \textsc{frequency}. This confirms earlier observations in Section~\ref{subsec:sna} which indicated an inverse trend between total usage frequency and centrality. Neologisms whose use is not limited to a centralized network of speakers are on average more frequent. The fact these two central measures for diffusion correlate substantially can be seen as a cross-validation of both approaches. While external data sources would be needed for a more rigorous evaluation, this suggests that both metrics capture important aspects of diffusion.
-
-    Secondly, the \textsc{age} of neologisms in the sample shows a significant negative correlation with centrality. As expected, the use of more recent neologisms tends to still go back to more centralized communities, while neologisms with a longer history of use tend to show more advanced diffusion. Unlike frequency counts, which are directly influenced by the temporal usage history of neologisms, the centrality measure is blind to this information. The fact that it still captures the expected trend thus supports its validity.  
-
-    Lastly, \textsc{volatility} shows a significant positive correlation with centrality. Again, this results is in line with expectations. Neologisms such as \ol{poppygate}, whose use features substantial temporal variations tend to show lower degrees of diffusion than neologisms such as \ol{hyperlocal}, whose use is more consistent and less dependent on the topical salience of extralinguistic events. 
-
-    For a closer analysis of the interactions between these variables beyond correlation coefficients, Figure~\ref{fig:cent-vs-freq} presents all neologisms according to their usage frequency and centrality scores. While Figure~\ref{subfig:cent-vs-freq_sample} covers the full sample, Figure~\ref{subfig:cent-vs-freq_cases} is based on the same data, but zooms in on the frequency range which covers four of the selected cases to provide a clearer view of this section of the graph. 
-
-    \begin{figure}
-      \caption[Scatterplot of \textsc{usage frequency} and \textsc{centrality}]{Relationship between total \textsc{usage frequency} and degree centrality (\textsc{centralization}) for the full sample of neologisms ($n=99$) and the selected cases.}
-      \label{fig:cent-vs-freq}
-      \centering
-      \begin{subfigure}{.49\linewidth}
-        \caption{Full sample.}
-        \label{subfig:cent-vs-freq_sample}
+      \begin{table}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
-      \end{subfigure}
-      \begin{subfigure}{.49\linewidth}
-        \caption{Selected cases.}
-        \label{subfig:cent-vs-freq_cases}
+        \caption[Correlation matrix for \textsc{centrality}]{Correlations of \enquote{degree centralization} (\textsc{centrality}) with the variables total usage frequency (\textsc{frequency}), coefficient of variation (\textsc{volatility}), and observed lifespan in the corpus (\textsc{age}) for the full sample of neologisms ($n=99$) using Spearman's correlation coefficient~\parencite{Spearman1961ProofMeasurement}.\protect\footnotemark{}}
+        \label{tab:correlations}
+        \begin{tabular}{>{\scshape}l r r}
+          \toprule
+                      & {$\rho$}    & P               \\
+          \midrule
+          frequency  & \num{-0.44} & $<$ \num{0.001} \\
+          age        & \num{-0.29} & \num{0.004}     \\
+          volatility & \num{0.28}  & $<$ \num{0.001} \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+      \footnotetext{All variables entering the correlation analysis were log-transformed and centred.}
+
+      Firstly, centrality shows a significant negative correlation with \textsc{frequency}. This confirms earlier observations in Section~\ref{subsec:sna} which indicated an inverse trend between total usage frequency and centrality. More frequent neologisms show on average higher degrees of diffusion, i.e. their use goes back to less centralized communities of speakers. The fact these two central measures for diffusion correlate substantially can be seen as a cross-validation of both approaches. While external data sources would be needed for a more rigorous evaluation, this overall convergence in results suggests that both metrics capture important aspects of diffusion.
+
+      Secondly, the \textsc{age} of neologisms in the sample shows a significant negative correlation with centrality. As expected, the use of more recent neologisms tends to still go back to more centralized communities, while neologisms with a longer history of use tend to show more advanced diffusion. Unlike frequency counts, which are directly influenced by the temporal usage history of neologisms, the centrality measure is blind to this information. The fact that these age effects are captured by degree centrality supports the validity of the social network approach.
+
+      Lastly, \textsc{volatility} shows a significant positive correlation with centrality. Again, this result is in line with expectations. Neologisms such as \ol{poppygate}, whose use exhibits substantial temporal variation tend to show lower degrees of diffusion than neologisms such as \ol{hyperlocal}, whose use is more consistent and less dependent on the topical salience of extralinguistic events.
+
+    \subsubsection{Deviations centrality between and frequency}
+
+      For a closer analysis of the interactions between these variables beyond correlation coefficients, Figure~\ref{fig:cent-vs-freq} presents all neologisms according to their usage frequency and centrality scores. While Figure~\ref{subfig:cent-vs-freq_sample} covers the full sample, Figure~\ref{subfig:cent-vs-freq_cases} is based on the same data, but zooms in on the frequency range which covers four of the selected cases to provide a clearer view of this section of the graph.
+
+      \begin{figure}
+        \caption[Scatterplot of \textsc{usage frequency} and \textsc{centrality}]{Relationship between total \textsc{usage frequency} and degree centrality (\textsc{centralization}) for the full sample of neologisms ($n=99$) and the selected cases.}
+        \label{fig:cent-vs-freq}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
-      \end{subfigure}
-    \end{figure}
+        \begin{subfigure}{.49\linewidth}
+          \caption{Full sample.}
+          \label{subfig:cent-vs-freq_sample}
+          \centering
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.49\linewidth}
+          \caption{Selected cases.}
+          \label{subfig:cent-vs-freq_cases}
+          \centering
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
+        \end{subfigure}
+      \end{figure}
 
-    The general trend in the plot confirms the inverse relation captured by the negative correlation coefficient between centrality and frequency. Neologisms with high frequency such as \ol{fleek} have low centrality scores and would thus be assigned a high degree of diffusion by both approaches. The inverse applies to candidates from the lower end of the frequency spectrum such as \ol{microflat}.
+      The general trend in the plot confirms the inverse relation captured by the negative correlation coefficient between centrality and frequency. Neologisms with high frequency such as \ol{fleek} have low centrality scores and would thus be assigned a high degree of diffusion by both approaches. The inverse applies to candidates from the lower end of the frequency spectrum such as \ol{microflat}.
 
-    However, Figure~\ref{subfig:cent-vs-freq_sample} also shows substantial variation between frequency and centality scores. Notably, the observed deviations are almost exclusively found towards the right of the diagonal trend line, i.e. for cases where centrality would predict lower degrees of diffusion than frequency. For examples, while \ol{fleek} and \ol{bromance} are assigned similar scores in terms of their usage frequency, their centrality scores suggest a much lower degree of diffusion for the latter neologism. Similar to cases like \ol{solopreneur} and \ol{alt-left}, which were discussed in detail in Section~\ref{subsec:degrees-of-diffusion}, centrality thus seems to provide diverging results for cases in which the social network structure suggests that the observed usage intensity overestimates the degree of diffusion of a target neologism since its observed uses go back to a disproportionally smaller number of speakers and subcommunities.
+      However, Figure~\ref{subfig:cent-vs-freq_sample} also shows substantial variation between frequency and centality scores. Notably, the observed deviations are almost exclusively found towards the right of the diagonal trend, i.e. for cases where centrality assumes lower degrees of diffusion than frequency. For examples, while \ol{fleek} and \ol{bromance} are assigned similar scores in terms of their usage frequency, their centrality scores suggest a much lower degree of diffusion for the latter neologism. Similar to cases like \ol{solopreneur} and \ol{alt-left}, which were discussed in detail in Section~\ref{subsec:degrees-of-diffusion}, centrality thus seems to provide diverging results for cases in which the social network structure suggests that the observed usage intensity overestimates the degree of diffusion of a target neologism since its observed uses go back to a disproportionally smaller number of speakers and subcommunities.
 
-    Analysing these deviations highlights at least two groups neologisms, for which total usage frequency and social network structure seem to diverge in principled ways.
+      Analysing these deviations highlights at two main groups of neologisms, for which total usage frequency and social network structure seem to diverge in systematic ways. A first group contains neologisms which show high degrees of volatility in their frequency of use. As shown above, centrality is significantly correlated with volatility. In addition to \ol{poppygate} and \ol{solopreneur}, which were already discussed above, \ol{refollow}, \ol{gaslighting}, \ol{solopreneur}, and \ol{coworking} also show little consistency in their usage. For all of these terms, centrality assumes lower degrees of diffusion than total usage frequency counts in Figure~\ref{subfig:cent-vs-freq_sample}. It thus seems that the social network approach provides a more accurate picture in cases where frequency-based measures overestimate degrees of diffusion due to the strong impact of short periods of highly intensive use of neologisms in certain parts of the speech community.
 
-    A first group contains neologisms which show high degrees of volatility in their frequency of use. As shown above, centrality is significantly correlated with volatility and it seems that total frequency counts overestimate degrees of diffusion for these cases. Figure~\ref{fig:cent-vs-freq} supports this hypothesis in that it highlights many examples that match this pattern. Aside from the selected case \ol{poppygate}, the neologisms \ol{birther}, \ol{covfefe}, \ol{Pizzagate}, \ol{alt-left}, and \ol{Kushnergate} all show high degrees of volatitily, and for all these cases centrality assumes lower degrees of diffusion as predicted by usage frequency. 
+      A second group with diverging scores contains neologisms whose use is tied to political communities. The neologisms \ol{alt-right}, \ol{alt-left}, \ol{birther}, \ol{covfefe}, \ol{Pizzagate}, and \ol{Kushnergate} are politically controversial and differ strongly in popularity between political camps. It should be noted that these terms also exhibit considerable volatility in their use. Figure~\ref{subfig:cent-vs-freq_sample} shows comparatively lower centrality than frequency scores for these lexemes. Similarly to the cases of high volatility, centrality thus suggests that usage frequency overestimates degrees of diffusion for these cases. While neologisms such as \ol{alt-right} show high frequency counts, the social network analysis reveals that these terms have not spread successfully across communities, and that their use remains limited to certain subcommunities.
 
-    ...
+    \subsubsection{Predicting the success of lexical innovations}
 
-    While \ol{hyperlocal} and \ol{solopreneur} would be assigned similar degrees of diffusion according to total usage frequency, the latter term is assumed to have spread much less successfully according to its centrality score. According to the network analysis \ol{hyperlocal} shows similar degrees of diffusion as more generic, established words such as \ol{twitterer} and \ol{upcycling}, while \ol{solopreneur} is placed it in the neighbourhood of other community-specific, politically loaded terms such as \ol{Pizzagate} and \ol{covfefe}. The political case studies \ol{alt-right} and \ol{alt-left} score similarly low with regard to degree centrality. While \ol{alt-right} is the most frequent neologism in Figure~\ref{subfig:cent-vs-freq_cases}, the network metrics suggest that its total usage frequency overestimates the degree to which it has successfully diffused in the speech community at large.
+      The evaluation of the network approach shows that community structure can be used to assess degrees of diffusion. The social structure of communities during the early stages of diffusion is commonly assumed to be an important factor for the successful spread of linguistic innovations. While a detailed analysis is beyond the scope of the present paper, the present approach yields initial results of the predictive power of social network information.
 
-    Political communities
+      The dataset shows a significant correlation between the network structure in the first period of diffusion and the overall success of neologisms. Correlating \textsc{centrality} scores for all neologisms in Subset 1 with their total usage \textsc{frequency} observed across their full observed lifespan in the corpus yields Spearman correlation coefficient of \num{-0.43} ($P < 0.001$). This means that neologisms are overall more likely to spread successfully if their use is not limited to a centralized network of speakers in their early stages. Among the selected cases presented above, \ol{upskill} fits this pattern: it shows a consistent, successful trajectory of diffusion and its use has been the product of a decentralized community of users since its early attestations. Of course, the diverging pathways of diffusion for other words such as \ol{hyperlocal} and \ol{solopreneur} presented in Figure~\ref{fig:cent_diac_cases} represent exceptions to this general trend. While this trend fits theoretical expectations and the empirical observations in the present dataset, these present results are only preliminary. Since centrality correlates with frequency scores, future work based on bigger samples, external data for evaluation, and more robust statistical tests is needed to test whether the predictive power of social network features can be confirmed.
 
-      \ol{alt-right}, \ol{alt-left}, \ol{covfefe}, \ol{birther}
-      
-    \subsubsection{Predicting success} 
+    In summary,
+      validate network approach by frequency measures
+        correlations
+        plots
+        deviations: complements frequency
 
-      centrality scores in Subset 1 show significant correlations with total usage frequency
-      social structure in earlier phases of diffusion seems to have predictive power for determining the success of neologisms
-    
 
 \section{Discussion}
   \label{sec:discussion}
