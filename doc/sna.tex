@@ -747,51 +747,69 @@ The paper is structured as follows. Section 2 presents an overview of previous a
 
       The evaluation of the network approach shows that community structure can be used to assess degrees of diffusion. The social structure of communities during the early stages of diffusion is commonly assumed to be an important factor for the successful spread of linguistic innovations. While a detailed analysis is beyond the scope of the present paper, the present approach yields initial results of the predictive power of social network information.
 
-      The dataset shows a significant correlation between the network structure in the first period of diffusion and the overall success of neologisms. Correlating \textsc{centrality} scores for all neologisms in Subset 1 with their total usage \textsc{frequency} observed across their full observed lifespan in the corpus yields Spearman correlation coefficient of \num{-0.43} ($P < 0.001$). This means that neologisms are overall more likely to spread successfully if their use is not limited to a centralized network of speakers in their early stages. Among the selected cases presented above, \ol{upskill} fits this pattern: it shows a consistent, successful trajectory of diffusion and its use has been the product of a decentralized community of users since its early attestations. Of course, the diverging pathways of diffusion for other words such as \ol{hyperlocal} and \ol{solopreneur} presented in Figure~\ref{fig:cent_diac_cases} represent exceptions to this general trend. While this trend fits theoretical expectations and the empirical observations in the present dataset, these present results are only preliminary. Since centrality correlates with frequency scores, future work based on bigger samples, external data for evaluation, and more robust statistical tests is needed to test whether the predictive power of social network features can be confirmed.
-
-    In summary,
-      validate network approach by frequency measures
-        correlations
-        plots
-        deviations: complements frequency
-
+      The dataset shows a significant correlation between the network structure in the first period of diffusion and the overall success of neologisms. Correlating \textsc{centrality} scores for all neologisms in Subset 1 with their total usage \textsc{frequency} observed across their full observed lifespan in the corpus yields Spearman correlation coefficient of \num{-0.43} (${P < 0.001}$). This means that neologisms are overall more likely to spread successfully if their use is not limited to a centralized network of speakers in their early stages. Among the selected cases presented above, \ol{upskill} fits this pattern: it shows a consistent, successful trajectory of diffusion and its use has been the product of a decentralized community of users since its early attestations. Of course, the diverging pathways of diffusion for other words such as \ol{hyperlocal} and \ol{solopreneur} presented in Figure~\ref{fig:cent_diac_cases} represent exceptions to this general trend. While this trend fits theoretical expectations and the empirical observations in the present dataset, these present results are only preliminary. Since centrality correlates with frequency scores, future work based on bigger samples, external data for evaluation, and more robust statistical tests is needed to test whether the predictive power of social network features can be confirmed.
 
 \section{Discussion}
   \label{sec:discussion}
 
-    total frequency can be a reasonable baseline
-      but temporal dynamics are important
-        trend
-        age
-        volatility: highly fluctuating communicative need (vs. \ol{going to}-future); thus fluctuating \enquote{semantic carrying capacity}~\parencite{Grieve2018MappingLexical} 
-    
-    more differentiated view of diffusion possible through SNA
-    
-      case studies
-        equally frequent words show different
-          degrees of diffusion
-          pathways of diffusion
+  In this paper, I have studied the spread of neologisms on Twitter to analyse degrees and pathways of diffusion of lexical innovations. The process of diffusion is fundamentally tied to social processes which involve the spread of innovations in social networks~\parencite{Rogers1962DiffusionInnovations}. According to most theoretical models, successful diffusion of linguistic innovations crucially involves their spread to new speakers and communities~\parencite{Weinreich1968EmpiricalFoundation,Schmid2020DynamicsLinguistic}. Despite broad consensus over the fact that diffusion entails spread in networks of speakers, most previous work has not been able to conduct large-scale empirical investigations on the basis of social network information. Lacking the necessary data and methods for studying diffusion in social networks directly, most previous studies have had to rely on using the frequency of occurrence of linguistic innovations as an approximate indicator of diffusion~\parencite{Stefanowitsch2017CorpusbasedPerspective}.
 
-      full sample: this also holds true for the full sample
+  The present study used data from Twitter to compile a large dataset which allowed to investigate the sociolinguistic dynamics of diffusion of neologisms in online social networks. Aside from an in-depth analysis of the diffusion of neologisms in the present sample, the aim of this paper was to assess the validity of using usage frequency and social network data as indicators of diffusion. While the results of this evaluation are most relevant to the study of \emph{lexical} \emph{innovations}, as I will argue, the findings also have general implications for corpus-based studies which rely on frequency or network measures to assess the conventionality of linguistic constructions.
 
-      S-curve model
-        role of early adopters / network structure
-        influencers
-        weak ties
+  \subsection{Frequency}
+
+    The frequency-based analysis revealed that several usage frequency based measures can be used to assess degrees of diffusion of lexical innovations with varying success.
+
+    Total frequency counts (Table~\ref{tab:freq-total}) proved successful for a coarse-grained distinction between cases of high (e.g. \ol{tweeter}, \ol{smartwatch}), medium (e.g. \ol{monthiversary}, \ol{helicopter parenting}) and low degrees of diffusion (e.g. \ol{begpacker}, \ol{bediquette}).
+
+    However, differences in the temporal dynamics of use turned out to be crucial for a more accurate assessment of degrees and pathways of diffusion of neologisms.
+
+    Considering the nature of the process and products of \emph{lexical} innovation, this temporal sensitivity seems unsurprising. Typically, models of linguistic diffusion such as the S-curve model assume competition processes between several formal variants, in which they compete to become the conventional linguistic means to express a certain meaning/function in the speech community. In cases of grammatical innovation, which is at the core of most models and previous empirical investigations of diffusion, the communicative need for expressing the target concept/function remains stable over time. While the grammatical means in a language might change (e.g. \ol{going to}, \ol{will}), the salience of the target semasiological space (e.g. \mn{expressing future intention}) remains stable for all speakers in the speech community. Both competition between variants and the social and temporal invariance of the conceptual space over time are prerequisites to the S-curve model of diffusion \parencite{Blythe2012ScurvesMechanisms}
+
+    Previous work by \cite{Nini2017ApplicationGrowth} has suggested that the diffusion of lexical innovations also follows S-curve trajectories and uses the term \enquote{semantic carrying capacity} to refer to the functional potential of neologisms during diffusion. However, it remains unclear whether the semantic carrying capacity of neologisms can be considered temporally and socially invariant, and whether, due to the open nature of the lexicon, competition effects between neologisms match the zero-sum competition between grammatical variants.
+
+    Firstly, trends in usage frequency provide information about changes in diffusion over time.
+
+    trend
+    age
+    volatility
+
+  \subsection{SNA}
+
+    diffusion
+      number of speakers
+      number of communities
+
+    corpus-as-input, corpus-as-output \parencite{Stefanowitsch2017CorpusbasedPerspective}
 
     particularly important for \emph{lexical} \emph{innovations} due to the nature of the process
         bound to cultural conceptual salience (variable \enquote{semantic carrying capacity}~\parencite{Nini2017ApplicationGrowth})
-        coined consciously within tight-knit communities (c.f. grammatical innovation)
         strong social indexicality
-        open nature of the lexicon
+        coined consciously within tight-knit communities (c.f. grammatical innovation)
 
-    but also for other linguistic domains
+    case studies
+      equally frequent words show different
+        degrees of diffusion
+        pathways of diffusion
 
-    great potential for (computational) sociolinguistics, sociolinguists should \enquote{upskill}
+    S-curve model
+      role of early adopters / network structure
+      influencers
+      weak ties
+
+    discrepancies
+      volatile
+      echo chambers
+
+    better extrapolate beyond current dataset than frequency (e.g. web)
+
+
+    also attractive for other linguistic domains
+      potential for (computational) sociolinguistics, sociolinguists should \enquote{upskill}
       extend sociolinguistic research (on geographical variation; desideratum in \cite{Grieve2019MappingLexical})
 
 
-  %subsection{Directions for future work}
+  \subsection{Future work}
 
     \begin{qitem}
       # cross-validation of frequency and SNA information with other data sources
