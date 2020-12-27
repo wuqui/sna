@@ -269,14 +269,10 @@ The paper is structured as follows. Section 2 presents an overview of previous a
 
       Among the most frequent neologisms presented in Table~\ref{subtab:freq-total-max}, words such as \ol{twitterverse} and \ol{blockchain}, for example, have similar total frequency counts, but differ significantly with regard to their temporal usage profiles. The neologism \ol{twitterverse} has been in use ever since the start of Twitter, while the diffusion of the much younger \ol{blockchain} only started in 2012. Due to its shorter lifespan, \ol{blockchain} accumulated roughly the same number of uses, but shows significantly higher usage intensity in the more recent past, and could be assumed to be familiar to bigger parts of the speech community.
 
-  \marginpar{total usage frequency will be used to evaluate the social network metrics}
-
       Similar effects are even more pronounced in the remaining groups of neologisms, since words from the lower ranges of the frequency spectrum are typically affected more strongly by temporal variation in their use. In the following sections, I will include temporal information to provide a more fine-grained picture of diffusion.
 
 
     \subsubsection{Cumulative frequency}
-
-      \marginpar{trend: convex vs. concave}
 
       Visualising the cumulative increase in usage frequency of new words complements total counts by taking into account the temporal dynamics of their usage intensity over time. Figure~\ref{fig:freq_cum_cases} presents this information for the case study selection.
 
@@ -289,6 +285,10 @@ The paper is structured as follows. Section 2 presents an overview of previous a
       \footnotetext{\ol{alt-right} was omitted from this plot because its high usage frequency would have inhibited the interpretability of the other lexemes; its frequency over time is presented in Figure \ref{subfig:freq_temp_alt-right}.}
 
       While the end points of the trajectories in Figure~\ref{fig:freq_cum_cases} mark the target words' total frequency counts as shown in Table~\ref{subtab:freq-total-cases}, the offsets and slopes of the trajectories of usage frequency reveal additional characteristics about differences in their diffusion patterns.
+
+      \marginpar{Shift the focus of this part to the \textsc{trend} variable; discuss \textsc{age} primarly with reference to absolute counts.}
+
+      \marginpar{\textsc{trend}: convex trajectories >> successful; concave >> unsucessful/obsolete}
 
       The selected neologisms differ regarding their total lifespan observed, which is indicated by diverging starting points of diffusion. The term \ol{hyperlocal}, for example, is the oldest new word among the selected neologisms, and it is commonly used to refer to information that has a strong focus on local facts and events. While it was hardly used in the first years of Twitter, it started to increase in its use in 2009, and it was added to the OED's Third Edition in 2015. Around this time, the neologism \ol{solopreneur} only started to significantly increase in its use. A blend of \ol{solo} and \ol{entrepeneur}, it keeps a low, flat trajectory of sporadic use for about 7 years after its first appearance in the corpus. The first two attestations in the corpus indicate the sense of novelty and scepticism towards the term in its early phases:
 
@@ -756,22 +756,26 @@ The paper is structured as follows. Section 2 presents an overview of previous a
 
   The present study used data from Twitter to compile a large dataset which allows to investigate the sociolinguistic dynamics of diffusion of neologisms in online social networks. Aside from an in-depth analysis of the diffusion of neologisms in the present sample, the aim of this paper was to assess the validity of using usage frequency and social network data as indicators of diffusion. While the results of this evaluation are most relevant to the study of \emph{lexical} \emph{innovations}, as I will argue, the findings also have general implications for corpus-based studies which rely on frequency or network measures to assess the conventionality of linguistic constructions.
 
-  \subsection{Frequency}
+  \subsection{Temporal dynamics of diffusion}
 
     The frequency-based approach revealed that frequency measures can be used to assess degrees of diffusion of lexical innovations with varying success. Total frequency counts (Table~\ref{tab:freq-total}) proved successful for a coarse-grained distinction between cases of high (e.g. \ol{tweeter}, \ol{smartwatch}), medium (e.g. \ol{monthiversary}, \ol{helicopter parenting}) and low degrees of diffusion (e.g. \ol{begpacker}, \ol{bediquette}). However, differences in the temporal dynamics of use turned out to be crucial for a more accurate assessment of degrees and pathways of diffusion of neologisms.
 
-    Considering the nature of the process and products of \emph{lexical} innovation, this temporal sensitivity is not surprising. Typically, models of linguistic diffusion such as the S-curve model assume competition processe in which  several formal variants compete to become the conventional linguistic means to express a certain meaning/function in the speech community. In cases of grammatical innovation, which is at the core of most models and previous empirical investigations of diffusion, the communicative need for expressing the target concept/function remains stable over time. While grammatical means are of course also subject to language language change (e.g. \ol{going to}, \ol{will} future), the salience of the target semasiological space (e.g. \mn{expressing future intention}), remains stable over time for all speakers in the speech community, however. Both the direct competition between linguistic variants and the social and temporal invariance of the conceptual space over time are commmonly taken as prerequisites of S-curve models of diffusion \parencite{Blythe2012ScurvesMechanisms}.
+    Considering the nature of the process and products of \emph{lexical} innovation, this temporal sensitivity is not surprising. Typically, models of linguistic diffusion such as the S-curve model assume competition processes in which several formal variants compete to become the conventional linguistic means to express a certain meaning/function in the speech community. In cases of grammatical innovation, which is at the core of most models and previous empirical investigations of diffusion, the communicative need for expressing the target concept/function remains stable over time. While grammatical means are, of course, also subject to language language change (e.g. \ol{going to}, \ol{will} future), the salience of the target semasiological space (e.g. \mn{expressing future intention}), remains stable over time for all speakers in the speech community, however. Both the direct competition between linguistic variants and the social and temporal invariance of the conceptual space over time are tacit assumptions of S-curve models of diffusion \parencite{Blythe2012ScurvesMechanisms}. Previous work by \cite{Nini2017ApplicationGrowth} suggests that the diffusion of lexical innovations also follows S-curve trajectories and the authors use the term \enquote{semantic carrying capacity} to refer to the functional potential of neologisms during diffusion. However, previous work has not systematically analysed to which degree the semantic carrying capacity of neologisms is stable over time and across communities of speakers.
 
-    Previous work by \cite{Nini2017ApplicationGrowth} suggests that the diffusion of lexical innovations also follows S-curve trajectories and the authors use the term \enquote{semantic carrying capacity} to refer to the functional potential of neologisms during diffusion. However, previous work has not systematically analysed to which degree the semantic carrying capacity of neologisms is stable over time and uniform across the speech community.
+    The present study investigated three aspects of the temporal dynamics of diffusion: trend, age and volatility.
 
-    Firstly, trends in usage frequency provide information about changes in diffusion over time.
+    Firstly, trends in usage frequency provide information about changes in the degrees of diffusion of neologisms over time. Visualising the cumulative increases in usage frequency over time in Figure~\ref{fig:freq_cum_cases} revealed significant differences in the pathways of diffusion of neologisms with similar total frequency counts. The neologisms \ol{hyperlocal} showed the most linear trajectory indicating fairly consistent use, the convex curve of \ol{upskill} indicated a positive trend in its use, and the concave trajectories of \ol{solopreneur} and \ol{alt-left} suggested negative trends in the recent past. The lexicon is the linguistic domain which features the highest degree of linguistic innovation. While new words are coined and spread every day, most neologisms have a short lifespan and quickly fall into oblivion (\parencite{Algeo1993DesuetudeNew}). Even fairly recent words such as \ol{millenium bug}, which used to be familiar to big parts of the speech community twenty years ago, can quickly decline in conventionality and are unknown to younger generations of speakers. Cumulated, total frequency counts, which are, in their pure form, agnostic to temporal trends, have successfully been used as an approximation of the \enquote{potential exposure}~\parencite{Stefanowitsch2017CorpusbasedPerspective} of speakers to linguistic constructions in previous usage-based corpus-linguistic studies. Due to the high degree of fluctuations in the domain of lexical innovation, however, temporal trends in usage frequency cannot be neglected when assessing degrees of diffusion of neologisms. Notably, trends in usage frequency in the present sample can almost always be traced back to changes in the neologisms's semantic carrying capacity and are not the product of onomasiological competition\footnote{As an exception, the sample contains the two formal variants \ol{monthversary} and \ol{monthiversary}.}.
 
-    trend
-    age
+    \marginpar{trends not due to competition effects, but due to changes in semantic carrying capacity}
+
+    Secondly, the age of neologisms ...
+      correlation with centrality
+
     volatility
+      link to semantic carrying capacity (not competition effects)
 
 
-  \subsection{SNA}
+  \subsection{Social dynamics of diffusion}
 
     diffusion
       number of speakers
