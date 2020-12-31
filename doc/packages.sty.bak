@@ -1,0 +1,81 @@
+%section{qbase}
+
+  %subsection{packages}
+
+    %subsubsection{essential}
+
+      \usepackage[T1]{fontenc}
+      \usepackage[utf8]{inputenc}
+      \usepackage{lmodern}
+      \usepackage[british]{babel}
+      \usepackage{csquotes}
+      \usepackage{graphicx}
+      \usepackage{textcomp}
+
+    %subsubsection{misc}
+
+      \usepackage{amsmath}
+      \usepackage{hyperref}
+
+    %subsubsection{floats}
+
+      \usepackage{booktabs}
+      \usepackage{float}
+      \usepackage{array}
+      \usepackage{caption}
+
+    %subsubsection{todo notes}
+
+  \usepackage[textsize=tiny]{todonotes}
+
+  %subsection{new commands}
+
+    %subsubsection{formatting}
+
+  \newcommand{\se}[1]{\textbf{#1}}
+  \newcommand{\hw}[1]{\se{#1}:}
+  \newcommand{\sps}[1]{\textsuperscript{#1}}
+  \newcommand{\sbs}[1]{\textsubscript{#1}}
+  \newcommand{\supsub}[2]{\rlap{\sps{#1}}\sbs{#2}}
+  \newcommand{\qpar}[1]{\paragraph{#1}\mbox{} \vspace{.5\baselineskip}}
+
+  % linguistic markup
+
+  \newcommand{\phn}[1]{{[\shorthandoff{"}\scantokens{\tipaencoding#1\endinput}}]}
+  \newcommand{\phnm}[1]{{/\shorthandoff{"}\scantokens{\tipaencoding#1\endinput}}/}
+  \newcommand{\grphm}[1]{\begin{math}\langle \end{math}\textsf{#1}\begin{math}\rangle \end{math}}
+  \newcommand{\mrphm}[1]{\textsc{\{#1\}}}
+  \newcommand{\ol}[1]{\emph{#1}}
+  \newcommand{\mn}[1]{`{#1}'}
+  \newcommand{\lxm}[1]{\textsc{\{#1\}}}
+
+  % new environments
+
+  \newenvironment{qitem}{
+  \vspace{.5\baselineskip}
+  \begin{easylist}[itemize]
+  \ListProperties(Margin1=0em, Progressive*=2.5em, Space=.5em, Space*=.5em)
+  }{
+  \end{easylist}
+  \vspace{.5\baselineskip}
+  }
+
+  \newenvironment{qenum}{
+  \vspace{.5\baselineskip}
+  \begin{easylist}[enumerate]
+  \ListProperties(Margin1=0em, Progressive*=2.5em, Space=1em, Space*=1em)
+  }{
+  \end{easylist}
+  \vspace{.5\baselineskip}
+  }
+
+%section{extensions for paper}
+
+  \usepackage{subcaption}
+  \usepackage[super]{nth}
+
+  % load filenames containing whitespace
+  \usepackage{etoolbox}
+  \makeatletter
+  \patchcmd{\Ginclude@eps}{"#1"}{#1}{}{}
+  \makeatother

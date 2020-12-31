@@ -1,7 +1,8 @@
 \documentclass[
   a4paper,
   abstract=on,
-  captions=tableabove
+  captions=tableabove,
+  % draft
   ]{scrartcl}
 
 %section{Ignore warnings}
@@ -9,45 +10,70 @@
   \usepackage{silence}
   \WarningFilter{latex}{Marginpar on page}
 
-%section{Packages}
+%section{LaTeX packages}
 
-  \usepackage{packages}
-  
-    % references
-      \usepackage[
-        style=authoryear,
-        backend=biber,
-        maxcitenames=3,
-        maxbibnames=99,
-        eprint=false,
-        isbn=false
-        ]{biblatex}
+  %subsection{essential}
 
-        % removes `p.` prefix
-        \DeclareFieldFormat{postnote}{#1}
-        \DeclareFieldFormat{multipostnote}{#1}
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+    \usepackage[british]{babel}
+    \usepackage{csquotes}
+    \usepackage{graphicx}
+    \usepackage{textcomp}
 
-        % remove notes
-        \AtEveryBibitem{\clearfield{note}}
-        \AtEveryCitekey{\clearfield{note}}
+  %subsection{misc}
 
-      \addbibresource{references.bib}
-  
-  \usepackage{url}
-
-  %subsection{extensions for the paper}
-
+    \usepackage{amsmath}
+    \usepackage{hyperref}
     \usepackage{siunitx}
     \sisetup{group-minimum-digits=4}
+    \usepackage[textsize=tiny]{todonotes}
+    \usepackage{url}
 
-%section{New commands}
+  %subsection{floats}
 
-  \renewcommand{\hw}[1]{\textbf{#1}}
+    \usepackage{booktabs}
+    \usepackage{float}
+    \usepackage{array}
+    \usepackage{caption}
+    \usepackage{subcaption}
 
-  \newcommand{\lsil}[1]{\lstinline[language=Python]{#1}}
-  \newcommand{\mtrc}[1]{\textcolor{blue}{#1}}
+  % load filenames containing whitespace
 
-  \newcommand{\sw}[1]{\texttt{#1}}
+    \usepackage{etoolbox}
+    \makeatletter
+    \patchcmd{\Ginclude@eps}{"#1"}{#1}{}{}
+    \makeatother
+
+  %subsection{references}
+
+    \usepackage[
+      style=authoryear,
+      backend=biber,
+      maxcitenames=3,
+      maxbibnames=99,
+      eprint=false,
+      isbn=false
+      ]{biblatex}
+
+      % removes `p.` prefix
+      \DeclareFieldFormat{postnote}{#1}
+      \DeclareFieldFormat{multipostnote}{#1}
+
+      % remove notes
+      \AtEveryBibitem{\clearfield{note}}
+      \AtEveryCitekey{\clearfield{note}}
+
+    \addbibresource{references.bib}
+  
+%section{New LaTeX commands}
+
+  \newcommand{\qpar}[1]{\paragraph{#1}\mbox{} \vspace{.5\baselineskip}}
+  \newcommand{\ol}[1]{\emph{#1}}
+  \newcommand{\mn}[1]{`{#1}'}
+  \newcommand{\se}[1]{\textbf{#1}}
+
 
 \begin{document}
 
@@ -64,7 +90,7 @@
   \maketitle
 
 %section{Abstract}
-  \cleardoublepage
+  % \cleardoublepage
 
   \begin{abstract}
 
@@ -107,15 +133,15 @@
 
   This paper makes use of social media data and social network analysis to study the diffusion of lexical innovations on Twitter. Taking usage frequency as a baseline, I conduct a longitudinal study monitoring the use of a broad sample of neologisms to analyse their usage frequency and the temporal dynamics underlying their use. Next, I use social network analyses of my neologism sample to get a better picture of the sociolinguistic dynamics at play, in order to assess different pathways and overall degrees of diffusion. Lastly, I combine both approaches to get a more detailed picture of the diffusion of the neologisms in the sample, and to assess the results of both approaches to diffusion.
 
-  The paper is structured as follows. Section~\ref{sec:model-measure-diff} introduces the theoretical framework for modelling and measuring the diffusion of lexical innovations which forms the basis for the empirical study. Section~\ref{sec:data} presents information about the sample of neologisms and the Twitter dataset this study is based on. Section~\ref{sec:method} describes the methods used for analysing diffusion. Section~\ref{sec:results} presents the results of the empirical study. I analyse diffusion on the basis of frequency and social networks and integrate the results obtained from both approaches. Section~\ref{sec:discussion} summarises and discusses the results from the empirical study and draws implications about the role of frequency and network-based measures for the study of diffusion.
+  % The paper is structured as follows. Section~\ref{sec:model-measure-diff} introduces the theoretical framework for modelling and measuring the diffusion of lexical innovations which forms the basis for the empirical study. Section~\ref{sec:data} presents information about the sample of neologisms and the Twitter dataset this study is based on. Section~\ref{sec:method} describes the methods used for analysing diffusion. Section~\ref{sec:results} presents the results of the empirical study. I analyse diffusion on the basis of frequency and social networks and integrate the results obtained from both approaches. Section~\ref{sec:discussion} summarises and discusses the results from the empirical study and draws implications about the role of frequency and network-based measures for the study of diffusion.
 
 
-\section{Modeling and measuring the diffusion of lexical innovations}
+\section{Modelling and measuring the diffusion of lexical innovations}
   \label{sec:model-measure-diff}
 
   \todo{\ref{sec:model-measure-diff} is under construction.}
 
-  \subsection{Modeling diffusion}
+  \subsection{Modelling diffusion}
 
     Neologisms are on a continuum from entirely novel word-formations to fully established lexemes which are familiar to the majority of the speech community. Neologisms have spread to some extent, but are still perceived as new or unknown by many speakers. On one end of the continuum, \enquote{ad-hoc formations} are new words that have been coined in a concrete communicative situation, but are not adopted by interlocutors and do not diffuse beyond their original usage contexts~ \parencite{Hohenhaus1996AdhocWortbildungTerminologie}. On the other end, fully established words are known and used by the majority of the speech community. Neologisms occupy an intermediate position between both poles and can be defined as \enquote{[\dots] lexical units, that have been manifested in use and thus are no longer nonce-formations, but have not yet occurred frequently and are not widespread enough in a given period to have become part and parcel of the lexicon of the speech community and the majority of its members.}~\parencite[31]{Kerremans2015WebNew}
 
@@ -145,12 +171,13 @@
           
 \section{Data}
   \label{sec:data}
+
   \subsection{Neologism sample}
     \label{subsec:neo-sample}
 
   The present study is based on selection of 99 neologisms and investigates their use on Twitter from its launch in 2006 to the end of 2018. The lexemes were selected to cover a broad spectrum of lexical innovation. Previous work by \textcite[115--147]{Kerremans2015WebNew} has identified four main clusters of neologisms on the conventionalization continuum: `non-conventionalization', `topicality or transitional conventionalization', `recurrent semi-conventionalization' and `advanced conventionalization`. My sample was designed to cover these categories and largely contains neologisms taken from the NeoCrawler, which uses dictionary-matching to retrieve a semi-automatic, bottom-up selection of recent neologisms on the web and on Twitter~\parencite{Kerremans2019UsingDatamining}. I have additionally included several lexemes that were statistically identified to have been increasing in frequency on Twitter in recent years by \textcite{Grieve2016AnalyzingLexical}. I limit my selection to neologisms whose diffusion started after 2006 to have full coverage of the incipient stages of their spread on Twitter.
 
-  \subsection{Twitter data}
+  \subsection{Twitter corpus}
     \label{subsec:twitter-data}
 
     Twitter is a popular micro-blogging platform that was started in 2006 and has become one of the most popular social media platforms today. The Twitter community is not a perfect reflection of society and the speech community as a whole, of course, since certain social groups are over- or underrepresented according to social variables such as regional background and age.\todo{reference} Nevertheless, its broad user base and informal nature allow for a more representative picture of language use than domain-specific studies of, for example, newspaper corpora. Twitter corpora have been successfully used to identify patterns of sociolinguistic variation in numerous previous studies. A recent study by \textcite{Grieve2019MappingLexical} has shown, for example, the reliability of large-scale Twitter datasets for studying lexical variation.
@@ -293,7 +320,7 @@
         \caption[Cumulative increase in usage frequency]{Cumulative increase in usage frequency for case studies.\protect\footnotemark}
         \label{fig:freq_cum_cases}
         \centering
-        \includegraphics[width=.8\linewidth]{img/freq_cum_cases.pdf}
+        \includegraphics[width=.8\linewidth]{img/freq_cum_cases.png}
       \end{figure}
       \footnotetext{\ol{alt-right} was omitted from this plot because its high usage frequency would have inhibited the interpretability of the other lexemes; its frequency over time is presented in Figure \ref{subfig:freq_temp_alt-right}.}
 
@@ -339,37 +366,37 @@
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{upskill}}
           \label{subfig:freq_temp_upskill}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_upskill_time.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_upskill_time.png"}
         \end{subfigure}
         \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{hyperlocal}}
           \label{subfig:freq_temp_hyperlocal}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_hyperlocal_time.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_hyperlocal_time.png"}
         \end{subfigure}
         \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{solopreneur}}
           \label{subfig:freq_temp_solopreneur}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_solopreneur_time.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_solopreneur_time.png"}
         \end{subfigure}
 
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-right}}
           \label{subfig:freq_temp_alt-right}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-right_time.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-right_time.png"}
         \end{subfigure}
         \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{alt-left}}
           \label{subfig:freq_temp_alt-left}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-left_time.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_alt-left_time.png"}
         \end{subfigure}
         \hfill
         \begin{subfigure}{.3\linewidth}
           \caption{\ol{poppygate}}
           \label{subfig:freq_temp_poppygate}
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_time.pdf"}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{"img/ui_poppygate_time.png"}
         \end{subfigure}
       \end{figure}
 
@@ -583,26 +610,26 @@
           \caption{\se{\ol{upskill}}\\ (\num{37044}~nodes, \num{23060}~edges)}
           \label{subfig:net_last_cases_upskill}
           % \includegraphics[width=\linewidth]{example-image-a}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_upskill_four.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_upskill_four.png}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
           \caption{\se{\ol{hyperlocal}}\\ (\num{26548}~nodes, \num{16576}~edges)}
           \label{subfig:net_last_cases_hyperlocal}
           % \includegraphics[width=\linewidth]{example-image-b}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.png}
         \end{subfigure}
 
         \begin{subfigure}{.45\linewidth}
           \caption{\se{\ol{alt-left}}\\ (\num{26367}~nodes, \num{32836}~edges)}
           \label{subfig:net_last_cases_alt-left}
           % \includegraphics[width=\linewidth]{example-image-a}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_alt-left_four.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_alt-left_four.png}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
           \caption{\se{\ol{solopreneur}}\\ (\num{24585}~nodes, \num{20486}~edges)}
           \label{subfig:net_last_cases_solopreneur}
           % \includegraphics[width=\linewidth]{example-image-c}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_solopreneur_four.png}
         \end{subfigure}
         \captionsetup[subfigure]{justification=centering}
         \caption[Social networks of diffusion for the selected neologisms]{Social network graphs for the last subset of the selected neologisms.}
@@ -630,7 +657,7 @@
         \caption[Centralization over time for the selected neologisms]{Pathways of diffusion for the selected neologisms. The graph shows \textsc{degree centrality} scores over time, each \textsc{subset} representing one network graph which was generated for each of the four equally-sized time slices for each neologism in the sample.}
         \label{fig:cent_diac_cases}
         \centering
-        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_diac.pdf}
+        \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_diac.png}
       \end{figure}
 
       \ref{fig:net_diac_hyperlocal} presents the full network graphs for all stages of diffusion for the term \ol{hyperlocal} to illustrate the social dynamics underlying the quantitative measures.
@@ -643,14 +670,14 @@
           \label{subfig:net_diac_hyperlocal_one}
           \centering
           % \includegraphics[width=\linewidth]{example-image-a}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_one.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_one.png}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
           \caption{\se{Subset 2}\\ 9~Jul.,~2010 -- 5~May,~2013;\\ nodes: \num{33450}, edges: \num{34109}}
           \label{subfig:net_diac_hyperlocal_two}
           \centering
           % \includegraphics[width=\linewidth]{example-image-b}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_two.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_two.png}
         \end{subfigure}
 
         \begin{subfigure}{.45\linewidth}
@@ -658,14 +685,14 @@
           \label{subfig:net_diac_hyperlocal_three}
           \centering
           % \includegraphics[width=\linewidth]{example-image-c}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_three.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_three.png}
         \end{subfigure}
         \begin{subfigure}{.45\linewidth}
           \caption{\se{Subset 4}\\ 4~Mar.,~2016 -- 31~Dec.,~2018;\\ nodes: \num{26548}, edges: \num{16576}}
           \label{subfig:net_diac_hyperlocal_four}
           \centering
           % \includegraphics[width=\linewidth]{example-image-a}
-          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.pdf}
+          \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{img/net_hyperlocal_four.png}
         \end{subfigure}
         \caption[Social networks of diffusion for \ol{hyperlocal}]{Social network of diffusion for \ol{hyperlocal} over time.}
         \label{fig:net_diac_hyperlocal}
@@ -734,13 +761,13 @@
           \caption{Full sample.}
           \label{subfig:cent-vs-freq_sample}
           \centering
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.pdf}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/full_cent_freq_overall.png}
         \end{subfigure}
         \begin{subfigure}{.49\linewidth}
           \caption{Selected cases.}
           \label{subfig:cent-vs-freq_cases}
           \centering
-          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.pdf}
+          \includegraphics[width=\linewidth, height=.8\textheight, keepaspectratio]{img/cases_cent_freq_overall.png}
         \end{subfigure}
         \caption[Scatterplot of \textsc{usage frequency} and \textsc{centrality}]{Relationship between total \textsc{usage frequency} and degree centrality (\textsc{centralization}) for the full sample of neologisms ($n=99$) and the selected cases.}
         \label{fig:cent-vs-freq}
@@ -837,17 +864,17 @@
 
     % The interactional dynamics discovered by network analyses can be a valuable addition to more traditional, static sociolinguistic information such as metadata about groups of speakers. Moreover, network analyses can be used in cases where metadata about speakers are unavailable as in the present study. Since the importance of online social networks like Twitter and Reddit is only going to grow in the future, both in terms of their role in society and in academic research, network analyses are promising to enable many new opportunities for sociolinguistic research in the near future. 
 
-\section*{Conflict of Interest Statement}
+% \section*{Conflict of Interest Statement}
 
-  The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+%   The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
 
-\section*{Author Contributions}
+% \section*{Author Contributions}
 
-  The author confirms being the sole contributor of this work and has approved it for publication.
+%   The author confirms being the sole contributor of this work and has approved it for publication.
 
-\section*{Data Availability Statement}
+% \section*{Data Availability Statement}
 
-  The code for this paper can be found on GitHub: \url{https://github.com/wuqui/sna}. The original tweets cannot be shared due to Twitter's copyright restrictions. The anonymous, aggregated data on which the analyses are based is available on the GitHub repository.
+%   The code for this paper can be found on GitHub: \url{https://github.com/wuqui/sna}. The original tweets cannot be shared due to Twitter's copyright restrictions. The anonymous, aggregated data on which the analyses are based is available on the GitHub repository.
 
 %section{Bibliography}
 
