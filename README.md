@@ -1,2 +1,4 @@
-# sna
-Social networks of lexical innovation.
+# Social networks of lexical innovation
+## Investigating the social dynamics of diffusion of neologisms on Twitter
+
+Author: Quirin Würschinger
