@@ -2,11 +2,7 @@
 title: "Social networks of lexical innovation"
 author: "Quirin Würschinger"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
-    toc_depth: 1
-  html_notebook:
+  github_document:
     toc: yes
     toc_depth: 1
 ---
@@ -60,7 +56,8 @@ cases <- c(
 
 Load the aggregate data resulting from `processing.R`:
 
-```{r echo=TRUE, results='hide'}
+# ```{r echo=TRUE, results='hide'}
+```{r}
 if (exists('df_comp') == FALSE) {
   df_comp <- read_df_comp(f_path='out/df_comp.csv')
 }
@@ -276,7 +273,7 @@ df_comp <- df_comp %>%
 ```{r}
 df_comp %>%
   filter(SUBSET != 'full') %>%
-  do(tidy(cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$USES_LOG_CENT,  method='spearman')))
+  do(tidy(cor.test(df_comp$CENT_DEGREE_LOG_CENT, df_comp$USES_LOG_CENT,  method='spearman')))
 ```
 
 
