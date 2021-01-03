@@ -66,3 +66,6 @@ sna.Rproj
 packrat/*
 
 /doc/word-count.tex
+/analysis.Rmd
+/analysis.nb.html
+/twint-cmd.R

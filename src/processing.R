@@ -1,12 +1,12 @@
 # load code ----
 
 ## source files
-source('src/load-data.R')
-source('src/postproc.R')
-source('src/uses.R')
-source('src/users.R')
-source('src/sna.R')
-source('src/analysis.R')
+source('load-data.R')
+source('postproc.R')
+source('uses.R')
+source('users.R')
+source('sna.R')
+source('analysis.R')
 
 ## packages
 library(magrittr)
