@@ -70,3 +70,5 @@ packrat/*
 /analysis.nb.html
 /twint-cmd.R
 /README.html
+/src/test_diff_start.R
+/src/test_plt_net_limit.R

@@ -22,7 +22,7 @@ The results are based on the processing of all tweets using `src/processing.R`. 
     - determine the `age` of neologisms: `get_age()`
     - calculate their `volatility` using the coefficient of variation: `get_coef_var()`
     - bin tweets in monthly intervals: `bin_uses()`
-    - plot their usage frequency: `plt_uses`
+    - plot their usage frequency: `plt_uses()`
 - perform the social network analysis
     - determine diffusion offset: `get_diff_start()` 
     - determine subset boundaries: `get_slice_time()`
@@ -36,5 +36,3 @@ The results are based on the processing of all tweets using `src/processing.R`. 
         - add node information: `add_node_info()`
         - extract network metrics: `get_net_metrics()`
         - export edges: `net_to_gephi()` 
-        - save network date in `out/df_comp.csv`
-
