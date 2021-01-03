@@ -104,7 +104,7 @@ unsuccessful_uses_min <- df_comp %>%
 ## Load data
 
 ```{r include=FALSE}
-lemma <- 'hyperlocal'
+lemma <- 'fleek'
 tweets <- load_data(corpus, lemma)
 tweets <- postproc(tweets)
 tweets <- filter_tweets(tweets)
