@@ -7,17 +7,23 @@ q.wuerschinger@lmu.de
 
 This repository contains the code used for the paper _Social networks of lexical innovation_, submitted to _Frontiers in Artificial Intelligence_.
 
+# Results
+
+The results presented in the paper can be reproduced from the code in [this notebook](results.md).
+
+
 # Processing
 
-The tweets were processed using `src/processing.R`. This script performs the full analysis for each neologism in the sample, making use of several other scripts in `src/` to ...
+The results are based on the processing of all tweets using `src/processing.R`. This script performs the full analysis for each neologism in the sample, making use of several other scripts contained in `src/` to ...
 
-- load the data: `load_data()`
+- load the tweets: `load_data()`
 - post-process the tweets: `postproc()`
-- determine the `age` of neologisms: `get_age()`
-- calculate their `volatility` using the coefficient of variation: `get_coef_var()`
-- bin tweets in monthly intervals:`bin_uses()`
-- plot usage frequency: `plt_uses`
-- perform the social network analysis (for each neologism)
+- perform the frequency-based analyses
+    - determine the `age` of neologisms: `get_age()`
+    - calculate their `volatility` using the coefficient of variation: `get_coef_var()`
+    - bin tweets in monthly intervals: `bin_uses()`
+    - plot their usage frequency: `plt_uses`
+- perform the social network analysis
     - determine diffusion offset: `get_diff_start()` 
     - determine subset boundaries: `get_slice_time()`
     - for each subset
@@ -32,6 +38,3 @@ The tweets were processed using `src/processing.R`. This script performs the ful
         - export edges: `net_to_gephi()` 
         - save network date in `out/df_comp.csv`
 
-# Results
-
-The results can be reproduced from the code in [this notebook](results.md).
