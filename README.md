@@ -34,3 +34,4 @@ The tweets were processed using `src/processing.R`. This script performs the ful
 
 # Results
 
+The results can be reproduced from the code in [this notebook](results.md).

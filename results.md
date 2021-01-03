@@ -5,7 +5,6 @@ Quirin Würschinger
 -   [Load code](#load-code)
 -   [Variables](#variables)
 -   [Load data](#load-data)
--   [\`\`\`{r echo=TRUE, results=‘hide’}](#r-echotrue-resultshide)
 -   [Table 1: Overall usage frequency](#table-1-overall-usage-frequency)
 -   [Figure 1: Cumulative increase in usage frequency (case
     studies)](#figure-1-cumulative-increase-in-usage-frequency-case-studies)
@@ -34,155 +33,21 @@ Packages
 
 ``` r
 library(corrr)
-```
-
-    ## Warning: package 'corrr' was built under R version 3.5.2
-
-``` r
 library(tidyr)
-```
-
-    ## Warning: package 'tidyr' was built under R version 3.5.2
-
-``` r
 library(magrittr)
-```
-
-    ## 
-    ## Attaching package: 'magrittr'
-
-    ## The following object is masked from 'package:tidyr':
-    ## 
-    ##     extract
-
-``` r
 library(forcats)
-```
-
-    ## Warning: package 'forcats' was built under R version 3.5.2
-
-``` r
 library(broom)
 ```
-
-    ## Warning: package 'broom' was built under R version 3.5.2
 
 Custom scripts
 --------------
 
 ``` r
 source('src/load-data.R') 
-```
-
-    ## Warning: package 'stringr' was built under R version 3.5.2
-
-    ## Warning: package 'purrr' was built under R version 3.5.2
-
-    ## 
-    ## Attaching package: 'purrr'
-
-    ## The following object is masked from 'package:magrittr':
-    ## 
-    ##     set_names
-
-    ## Warning: package 'dplyr' was built under R version 3.5.2
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 source('src/postproc.R')
 source('src/uses.R')
-```
-
-    ## 
-    ## Attaching package: 'lubridate'
-
-    ## The following object is masked from 'package:base':
-    ## 
-    ##     date
-
-    ## Warning: package 'plotly' was built under R version 3.5.2
-
-    ## Loading required package: ggplot2
-
-    ## 
-    ## Attaching package: 'plotly'
-
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     last_plot
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     filter
-
-    ## The following object is masked from 'package:graphics':
-    ## 
-    ##     layout
-
-``` r
 source('src/users.R')
 source('src/sna.R')
-```
-
-    ## Warning: package 'tidygraph' was built under R version 3.5.2
-
-    ## 
-    ## Attaching package: 'tidygraph'
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     filter
-
-    ## Warning: package 'igraph' was built under R version 3.5.2
-
-    ## 
-    ## Attaching package: 'igraph'
-
-    ## The following object is masked from 'package:tidygraph':
-    ## 
-    ##     groups
-
-    ## The following object is masked from 'package:plotly':
-    ## 
-    ##     groups
-
-    ## The following objects are masked from 'package:lubridate':
-    ## 
-    ##     %--%, union
-
-    ## The following objects are masked from 'package:dplyr':
-    ## 
-    ##     as_data_frame, groups, union
-
-    ## The following objects are masked from 'package:purrr':
-    ## 
-    ##     compose, simplify
-
-    ## The following object is masked from 'package:tidyr':
-    ## 
-    ##     crossing
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     decompose, spectrum
-
-    ## The following object is masked from 'package:base':
-    ## 
-    ##     union
-
-    ## Warning: package 'ggraph' was built under R version 3.5.2
-
-``` r
 source('src/analysis.R')
 ```
 
@@ -210,9 +75,6 @@ Load data
 =========
 
 Load the aggregate data resulting from `processing.R`:
-
-\`\`\`{r echo=TRUE, results=‘hide’}
-===================================
 
 ``` r
 if (exists('df_comp') == FALSE) {
@@ -354,7 +216,7 @@ Figure 2: Temporal dynamics in usage frequency
 
 These plots cannot be generated here, since the orginal tweets dataset
 would be required. The plots were created for all lexemes during the
-data processing. The code for creating the plots can be in
+data processing. The code for creating the plots can be found in
 `scr/processing.R`.
 
 Table 2: Coefficients of variation
@@ -529,7 +391,7 @@ Log-transformation and centering
 --------------------------------
 
 ``` r
-df_comp <- df_comp %>%
+df_comp %<>%
   mutate(CENT_DEGREE_LOG_CENT = scale(log(CENT_DEGREE)), scale=FALSE) %>%
   mutate(USES_LOG_CENT = scale(log(USES)), scale=FALSE) %>%
   mutate(USES_TOT_LOG_CENT = scale(log(USES_TOT)), scale=FALSE) %>%
@@ -548,9 +410,6 @@ df_comp %>%
   do(tidy(cor.test(df_comp$CENT_DEGREE_LOG_CENT, df_comp$USES_LOG_CENT,  method='spearman')))
 ```
 
-    ## Warning in cor.test.default(df_comp$CENT_DEGREE_LOG_CENT,
-    ## df_comp$USES_LOG_CENT, : Cannot compute exact p-value with ties
-
     ## # A tibble: 1 x 5
     ##   estimate statistic  p.value method                          alternative
     ##      <dbl>     <dbl>    <dbl> <chr>                           <chr>      
@@ -564,9 +423,6 @@ df_comp %>%
   do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='spearman'))))
 ```
 
-    ## Warning in cor.test.default(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT, method =
-    ## "spearman"): Cannot compute exact p-value with ties
-
     ## # A tibble: 1 x 5
     ##   estimate statistic p.value method                          alternative
     ##      <dbl>     <dbl>   <dbl> <chr>                           <chr>      
@@ -579,9 +435,6 @@ df_comp %>%
   filter(SUBSET != 'full') %>%
   do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='spearman')))
 ```
-
-    ## Warning in cor.test.default(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, :
-    ## Cannot compute exact p-value with ties
 
     ## # A tibble: 1 x 5
     ##   estimate statistic      p.value method                          alternative

@@ -11,7 +11,7 @@ output:
 
 ## Packages
 
-```{r echo=TRUE, results='hide'}
+```{r echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 library(corrr)
 library(tidyr)
 library(magrittr)
@@ -22,7 +22,7 @@ library(broom)
 
 ## Custom scripts
 
-```{r echo=TRUE, results='hide'}
+```{r echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 source('src/load-data.R') 
 source('src/postproc.R')
 source('src/uses.R')
@@ -56,8 +56,7 @@ cases <- c(
 
 Load the aggregate data resulting from `processing.R`:
 
-# ```{r echo=TRUE, results='hide'}
-```{r}
+```{r echo=TRUE, results='hide'}
 if (exists('df_comp') == FALSE) {
   df_comp <- read_df_comp(f_path='out/df_comp.csv')
 }
@@ -163,7 +162,7 @@ uses_cum %>%
 
 # Figure 2: Temporal dynamics in usage frequency
 
-These plots cannot be generated here, since the orginal tweets dataset would be required. The plots were created for all lexemes during the data processing. The code for creating the plots can be in `scr/processing.R`.
+These plots cannot be generated here, since the orginal tweets dataset would be required. The plots were created for all lexemes during the data processing. The code for creating the plots can be found in `scr/processing.R`.
 
 
 # Table 2: Coefficients of variation
@@ -257,7 +256,7 @@ The network graphs are not presented here since they were generated using `Gephi
 ## Log-transformation and centering
 
 ```{r}
-df_comp <- df_comp %>%
+df_comp %<>%
   mutate(CENT_DEGREE_LOG_CENT = scale(log(CENT_DEGREE)), scale=FALSE) %>%
   mutate(USES_LOG_CENT = scale(log(USES)), scale=FALSE) %>%
   mutate(USES_TOT_LOG_CENT = scale(log(USES_TOT)), scale=FALSE) %>%
@@ -270,7 +269,7 @@ df_comp <- df_comp %>%
 
 ### with FREQUENCY
 
-```{r}
+```{r, warning=FALSE}
 df_comp %>%
   filter(SUBSET != 'full') %>%
   do(tidy(cor.test(df_comp$CENT_DEGREE_LOG_CENT, df_comp$USES_LOG_CENT,  method='spearman')))
@@ -279,7 +278,7 @@ df_comp %>%
 
 ### with AGE
 
-```{r}
+```{r, warning=FALSE}
 df_comp %>%
   filter(SUBSET == 'full') %>%
   do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='spearman'))))
@@ -288,7 +287,7 @@ df_comp %>%
 
 ### with VOLATILITY
 
-```{r}
+```{r, warning=FALSE}
 df_comp %>%
   filter(SUBSET != 'full') %>%
   do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='spearman')))
@@ -302,7 +301,7 @@ Correlation between
 - `CENT_DEGREE` in Subset 1 with
 - overall usage frequency
 
-```{r}
+```{r, warning=FALSE}
 df_comp %>%
   filter(SUBSET == 'one') %>%
   do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$USES_TOT_LOG_CENT,  method='spearman'))))
