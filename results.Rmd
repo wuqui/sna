@@ -1,30 +1,21 @@
 ---
-author: 'Quirin Würschinger'
 title: "Social networks of lexical innovation"
-output: 
-  html_notebook: 
+author: "Quirin Würschinger"
+output:
+  html_document:
+    df_print: paged
     toc: yes
+    toc_depth: 1
+  html_notebook:
+    toc: yes
+    toc_depth: 1
 ---
 
 # Load code
 
 ## Packages
 
-```{r}
-
-```
-
-
-## Custom code
-
-```{r include=FALSE}
-source('src/load-data.R')
-source('src/postproc.R')
-source('src/uses.R')
-source('src/users.R')
-source('src/sna.R')
-source('src/analysis.R')
-
+```{r echo=TRUE, results='hide'}
 library(corrr)
 library(tidyr)
 library(magrittr)
@@ -33,9 +24,21 @@ library(broom)
 ```
 
 
+## Custom scripts
+
+```{r echo=TRUE, results='hide'}
+source('src/load-data.R') 
+source('src/postproc.R')
+source('src/uses.R')
+source('src/users.R')
+source('src/sna.R')
+source('src/analysis.R')
+```
+
+
 # Variables
 
-```{r include=FALSE}
+```{r echo=TRUE, results='hide'}
 corpus <- '/Volumes/qjd/twint/'
 
 subsetting = 'time'
@@ -55,290 +58,26 @@ cases <- c(
 
 # Load data
 
-```{r include=FALSE}
+Load the aggregate data resulting from `processing.R`:
+
+```{r echo=TRUE, results='hide'}
 if (exists('df_comp') == FALSE) {
   df_comp <- read_df_comp(f_path='out/df_comp.csv')
 }
 ```
 
+Filter records to relevant subsetting method:
 
-# Filter data
-
-```{r include=FALSE}
+```{r echo=TRUE, results='hide'}
 df_comp %<>% 
   filter(
     SKIP != TRUE,
     SUBSETTING == subsetting,
-    # established words
-    !LEMMA %in% c('climate crisis', 'global heating', 'greenwashing', 'political correctness', 'refugee crisis', 'artificial intelligence', 'yellow', 'Anglo-Saxon', 'fidget spinner', 'cookprocessor')
-    # successful words: USES_TOT >= 10000
-    # unsuccessful words: USES_TOT <= 10000
-    # outliers: big dick energy
   )
 ```
 
 
-## success
-
-```{r}
-df_success <- df_comp %>%
-  select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
-  filter(SUBSET != 'full') %>%
-  group_by(LEMMA) %>%
-  mutate(DIFF_USES = USES - lag(USES)) %>%
-  mutate(DIFF_USES_TOT = sum(DIFF_USES, na.rm=TRUE)) %>%
-  filter(SUBSET == 'four') %>%
-  arrange(DIFF_USES_TOT)
-
-successful_diffs <- df_success %>%
-  filter(DIFF_USES_TOT > 0) %>%
-  pull(LEMMA)
-
-unsuccessful_diffs <- df_success %>%
-  filter(DIFF_USES_TOT < 0) %>%
-  pull(LEMMA)
-
-successful_uses_min <- df_comp %>%
-  filter(USES > 1000) %>%
-  pull(LEMMA)
-  
-unsuccessful_uses_min <- df_comp %>%
-  filter(USES < 1000) %>%
-  pull(LEMMA)
-```
-
-
-# Single lemma
-
-## Load data
-
-```{r include=FALSE}
-lemma <- 'fleek'
-tweets <- load_data(corpus, lemma)
-tweets <- postproc(tweets)
-tweets <- filter_tweets(tweets)
-```
-
-
-## Check tweets
-
-```{r}
-tweets %>%
-  select(date, tweet, replies_count, retweets_count, likes_count) %>%
-  arrange(desc(retweets_count))
-  # slice(., sample(1:n())) #random selection
-```
-
-
-## plot usage frequency
-
-```{r}
-uses <- get_uses(tweets)
-uses_month <- bin_uses(uses, 'month')
-
-plt <- ggplot(data=uses_month, aes(x=DATE, y=USES)) +
-  geom_line() +
-  geom_point() +
-  # ggtitle(paste0('n = ', USES_TOT)) +
-  scale_y_continuous("Tweets / month") + 
-  scale_x_date(
-    "", 
-    limits = as.Date(c('2006-01-01','2018-12-31')),
-    breaks = '1 year',
-    date_labels = '%Y'
-    ) +
-  geom_smooth(method='gam')
-
-plt
-# ggsave(file=paste0('~/promo/sna/doc/img/ui_', lemma, '_gam.pdf'), plot=plt, width=6, height=3)
-```
-
-
-## Check uses and edges
-
-```{r}
-df_comp %>%
-  filter(LEMMA == 'upskill') %>%
-  select(LEMMA, USES_TOT, SUBSET, USES)
-```
-
-
-# Case studies
-
-## Data overview
-
-```{r include=FALSE}
-df_comp %>%
-  filter(
-    LEMMA %in% cases,
-    SUBSET == 'full'
-    ) %>%
-  select(LEMMA, USES=USES_TOT, SPEAKERS=USERS_TOT) %>%
-  mutate(USES_PER_SPEAKER = USES / SPEAKERS) %>%
-  arrange(desc(USES))
-  # ggplot(data=., aes(x=USERS_TOT, y=USES_TOT)) +
-  #   geom_text(aes(label=LEMMA)) +
-  #   scale_y_continuous('frequency (log)', trans='log')
-```
-
-
-## Usage frequency
-
-### Overall across cases
-
-```{r}
-df_comp %>%
-  filter(
-    LEMMA %in% cases,
-    SUBSET == 'full'
-    ) %>%
-   arrange(desc(USES_TOT))
-```
-
-
-### Uses in first subset
-
-```{r}
-df_comp %>%
-  filter(
-    SUBSETTING == 'time',
-    SUBSET == 'one'
-    ) %>%
-  select(LEMMA, USES_TOT, USES) %>%
-  arrange(USES)
-```
-
-
-
-## Degree centralization
-
-### Diachronic
-
-```{r}
-# cent_diac_incr <- c('robo-signing', 'circular economy', 'alt-right', 'Brexiteer')
-# cent_diac_const <- c('upskill')
-# cent_diac_decr <- c('blockchain', 'newsjacking', 'overtourism')
-
-df_comp %>%
-  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, CENT_EV, DENSITY) %>%
-  filter(
-    SUBSET != 'full',
-    LEMMA %in% c(cases)
-    # 'social justice warrior', 'baecation', 'tookkah', 'upskirting', 'helicopter parenting', 
-    # 'glamping', 'lifehack', 'alt-right', 'lituation', 'baeless'
-    # !LEMMA %in% c('circular economy')
-  ) %>%
-  # filter(LEMMA != 'alt-right') %>%
-  ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) + # group=1
-    geom_point(aes(group=LEMMA, color=LEMMA)) +
-    geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
-    guides(group=TRUE) +
-    scale_y_continuous('degree centrality') +
-    scale_x_discrete('subset') +
-    scale_color_discrete('lemma') +
-    scale_linetype_discrete(guide=FALSE)
-
-# ggplotly(plt)
-# ggsave('out/cases_cent_diac.pdf', width=6, height=4)
-```
-
-
-#### Nodes and edges
-
-```{r}
-df_comp %>% 
-  filter(
-    SUBSET!='full', 
-    LEMMA=='hyperlocal'
-    ) %>% 
-  mutate(EDGES_NODE = EDGES / NODES) %>%
-  select(SUBSET, NODES, EDGES, EDGES_NODE) %>%
-  arrange((SUBSET))
-```
-
-
-### Overall
-
-```{r}
-df_comp %>%
-  filter(
-    LEMMA %in% cases,
-    SUBSET == 'full'
-    ) %>%
-  select(
-    LEMMA, 
-    EDGES,
-    CENT_DEGREE, 
-    CENT_EV
-    ) %>%
-  arrange((CENT_DEGREE))
-```
-
-
-### Nodes and edges for Subset 4
-
-```{r}
-df_comp %>% 
-  filter(
-    SUBSET=='four', 
-    LEMMA %in% cases) %>% 
-  mutate(EDGES_NODE = EDGES / NODES) %>%
-  select(LEMMA, NODES, EDGES, EDGES_NODE) %>%
-  arrange(desc(EDGES_NODE))
-```
-
-# Full sample
-
-# Number of lexemes
-
-```{r}
-df_comp %>%
-  distinct(LEMMA)
-```
-
-
-# Age
-
-```{r}
-df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select(LEMMA, AGE, USES=USES_TOT) %>%
-  mutate(USES_AGE = USES / AGE) %>%
-  arrange(desc(USES_AGE))
-```
-
-
-# Frequency
-
-## total n. of tweets
-
-```{r}
-n_tweets <- df_comp %>%
-  select(LEMMA, SUBSET, USES_TOT) %>%
-  filter(SUBSET=='full') %>%
-  dplyr::summarise(n_tweets = sum(USES_TOT)) %>%
-  pull(n_tweets)
-```
-
-
-## date range
-
-```{r}
-first_tweet <- df_comp %>%
-  filter(SUBSET=='full') %>%
-  select(LEMMA, START, END) %>%
-  arrange(START) %>%
-  top_n(-1, START)
-
-df_comp %>%
-  filter(SUBSET=='full') %>%
-  select(LEMMA, START, END) %>%
-  arrange(START) %>%
-  top_n(1, START)
-```
-
-
-## dataset statistics
+# Table 1: Overall usage frequency
 
 ```{r}
 df_stats <- tibble(
@@ -390,42 +129,29 @@ df_examples %<>%
   arrange(GROUP)
 
 df_examples
-# write_csv(df_examples, 'out/df_examples.csv')
 ```
 
 
+# Figure 1: Cumulative increase in usage frequency (case studies)
 
-## total freq. per lemma
+This code cannot be executed since it requires the original tweet data.
 
-```{r}
-df_comp %>%
-  filter(SUBSET == 'full') %>%
-  # filter(LEMMA %in% c(cases)) %>%
-  arrange(desc(USES_TOT))
-```
+```{r eval=FALSE}
+uses_cum <- NULL
+# lemmas_done <- uses_cum %>% distinct(LEMMA) %>% pull()
+for (lemma in cases) {
+  tweets <- load_data(corpus, lemma)
+  tweets <- postproc(tweets)
+  tweets <- filter_tweets(tweets)
+  uses <- get_uses(tweets)
+  uses_month <- bin_uses(uses, 'month')
+  uses_month %<>%
+   mutate(LEMMA = lemma) %>%
+   mutate(USES_CUM = cumsum(USES))
+  uses_cum <- bind_rows(uses_cum, uses_month)
+}
 
-
-## cumulative
-
-```{r}
-# uses_lemmas <- NULL
-# lemmas_done <- uses_lemmas %>% distinct(LEMMA) %>% pull()
-
-# for (lemma in c('alt-right')) {
-#   if (!lemma %in% lemmas_done) {
-#     tweets <- load_data(corpus, lemma)
-#     tweets <- postproc(tweets)
-#     tweets <- filter_tweets(tweets)
-#     uses <- get_uses(tweets)
-#     uses_month <- bin_uses(uses, 'month')
-#     uses_month %<>%
-#       mutate(LEMMA = lemma) %>%
-#       mutate(USES_CUM = cumsum(USES))
-#     uses_lemmas <- bind_rows(uses_lemmas, uses_month)
-#   }
-# }
-
-uses_lemmas %>%
+uses_cum %>%
   mutate(LEMMA = fct_reorder(LEMMA, USES_CUM, max, .desc=TRUE)) %>%
   filter(LEMMA %in% c(cases)) %>%
   filter(LEMMA != 'alt-right') %>%
@@ -435,231 +161,168 @@ uses_lemmas %>%
     scale_x_date('') +
     scale_color_discrete('lemma') +
     scale_linetype_discrete(guide=FALSE)
-
-# ggsave('out/freq_cum_cases.pdf', width=6, height=4)
-# write_csv(uses_lemmas, 'out/uses_lemmas.csv')
 ```
 
 
-## decreasing frequency
+# Figure 2: Temporal dynamics in usage frequency
+
+These plots cannot be generated here, since the orginal tweets dataset would be required. The plots were created for all lexemes during the data processing. The code for creating the plots can be in `scr/processing.R`.
+
+
+# Table 2: Coefficients of variation
 
 ```{r}
-df_comp %>%
-  select(LEMMA, SUBSET, USES) %>%
-  filter(SUBSET %in% c('one', 'four')) %>%
-  dplyr::group_by(LEMMA) %>%
-  dplyr::mutate(FREQ_DIFF = USES - lag(USES, default=USES[1])) %>%
+coef_var <- df_comp %>%
+  filter(
+    SUBSET == 'full',
+    AGE >= 365,
+    USES_TOT >= 2000,
+    ) %>%
+  select(LEMMA, COEF_VAR)
+
+coef_var_cases <- coef_var %>%
+  filter(LEMMA %in% cases) %>%
+  arrange(COEF_VAR)
+
+coef_var_high <- coef_var %>%
+  arrange(desc(COEF_VAR)) %>%
+  top_n(6, COEF_VAR)
+
+coef_var_low <- coef_var %>%
+  arrange((COEF_VAR)) %>%
+  top_n(-6, COEF_VAR)
+
+
+print(coef_var_cases)
+print(coef_var_high)
+print(coef_var_low)
+```
+
+
+# Table 3: Degree centrality scores
+
+```{r}
+cent_deg <-  df_comp %>%
+  select(LEMMA, SUBSET, CENT_DEGREE) %>%
   filter(SUBSET == 'four') %>%
   select(-SUBSET) %>%
-  arrange(desc(FREQ_DIFF))
+  arrange(CENT_DEGREE)
+
+cent_deg_cases <- cent_deg %>%
+  filter(LEMMA %in% cases)
+
+cent_deg_low <- cent_deg %>%
+  top_n(-6, CENT_DEGREE)
+
+cent_deg_high <- cent_deg %>%
+  top_n(6, CENT_DEGREE) %>%
+  arrange(desc(CENT_DEGREE))
+
+print(cent_deg_cases)
+print(cent_deg_low)
+print(cent_deg_high)
 ```
 
 
 
-# Edges
+# Figure 4: Degrees of diffusion for case studies in Subset 4
 
-```{r include=FALSE}
-df_comp %>%
-  dplyr::group_by(LEMMA) %>%
-  filter(SUBSET == 'one') %>%
-  select(LEMMA, SUBSET, USES, EDGES) %>%
-  arrange(EDGES)
-```
+The network graphs are not presented here since they were generated using `Gephi`. The code for generating the network graphs and exporting the edges and nodes of the network for visualisation in `Gephi` can be found in `src/sna.R`.
 
 
-# Degree centrality
-
-## Overall
-
-### List
+# Figure 5: Pathways of social diffusion
 
 ```{r}
 df_comp %>%
-  select(LEMMA, SUBSET, USES_TOT, CENT_DEGREE, CENT_EV, DENSITY) %>%
-  filter(
-    SUBSET == 'four',
-    LEMMA %in% cases
-    ) %>%
-  arrange(
-    (CENT_DEGREE)
-    # (DENSITY)
-  )
-```
-
-
-### Plot
-
-```{r}
-plt <- df_comp %>%
-  select(LEMMA, SUBSET, USES, CENT_DEGREE) %>%
-  filter(SUBSET == 'full') %>%
-  arrange((CENT_DEGREE)) %>%
-  ggplot(., aes(x=CENT_DEGREE, y=reorder(LEMMA, CENT_DEGREE))) +
-    geom_point() +
-    scale_y_discrete('lemmas') +
-    scale_x_continuous(
-      'degree centralization (log)',
-      trans='log'
-      )
-
-plt
-
-# ggsave('out/cent_sync_all.pdf', width=6, height=4)
-```
-
-
-### Over time
-
-#### Across all lemmas
-
-```{r}
-df_comp %>%
-  filter(
-    SUBSET %in% c('one', 'two', 'three', 'four'),
-    LEMMA %in% unsuccessful_diffs
-    # USES_TOT >= 10000
-    # USES > 1000
-    ) %>%
-  group_by(SUBSET) %>%
-  summarize(
-    DENS_AVG = mean(DENSITY),
-    CENT_AVG = mean(CENT_DEGREE)
-    ) %>%
-  ggplot(., aes(x=SUBSET, y=DENS_AVG, group=1)) +
-    geom_line() +
-    geom_point() +
-    scale_y_continuous('degree centralization') +
-    scale_x_discrete('subsets')
-
-# ggsave('out/full_cent_diac.pdf', width=6, height=4)
-```
-
-
-#### Biggest changes
-
-```{r}
-df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, EDGES, USES_TOT) %>%
-  filter(
-    SUBSET %in% c('one', 'four'),
-    USES_TOT >= 10000
-    ) %>%
-  dplyr::group_by(LEMMA) %>%
-  dplyr::mutate(CENT_DIFF = CENT_DEGREE - lag(CENT_DEGREE, default=CENT_DEGREE[1])) %>%
-  filter(SUBSET == 'four') %>%
-  select(-SUBSET) %>%
-  rename(
-    CENT_LAST = CENT_DEGREE,
-    EDGES_LAST = EDGES
-    ) %>%
-  arrange((CENT_DIFF))
-```
-
-
-# Density
-
-## overall
-
-```{r}
-df_comp %>%
-  select(LEMMA, SUBSET, USES_TOT, CENT_DEGREE, DENSITY) %>%
-  filter(SUBSET == 'four') %>%
-  arrange(DENSITY)
-```
-
-
-## over time
-
-### case studies
-
-```{r}
-dens_incr <- c('robo-signing')
-dens_decr <- c('deep learning', 'artificial intelligence')
-
-plt <- df_comp %>%
-  select(LEMMA, SUBSETTING, SUBSET, CENT_DEGREE, DENSITY) %>%
+  select(LEMMA, SUBSET, CENT_DEGREE) %>%
   filter(
     SUBSET != 'full',
-    LEMMA %in% c(cases, dens_decr)
+    LEMMA %in% c(cases)
   ) %>%
-  ggplot(., aes(x=SUBSET, y=DENSITY)) + # group=1
-    geom_point(aes(group=LEMMA, color=LEMMA, shape=LEMMA)) +
+  ggplot(., aes(x=SUBSET, y=CENT_DEGREE)) +
+    geom_point(aes(group=LEMMA, color=LEMMA)) +
     geom_line(aes(group=LEMMA, color=LEMMA, linetype=LEMMA)) +
     guides(group=TRUE) +
-    ggtitle('Diffusion over time: changes in degree centralization') +
-    scale_y_continuous('density') +
-    scale_x_discrete('subset')
-
-ggplotly(plt)
-# ggsave('out/cases_cent_diac.pdf', width=6, height=4)
+    scale_y_continuous('degree centrality') +
+    scale_x_discrete('subset') +
+    scale_color_discrete('lemma') +
+    scale_linetype_discrete(guide=FALSE)
 ```
 
 
-### full sample
+# Figure 6: Social diffusion over time for _hyperlocal_.
+
+The network graphs are not presented here since they were generated using `Gephi`. The code for generating the network graphs and exporting the edges and nodes of the network for visualisation in `Gephi` can be found in `src/sna.R`.
+
+
+# Table 4: Correlations for 'degree centrality'
+
+## Log-transformation and centering
 
 ```{r}
-df_comp %>%
-  filter(
-    SUBSET %in% c('one', 'two', 'three', 'four'),
-    LEMMA %in% unsuccessful_diffs,
-    USES_TOT >= 10000
-    ) %>%
-  group_by(SUBSET) %>%
-  summarize(
-    DENS_AVG = mean(DENSITY)
-    ) %>%
-  ggplot(., aes(x=SUBSET, y=DENS_AVG, group=1)) +
-    geom_line() +
-    geom_point() +
-    scale_y_continuous('density') +
-    scale_x_discrete('subsets')
+df_comp <- df_comp %>%
+  mutate(CENT_DEGREE_LOG_CENT = scale(log(CENT_DEGREE)), scale=FALSE) %>%
+  mutate(USES_LOG_CENT = scale(log(USES)), scale=FALSE) %>%
+  mutate(USES_TOT_LOG_CENT = scale(log(USES_TOT)), scale=FALSE) %>%
+  mutate(AGE_LOG_CENT = scale(log(AGE)), scale=FALSE) %>%
+  mutate(COEF_VAR_LOG_CENT = scale(log(COEF_VAR)), scale=FALSE)
 ```
 
 
-### biggest changes
+## Correlation tests: `CENT_DEGREE` X ...
+
+### with FREQUENCY
 
 ```{r}
 df_comp %>%
-  select(LEMMA, SUBSET, CENT_DEGREE, DENSITY, EDGES, USES_TOT) %>%
-  filter(
-    SUBSET %in% c(
-      'one', 
-      'four'
-      ),
-    USES_TOT >= 10000
-    ) %>%
-  dplyr::group_by(LEMMA) %>%
-  dplyr::mutate(DENS_DIFF = DENSITY - lag(DENSITY, default=DENSITY[1])) %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$USES_LOG_CENT,  method='spearman')))
+```
+
+
+### with AGE
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='spearman'))))
+```
+
+
+### with VOLATILITY
+
+```{r}
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='spearman')))
+```
+
+
+## 'predictive' correlation
+
+Correlation between
+
+- `CENT_DEGREE` in Subset 1 with
+- overall usage frequency
+
+```{r}
+df_comp %>%
+  filter(SUBSET == 'one') %>%
+  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$USES_TOT_LOG_CENT,  method='spearman'))))
+```
+
+
+
+# Figure 7: Relationship between FREQUENCY and CENTRALITY
+
+## Full sample
+
+```{r}
+df_comp %>%
   filter(SUBSET == 'four') %>%
-  select(-SUBSET) %>%
-  rename(
-    DENS_LAST = DENSITY,
-    EDGES_LAST = EDGES
-    ) %>%
-  arrange((DENS_DIFF))
-```
-
-
-# Frequency vs. networks
-
-## Frequency vs. centralization
-
-### Plot
-
-#### Full sample
-
-```{r}
-df_comp %>%
-  filter(
-    SUBSET == 'four',
-    # USES_TOT %in% (150000:500000)
-    # LEMMA %in% c(cases)
-    # !LEMMA %in% c('slut shaming', 'dashcam', 'shareable', 'cuckold', 'deep learning', 'hyperlocal')
-    ) %>%
   select(LEMMA, CENT_DEGREE, USES_TOT, USES, EDGES) %>%
   ggplot(., aes(x=CENT_DEGREE, y=USES_TOT)) +
     geom_text(aes(label=LEMMA), hjust=-0.1, vjust=-0.1) + 
-    # geom_point() +
     scale_y_continuous(
       'usage frequency (log)', 
       trans='log',
@@ -670,13 +333,10 @@ df_comp %>%
       trans='log',
       labels=function(x)round(x,3)
       )
-
-# ggplotly(plt)
-# ggsave('out/full_cent_freq_overall.pdf', width=6, height=4)
 ```
 
 
-#### Case studies
+## Case studies
 
 ```{r}
 subset <- 'four'
@@ -704,6 +364,7 @@ df_comp %>%
     SUBSET == subset,
     USES_TOT >= cases_freq_min,
     USES_TOT <= cases_freq_max,
+    # filter specific lexemes to prevent overlap
     !LEMMA %in% c('big dick energy', 'slut shaming', 'cuckold', 'shareable', 'Brexiteer', 'incel', 'dashcam', 'refugee crisis')
     ) %>%
   select(LEMMA, CENT_DEGREE, USES_TOT, USES, EDGES) %>%
@@ -721,201 +382,4 @@ df_comp %>%
       trans='log',
       labels=function(x)round(x,3)
       )
-
-ggsave('out/cases_cent_freq_overall.pdf', width=6, height=4)
 ```
-
-
-### Biggest discrepancies
-
-```{r}
-df_comp %>%
-  filter(
-    SUBSETTING == 'time',
-    SUBSET == 'four'
-    ) %>%
-  select(LEMMA, USES_TOT, CENT_DEGREE) %>%
-  mutate(DISC = USES_TOT / CENT_DEGREE) %>%
-  arrange(DISC)
-```
-
-
-# Correlations
-
-## check for potential correlations
-
-```{r}
-df_comp %>%
-  ggplot(., aes(x=USES, y=CENT_DEGREE)) +
-    geom_point() +
-    scale_x_continuous(trans='log') +
-    scale_y_continuous(trans='log') +
-    geom_smooth(method='glm')
-```
-
-
-
-
-## transform variables
-
-```{r}
-df_comp <- df_comp %>%
-  mutate(CENT_DEGREE_LOG_CENT = scale(log(CENT_DEGREE)), scale=FALSE) %>%
-  mutate(USES_LOG_CENT = scale(log(USES)), scale=FALSE) %>%
-  mutate(USES_TOT_LOG_CENT = scale(log(USES_TOT)), scale=FALSE) %>%
-  mutate(AGE_LOG_CENT = scale(log(AGE)), scale=FALSE) %>%
-  mutate(COEF_VAR_LOG_CENT = scale(log(COEF_VAR)), scale=FALSE)
-```
-
-
-## create correlation matrix
-
-```{r}
-df_corr <- df_comp %>%
-  select_if(is.numeric)
-```
-
-## explore correlations
-### plot all correlations
-
-```{r}
-df_corr_four %>%
-  shave() %>%
-  rplot() + 
-    theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-
-### check one variable vs. all others
-
-```{r}
-df_corr_four %>%
-  focus(DENSITY) %>%
-  mutate(rowname = reorder(rowname, DENSITY)) %>%
-  ggplot(aes(rowname, DENSITY)) +
-    geom_col() +
-    coord_flip()
-```
-
-
-
-## correlation tests: `CENT_DEGREE` X ...
-
-### 'normal' correlations
-
-#### number of uses
-
-```{r}
-df_comp %>%
-  filter(SUBSET != 'full') %>%
-  do(tidy(cor.test(df_corr$CENT_DEGREE_LOG_CENT, df_corr$USES_LOG_CENT,  method='spearman')))
-```
-
-#### age
-
-```{r}
-df_comp %>%
-  filter(SUBSET == 'full') %>%
-  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='spearman'))))
-```
-
-#### volatility
-
-```{r}
-df_comp %>%
-  filter(SUBSET != 'full') %>%
-  do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='spearman')))
-```
-
-
-### 'predictive correlations'
-
-#### predicting total usage frequency
-
-#### from `CENT_DEGREE` in first subset
-
-```{r}
-df_comp %>%
-  filter(SUBSET == 'one') %>%
-  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$USES_TOT_LOG_CENT,  method='spearman'))))
-```
-
-#### from `USES` in first subset
-
-```{r}
-library(tidyr)
-
-df_comp %>%
-  filter(SUBSET == 'one') %>%
-  do(tidy((cor.test(.$USES_LOG_CENT, .$USES_TOT_LOG_CENT,  method='spearman'))))
-```
-
-
-#### predicting uses in last subset
-
-```{r}
-splt <- df_comp %>%
-  filter(SUBSET %in% c('one', 'four')) %>%
-  dplyr::group_split(SUBSET)
-      
-cor.test(splt[[1]][1:99, ]$CENT_DEGREE_LOG_CENT, splt[[2]][1:99, ]$USES_LOG_CENT)
-```
-
-
-
-
-# Coefficient of variation
-
-## case studies
-
-```{r}
-df_comp %>%
-  filter(
-    SUBSET == 'full',
-    AGE >= 365,
-    # USES_TOT >= 10000,
-    LEMMA %in% cases
-    ) %>%
-  select(LEMMA, USES_TOT, COEF_VAR, AGE) %>%
-  arrange((COEF_VAR))
-```
-
-## full samples
-
-```{r}
-df_comp %>%
-  filter(
-    SUBSET == 'full',
-    AGE >= 365,
-    # USES_TOT >= 2000
-    ) %>%
-  select(LEMMA, USES_TOT, COEF_VAR, AGE) %>%
-  arrange(desc(COEF_VAR))
-```
-
-
-# Processing status
-
-## Lemma list
-
-```{r}
-df_comp %>%
-  select(LEMMA, SUBSET, STAMP) %>%
-  filter(SUBSET == 'four') %>%
-  # mutate(STAMP = as_datetime(STAMP)) %>%
-  arrange(desc(STAMP))
-```
-
-
-## Dataset statistics
-
-```{r}
-df_comp %>%
-  filter(SUBSET == 'full') %>%
-  select(LEMMA, SUBSET, USES_TOT, USERS_TOT) %>%
-  dplyr::summarise(
-    USES_ALL = sum(USES_TOT),
-    USERS_ALL = sum(USERS_TOT)
-    )
-```
-
