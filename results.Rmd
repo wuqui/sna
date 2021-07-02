@@ -269,28 +269,51 @@ df_comp %<>%
 
 ### with FREQUENCY
 
+#### Spearman
 ```{r, warning=FALSE}
 df_comp %>%
   filter(SUBSET != 'full') %>%
   do(tidy(cor.test(df_comp$CENT_DEGREE_LOG_CENT, df_comp$USES_LOG_CENT,  method='spearman')))
 ```
 
+#### Pearson
+```{r, warning=FALSE}
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(df_comp$CENT_DEGREE_LOG_CENT, df_comp$USES_LOG_CENT,  method='pearson')))
+```
+
 
 ### with AGE
 
+#### Spearman
 ```{r, warning=FALSE}
 df_comp %>%
   filter(SUBSET == 'full') %>%
   do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='spearman'))))
 ```
 
+#### Pearson
+```{r, warning=FALSE}
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='pearson'))))
+```
 
 ### with VOLATILITY
 
+#### Spearman
 ```{r, warning=FALSE}
 df_comp %>%
   filter(SUBSET != 'full') %>%
   do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='spearman')))
+```
+
+#### Pearson
+```{r, warning=FALSE}
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='pearson')))
 ```
 
 
