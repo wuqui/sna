@@ -19,28 +19,25 @@ Quirin Würschinger
 -   [Figure 5: Pathways of social
     diffusion](#figure-5-pathways-of-social-diffusion)
 -   [Figure 6: Social diffusion over time for
-    *hyperlocal*.](#figure-6-social-diffusion-over-time-for-hyperlocal.)
+    *hyperlocal*.](#figure-6-social-diffusion-over-time-for-hyperlocal)
 -   [Table 4: Correlations for ‘degree
     centrality’](#table-4-correlations-for-degree-centrality)
 -   [Figure 7: Relationship between FREQUENCY and
     CENTRALITY](#figure-7-relationship-between-frequency-and-centrality)
 
-Load code
-=========
+# Load code
 
-Packages
---------
+## Packages
 
 ``` r
-library(corrr)
+library('corrr')
 library(tidyr)
 library(magrittr)
 library(forcats)
 library(broom)
 ```
 
-Custom scripts
---------------
+## Custom scripts
 
 ``` r
 source('src/load-data.R') 
@@ -51,11 +48,10 @@ source('src/sna.R')
 source('src/analysis.R')
 ```
 
-Variables
-=========
+# Variables
 
 ``` r
-corpus <- '/Volumes/qjd/twint/'
+corpus <- '~/data/twint/twint/'
 
 subsetting = 'time'
 diff_start_method <- 'edges'
@@ -71,8 +67,7 @@ cases <- c(
   )
 ```
 
-Load data
-=========
+# Load data
 
 Load the aggregate data resulting from `processing.R`:
 
@@ -82,7 +77,8 @@ if (exists('df_comp') == FALSE) {
 }
 ```
 
-    ## Parsed with column specification:
+    ## 
+    ## ── Column specification ────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   LEMMA = col_character(),
@@ -96,8 +92,7 @@ if (exists('df_comp') == FALSE) {
     ##   SKIP = col_logical(),
     ##   STAMP = col_datetime(format = "")
     ## )
-
-    ## See spec(...) for full column specifications.
+    ## ℹ Use `spec()` for the full column specifications.
 
 Filter records to relevant subsetting method:
 
@@ -109,8 +104,7 @@ df_comp %<>%
   )
 ```
 
-Table 1: Overall usage frequency
-================================
+# Table 1: Overall usage frequency
 
 ``` r
 df_stats <- tibble(
@@ -179,8 +173,7 @@ df_examples
     ## 10 deepfake                20101 median
     ## # … with 20 more rows
 
-Figure 1: Cumulative increase in usage frequency (case studies)
-===============================================================
+# Figure 1: Cumulative increase in usage frequency (case studies)
 
 This code cannot be executed since it requires the original tweet data.
 
@@ -198,29 +191,29 @@ for (lemma in cases) {
    mutate(USES_CUM = cumsum(USES))
   uses_cum <- bind_rows(uses_cum, uses_month)
 }
+```
 
+``` r
 uses_cum %>%
   mutate(LEMMA = fct_reorder(LEMMA, USES_CUM, max, .desc=TRUE)) %>%
   filter(LEMMA %in% c(cases)) %>%
   filter(LEMMA != 'alt-right') %>%
-  ggplot(data=., aes(x=DATE, y=USES_CUM)) +
-    geom_line(aes(color=LEMMA, linetype=LEMMA)) +
+  ggplot(data=., aes(x=DATE, y=USES_CUM, color=LEMMA, linetype=LEMMA)) +
+    geom_line() +
     scale_y_continuous('cumulative usage frequency', labels=scales::comma) +
-    scale_x_date('') +
-    scale_color_discrete('lemma') +
-    scale_linetype_discrete(guide=FALSE)
+    scale_x_date('')
+
+# ggsave('~/out/freq_cum_cases.pdf', width=8, height=4)
 ```
 
-Figure 2: Temporal dynamics in usage frequency
-==============================================
+# Figure 2: Temporal dynamics in usage frequency
 
 These plots cannot be generated here, since the orginal tweets dataset
 would be required. The plots were created for all lexemes during the
 data processing. The code for creating the plots can be found in
 `scr/processing.R`.
 
-Table 2: Coefficients of variation
-==================================
+# Table 2: Coefficients of variation
 
 ``` r
 coef_var <- df_comp %>%
@@ -285,8 +278,7 @@ print(coef_var_low)
     ## 5 remoaners        0.761
     ## 6 twittersphere    0.767
 
-Table 3: Degree centrality scores
-=================================
+# Table 3: Degree centrality scores
 
 ``` r
 cent_deg <-  df_comp %>%
@@ -346,16 +338,14 @@ print(cent_deg_high)
     ## 5 dotard           0.0979
     ## 6 ecocide          0.0922
 
-Figure 4: Degrees of diffusion for case studies in Subset 4
-===========================================================
+# Figure 4: Degrees of diffusion for case studies in Subset 4
 
 The network graphs are not presented here since they were generated
 using `Gephi`. The code for generating the network graphs and exporting
 the edges and nodes of the network for visualisation in `Gephi` can be
 found in `src/sna.R`.
 
-Figure 5: Pathways of social diffusion
-======================================
+# Figure 5: Pathways of social diffusion
 
 ``` r
 df_comp %>%
@@ -374,21 +364,21 @@ df_comp %>%
     scale_linetype_discrete(guide=FALSE)
 ```
 
-![](results_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+    ## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
+    ## use `guide = "none"` instead.
 
-Figure 6: Social diffusion over time for *hyperlocal*.
-======================================================
+![](results_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+# Figure 6: Social diffusion over time for *hyperlocal*.
 
 The network graphs are not presented here since they were generated
 using `Gephi`. The code for generating the network graphs and exporting
 the edges and nodes of the network for visualisation in `Gephi` can be
 found in `src/sna.R`.
 
-Table 4: Correlations for ‘degree centrality’
-=============================================
+# Table 4: Correlations for ‘degree centrality’
 
-Log-transformation and centering
---------------------------------
+## Log-transformation and centering
 
 ``` r
 df_comp %<>%
@@ -399,10 +389,11 @@ df_comp %<>%
   mutate(COEF_VAR_LOG_CENT = scale(log(COEF_VAR)), scale=FALSE)
 ```
 
-Correlation tests: `CENT_DEGREE` X …
-------------------------------------
+## Correlation tests: `CENT_DEGREE` X …
 
 ### with FREQUENCY
+
+#### Spearman
 
 ``` r
 df_comp %>%
@@ -415,7 +406,22 @@ df_comp %>%
     ##      <dbl>     <dbl>    <dbl> <chr>                           <chr>      
     ## 1   -0.437 29045975. 1.73e-24 Spearman's rank correlation rho two.sided
 
+#### Pearson
+
+``` r
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(df_comp$CENT_DEGREE_LOG_CENT, df_comp$USES_LOG_CENT,  method='pearson')))
+```
+
+    ## # A tibble: 1 x 8
+    ##   estimate statistic  p.value parameter conf.low conf.high method    alternative
+    ##      <dbl>     <dbl>    <dbl>     <int>    <dbl>     <dbl> <chr>     <chr>      
+    ## 1   -0.453     -11.3 2.11e-26       493   -0.520    -0.380 Pearson'… two.sided
+
 ### with AGE
+
+#### Spearman
 
 ``` r
 df_comp %>%
@@ -428,7 +434,22 @@ df_comp %>%
     ##      <dbl>     <dbl>   <dbl> <chr>                           <chr>      
     ## 1   -0.289   208497. 0.00367 Spearman's rank correlation rho two.sided
 
+#### Pearson
+
+``` r
+df_comp %>%
+  filter(SUBSET == 'full') %>%
+  do(tidy((cor.test(.$CENT_DEGREE_LOG_CENT, .$AGE_LOG_CENT,  method='pearson'))))
+```
+
+    ## # A tibble: 1 x 8
+    ##   estimate statistic  p.value parameter conf.low conf.high method    alternative
+    ##      <dbl>     <dbl>    <dbl>     <int>    <dbl>     <dbl> <chr>     <chr>      
+    ## 1   -0.381     -4.06 0.000100        97   -0.538    -0.198 Pearson'… two.sided
+
 ### with VOLATILITY
+
+#### Spearman
 
 ``` r
 df_comp %>%
@@ -441,8 +462,20 @@ df_comp %>%
     ##      <dbl>     <dbl>        <dbl> <chr>                           <chr>      
     ## 1    0.280  7456700. 0.0000000153 Spearman's rank correlation rho two.sided
 
-‘predictive’ correlation
-------------------------
+#### Pearson
+
+``` r
+df_comp %>%
+  filter(SUBSET != 'full') %>%
+  do(tidy(cor.test(.$CENT_DEGREE_LOG_CENT, .$COEF_VAR_LOG_CENT, method='pearson')))
+```
+
+    ## # A tibble: 1 x 8
+    ##   estimate statistic  p.value parameter conf.low conf.high method    alternative
+    ##      <dbl>     <dbl>    <dbl>     <int>    <dbl>     <dbl> <chr>     <chr>      
+    ## 1    0.230      4.69  3.76e-6       394    0.134     0.321 Pearson'… two.sided
+
+## ‘predictive’ correlation
 
 Correlation between
 
@@ -460,11 +493,9 @@ df_comp %>%
     ##      <dbl>     <dbl>     <dbl> <chr>                           <chr>      
     ## 1   -0.426    230594 0.0000134 Spearman's rank correlation rho two.sided
 
-Figure 7: Relationship between FREQUENCY and CENTRALITY
-=======================================================
+# Figure 7: Relationship between FREQUENCY and CENTRALITY
 
-Full sample
------------
+## Full sample
 
 ``` r
 df_comp %>%
@@ -484,10 +515,9 @@ df_comp %>%
       )
 ```
 
-![](results_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](results_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
-Case studies
-------------
+## Case studies
 
 ``` r
 subset <- 'four'
@@ -535,4 +565,4 @@ df_comp %>%
       )
 ```
 
-![](results_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](results_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->

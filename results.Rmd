@@ -12,7 +12,7 @@ output:
 ## Packages
 
 ```{r echo=TRUE, results='hide', message=FALSE, warning=FALSE}
-library(corrr)
+library('corrr')
 library(tidyr)
 library(magrittr)
 library(forcats)
@@ -35,7 +35,7 @@ source('src/analysis.R')
 # Variables
 
 ```{r echo=TRUE, results='hide'}
-corpus <- '/Volumes/qjd/twint/'
+corpus <- '~/data/twint/twint/'
 
 subsetting = 'time'
 diff_start_method <- 'edges'
@@ -146,19 +146,20 @@ for (lemma in cases) {
    mutate(USES_CUM = cumsum(USES))
   uses_cum <- bind_rows(uses_cum, uses_month)
 }
+```
 
+```{r eval=FALSE}
 uses_cum %>%
   mutate(LEMMA = fct_reorder(LEMMA, USES_CUM, max, .desc=TRUE)) %>%
   filter(LEMMA %in% c(cases)) %>%
   filter(LEMMA != 'alt-right') %>%
-  ggplot(data=., aes(x=DATE, y=USES_CUM)) +
-    geom_line(aes(color=LEMMA, linetype=LEMMA)) +
+  ggplot(data=., aes(x=DATE, y=USES_CUM, color=LEMMA, linetype=LEMMA)) +
+    geom_line() +
     scale_y_continuous('cumulative usage frequency', labels=scales::comma) +
-    scale_x_date('') +
-    scale_color_discrete('lemma') +
-    scale_linetype_discrete(guide=FALSE)
-```
+    scale_x_date('')
 
+# ggsave('~/out/freq_cum_cases.pdf', width=8, height=4)
+```
 
 # Figure 2: Temporal dynamics in usage frequency
 
